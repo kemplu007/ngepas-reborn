@@ -1,28 +1,31 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : App.tsx
- Module  : Root Component
- Version : 0.1
+ File    : Button.jsx
+ Module  : Components
+ Version : 0.2
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
-
-/*==================================================
- IMPORTS
-==================================================*/
-import Home from "./pages/Home";
-
 
 /*==================================================
  COMPONENT
 ==================================================*/
 
-function App() {
+/*
+ * Button universal.
+ * Digunakan di seluruh halaman
+ * agar desain tombol konsisten.
+ */
+
+function Button({ children }) {
 
     return (
 
-        <Home />
+        <button className="cursor-pointer">
+
+            {children}
+
+        </button>
 
     );
 
@@ -32,4 +35,4 @@ function App() {
  EXPORT
 ==================================================*/
 
-export default App;
+export default Button;

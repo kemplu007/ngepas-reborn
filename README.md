@@ -73,3 +73,31 @@ export default defineConfig([
 ])
 
 ```
+
+# 🟢 Ngepas Reborn
+
+> Cari barang bagus itu susah.
+> Biar Ngepas yang milihin.
+
+Modern affiliate product recommendation platform built with:
+
+- React
+- Vite
+- Tailwind CSS
+- shadcn/ui
+
+---
+
+### Status
+
+🟢 Sprint 0.1 Completed
+
+Current Progress
+
+████░░░░░░ 10%
+
+---
+
+Made with ☕ by
+
+Muhammad Abdul Chakim & ChatGPT

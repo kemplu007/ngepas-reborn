@@ -1,9 +1,8 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : App.tsx
- Module  : Root Component
+ File    : Navbar.jsx
+ Module  : Components
  Version : 0.1
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
@@ -11,25 +10,39 @@
 /*==================================================
  IMPORTS
 ==================================================*/
-import Home from "./pages/Home";
 
 
 /*==================================================
  COMPONENT
 ==================================================*/
 
-function App() {
+/*
+ * Navbar utama Ngepas.
+ *
+ * Berisi tombol menu dan logo.
+ */
+
+function Navbar() {
 
     return (
 
-        <Home />
+        <nav>
+
+            <button>
+                ☰
+            </button>
+
+            <h2>Ngepas</h2>
+
+        </nav>
 
     );
 
 }
 
+
 /*==================================================
  EXPORT
 ==================================================*/
 
-export default App;
+export default Navbar;

@@ -1,9 +1,8 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : App.tsx
- Module  : Root Component
+ File    : Home.jsx
+ Module  : Pages
  Version : 0.1
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
@@ -11,25 +10,24 @@
 /*==================================================
  IMPORTS
 ==================================================*/
-import Home from "./pages/Home";
-
-
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero"
 /*==================================================
  COMPONENT
 ==================================================*/
 
-function App() {
-
+function Home() {
     return (
-
-        <Home />
-
+        <>
+          
+          <Navbar />
+          <Hero />
+        </>
     );
-
 }
 
 /*==================================================
  EXPORT
 ==================================================*/
 
-export default App;
+export default Home;

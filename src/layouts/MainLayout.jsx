@@ -1,9 +1,8 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : App.tsx
- Module  : Root Component
+ File    : MainLayout.jsx
+ Module  : Layouts
  Version : 0.1
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
@@ -11,18 +10,38 @@
 /*==================================================
  IMPORTS
 ==================================================*/
-import Home from "./pages/Home";
 
+import Navbar from "../components/Navbar";
 
 /*==================================================
  COMPONENT
 ==================================================*/
 
-function App() {
+/*
+ * Main Layout digunakan sebagai
+ * kerangka utama setiap halaman.
+ *
+ * Nantinya berisi:
+ * - Navbar
+ * - Content
+ * - Footer
+ */
+
+function MainLayout({ children }) {
 
     return (
 
-        <Home />
+        <>
+
+            <Navbar />
+
+            <main>
+
+                {children}
+
+            </main>
+
+        </>
 
     );
 
@@ -32,4 +51,4 @@ function App() {
  EXPORT
 ==================================================*/
 
-export default App;
+export default MainLayout;
