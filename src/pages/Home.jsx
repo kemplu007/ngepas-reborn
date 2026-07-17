@@ -12,6 +12,9 @@
 ==================================================*/
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero"
+import Category from "../components/Category";
+import FeaturedProducts from "../components/FeaturedProducts";
+import ProductCard from "../components/ProductCard"
 /*==================================================
  COMPONENT
 ==================================================*/
@@ -22,6 +25,9 @@ function Home() {
           
           <Navbar />
           <Hero />
+          <Category />
+          <FeaturedProducts />
+          <ProductCard />
         </>
     );
 }

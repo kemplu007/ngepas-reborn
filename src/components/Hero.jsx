@@ -14,6 +14,7 @@
 import hero from "../data/hero";
 import features from "../data/features";
 import Button from "./Button";
+import siPas from "../assets/mascot/si-pas.png";
 
 /*==================================================
  COMPONENT
@@ -90,15 +91,35 @@ function Hero() {
 
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex items-center justify-center">
 
-                <img
-    src="#"
-    alt="Maskot Ngepas"
-    className="w-full max-w-md"
+    <div
+        className="
+            flex
+            h-96
+            w-full
+            max-w-md
+            items-center
+            justify-center
+            rounded-3xl
+            bg-gradient-to-br
+            from-green-100
+            via-white
+            to-green-50
+            shadow-xl
+        "
+    >
+
+        <img
+    src={siPas}
+    alt="Si Pas"
+    className="w-72"
+    draggable="false"
 />
 
-            </div>
+    </div>
+
+</div>
 
         </div>
 
