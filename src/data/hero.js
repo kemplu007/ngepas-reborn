@@ -16,11 +16,11 @@
 
 const hero = {
 
-    title: "Cari barang bagus itu susah.",
+    title: "Cari barang bagus itu susah.Biar",
 
     highlight: "Ngepas",
 
-    subtitle: "yang milihin.",
+    subtitle: "yang pilihin.",
 
     description:
         "Kami membantu memilih produk terbaik dengan harga yang masuk akal untuk kebutuhan rumah kamu.",

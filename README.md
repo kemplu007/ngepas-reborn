@@ -94,7 +94,7 @@ Modern affiliate product recommendation platform built with:
 
 Current Progress
 
-████░░░░░░ 10%
+██░░░░░░░░ 20%
 
 ---
 
