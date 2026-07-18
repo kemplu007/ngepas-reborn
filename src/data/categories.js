@@ -1,28 +1,31 @@
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : features.js
+ File    : categories.js
  Module  : Data
- Version : 0.2
- Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
 /*==================================================
- FEATURES DATA
+ CATEGORY DATA
 
- Data keunggulan utama Ngepas.
+ Daftar kategori produk yang digunakan
+ pada Category Filter.
 
- Digunakan pada Hero maupun section lain.
+ Digunakan oleh:
+ - Category.jsx
+ - FeaturedProducts.jsx
 ==================================================*/
 
-const features = [
-  "Pilihan Terbaik",
-  "Harga Ngepas",
-  "Terpercaya",
+const categories = [
+  "All",
+  "Home",
+  "Furniture",
+  "Decoration",
+  "Kitchen",
 ];
 
 /*==================================================
  EXPORT
 ==================================================*/
 
-export default features;
+export default categories;

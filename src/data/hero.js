@@ -7,14 +7,17 @@
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
-/*
- * Data Hero Section.
- * Semua konten Hero disimpan di sini
- * agar mudah diubah tanpa mengedit komponen.
- */
+/*==================================================
+ HERO DATA
+
+ Data Hero Section.
+
+ Semua konten Hero disimpan di sini
+ agar mudah diubah tanpa mengedit komponen.
+==================================================*/
 
 const hero = {
-  title: "Cari barang bagus itu susah.Biar",
+  title: "Cari barang bagus itu susah. Biar",
 
   highlight: "Ngepas",
 
@@ -25,5 +28,9 @@ const hero = {
 
   button: "Mulai Jelajahi",
 };
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default hero;

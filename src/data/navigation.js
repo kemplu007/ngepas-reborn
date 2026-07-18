@@ -7,11 +7,14 @@
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
-/*
- * Data navigasi utama.
- * Navbar akan mengambil data dari file ini,
- * sehingga jika menu bertambah cukup ubah di sini.
- */
+/*==================================================
+ NAVIGATION DATA
+
+ Data navigasi utama.
+
+ Navbar akan mengambil data dari file ini,
+ sehingga jika menu bertambah cukup ubah di sini.
+==================================================*/
 
 const navigation = [
   {
@@ -38,5 +41,9 @@ const navigation = [
     path: "/about",
   },
 ];
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default navigation;
