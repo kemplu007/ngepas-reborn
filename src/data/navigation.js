@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
@@ -15,31 +14,29 @@
  */
 
 const navigation = [
+  {
+    id: 1,
+    label: "Beranda",
+    path: "/",
+  },
 
-    {
-        id: 1,
-        label: "Beranda",
-        path: "/"
-    },
+  {
+    id: 2,
+    label: "Kategori",
+    path: "/category",
+  },
 
-    {
-        id: 2,
-        label: "Kategori",
-        path: "/category"
-    },
+  {
+    id: 3,
+    label: "Favorit",
+    path: "/favorite",
+  },
 
-    {
-        id: 3,
-        label: "Favorit",
-        path: "/favorite"
-    },
-
-    {
-        id: 4,
-        label: "Tentang",
-        path: "/about"
-    }
-
+  {
+    id: 4,
+    label: "Tentang",
+    path: "/about",
+  },
 ];
 
 export default navigation;

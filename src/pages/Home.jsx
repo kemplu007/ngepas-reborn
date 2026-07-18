@@ -11,24 +11,23 @@
  IMPORTS
 ==================================================*/
 import Navbar from "../components/Navbar";
-import Hero from "../components/Hero"
+import Hero from "../components/Hero";
 import Category from "../components/Category";
 import FeaturedProducts from "../components/FeaturedProducts";
-import ProductCard from "../components/ProductCard"
+import ProductCard from "../components/ProductCard";
 /*==================================================
  COMPONENT
 ==================================================*/
 
 function Home() {
-    return (
-        <>
-          
-          <Navbar />
-          <Hero />
-          <Category />
-          <FeaturedProducts />
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <Category />
+      <FeaturedProducts />
+    </>
+  );
 }
 
 /*==================================================

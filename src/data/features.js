@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
@@ -13,14 +12,6 @@
  * Digunakan pada Hero maupun section lain.
  */
 
-const features = [
-
-    "Pilihan Terbaik",
-
-    "Harga Ngepas",
-
-    "Terpercaya"
-
-];
+const features = ["Pilihan Terbaik", "Harga Ngepas", "Terpercaya"];
 
 export default features;

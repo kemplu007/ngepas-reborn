@@ -30,71 +30,46 @@ import siPas from "../assets/mascot/si-pas.png";
  */
 
 function Hero() {
-
-    return (
-
-        <section className="relative overflow-hidden bg-white">
-
-<div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
-
+  return (
+    <section className="relative overflow-hidden bg-white">
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
         <div className="grid items-center gap-16 lg:grid-cols-2">
+          <div className="space-y-6">
+            <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700">
+              🌿 Pilihan Terbaik untuk Rumahmu
+            </span>
 
-            <div className="space-y-6">
-              
-                <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700">
-  🌿 Pilihan Terbaik untuk Rumahmu
-</span>
-              
- <h1 className="text-5xl font-extrabold tracking-tight leading-tight text-slate-900 md:text-6xl">
+            <h1 className="text-5xl font-extrabold tracking-tight leading-tight text-slate-900 md:text-6xl">
+              {hero.title}
+              <br />
+              <span className="text-green-600">{hero.highlight}</span>{" "}
+              {hero.subtitle}
+            </h1>
 
-    {hero.title}
-
-    <br />
-
-    <span className="text-green-600">{hero.highlight}</span>
-
-    {" "}
-
-    {hero.subtitle}
-
-</h1>
-
-                <p className="max-w-xl text-lg leading-8 text-slate-600">
-
-    {hero.description}
-
-</p>
-           <div>
-                <Button>
-                  {hero.button}
-                </Button>
-           </div>
-              
-              <ul className="space-y-3">
-
-    {features.map((item) => (
-
-        <li
-            key={item}
-            className="flex items-center gap-2 text-slate-700"
-        >
-
-            <span className="text-green-600">✔</span>
-
-            {item}
-
-        </li>
-
-    ))}
-
-</ul>
-
+            <p className="max-w-xl text-lg leading-8 text-slate-600">
+              {hero.description}
+            </p>
+            <div>
+              <Button>{hero.button}</Button>
             </div>
 
-            <div className="flex items-center justify-center">
+            <ul className="space-y-3">
+              {features.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-2 text-slate-700"
+                >
+                  <span className="text-green-600">✔</span>
 
-    <div
-        className="
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <div
+              className="
             flex
             h-96
             w-full
@@ -108,29 +83,20 @@ function Hero() {
             to-green-50
             shadow-xl
         "
-    >
-
-        <img
-    src={siPas}
-    alt="Si Pas"
-    className="w-72"
-    draggable="false"
-/>
-
-    </div>
-
-</div>
-
+            >
+              <img
+                src={siPas}
+                alt="Si Pas"
+                className="w-72"
+                draggable="false"
+              />
+            </div>
+          </div>
         </div>
-
-    </div>
-
-</section>
-
-    );
-
+      </div>
+    </section>
+  );
 }
-
 
 /*==================================================
  EXPORT

@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
@@ -15,18 +14,16 @@
  */
 
 const hero = {
+  title: "Cari barang bagus itu susah.Biar",
 
-    title: "Cari barang bagus itu susah.Biar",
+  highlight: "Ngepas",
 
-    highlight: "Ngepas",
+  subtitle: "yang pilihin.",
 
-    subtitle: "yang pilihin.",
+  description:
+    "Kami membantu memilih produk terbaik dengan harga yang masuk akal untuk kebutuhan rumah kamu.",
 
-    description:
-        "Kami membantu memilih produk terbaik dengan harga yang masuk akal untuk kebutuhan rumah kamu.",
-
-    button: "Mulai Jelajahi"
-
+  button: "Mulai Jelajahi",
 };
 
 export default hero;

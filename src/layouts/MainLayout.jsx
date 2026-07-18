@@ -28,23 +28,13 @@ import Navbar from "../components/Navbar";
  */
 
 function MainLayout({ children }) {
+  return (
+    <>
+      <Navbar />
 
-    return (
-
-        <>
-
-            <Navbar />
-
-            <main>
-
-                {children}
-
-            </main>
-
-        </>
-
-    );
-
+      <main>{children}</main>
+    </>
+  );
 }
 
 /*==================================================

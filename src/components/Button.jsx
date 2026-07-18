@@ -18,11 +18,9 @@
  */
 
 function Button({ children }) {
-
-    return (
-
-        <button
-    className="
+  return (
+    <button
+      className="
         inline-flex
         items-center
         justify-center
@@ -40,14 +38,10 @@ function Button({ children }) {
         active:scale-95
         cursor-pointer
     "
->
-
-            {children}
-
-        </button>
-
-    );
-
+    >
+      {children}
+    </button>
+  );
 }
 
 /*==================================================
