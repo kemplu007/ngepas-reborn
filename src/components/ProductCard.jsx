@@ -18,8 +18,24 @@ import { Heart, Star } from "lucide-react";
 ==================================================*/
 
 function ProductCard({ product }) {
+
+  /*==================================================
+  PRODUCT DATA
+==================================================*/
+
+const {
+  name,
+  image,
+  category,
+  price,
+  originalPrice,
+  rating,
+  sold,
+  discount,
+} = product;
+  
   return (
-    <div
+    <article
       className="
         group
         overflow-hidden
@@ -33,6 +49,9 @@ function ProductCard({ product }) {
         hover:-translate-y-2
         hover:border-emerald-200
         hover:shadow-xl
+        hover:ring-2
+hover:ring-emerald-100
+        cursor-pointer
       "
     >
       {/*==================================================
@@ -40,8 +59,8 @@ function ProductCard({ product }) {
       ==================================================*/}
 
       <div className="relative overflow-hidden">
-        <span className="absolute left-3 top-3 z-10 rounded-full bg-red-500 px-2 py-1 text-xs font-semibold text-white">
-          -{product.discount}%
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-gradient-to-r from-red-500 to-rose-500 shadow-lg px-2 py-1 text-xs font-semibold text-white">
+          -{discount}%
         </span>
 
         <button
@@ -76,11 +95,11 @@ function ProductCard({ product }) {
         </button>
 
         <img
-          src={product.image}
-          alt={product.name}
+          src={image}
+          alt={name}
           loading="lazy"
           className="
-            h-56
+            aspect-square
             w-full
             object-cover
             transition-transform
@@ -96,7 +115,7 @@ function ProductCard({ product }) {
 
       <div className="space-y-3 p-5">
         <h3 className="text-lg font-semibold text-slate-900">
-          {product.name}
+          {name}
         </h3>
 
         {/*==================================================
@@ -110,16 +129,16 @@ function ProductCard({ product }) {
               className="fill-yellow-400 text-yellow-400"
             />
 
-            <span>{product.rating}</span>
+            <span>{rating}</span>
           </div>
 
           <span>•</span>
 
-          <span>Terjual {product.sold}</span>
+          <span>{sold} Terjual</span>
         </div>
 
         <p className="text-xs font-medium uppercase tracking-wider text-slate-400">
-          {product.category}
+          {category}
         </p>
 
         {/*==================================================
@@ -127,12 +146,15 @@ function ProductCard({ product }) {
         ==================================================*/}
 
         <div className="space-y-1">
+          <p className="text-xs text-slate-400">
+  Harga mulai
+</p>
           <p className="text-2xl font-extrabold text-emerald-600">
-            {product.price}
+            {price}
           </p>
 
           <p className="text-xs line-through text-slate-400">
-            {product.originalPrice}
+            {originalPrice}
           </p>
         </div>
 
@@ -156,10 +178,10 @@ function ProductCard({ product }) {
             hover:shadow-lg
           "
         >
-          Lihat Produk
+          Lihat Detail →
         </button>
       </div>
-    </div>
+    </article>
   );
 }
 
