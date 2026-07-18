@@ -12,6 +12,7 @@
 ==================================================*/
 
 import { Heart, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 /*==================================================
  PRODUCT CARD
@@ -24,6 +25,7 @@ function ProductCard({ product }) {
 ==================================================*/
 
 const {
+  slug,
   name,
   image,
   category,
@@ -162,24 +164,26 @@ hover:ring-emerald-100
           CTA BUTTON
         ==================================================*/}
 
-        <button
-          type="button"
-          className="
-            mt-6
-            w-full
-            rounded-xl
-            bg-emerald-600
-            py-3
-            font-semibold
-            text-white
-            transition-all
-            duration-300
-            hover:bg-emerald-700
-            hover:shadow-lg
-          "
-        >
-          Lihat Detail →
-        </button>
+        <Link
+  to={`/product/${slug}`}
+  className="
+    mt-6
+    block
+    w-full
+    rounded-xl
+    bg-emerald-600
+    py-3
+    text-center
+    font-semibold
+    text-white
+    transition-all
+    duration-300
+    hover:bg-emerald-700
+    hover:shadow-lg
+  "
+>
+  Lihat Detail →
+</Link>
       </div>
     </article>
   );

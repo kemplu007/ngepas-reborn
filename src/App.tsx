@@ -10,14 +10,29 @@
 /*==================================================
  IMPORTS
 ==================================================*/
+
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import ProductDetail from "./pages/ProductDetail";
 
 /*==================================================
  COMPONENT
 ==================================================*/
 
 function App() {
-  return <Home />;
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={<Home />}
+      />
+
+      <Route
+  path="/product/:slug"
+  element={<ProductDetail />}
+/>
+    </Routes>
+  );
 }
 
 /*==================================================
