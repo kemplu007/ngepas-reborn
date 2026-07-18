@@ -7,6 +7,7 @@
  Version : 0.1
 ==================================================*/
 import ProductCard from "./ProductCard";
+import products from "../data/products";
 
 function FeaturedProducts() {
     return (
@@ -16,17 +17,21 @@ function FeaturedProducts() {
         <div className="text-center">
             <h2 className="text-4xl font-bold text-slate-900">
                 Produk Pilihan
-            <h2/>
+            </h2>
           
             <p className="mt-4 text-slate-600">
                 Produk favorit dengan kualitas terbaik dan harga yang pas.
             </p>
             
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
+           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+
+  {products.map((product) => (
+    <ProductCard
+      key={product.id}
+      product={product}
+    />
+  ))}
+
 </div>
         </div>
 

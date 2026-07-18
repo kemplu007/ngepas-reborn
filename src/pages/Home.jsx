@@ -27,7 +27,6 @@ function Home() {
           <Hero />
           <Category />
           <FeaturedProducts />
-          <ProductCard />
         </>
     );
 }

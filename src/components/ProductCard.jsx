@@ -12,7 +12,7 @@
  COMPONENT
 ==================================================*/
 
-function ProductCard() {
+function ProductCard({product}) {
     return (
         <div
             className="
@@ -31,9 +31,13 @@ function ProductCard() {
             {/*==================================================
              PRODUCT IMAGE
             ==================================================*/}
-            <div className="flex h-56 items-center justify-center bg-slate-100">
-                📦
-            </div>
+            <div className="h-56 overflow-hidden bg-slate-100">
+    <img
+        src={product.image}
+        alt={product.name}
+        className="h-full w-full object-cover"
+    />
+</div>
 
             {/*==================================================
              PRODUCT CONTENT
@@ -41,15 +45,15 @@ function ProductCard() {
             <div className="space-y-3 p-5">
 
                 <h3 className="text-lg font-semibold text-slate-900">
-                    Lampu Tidur LED
+                  {product.name}
                 </h3>
 
                 <p className="text-sm text-slate-500">
-                    ⭐ 4.9 • 250 Terjual
+                  {product.category}
                 </p>
 
                 <p className="text-2xl font-bold text-green-600">
-                    Rp39.000
+                  {product.price}
                 </p>
 
                 <button
