@@ -39,6 +39,36 @@ const products = [
     stock: 35,
 
     affiliateLink: "#",
+
+    description:
+      "Lampu tidur bergaya minimalis dengan cahaya hangat yang nyaman untuk menemani waktu istirahat maupun bekerja.",
+
+    features: [
+      "LED Hemat Energi",
+      "Cahaya Warm White",
+      "Desain Minimalis Modern",
+      "Material Premium",
+    ],
+
+    specifications: {
+      warna: "Warm White",
+      material: "ABS + Acrylic",
+      ukuran: "20 x 12 cm",
+      daya: "8 Watt",
+    },
+
+    whyWeRecommend: [
+      "Cahaya hangat yang nyaman di mata",
+      "Desain minimalis cocok untuk berbagai ruangan",
+      "Hemat listrik untuk penggunaan harian",
+    ],
+
+    bestFor: ["Kamar Tidur", "Meja Belajar", "Anak Kos"],
+
+    considerations: [
+      "Hanya untuk penggunaan indoor",
+      "Bukan lampu utama ruangan",
+    ],
   },
 
   {
@@ -61,6 +91,36 @@ const products = [
     stock: 30,
 
     affiliateLink: "#",
+
+    description:
+      "Rak dinding kayu multifungsi untuk menyimpan dekorasi, buku, maupun perlengkapan rumah agar lebih rapi.",
+
+    features: [
+      "Kayu Berkualitas",
+      "Pemasangan Mudah",
+      "Minimalis",
+      "Kuat dan Kokoh",
+    ],
+
+    specifications: {
+      material: "Kayu MDF",
+      ukuran: "60 x 20 cm",
+      warna: "Natural Oak",
+      kapasitas: "20 Kg",
+    },
+
+    whyWeRecommend: [
+      "Memanfaatkan dinding agar ruangan lebih rapi",
+      "Material kokoh dengan desain minimalis",
+      "Mudah dipasang tanpa alat khusus",
+    ],
+
+    bestFor: ["Ruang Tamu", "Kamar Tidur", "Apartemen"],
+
+    considerations: [
+      "Pastikan dinding cukup kuat",
+      "Jangan melebihi kapasitas beban",
+    ],
   },
 
   {
@@ -83,6 +143,36 @@ const products = [
     stock: 39,
 
     affiliateLink: "#",
+
+    description:
+      "Tanaman artificial yang memberikan nuansa segar tanpa perlu disiram maupun perawatan rutin.",
+
+    features: [
+      "Tanpa Perawatan",
+      "Daun Realistis",
+      "Pot Minimalis",
+      "Cocok untuk Indoor",
+    ],
+
+    specifications: {
+      tinggi: "35 cm",
+      material: "Plastic Premium",
+      pot: "PVC",
+      warna: "Hijau",
+    },
+
+    whyWeRecommend: [
+      "Memberikan kesan segar tanpa perawatan",
+      "Daun terlihat realistis",
+      "Cocok sebagai dekorasi berbagai ruangan",
+    ],
+
+    bestFor: ["Ruang Tamu", "Kantor", "Meja Kerja"],
+
+    considerations: [
+      "Perlu dibersihkan dari debu secara berkala",
+      "Tidak memiliki aroma alami seperti tanaman hidup",
+    ],
   },
 
   {
@@ -105,6 +195,31 @@ const products = [
     stock: 25,
 
     affiliateLink: "#",
+
+    description:
+      "Rak bumbu dapur bertingkat untuk menyusun bumbu masak agar dapur tetap bersih dan mudah dijangkau.",
+
+    features: ["2 Tingkat", "Anti Karat", "Mudah Dibersihkan", "Hemat Ruang"],
+
+    specifications: {
+      material: "Besi Powder Coating",
+      ukuran: "40 x 18 x 35 cm",
+      warna: "Hitam",
+      tingkat: "2",
+    },
+
+    whyWeRecommend: [
+      "Membuat dapur lebih rapi dan terorganisir",
+      "Material tahan karat untuk penggunaan jangka panjang",
+      "Menghemat ruang di meja dapur",
+    ],
+
+    bestFor: ["Dapur Minimalis", "Rumah Tangga", "Apartemen"],
+
+    considerations: [
+      "Rakit terlebih dahulu sebelum digunakan",
+      "Gunakan pada permukaan yang rata",
+    ],
   },
 ];
 

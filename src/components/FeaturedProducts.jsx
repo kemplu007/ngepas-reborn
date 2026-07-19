@@ -15,31 +15,25 @@ import products from "../data/products";
 ==================================================*/
 
 function FeaturedProducts() {
-
   const [activeCategory, setActiveCategory] = useState("All");
 
   /*==================================================
   FILTER PRODUCTS
 ==================================================*/
 
-const filteredProducts =
-  activeCategory === "All"
-    ? products
-    : products.filter(
-        (product) => product.category === activeCategory
-      );
-  
+  const filteredProducts =
+    activeCategory === "All"
+      ? products
+      : products.filter((product) => product.category === activeCategory);
+
   return (
     <section className="px-6 py-16 bg-slate-50">
-
       {/*==================================================
         SECTION HEADER
       ==================================================*/}
 
       <div className="mb-10 text-center">
-        <h2 className="text-3xl font-bold text-slate-800">
-          Produk Pilihan
-        </h2>
+        <h2 className="text-3xl font-bold text-slate-800">Produk Pilihan</h2>
 
         <p className="mt-3 text-slate-600">
           Temukan produk terbaik pilihan kami dengan kualitas terpercaya.
@@ -51,9 +45,9 @@ const filteredProducts =
       ==================================================*/}
 
       <Categories
-  activeCategory={activeCategory}
-  setActiveCategory={setActiveCategory}
-/>
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+      />
 
       {/*==================================================
         PRODUCT GRID
@@ -61,13 +55,9 @@ const filteredProducts =
 
       <div className="grid grid-cols-1 gap-6 mt-10 sm:grid-cols-2 lg:grid-cols-4">
         {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
-
     </section>
   );
 }

@@ -1,36 +1,35 @@
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : App.tsx
- Module  : Root Component
- Version : 0.1
+ File    : ScrollToTop.jsx
+ Module  : Components
+ Version : 1.0
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
 /*==================================================
- IMPORTS
+ IMPORT
 ==================================================*/
 
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import ProductDetail from "./pages/ProductDetail";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 /*==================================================
- COMPONENT
+ SCROLL TO TOP
 ==================================================*/
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-      <Route path="/product/:slug" element={<ProductDetail />} />
-    </Routes>
-  );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
 }
 
 /*==================================================
  EXPORT
 ==================================================*/
 
-export default App;
+export default ScrollToTop;

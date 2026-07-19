@@ -16,13 +16,7 @@
  - FeaturedProducts.jsx
 ==================================================*/
 
-const categories = [
-  "All",
-  "Home",
-  "Furniture",
-  "Decoration",
-  "Kitchen",
-];
+const categories = ["All", "Home", "Furniture", "Decoration", "Kitchen"];
 
 /*==================================================
  EXPORT

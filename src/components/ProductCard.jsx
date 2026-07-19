@@ -19,23 +19,22 @@ import { Link } from "react-router-dom";
 ==================================================*/
 
 function ProductCard({ product }) {
-
   /*==================================================
   PRODUCT DATA
 ==================================================*/
 
-const {
-  slug,
-  name,
-  image,
-  category,
-  price,
-  originalPrice,
-  rating,
-  sold,
-  discount,
-} = product;
-  
+  const {
+    slug,
+    name,
+    image,
+    category,
+    price,
+    originalPrice,
+    rating,
+    sold,
+    discount,
+  } = product;
+
   return (
     <article
       className="
@@ -116,9 +115,7 @@ hover:ring-emerald-100
       ==================================================*/}
 
       <div className="space-y-3 p-5">
-        <h3 className="text-lg font-semibold text-slate-900">
-          {name}
-        </h3>
+        <h3 className="text-lg font-semibold text-slate-900">{name}</h3>
 
         {/*==================================================
           PRODUCT RATING
@@ -126,10 +123,7 @@ hover:ring-emerald-100
 
         <div className="flex items-center gap-3 text-sm text-slate-500">
           <div className="flex items-center gap-1">
-            <Star
-              size={16}
-              className="fill-yellow-400 text-yellow-400"
-            />
+            <Star size={16} className="fill-yellow-400 text-yellow-400" />
 
             <span>{rating}</span>
           </div>
@@ -148,16 +142,10 @@ hover:ring-emerald-100
         ==================================================*/}
 
         <div className="space-y-1">
-          <p className="text-xs text-slate-400">
-  Harga mulai
-</p>
-          <p className="text-2xl font-extrabold text-emerald-600">
-            {price}
-          </p>
+          <p className="text-xs text-slate-400">Harga mulai</p>
+          <p className="text-2xl font-extrabold text-emerald-600">{price}</p>
 
-          <p className="text-xs line-through text-slate-400">
-            {originalPrice}
-          </p>
+          <p className="text-xs line-through text-slate-400">{originalPrice}</p>
         </div>
 
         {/*==================================================
@@ -165,8 +153,8 @@ hover:ring-emerald-100
         ==================================================*/}
 
         <Link
-  to={`/product/${slug}`}
-  className="
+          to={`/product/${slug}`}
+          className="
     mt-6
     block
     w-full
@@ -181,9 +169,9 @@ hover:ring-emerald-100
     hover:bg-emerald-700
     hover:shadow-lg
   "
->
-  Lihat Detail →
-</Link>
+        >
+          Lihat Detail →
+        </Link>
       </div>
     </article>
   );

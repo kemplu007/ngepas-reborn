@@ -15,11 +15,7 @@
  Digunakan pada Hero maupun section lain.
 ==================================================*/
 
-const features = [
-  "Pilihan Terbaik",
-  "Harga Ngepas",
-  "Terpercaya",
-];
+const features = ["Pilihan Terbaik", "Harga Ngepas", "Terpercaya"];
 
 /*==================================================
  EXPORT

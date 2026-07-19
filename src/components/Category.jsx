@@ -15,11 +15,10 @@ function Category() {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-6">
-
         {/*==============================================
  SECTION HEADER
 ==============================================*/}
-        
+
         <div className="text-center">
           <h2 className="text-4xl font-bold text-slate-900">
             Belanja Berdasarkan Kategori
@@ -33,7 +32,7 @@ function Category() {
         {/*==============================================
  CATEGORY GRID
 ==============================================*/}
-        
+
         <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
             🏠
