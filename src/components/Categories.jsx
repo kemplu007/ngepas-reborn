@@ -22,7 +22,11 @@ Digunakan oleh:
 
 ==================================================*/
 
-function Categories({ activeCategory, setActiveCategory }) {
+function Categories({
+  activeCategory,
+  setActiveCategory,
+}) {
+
   /*==================================================
  ACTIVE CATEGORY
 
@@ -32,18 +36,22 @@ Default:
 - All
 
 ==================================================*/
-
+  
   return (
+    
     <section className="py-8">
+
       {/*==============================================
       CATEGORY CONTAINER
       ==============================================*/}
       <div className="flex flex-wrap justify-center gap-3">
+
         {/*==============================================
  CATEGORY BUTTONS
 ==============================================*/}
 
         {categories.map((category, index) => (
+
           <button
             key={category}
 
@@ -61,8 +69,11 @@ Default:
           >
             {category}
           </button>
+
         ))}
+
       </div>
+
     </section>
   );
 }

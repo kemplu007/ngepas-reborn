@@ -1,32 +1,28 @@
+
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : Home.jsx
+ File    : CategoryPage.jsx
  Module  : Pages
  Version : 0.1
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
 /*==================================================
- IMPORTS
-==================================================*/
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Category from "../components/Category";
-import FeaturedProducts from "../components/FeaturedProducts";
-
-/*==================================================
  COMPONENT
 ==================================================*/
 
-function Home() {
+function CategoryPage() {
   return (
-    <>
-  <Navbar />
-  <Hero />
-      <Category />
-      <FeaturedProducts />
-</>
+    <main className="mx-auto max-w-7xl px-6 py-12">
+      <h1 className="text-4xl font-bold">
+        Kategori
+      </h1>
+
+      <p className="mt-4 text-slate-600">
+        Halaman kategori masih dalam pengembangan.
+      </p>
+    </main>
   );
 }
 
@@ -34,4 +30,4 @@ function Home() {
  EXPORT
 ==================================================*/
 
-export default Home;
+export default CategoryPage;

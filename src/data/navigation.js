@@ -16,29 +16,37 @@
  sehingga jika menu bertambah cukup ubah di sini.
 ==================================================*/
 
+/*==================================================
+  NAVIGATION DATA
+==================================================*/
+
 const navigation = [
   {
     id: 1,
     label: "Beranda",
     path: "/",
+    enabled: true,
   },
 
   {
     id: 2,
     label: "Kategori",
     path: "/category",
+    enabled: true,
   },
 
   {
     id: 3,
     label: "Favorit",
     path: "/favorite",
+    enabled: false,
   },
 
   {
     id: 4,
     label: "Tentang",
     path: "/about",
+    enabled: true,
   },
 ];
 

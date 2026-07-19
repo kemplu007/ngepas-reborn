@@ -3,7 +3,6 @@
  Project : Ngepas Reborn
  File    : ProductCard.jsx
  Module  : Components
- Version : 0.1
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
@@ -13,28 +12,42 @@
 
 import { Heart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useFavoriteContext } from "../context/FavoritesContext";
 
 /*==================================================
  PRODUCT CARD
 ==================================================*/
 
 function ProductCard({ product }) {
+
   /*==================================================
   PRODUCT DATA
 ==================================================*/
 
-  const {
-    slug,
-    name,
-    image,
-    category,
-    price,
-    originalPrice,
-    rating,
-    sold,
-    discount,
-  } = product;
+const {
+  slug,
+  name,
+  image,
+  category,
+  price,
+  originalPrice,
+  rating,
+  sold,
+  discount,
+} = product;
 
+  /*==================================================
+ HOOKS
+==================================================*/
+
+const { favorites, toggleFavorite } = useFavoriteContext();
+
+  /*==================================================
+ FAVORITE STATUS
+==================================================*/
+
+const isFavorite = favorites.includes(slug);
+  
   return (
     <article
       className="
@@ -65,34 +78,42 @@ hover:ring-emerald-100
         </span>
 
         <button
-          type="button"
-          className="
-            absolute
-            right-3
-            top-3
-            z-10
-            rounded-full
-            bg-white/90
-            p-2
-            shadow-md
-            backdrop-blur-sm
-            transition-all
-            duration-300
-            hover:scale-110
-            hover:bg-red-50
-            hover:shadow-lg
-          "
-        >
+  type="button"
+  onClick={(e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(slug);
+  }}
+  className="
+    absolute
+    right-3
+    top-3
+    z-10
+    rounded-full
+    bg-white/90
+    p-2
+    shadow-md
+    backdrop-blur-sm
+    transition-all
+    duration-300
+    hover:scale-110
+    hover:bg-red-50
+    hover:shadow-lg
+  "
+>
           <Heart
-            size={18}
-            className="
-              text-slate-500
-              transition-all
-              duration-300
-              group-hover:scale-110
-              group-hover:text-red-500
-            "
-          />
+  size={18}
+  className={`
+    transition-all
+    duration-300
+    group-hover:scale-110
+    ${
+      isFavorite
+        ? "fill-red-500 text-red-500"
+        : "text-slate-500 group-hover:text-red-500"
+    }
+  `}
+/>
         </button>
 
         <img
@@ -115,7 +136,9 @@ hover:ring-emerald-100
       ==================================================*/}
 
       <div className="space-y-3 p-5">
-        <h3 className="text-lg font-semibold text-slate-900">{name}</h3>
+        <h3 className="text-lg font-semibold text-slate-900">
+          {name}
+        </h3>
 
         {/*==================================================
           PRODUCT RATING
@@ -123,7 +146,10 @@ hover:ring-emerald-100
 
         <div className="flex items-center gap-3 text-sm text-slate-500">
           <div className="flex items-center gap-1">
-            <Star size={16} className="fill-yellow-400 text-yellow-400" />
+            <Star
+              size={16}
+              className="fill-yellow-400 text-yellow-400"
+            />
 
             <span>{rating}</span>
           </div>
@@ -142,10 +168,16 @@ hover:ring-emerald-100
         ==================================================*/}
 
         <div className="space-y-1">
-          <p className="text-xs text-slate-400">Harga mulai</p>
-          <p className="text-2xl font-extrabold text-emerald-600">{price}</p>
+          <p className="text-xs text-slate-400">
+  Harga mulai
+</p>
+          <p className="text-2xl font-extrabold text-emerald-600">
+            {price}
+          </p>
 
-          <p className="text-xs line-through text-slate-400">{originalPrice}</p>
+          <p className="text-xs line-through text-slate-400">
+            {originalPrice}
+          </p>
         </div>
 
         {/*==================================================
@@ -153,8 +185,8 @@ hover:ring-emerald-100
         ==================================================*/}
 
         <Link
-          to={`/product/${slug}`}
-          className="
+  to={`/product/${slug}`}
+  className="
     mt-6
     block
     w-full
@@ -169,9 +201,9 @@ hover:ring-emerald-100
     hover:bg-emerald-700
     hover:shadow-lg
   "
-        >
-          Lihat Detail →
-        </Link>
+>
+  Lihat Detail →
+</Link>
       </div>
     </article>
   );

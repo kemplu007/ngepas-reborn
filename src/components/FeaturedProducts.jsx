@@ -4,10 +4,13 @@
  Module  : Components
 ==================================================*/
 
+/*==================================================
+ IMPORTS
+==================================================*/
+
 import { useState } from "react";
 import Categories from "./Categories";
 import ProductCard from "./ProductCard";
-
 import products from "../data/products";
 
 /*==================================================
@@ -15,25 +18,39 @@ import products from "../data/products";
 ==================================================*/
 
 function FeaturedProducts() {
+
+  /*==================================================
+   STATE
+  ==================================================*/
+
   const [activeCategory, setActiveCategory] = useState("All");
 
   /*==================================================
-  FILTER PRODUCTS
-==================================================*/
+   FILTER PRODUCTS
+  ==================================================*/
 
   const filteredProducts =
     activeCategory === "All"
       ? products
-      : products.filter((product) => product.category === activeCategory);
+      : products.filter(
+          (product) => product.category === activeCategory
+        );
+
+  /*==================================================
+   UI
+  ==================================================*/
 
   return (
     <section className="px-6 py-16 bg-slate-50">
+
       {/*==================================================
         SECTION HEADER
       ==================================================*/}
 
       <div className="mb-10 text-center">
-        <h2 className="text-3xl font-bold text-slate-800">Produk Pilihan</h2>
+        <h2 className="text-3xl font-bold text-slate-800">
+          Produk Pilihan
+        </h2>
 
         <p className="mt-3 text-slate-600">
           Temukan produk terbaik pilihan kami dengan kualitas terpercaya.
@@ -55,11 +72,19 @@ function FeaturedProducts() {
 
       <div className="grid grid-cols-1 gap-6 mt-10 sm:grid-cols-2 lg:grid-cols-4">
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
         ))}
       </div>
+
     </section>
   );
 }
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default FeaturedProducts;

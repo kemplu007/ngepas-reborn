@@ -14,6 +14,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
+import CategoryPage from "./pages/CategoryPage";
 
 /*==================================================
  COMPONENT
@@ -25,6 +26,8 @@ function App() {
       <Route path="/" element={<Home />} />
 
       <Route path="/product/:slug" element={<ProductDetail />} />
+
+      <Route path="/category" element={<CategoryPage />} />
     </Routes>
   );
 }
