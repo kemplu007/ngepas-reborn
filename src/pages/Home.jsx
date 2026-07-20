@@ -14,6 +14,8 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Category from "../components/Category";
 import FeaturedProducts from "../components/FeaturedProducts";
+import WhyNgepas from "../components/WhyNgepas";
+import CtaBanner from "../components/CtaBanner";
 
 /*==================================================
  COMPONENT
@@ -25,6 +27,8 @@ function Home() {
   <Navbar />
   <Hero />
       <Category />
+      <WhyNgepas />
+      <CtaBanner />
       <FeaturedProducts />
 </>
   );

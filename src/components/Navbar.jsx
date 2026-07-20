@@ -70,11 +70,11 @@ const handleCloseMenu = () => {
             onClick={handleToggleMenu}
             className="rounded-lg p-2 text-slate-700 transition hover:bg-slate-100"
           >
-            <Menu size={22} />
+            <Menu size={20} />
           </button>
 
           <Link to="/">
-            <h2 className="text-xl sm:text-2xl font-extrabold text-green-600 tracking-tight">
+            <h2 className="text-xl sm:text-lg font-extrabold text-green-600 tracking-tight">
               Ngepas
             </h2>
           </Link>
@@ -86,11 +86,11 @@ const handleCloseMenu = () => {
         }
         <div className="flex-1 max-w-md mx-2">
           <div className="relative flex items-center">
-            <Search className="absolute left-3.5 text-slate-400" size={18} />
+            <Search className="absolute left-3.5 text-slate-400" size={16} />
             <input
               type="text"
               placeholder="Cari barang apa hari ini?"
-              className="w-full rounded-full border border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-xs sm:text-sm text-slate-800 placeholder-slate-400 outline-none transition focus:border-green-500 focus:bg-white focus:ring-1 focus:ring-green-500"
+              className="w-full rounded-full border border-slate-200 bg-slate-50 py-1.5 pl-10 pr-4 text-xs sm:text-sm text-slate-800 placeholder-slate-400 outline-none transition focus:border-green-500 focus:bg-white focus:ring-1 focus:ring-green-500"
             />
           </div>
         </div>
