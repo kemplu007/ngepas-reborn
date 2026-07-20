@@ -49,15 +49,20 @@ function FeaturedProducts() {
         SECTION HEADER
       ==================================================*/}
 
-      <div className="mb-10 text-center">
-        <h2 className="text-3xl font-bold text-slate-800">
-          Produk Pilihan
-        </h2>
+      {/*==================================================
+  SECTION HEADER
+==================================================*/}
 
-        <p className="mt-3 text-slate-600">
-          Temukan produk terbaik pilihan kami dengan kualitas terpercaya.
-        </p>
-      </div>
+<div className="mx-auto mb-8 max-w-2xl text-center">
+  <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
+    ✨ 5 Pilihan Ngepas
+  </h2>
+
+  <p className="mt-4 text-slate-600">
+    Kami sudah memilihkan produk terbaik berdasarkan kualitas,
+    harga, dan ulasan. Tinggal pilih yang paling cocok untukmu.
+  </p>
+</div>
 
       {/*==================================================
         CATEGORY FILTER
@@ -72,7 +77,7 @@ function FeaturedProducts() {
         PRODUCT GRID
       ==================================================*/}
 
-      <div className="grid grid-cols-1 gap-6 mt-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}

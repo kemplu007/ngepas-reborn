@@ -10,44 +10,30 @@
  IMPORT
 ==================================================*/
 
-import { Heart, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useFavoriteContext } from "../context/FavoritesContext";
 
 /*==================================================
  PRODUCT CARD
 ==================================================*/
 
 function ProductCard({ product }) {
-
   /*==================================================
-  PRODUCT DATA
-==================================================*/
+   PRODUCT DATA
+  ==================================================*/
 
-const {
-  slug,
-  name,
-  image,
-  category,
-  price,
-  originalPrice,
-  rating,
-  sold,
-  discount,
-} = product;
+  const {
+    slug,
+    name,
+    image,
+    price,
+    originalPrice,
+    rating,
+    discount,
+    badge,
+    reason,
+  } = product;
 
-  /*==================================================
- HOOKS
-==================================================*/
-
-const { favorites, toggleFavorite } = useFavoriteContext();
-
-  /*==================================================
- FAVORITE STATUS
-==================================================*/
-
-const isFavorite = favorites.includes(slug);
-  
   return (
     <article
       className="
@@ -55,17 +41,13 @@ const isFavorite = favorites.includes(slug);
         overflow-hidden
         rounded-2xl
         border
-        border-slate-100
+        border-slate-200
         bg-white
         shadow-sm
         transition-all
         duration-300
-        hover:-translate-y-2
-        hover:border-emerald-200
+        hover:-translate-y-1
         hover:shadow-xl
-        hover:ring-2
-hover:ring-emerald-100
-        cursor-pointer
       "
     >
       {/*==================================================
@@ -73,55 +55,16 @@ hover:ring-emerald-100
       ==================================================*/}
 
       <div className="relative overflow-hidden">
-        <span className="absolute left-3 top-3 z-10 rounded-full bg-gradient-to-r from-red-500 to-rose-500 shadow-lg px-2 py-1 text-xs font-semibold text-white">
+        <span className="absolute left-2 top-2 z-10 rounded-full bg-red-500 px-2 py-1 text-xs font-semibold text-white shadow">
           -{discount}%
         </span>
-
-        <button
-  type="button"
-  onClick={(e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleFavorite(slug);
-  }}
-  className="
-    absolute
-    right-3
-    top-3
-    z-10
-    rounded-full
-    bg-white/90
-    p-2
-    shadow-md
-    backdrop-blur-sm
-    transition-all
-    duration-300
-    hover:scale-110
-    hover:bg-red-50
-    hover:shadow-lg
-  "
->
-          <Heart
-  size={18}
-  className={`
-    transition-all
-    duration-300
-    group-hover:scale-110
-    ${
-      isFavorite
-        ? "fill-red-500 text-red-500"
-        : "text-slate-500 group-hover:text-red-500"
-    }
-  `}
-/>
-        </button>
 
         <img
           src={image}
           alt={name}
           loading="lazy"
           className="
-            aspect-square
+            h-36
             w-full
             object-cover
             transition-transform
@@ -135,75 +78,73 @@ hover:ring-emerald-100
         PRODUCT INFO
       ==================================================*/}
 
-      <div className="space-y-3 p-5">
-        <h3 className="text-lg font-semibold text-slate-900">
+      <div className="space-y-1.5 p-3">
+        {/* PRODUCT NAME */}
+
+        <h3 className="text-[15px] line-clamp-2 min-h-10 font-semibold leading-snug text-slate-900">
           {name}
         </h3>
 
-        {/*==================================================
-          PRODUCT RATING
-        ==================================================*/}
+        {/* PRODUCT RATING */}
 
-        <div className="flex items-center gap-3 text-sm text-slate-500">
-          <div className="flex items-center gap-1">
-            <Star
-              size={16}
-              className="fill-yellow-400 text-yellow-400"
-            />
+        <div className="flex items-center gap-1 text-xs text-slate-500">
+          <Star
+            size={13}
+            className="fill-yellow-400 text-yellow-400"
+          />
 
-            <span>{rating}</span>
-          </div>
-
-          <span>•</span>
-
-          <span>{sold} Terjual</span>
+          <span>{rating}</span>
         </div>
 
-        <p className="text-xs font-medium uppercase tracking-wider text-slate-400">
-          {category}
-        </p>
+        {/* PRODUCT PRICE */}
 
-        {/*==================================================
-          PRODUCT PRICE
-        ==================================================*/}
+        <div>
 
-        <div className="space-y-1">
-          <p className="text-xs text-slate-400">
-  Harga mulai
-</p>
-          <p className="text-2xl font-extrabold text-emerald-600">
+          <p className="text-base font-bold text-emerald-600">
             {price}
           </p>
 
-          <p className="text-xs line-through text-slate-400">
+          <p className="text-[11px] text-slate-400 line-through">
             {originalPrice}
           </p>
         </div>
 
-        {/*==================================================
-          CTA BUTTON
-        ==================================================*/}
+        {/* BADGE */}
+
+        {badge && (
+          <span className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+            {badge}
+          </span>
+        )}
+
+        {/* REASON */}
+
+        {reason && (
+          <p className="text-xs leading-relaxed text-slate-500">
+            {reason}
+          </p>
+        )}
+
+        {/* CTA */}
 
         <Link
-  to={`/product/${slug}`}
-  className="
-    mt-6
-    block
-    w-full
-    rounded-xl
-    bg-emerald-600
-    py-3
-    text-center
-    font-semibold
-    text-white
-    transition-all
-    duration-300
-    hover:bg-emerald-700
-    hover:shadow-lg
-  "
->
-  Lihat Detail →
-</Link>
+          to={`/product/${slug}`}
+          className="
+            mt-3
+            block
+            rounded-lg
+            bg-emerald-600
+            py-2
+            text-center
+            text-[13px]
+            font-semibold
+            text-white
+            transition-colors
+            hover:bg-emerald-700
+          "
+        >
+          Lihat Detail →
+        </Link>
       </div>
     </article>
   );

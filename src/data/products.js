@@ -32,6 +32,9 @@ const products = [
     originalPrice: "Rp109.000",
     discount: 18,
 
+    badge: "Pilihan Ngepas",
+reason: "Cahaya hangat dan hemat listrik.",
+
     rating: 4.8,
     sold: 1200,
 
