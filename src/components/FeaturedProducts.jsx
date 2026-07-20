@@ -1,7 +1,9 @@
 /*==================================================
  NGEPAS REBORN
+ Project : Ngepas Reborn
  File    : FeaturedProducts.jsx
  Module  : Components
+ Author  : Muhammad Abdul Chakim, ChatGPT & Gemini
 ==================================================*/
 
 /*==================================================

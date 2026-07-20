@@ -17,16 +17,21 @@
 ==================================================*/
 
 const hero = {
-  title: "Cari barang bagus itu susah. Biar",
+  badge: "🌿 Pilihan terbaik untuk setiap sudut rumah",
 
-  highlight: "Ngepas",
-
-  subtitle: "yang pilihin.",
+  heading: {
+    title: "Cari barang bagus itu susah. Biar",
+    highlight: "Ngepas",
+    subtitle: "yang milihin.",
+  },
 
   description:
-    "Kami membantu memilih produk terbaik dengan harga yang masuk akal untuk kebutuhan rumah kamu.",
+  "Kami memilih produk terbaik dengan harga masuk akal untuk kebutuhan rumahmu.",
 
-  button: "Mulai Jelajahi",
+  cta: {
+  text: "Mulai Jelajahi",
+  link: "/category",
+},
 };
 
 /*==================================================

@@ -3,14 +3,14 @@
  Project : Ngepas Reborn
  File    : Hero.jsx
  Module  : Components
- Version : 0.1
- Author  : Muhammad Abdul Chakim & ChatGPT
+ Author  : Muhammad Abdul Chakim, ChatGPT & Gemini
 ==================================================*/
 
 /*==================================================
  IMPORTS
 ==================================================*/
 
+import heroBg from "../assets/images/hero-bg.png";
 import siPas from "../assets/mascot/si-pas.png";
 
 import hero from "../data/hero";
@@ -22,89 +22,115 @@ import Button from "./Button";
  HERO COMPONENT
 ==================================================*/
 
-/*
- * Hero merupakan bagian pertama
- * yang dilihat oleh pengunjung.
- *
- * Komponen ini berisi headline,
- * deskripsi singkat, tombol aksi,
- * dan ilustrasi maskot Ngepas.
- */
-
 function Hero() {
+
+  /*==================================================
+    DATA
+  ==================================================*/
+
+  const {
+    badge,
+    heading,
+    description,
+    cta,
+  } = hero;
+
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
-          {/*==================================================
-            HERO CONTENT
-          ==================================================*/}
 
-          <div className="space-y-6">
-            <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700">
-              🌿 Pilihan Terbaik untuk Rumahmu
-            </span>
+    /*==================================================
+      HERO SECTION
+      Analogi: Kita pasang background dinding estetik tapi transparan dikit
+    ==================================================*/
 
-            <h1 className="leading-tight tracking-tight text-5xl font-extrabold text-slate-900 md:text-6xl">
-              {hero.title}
-              <br />
-              <span className="text-green-600">{hero.highlight}</span>{" "}
-              {hero.subtitle}
-            </h1>
+    <section className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-10 lg:py-20" style={{ backgroundImage: `url(${heroBg})` }}>
 
-            <p className="max-w-xl text-lg leading-8 text-slate-600">
-              {hero.description}
-            </p>
+      {/* Overlay putih transparan biar teks tetep kebaca jelas tapi background-nya kelihatan */}
+      <div className="absolute inset-0 bg-white/90 backdrop-blur-[1px]"></div>
 
-            <Button>{hero.button}</Button>
+      {/*==================================================
+        HERO CONTAINER
+      ==================================================*/
+      }
 
-            <ul className="space-y-3">
-              {features.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-2 text-slate-700"
-                >
-                  <span className="text-green-600">✔</span>
+      <div className="relative mx-auto flex min-h-[460px] max-w-7xl flex-col justify-center px-6">
 
-                  {item}
-                </li>
-              ))}
-            </ul>
+        {/*==================================================
+          HERO CONTENT (KIRI)
+        ==================================================*/
+        }
+
+        <div className="relative z-10 w-[65%] space-y-4 sm:w-[60%] lg:w-1/2">
+
+          {/* HERO BADGE */}
+          <span className="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700 md:text-sm">
+            {badge}
+          </span>
+
+          {/* HERO TITLE */}
+          <h1 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-slate-900 md:text-5xl lg:text-6xl">
+            {heading.title}
+            <br />
+            <span className="text-green-600">
+              {heading.highlight}
+            </span>{" "}
+            {heading.subtitle}
+          </h1>
+
+          {/* HERO DESCRIPTION */}
+          <p className="max-w-sm text-xs leading-5 text-slate-600 sm:text-sm md:text-base">
+            {description}
+          </p>
+
+          {/* HERO BUTTON */}
+          <div className="pt-1">
+            <Button>
+              {cta.text}
+            </Button>
           </div>
 
-          {/*==================================================
-            HERO IMAGE
-          ==================================================*/}
+          {/* HERO FEATURES */}
+          <ul className="space-y-1.5 pt-1 text-xs md:text-sm">
+            {features.map((item) => (
+              <li
+                key={item}
+                className="flex items-center gap-2 font-medium text-slate-700"
+              >
+                <span className="flex items-center justify-center rounded-full bg-green-100 p-0.5 text-green-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
 
-          <div className="flex items-center justify-center">
-            <div
-              className="
-                flex
-                h-96
-                w-full
-                max-w-md
-                items-center
-                justify-center
-                rounded-3xl
-                bg-gradient-to-br
-                from-green-100
-                via-white
-                to-green-50
-                shadow-xl
-              "
-            >
-              <img
-                src={siPas}
-                alt="Si Pas"
-                loading="eager"
-                draggable="false"
-                className="w-72"
-              />
-            </div>
-          </div>
         </div>
+
+        {/*==================================================
+          HERO IMAGE (KANAN BAWAH - POSISI AMAN)
+        ==================================================*/
+        }
+
+        <div className="absolute bottom-0 right-[-15px] z-0 flex w-[50%] items-end justify-end sm:right-0 sm:w-[45%] lg:relative lg:bottom-auto lg:right-auto lg:w-1/2 lg:justify-center">
+          
+          <div className="relative w-full max-w-[240px] sm:max-w-[280px] lg:max-w-md">
+            {/* Efek glow */}
+            <div className="absolute inset-0 scale-90 rounded-full bg-green-400/20 blur-3xl"></div>
+            
+            <img
+              src={siPas}
+              alt="Si Pas"
+              loading="eager"
+              draggable="false"
+              className="relative z-10 w-full drop-shadow-xl"
+            />
+          </div>
+
+        </div>
+
       </div>
+
     </section>
+
   );
 }
 

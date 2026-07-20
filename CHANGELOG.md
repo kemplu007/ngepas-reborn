@@ -1,3 +1,31 @@
+# Checkpoint 1.1 - Favorite System ❤️
+
+Tanggal:
+19 Juli 2026
+
+## ✨ New Features
+
+- Added Favorite System
+- Custom Hook (useFavorites)
+- Favorites Context API
+- Favorites Provider
+- Custom Context Hook
+- Local Storage persistence
+- Favorite button on Product Card
+- Favorite button on Product Detail
+- Favorite synchronization across pages
+- Removed prop drilling from ProductCard
+
+## 🔧 Refactor
+
+- ProductCard now consumes Context directly
+- FeaturedProducts simplified
+- Improved component responsibility
+
+## 🐛 Fixed
+
+- Favorite state now persists after refresh
+- Favorite status stays synchronized between Home and Detail pages
 # v0.9.0 (2026-07-19)
 
 ## ✨ Added
