@@ -1,70 +1,109 @@
-# Checkpoint 1.1 - Favorite System ❤️
+# NGEPAS REBORN CHANGELOG
 
-Tanggal:
-19 Juli 2026
+Semua perubahan penting pada project akan dicatat di sini.
 
-## ✨ New Features
+---
 
-- Added Favorite System
-- Custom Hook (useFavorites)
-- Favorites Context API
-- Favorites Provider
-- Custom Context Hook
-- Local Storage persistence
-- Favorite button on Product Card
-- Favorite button on Product Detail
-- Favorite synchronization across pages
-- Removed prop drilling from ProductCard
+# Checkpoint 0.8
 
-## 🔧 Refactor
-
-- ProductCard now consumes Context directly
-- FeaturedProducts simplified
-- Improved component responsibility
-
-## 🐛 Fixed
-
-- Favorite state now persists after refresh
-- Favorite status stays synchronized between Home and Detail pages
-# v0.9.0 (2026-07-19)
+Tanggal: 18 Juli 2026
 
 ## ✨ Added
-- Product Detail page with dynamic routing
-- Related Products section
-- Scroll To Top on page navigation
-- Decision Engine content
-  - Why We Recommend
-  - Best For
-  - Considerations
-
-## 🎨 Improved
-- Product Detail typography
-- Product image presentation
-- Decision section hierarchy
-- Header and navigation polish
-- Stock badge appearance
-- Overall readability
-
-## 🛠 Refactor
-- Organized Product Detail layout
-- Improved component structure
-- Cleaner UI hierarchy
-
-# Changelog
-
-## v0.8 - Dynamic Product Detail
-
-### Added
 
 - React Router
-- Dynamic Route (:slug)
+- Dynamic Route (`:slug`)
 - Product Detail Page
 - Back Navigation
 - Product Slug
 - Affiliate Link Structure
 
-### Improved
+## 🎨 Improved
 
 - Product data architecture
 - URL readability
 - Router structure
+
+---
+
+# Checkpoint 0.9
+
+Tanggal: 19 Juli 2026
+
+## ✨ Added
+
+- Dynamic Product Detail
+- Related Products
+- Scroll To Top
+- Decision Engine
+  - Why We Recommend
+  - Best For
+  - Considerations
+
+## 🎨 Improved
+
+- Product Detail Typography
+- Product Image Presentation
+- Decision Section Hierarchy
+- Header Navigation
+- Stock Badge
+- Overall Readability
+
+## 🔧 Refactor
+
+- Product Detail Layout
+- Cleaner UI Hierarchy
+
+---
+
+# Checkpoint 1.0
+
+Tanggal: 19 Juli 2026
+
+## ✨ Added
+
+- Favorite System
+- Favorites Context API
+- Custom Hook
+- Local Storage Persistence
+- Favorite Button
+- Favorite Synchronization
+
+## 🔧 Refactor
+
+- ProductCard consumes Context
+- Removed Prop Drilling
+- FeaturedProducts simplified
+
+## 🐛 Fixed
+
+- Favorite persists after refresh
+- Favorite sync between Home & Detail
+
+---
+
+# Checkpoint 1.1
+
+Tanggal: 21 Juli 2026
+
+## 🎨 Improved
+
+- Complete Product Detail redesign
+- Better visual hierarchy
+- Marketplace CTA repositioned
+- Premium information cards
+- Improved spacing & typography
+- Better Related Products section
+- Better mobile experience
+
+## 🔧 Refactor
+
+- Removed Favorite System
+- Simplified Product Detail
+- Cleaner Product Detail structure
+- Better component readability
+
+## 🗑 Removed
+
+- Favorite Context
+- Favorite Button
+- Favorite logic

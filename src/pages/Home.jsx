@@ -24,13 +24,13 @@ import CtaBanner from "../components/CtaBanner";
 function Home() {
   return (
     <>
-  <Navbar />
-  <Hero />
+      <Navbar />
+      <Hero />
       <Category />
       <WhyNgepas />
       <CtaBanner />
       <FeaturedProducts />
-</>
+    </>
   );
 }
 

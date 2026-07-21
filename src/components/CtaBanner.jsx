@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
@@ -23,22 +22,16 @@ function CtaBanner() {
     ==================================================*/
 
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-
       <div className="overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
-
         <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-between">
-
           {/*==================================================
             CTA CONTENT
           ==================================================*/}
 
           <div className="max-w-xl">
-
             <h2 className="text-2xl font-bold leading-tight text-slate-900">
               {title}
-              <span className="block text-emerald-700">
-                {highlight}
-              </span>
+              <span className="block text-emerald-700">{highlight}</span>
             </h2>
 
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
@@ -52,7 +45,6 @@ function CtaBanner() {
               {button}
               <ArrowRight size={18} />
             </Link>
-
           </div>
 
           {/*==================================================
@@ -60,7 +52,6 @@ function CtaBanner() {
           ==================================================*/}
 
           <div className="w-40 flex-shrink-0 sm:w-52">
-
             <img
               src={siPas}
               alt="Si Pas Mascot"
@@ -68,13 +59,9 @@ function CtaBanner() {
               draggable="false"
               className="w-full select-none"
             />
-
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }

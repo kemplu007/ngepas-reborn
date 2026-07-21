@@ -14,12 +14,7 @@
  - WhyNgepas.jsx
 ==================================================*/
 
-import {
-  BadgeCheck,
-  Wallet,
-  Clock3,
-  ShieldCheck,
-} from "lucide-react";
+import { BadgeCheck, Wallet, Clock3, ShieldCheck } from "lucide-react";
 
 /*==================================================
  WHY NGEPAS

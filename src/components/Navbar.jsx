@@ -13,7 +13,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Search, Heart, ShoppingCart, } from "lucide-react";
+import { Menu, Search, Heart, ShoppingCart } from "lucide-react";
 import navigation from "../data/navigation";
 import MenuItem from "./MenuItem";
 
@@ -40,27 +40,25 @@ function Navbar() {
 
   // Toggle menu mobile.
   const handleToggleMenu = () => {
-  setIsMenuOpen(!isMenuOpen);
-};
-  
-  // Menutup menu mobile.
-const handleCloseMenu = () => {
-  setIsMenuOpen(false);
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-};
+  // Menutup menu mobile.
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   /*==================================================
    UI
   ==================================================*/
 
-    /*==================================================
+  /*==================================================
    UI
   ==================================================*/
 
   return (
     <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 gap-2 sm:gap-4">
-        
         {/*==================================================
             KIRI: MOBILE MENU BUTTON & LOGO
         ==================================================*/}
@@ -82,8 +80,7 @@ const handleCloseMenu = () => {
 
         {/*==================================================
             TENGAH: KOTAK PENCARIAN (SEARCH BAR)
-        ==================================================*/
-        }
+        ==================================================*/}
         <div className="flex-1 max-w-md mx-2">
           <div className="relative flex items-center">
             <Search className="absolute left-3.5 text-slate-400" size={16} />
@@ -97,13 +94,11 @@ const handleCloseMenu = () => {
 
         {/*==================================================
             KANAN: FAVORIT & KERANJANG
-        ==================================================*/
-        }
+        ==================================================*/}
         <div className="flex items-center gap-1 sm:gap-3">
-          
           {/* Tombol Favorit */}
-          <Link 
-            to="/favorit" 
+          <Link
+            to="/favorit"
             className="relative rounded-lg p-2 text-slate-700 transition hover:bg-slate-100"
             title="Favorit"
           >
@@ -111,8 +106,8 @@ const handleCloseMenu = () => {
           </Link>
 
           {/* Tombol Keranjang */}
-          <Link 
-            to="/keranjang" 
+          <Link
+            to="/keranjang"
             className="relative rounded-lg p-2 text-slate-700 transition hover:bg-slate-100 flex items-center"
             title="Keranjang"
           >
@@ -122,7 +117,6 @@ const handleCloseMenu = () => {
               3
             </span>
           </Link>
-
         </div>
 
         {/*==================================================
@@ -140,15 +134,13 @@ const handleCloseMenu = () => {
                     path={item.path}
                     onClick={handleCloseMenu}
                   />
-              ))}
+                ))}
             </div>
           </div>
         )}
-
       </div>
     </nav>
   );
-
 }
 
 /*==================================================

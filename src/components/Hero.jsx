@@ -23,7 +23,6 @@ function Hero() {
     ==================================================*/
 
     <section className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
-
       {/*==================================================
         HERO CONTAINER
       ==================================================*/}
@@ -32,7 +31,6 @@ function Hero() {
         className="relative overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat p-4 sm:p-6 shadow-sm"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
-
         {/*==================================================
           BACKGROUND OVERLAY
 
@@ -47,13 +45,11 @@ function Hero() {
         ==================================================*/}
 
         <div className="relative z-10 flex flex-row items-center justify-between gap-2 sm:gap-6">
-
           {/*==================================================
             HERO TEXT
           ==================================================*/}
 
           <div className="z-20 flex-1 space-y-2 sm:space-y-3">
-
             {/* Badge */}
 
             <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100/90 px-3 py-0.5 text-[10px] font-semibold text-emerald-800 sm:text-xs">
@@ -65,9 +61,7 @@ function Hero() {
 
             <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
               {heading.title}{" "}
-              <span className="text-emerald-700">
-                {heading.highlight}
-              </span>{" "}
+              <span className="text-emerald-700">{heading.highlight}</span>{" "}
               {heading.subtitle}
             </h1>
 
@@ -88,7 +82,6 @@ function Hero() {
                 <ArrowRight size={16} />
               </Link>
             </div>
-
           </div>
 
           {/*==================================================
@@ -96,7 +89,6 @@ function Hero() {
           ==================================================*/}
 
           <div className="flex w-32 flex-shrink-0 justify-end self-end -mb-2 sm:w-56 sm:-mb-6 lg:w-64">
-
             <img
               src={siPas}
               alt="Si Pas Mascot"
@@ -104,13 +96,9 @@ function Hero() {
               draggable="false"
               className="w-full select-none drop-shadow-md"
             />
-
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }

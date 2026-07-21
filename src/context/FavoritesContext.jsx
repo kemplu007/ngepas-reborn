@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  File    : FavoritesContext.jsx
@@ -23,7 +22,6 @@ const FavoritesContext = createContext();
 ==================================================*/
 
 function FavoritesProvider({ children }) {
-
   const favorite = useFavorites();
 
   return (
@@ -45,7 +43,4 @@ function useFavoriteContext() {
  EXPORT
 ==================================================*/
 
-export {
-  FavoritesProvider,
-  useFavoriteContext,
-};
+export { FavoritesProvider, useFavoriteContext };

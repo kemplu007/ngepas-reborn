@@ -88,10 +88,7 @@ function ProductCard({ product }) {
         {/* PRODUCT RATING */}
 
         <div className="flex items-center gap-1 text-xs text-slate-500">
-          <Star
-            size={13}
-            className="fill-yellow-400 text-yellow-400"
-          />
+          <Star size={13} className="fill-yellow-400 text-yellow-400" />
 
           <span>{rating}</span>
         </div>
@@ -99,10 +96,7 @@ function ProductCard({ product }) {
         {/* PRODUCT PRICE */}
 
         <div>
-
-          <p className="text-base font-bold text-emerald-600">
-            {price}
-          </p>
+          <p className="text-base font-bold text-emerald-600">{price}</p>
 
           <p className="text-[11px] text-slate-400 line-through">
             {originalPrice}
@@ -120,9 +114,7 @@ function ProductCard({ product }) {
         {/* REASON */}
 
         {reason && (
-          <p className="text-xs leading-relaxed text-slate-500">
-            {reason}
-          </p>
+          <p className="text-xs leading-relaxed text-slate-500">{reason}</p>
         )}
 
         {/* CTA */}

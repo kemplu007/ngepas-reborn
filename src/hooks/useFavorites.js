@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  File    : useFavorites.js
@@ -17,12 +16,10 @@ import { useEffect, useState } from "react";
 
 function useFavorites() {
   const [favorites, setFavorites] = useState(() => {
-  const storedFavorites = localStorage.getItem("favorites");
+    const storedFavorites = localStorage.getItem("favorites");
 
-  return storedFavorites
-    ? JSON.parse(storedFavorites)
-    : [];
-});
+    return storedFavorites ? JSON.parse(storedFavorites) : [];
+  });
 
   /*==================================================
    TOGGLE FAVORITE
@@ -32,7 +29,7 @@ function useFavorites() {
     setFavorites((prevFavorites) =>
       prevFavorites.includes(slug)
         ? prevFavorites.filter((item) => item !== slug)
-        : [...prevFavorites, slug]
+        : [...prevFavorites, slug],
     );
   };
 
@@ -40,12 +37,9 @@ function useFavorites() {
  SAVE FAVORITES
 ==================================================*/
 
-useEffect(() => {
-  localStorage.setItem(
-    "favorites",
-    JSON.stringify(favorites)
-  );
-}, [favorites]);
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   /*==================================================
    RETURN

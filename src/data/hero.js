@@ -26,12 +26,12 @@ const hero = {
   },
 
   description:
-  "Kami memilih produk terbaik dengan harga masuk akal untuk kebutuhan rumahmu.",
+    "Kami memilih produk terbaik dengan harga masuk akal untuk kebutuhan rumahmu.",
 
   cta: {
-  text: "Mulai Jelajahi",
-  link: "/category",
-},
+    text: "Mulai Jelajahi",
+    link: "/category",
+  },
 };
 
 /*==================================================

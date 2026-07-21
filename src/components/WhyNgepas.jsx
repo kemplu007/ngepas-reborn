@@ -6,14 +6,8 @@
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
-import {
-  BadgeCheck,
-  Wallet,
-  Clock3,
-  ShieldCheck,
-} from "lucide-react";
+import { BadgeCheck, Wallet, Clock3, ShieldCheck } from "lucide-react";
 import whyNgepas from "../data/whyNgepas";
-
 
 /*==================================================
  COMPONENT
@@ -26,13 +20,10 @@ function WhyNgepas() {
     ==================================================*/
 
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-
       {/* Heading */}
 
       <div className="mb-5">
-        <h2 className="text-xl font-bold text-slate-900">
-          Kenapa Ngepas?
-        </h2>
+        <h2 className="text-xl font-bold text-slate-900">Kenapa Ngepas?</h2>
 
         <p className="mt-1 text-sm text-slate-500">
           Alasan kenapa banyak orang memilih Ngepas.
@@ -42,7 +33,6 @@ function WhyNgepas() {
       {/* Cards */}
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-
         {whyNgepas.map((item) => {
           const Icon = item.icon;
 
@@ -65,9 +55,7 @@ function WhyNgepas() {
             </div>
           );
         })}
-
       </div>
-
     </section>
   );
 }
