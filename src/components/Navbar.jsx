@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 import { Menu, Search, Heart, ShoppingCart } from "lucide-react";
 import navigation from "../data/navigation";
 import MenuItem from "./MenuItem";
+import SearchDropdown from "./SearchDropdown"
+
 
 /*==================================================
  COMPONENT
@@ -52,10 +54,6 @@ function Navbar() {
    UI
   ==================================================*/
 
-  /*==================================================
-   UI
-  ==================================================*/
-
   return (
     <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 gap-2 sm:gap-4">
@@ -79,18 +77,9 @@ function Navbar() {
         </div>
 
         {/*==================================================
-            TENGAH: KOTAK PENCARIAN (SEARCH BAR)
+             SEARCH BAR
         ==================================================*/}
-        <div className="flex-1 max-w-md mx-2">
-          <div className="relative flex items-center">
-            <Search className="absolute left-3.5 text-slate-400" size={16} />
-            <input
-              type="text"
-              placeholder="Cari barang apa hari ini?"
-              className="w-full rounded-full border border-slate-200 bg-slate-50 py-1.5 pl-10 pr-4 text-xs sm:text-sm text-slate-800 placeholder-slate-400 outline-none transition focus:border-green-500 focus:bg-white focus:ring-1 focus:ring-green-500"
-            />
-          </div>
-        </div>
+        <SearchDropdown />
 
         {/*==================================================
             KANAN: FAVORIT & KERANJANG

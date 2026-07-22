@@ -5,7 +5,6 @@ Semua perubahan penting pada project akan dicatat di sini.
 ---
 
 # Checkpoint 0.8
-
 Tanggal: 18 Juli 2026
 
 ## ✨ Added
@@ -26,7 +25,6 @@ Tanggal: 18 Juli 2026
 ---
 
 # Checkpoint 0.9
-
 Tanggal: 19 Juli 2026
 
 ## ✨ Added
@@ -56,7 +54,6 @@ Tanggal: 19 Juli 2026
 ---
 
 # Checkpoint 1.0
-
 Tanggal: 19 Juli 2026
 
 ## ✨ Added
@@ -82,7 +79,6 @@ Tanggal: 19 Juli 2026
 ---
 
 # Checkpoint 1.1
-
 Tanggal: 21 Juli 2026
 
 ## 🎨 Improved

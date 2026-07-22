@@ -41,7 +41,9 @@ function ProductDetail() {
   if (!product) {
     return (
       <section className="py-20 text-center">
-        <h2 className="text-2xl font-bold">Produk tidak ditemukan.</h2>
+        <h2 className="text-2xl font-bold">
+          Produk tidak ditemukan.
+        </h2>
 
         <Link
           to="/"
@@ -82,7 +84,9 @@ function ProductDetail() {
 
   const relatedProducts = products
     .filter(
-      (item) => item.id !== product.id && item.category === product.category,
+      (item) =>
+        item.id !== product.id &&
+        item.category === product.category
     )
     .slice(0, 3);
 
@@ -91,7 +95,9 @@ function ProductDetail() {
   ==================================================*/
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16">
+
+        <section className="mx-auto max-w-7xl px-6 py-16">
+
       {/*==================================================
       BACK BUTTON
       ==================================================*/}
@@ -109,16 +115,19 @@ function ProductDetail() {
       ==================================================*/}
 
       <div className="mt-10 grid gap-12 lg:grid-cols-2">
+
         {/*==================================================
         PRODUCT IMAGE
         ==================================================*/}
 
         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
+
           <img
             src={image}
             alt={name}
             className="aspect-square w-full object-cover"
           />
+
         </div>
 
         {/*==================================================
@@ -126,6 +135,7 @@ function ProductDetail() {
         ==================================================*/}
 
         <div>
+
           {/* CATEGORY */}
 
           <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
@@ -140,16 +150,20 @@ function ProductDetail() {
 
           {/* DESCRIPTION */}
 
-          <p className="mt-5 leading-8 text-slate-600">{description}</p>
+          <p className="mt-5 leading-8 text-slate-600">
+            {description}
+          </p>
 
           {/* PRICE */}
 
           <div className="mt-8">
+
             <p className="text-base text-slate-400 line-through">
               {originalPrice}
             </p>
 
             <div className="mt-2 flex items-center gap-3">
+
               <h2 className="text-4xl font-extrabold text-emerald-600">
                 {price}
               </h2>
@@ -157,16 +171,24 @@ function ProductDetail() {
               <span className="rounded-lg bg-red-100 px-3 py-1 text-sm font-bold text-red-600">
                 -{discount}%
               </span>
+
             </div>
+
           </div>
 
           {/* PRODUCT META */}
 
           <div className="mt-8 flex flex-wrap gap-4">
+
             <div className="flex items-center gap-2 rounded-xl bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700">
-              <Star size={16} fill="currentColor" />
+
+              <Star
+                size={16}
+                fill="currentColor"
+              />
 
               {rating}
+
             </div>
 
             <div className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
@@ -180,25 +202,35 @@ function ProductDetail() {
                   : "bg-red-100 text-red-700"
               }`}
             >
-              {stock > 10 ? `Stok ${stock}` : `Sisa ${stock}`}
+              {stock > 10
+                ? `Stok ${stock}`
+                : `Sisa ${stock}`}
             </div>
+
           </div>
 
           {/* WHY WE RECOMMEND */}
 
           <div className="mt-10 rounded-3xl border border-emerald-100 bg-emerald-50 p-6">
+
             <h2 className="text-2xl font-bold text-slate-900">
               💚 Kenapa Kami Memilih Produk Ini
             </h2>
 
             <ul className="mt-5 space-y-3">
+
               {whyWeRecommend.map((item) => (
-                <li key={item} className="flex gap-3 text-slate-700">
+                <li
+                  key={item}
+                  className="flex gap-3 text-slate-700"
+                >
                   <span>✅</span>
                   <span>{item}</span>
                 </li>
               ))}
+
             </ul>
+
           </div>
 
           {/* CTA */}
@@ -212,23 +244,30 @@ function ProductDetail() {
             🛒 Cek Harga di Marketplace
           </a>
 
-          {/*==================================================
+                    {/*==================================================
           FEATURES
           ==================================================*/}
 
           <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+
             <h2 className="mb-5 text-2xl font-bold text-slate-900">
               ✨ Keunggulan
             </h2>
 
             <ul className="space-y-3">
+
               {features.map((feature) => (
-                <li key={feature} className="flex gap-3 text-slate-700">
+                <li
+                  key={feature}
+                  className="flex gap-3 text-slate-700"
+                >
                   <span>✅</span>
                   <span>{feature}</span>
                 </li>
               ))}
+
             </ul>
+
           </div>
 
           {/*==================================================
@@ -236,24 +275,34 @@ function ProductDetail() {
           ==================================================*/}
 
           <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+
             <h2 className="mb-5 text-2xl font-bold text-slate-900">
               📋 Spesifikasi
             </h2>
 
             <div className="space-y-3">
+
               {Object.entries(specifications).map(([key, value]) => (
+
                 <div
                   key={key}
                   className="flex items-center justify-between rounded-xl border border-slate-200 p-4"
                 >
+
                   <span className="font-semibold capitalize text-slate-700">
                     {key}
                   </span>
 
-                  <span className="text-slate-600">{value}</span>
+                  <span className="text-slate-600">
+                    {value}
+                  </span>
+
                 </div>
+
               ))}
+
             </div>
+
           </div>
 
           {/*==================================================
@@ -261,18 +310,25 @@ function ProductDetail() {
           ==================================================*/}
 
           <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+
             <h2 className="mb-5 text-2xl font-bold text-slate-900">
               🎯 Cocok Untuk
             </h2>
 
             <ul className="space-y-3">
+
               {bestFor.map((item) => (
-                <li key={item} className="flex gap-3 text-slate-700">
+                <li
+                  key={item}
+                  className="flex gap-3 text-slate-700"
+                >
                   <span>🏡</span>
                   <span>{item}</span>
                 </li>
               ))}
+
             </ul>
+
           </div>
 
           {/*==================================================
@@ -280,20 +336,29 @@ function ProductDetail() {
           ==================================================*/}
 
           <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+
             <h2 className="mb-5 text-2xl font-bold text-slate-900">
               ⚠️ Perlu Diketahui
             </h2>
 
             <ul className="space-y-3">
+
               {considerations.map((item) => (
-                <li key={item} className="flex gap-3 text-slate-700">
+                <li
+                  key={item}
+                  className="flex gap-3 text-slate-700"
+                >
                   <span>ℹ️</span>
                   <span>{item}</span>
                 </li>
               ))}
+
             </ul>
+
           </div>
+
         </div>
+
       </div>
 
       {/*==================================================
@@ -301,20 +366,34 @@ function ProductDetail() {
       ==================================================*/}
 
       <section className="mt-24">
+
         <div className="mb-10">
-          <h2 className="text-3xl font-bold text-slate-900">Produk Serupa</h2>
+
+          <h2 className="text-3xl font-bold text-slate-900">
+            Produk Serupa
+          </h2>
 
           <p className="mt-2 text-slate-600">
             Masih satu kategori dan mungkin juga cocok buat kamu.
           </p>
+
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+
           {relatedProducts.map((item) => (
-            <ProductCard key={item.id} product={item} />
+
+            <ProductCard
+              key={item.id}
+              product={item}
+            />
+
           ))}
+
         </div>
+
       </section>
+
     </section>
   );
 }
