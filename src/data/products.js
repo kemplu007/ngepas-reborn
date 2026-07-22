@@ -20,59 +20,58 @@ import rakBumbu from "../assets/products/rak-bumbu.jpg";
 
 const products = [
   {
-    id: 1,
-    slug: "lampu-tidur-minimalis",
+  id: 1,
+  room: "bedroom",
+  category: "lampu-tidur",
+  slug: "lampu-tidur-minimalis",
+  name: "Lampu Tidur Minimalis",
+  image: lampuTidur,
+    
+  price: "Rp89.000",
+  originalPrice: "Rp109.000",
+  discount: 18,
+    
+  badge: "Pilihan Ngepas",
+  reason: "Cahaya hangat dan hemat listrik.",
 
-    name: "Lampu Tidur Minimalis",
-    category: "Home",
+  rating: 4.8,
+  sold: 1200,
 
-    image: lampuTidur,
+  featured: true,
+  stock: 35,
 
-    price: "Rp89.000",
-    originalPrice: "Rp109.000",
-    discount: 18,
+  affiliateLink: "#",
 
-    badge: "Pilihan Ngepas",
-reason: "Cahaya hangat dan hemat listrik.",
-
-    rating: 4.8,
-    sold: 1200,
-
-    featured: true,
-    stock: 35,
-
-    affiliateLink: "#",
-
-        description:
+  description:
       "Lampu tidur bergaya minimalis dengan cahaya hangat yang nyaman untuk menemani waktu istirahat maupun bekerja.",
 
-    features: [
+  features: [
       "LED Hemat Energi",
       "Cahaya Warm White",
       "Desain Minimalis Modern",
       "Material Premium",
     ],
 
-    specifications: {
+  specifications: {
       warna: "Warm White",
       material: "ABS + Acrylic",
       ukuran: "20 x 12 cm",
       daya: "8 Watt",
     },
 
-        whyWeRecommend: [
+  whyWeRecommend: [
       "Cahaya hangat yang nyaman di mata",
       "Desain minimalis cocok untuk berbagai ruangan",
       "Hemat listrik untuk penggunaan harian",
     ],
 
-    bestFor: [
+  bestFor: [
       "Kamar Tidur",
       "Meja Belajar",
       "Anak Kos",
     ],
 
-    considerations: [
+   considerations: [
       "Hanya untuk penggunaan indoor",
       "Bukan lampu utama ruangan",
     ],
@@ -80,11 +79,10 @@ reason: "Cahaya hangat dan hemat listrik.",
 
   {
     id: 2,
+    room: "living-room",
+    category: "rak",
     slug: "rak-dinding-kayu",
-
     name: "Rak Dinding Kayu",
-    category: "Furniture",
-
     image: rakDinding,
 
     price: "Rp149.000",
@@ -136,11 +134,10 @@ reason: "Cahaya hangat dan hemat listrik.",
 
   {
     id: 3,
+    room: "living-room",
+    category: "dekorasi",   
     slug: "tanaman-artificial",
-
     name: "Tanaman Artificial",
-    category: "Decoration",
-
     image: tanaman,
 
     price: "Rp59.000",
@@ -191,11 +188,12 @@ reason: "Cahaya hangat dan hemat listrik.",
   },
 
   {
-    id: 4,
-    slug: "rak-bumbu-dapur",
+   id: 4,
+   room: "kitchen",
+   category: "rak-bumbu",
+   slug: "rak-bumbu-dapur",
 
     name: "Rak Bumbu Dapur",
-    category: "Kitchen",
 
     image: rakBumbu,
 

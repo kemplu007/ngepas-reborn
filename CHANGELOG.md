@@ -103,3 +103,9 @@ Tanggal: 21 Juli 2026
 - Favorite Context
 - Favorite Button
 - Favorite logic
+
+## Added
+- Add roomCategories data
+- Prepare room → category navigation
+- Blueprint Alive BP-03
+
