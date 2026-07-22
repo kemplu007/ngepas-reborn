@@ -17,43 +17,43 @@
 
 const roomCategories = {
   bedroom: [
-    "Kasur",
-    "Lemari",
-    "Lampu Tidur",
-    "Meja",
-    "Karpet",
+    "kasur",
+    "lemari",
+    "lampu-tidur",
+    "meja",
+    "karpet",
   ],
 
   "living-room": [
-    "Sofa",
-    "Meja TV",
-    "Rak",
-    "Karpet",
-    "Lampu",
-  ],
+  "sofa",
+  "meja-tv",
+  "rak",
+  "karpet",
+  "lampu",
+],
 
   kitchen: [
-    "Kompor",
-    "Rice Cooker",
-    "Piring",
-    "Wajan",
-    "Rak Bumbu",
-  ],
+  "kompor",
+  "rice-cooker",
+  "piring",
+  "wajan",
+  "rak-bumbu",
+],
 
   bathroom: [
-    "Shower",
-    "Rak Kamar Mandi",
-    "Cermin",
-    "Keset",
-    "Handuk",
+    "shower",
+    "rak-kamar-mandi",
+    "cermin",
+    "keset",
+    "handuk",
   ],
 
   workspace: [
-    "Meja",
-    "Kursi",
-    "Monitor",
-    "Lampu Meja",
-    "Rak",
+    "meja",
+    "kursi",
+    "monitor",
+    "lampu-meja",
+    "rak",
   ],
 };
 

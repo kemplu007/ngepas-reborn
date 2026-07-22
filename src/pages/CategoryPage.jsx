@@ -8,6 +8,8 @@
 import rooms from "../data/rooms";
 import { useState } from "react";
 import roomCategories from "../data/roomCategories";
+import products from "../data/products";
+import ProductCard from "../components/ProductCard";
 
 /*==================================================
  CATEGORY PAGE
@@ -18,6 +20,16 @@ const CategoryPage = () => {
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+/*==================================================
+ FILTER PRODUCTS
+==================================================*/
+
+const filteredProducts = products.filter(
+  (product) =>
+    product.room === selectedRoom &&
+    product.category === selectedCategory
+);
   
   return (
     <main className="max-w-7xl mx-auto px-4 py-10">
@@ -48,17 +60,22 @@ const CategoryPage = () => {
             key={room.id}
             onClick={() => {
   setSelectedRoom(room.slug);
+              
   setSelectedCategory(null);
 }}
-            className="
-              border
-              rounded-2xl
-              p-4
-              bg-white
-              transition
-              hover:shadow-lg
-              text-left
-            "
+            className={`
+  border
+  rounded-2xl
+  p-4
+  transition
+  text-left
+
+  ${
+    selectedRoom === room.slug
+      ? "bg-green-600 text-white border-green-600 shadow-lg"
+      : "bg-white hover:shadow-lg"
+  }
+`}
           >
             {/* Image Placeholder */}
             <div className="aspect-square rounded-xl bg-gray-100 mb-4" />
@@ -69,9 +86,15 @@ const CategoryPage = () => {
             </h2>
 
             {/* Product Count */}
-            <p className="text-sm text-gray-500 mt-1">
-              {room.totalProducts} Produk
-            </p>
+            <p
+  className={`text-sm mt-1 ${
+    selectedRoom === room.slug
+      ? "text-green-100"
+      : "text-gray-500"
+  }`}
+>
+  {room.totalProducts} Produk
+</p>
           </button>
         ))}
       </div>
@@ -94,16 +117,20 @@ const CategoryPage = () => {
   <button
     key={category}
     onClick={() => setSelectedCategory(category)}
-      className="
-        border
-        rounded-xl
-        px-4
-        py-3
-        text-left
-        hover:border-green-600
-        hover:bg-green-50
-        transition
-      "
+      className={`
+  border
+  rounded-xl
+  px-4
+  py-3
+  text-left
+  transition
+
+  ${
+    selectedCategory === category
+      ? "bg-green-600 text-white border-green-600"
+      : "bg-white hover:bg-green-50 hover:border-green-600"
+  }
+`}
     >
       {category}
     </button>
@@ -111,10 +138,44 @@ const CategoryPage = () => {
 </div>
 )}
   {selectedCategory && (
-  <p className="mt-4 text-green-600 font-medium">
-    Kategori dipilih: {selectedCategory}
-  </p>
+  <div className="mt-4">
+
+    <p className="text-green-600 font-medium">
+      Kategori dipilih: {selectedCategory}
+    </p>
+
+    <p className="mt-2 text-green-600 font-medium">
+      Total Produk: {filteredProducts.length}
+    </p>
+
+    {filteredProducts.length === 0 && (
+      <p className="text-gray-500 mt-2">
+        Belum ada produk untuk kategori ini.
+      </p>
+    )}
+
+  </div>
 )}
+
+  {/*==============================================
+  FILTERED PRODUCTS
+==============================================*/}
+
+{filteredProducts.length > 0 && (
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+
+    {filteredProducts.map((product) => (
+      <ProductCard
+        key={product.id}
+        product={product}
+      />
+    ))}
+
+  </div>
+
+)}
+  
 </section>
       
     </main>

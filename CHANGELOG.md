@@ -109,3 +109,38 @@ Tanggal: 21 Juli 2026
 - Prepare room → category navigation
 - Blueprint Alive BP-03
 
+## [0.6] - Blueprint Navigation System
+
+### Added
+- Room navigation data
+- Room category mapping
+- Category selection state
+- Dynamic category rendering
+
+### Changed
+- Refactored product data structure
+- Added room field
+- Updated category to blueprint-based structure
+- Reset selected category when room changes
+
+### Improved
+- Consistent product object convention
+- Better foundation for product filtering engine
+
+## [0.7]
+
+### Added
+- Active room selection
+- Active category selection
+- Product filtering system
+- Dynamic product rendering
+- Empty state for unavailable products
+
+### Improved
+- Blueprint navigation flow
+- Room & category interaction
+- UI feedback for selected items
+
+### Refactored
+- Product data structure
+- Category filtering logic
