@@ -11,6 +11,7 @@ import roomCategories from "../data/roomCategories";
 import products from "../data/products";
 import ProductCard from "../components/ProductCard";
 
+
 /*==================================================
  CATEGORY PAGE
 ==================================================*/
@@ -21,6 +22,20 @@ const CategoryPage = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  /*==================================================
+ SEARCH STATE
+==================================================*/
+
+/*
+Menyimpan kata kunci pencarian.
+Digunakan untuk memfilter produk
+secara realtime.
+*/
+
+const [searchTerm, setSearchTerm] = useState("");
+
+const [sortBy, setSortBy] = useState("default");
+
 /*==================================================
  FILTER PRODUCTS
 ==================================================*/
@@ -28,8 +43,47 @@ const CategoryPage = () => {
 const filteredProducts = products.filter(
   (product) =>
     product.room === selectedRoom &&
-    product.category === selectedCategory
+    product.category === selectedCategory &&
+    product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
 );
+
+  /*==================================================
+ SORT PRODUCTS
+==================================================*/
+
+/*
+Mengurutkan produk sesuai pilihan user.
+*/
+
+const sortedProducts = [...filteredProducts];
+
+switch (sortBy) {
+
+  case "rating":
+    sortedProducts.sort(
+      (a, b) => b.rating - a.rating
+    );
+    break;
+
+  case "price":
+    sortedProducts.sort(
+      (a, b) =>
+        Number(a.price.replace(/\D/g, "")) -
+        Number(b.price.replace(/\D/g, ""))
+    );
+    break;
+
+  case "sold":
+    sortedProducts.sort(
+      (a, b) => b.sold - a.sold
+    );
+    break;
+
+  default:
+    break;
+}
   
   return (
     <main className="max-w-7xl mx-auto px-4 py-10">
@@ -60,8 +114,9 @@ const filteredProducts = products.filter(
             key={room.id}
             onClick={() => {
   setSelectedRoom(room.slug);
-              
-  setSelectedCategory(null);
+setSelectedCategory(null);
+setSearchTerm("");
+  setSortBy("default");
 }}
             className={`
   border
@@ -93,7 +148,11 @@ const filteredProducts = products.filter(
       : "text-gray-500"
   }`}
 >
-  {room.totalProducts} Produk
+  {
+  products.filter(
+    (product) => product.room === room.slug
+  ).length
+} Produk
 </p>
           </button>
         ))}
@@ -116,7 +175,12 @@ const filteredProducts = products.filter(
   {roomCategories[selectedRoom]?.map((category) => (
   <button
     key={category}
-    onClick={() => setSelectedCategory(category)}
+    onClick={() => {
+  setSelectedCategory(category);
+  setSearchTerm("");
+  setSortBy("default");
+}}
+
       className={`
   border
   rounded-xl
@@ -157,6 +221,109 @@ const filteredProducts = products.filter(
   </div>
 )}
 
+  
+{/*==============================================
+ PRODUCT SEARCH
+==============================================*/}
+
+{selectedCategory && (
+  <div className="mt-8 mb-8">
+    <input
+      type="text"
+      placeholder="🔍 Cari produk..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className="
+        w-full
+        rounded-2xl
+        border
+        border-slate-300
+        px-5
+        py-4
+        outline-none
+        transition
+        focus:border-green-600
+        focus:ring-2
+        focus:ring-green-200
+      "
+    />
+  </div>
+)}
+
+  {/*==============================================
+ PRODUCT SORT
+==============================================*/}
+
+{selectedCategory && (
+
+<div className="mb-8">
+
+  <select
+    value={sortBy}
+    onChange={(e) => setSortBy(e.target.value)}
+    className="
+      w-full
+      rounded-2xl
+      border
+      border-slate-300
+      px-5
+      py-4
+      outline-none
+      focus:border-green-600
+      focus:ring-2
+      focus:ring-green-200
+    "
+  >
+    
+
+    <option value="default">
+      Default
+    </option>
+
+    <option value="rating">
+      ⭐ Rating Tertinggi
+    </option>
+
+    <option value="price">
+      💰 Harga Termurah
+    </option>
+
+    <option value="sold">
+      🔥 Terlaris
+    </option>
+
+  </select>
+
+</div>
+  )}
+  {/*==================================================
+ NGEPAS INFO
+==================================================*/}
+
+{filteredProducts.length > 0 && (
+
+<div className="
+  mb-8
+  rounded-3xl
+  border
+  border-emerald-200
+  bg-emerald-50
+  p-6
+">
+  <h2 className="text-2xl font-bold text-emerald-700">
+    💚 5 Pilihan Ngepas
+  </h2>
+
+  <p className="mt-3 text-slate-600 leading-7">
+    Kami sudah memilihkan produk terbaik
+    berdasarkan kualitas, harga,
+    dan ulasan positif agar kamu
+    tidak perlu bingung memilih.
+  </p>
+</div>
+
+  )}
+
   {/*==============================================
   FILTERED PRODUCTS
 ==============================================*/}
@@ -165,7 +332,7 @@ const filteredProducts = products.filter(
 
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
 
-    {filteredProducts.map((product) => (
+    {sortedProducts.map((product) => (
       <ProductCard
         key={product.id}
         product={product}

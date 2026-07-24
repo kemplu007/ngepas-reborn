@@ -138,13 +138,37 @@ function ProductDetail() {
 
           {/* CATEGORY */}
 
+          <nav className="mb-4 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+  <Link
+    to="/"
+    className="hover:text-emerald-600"
+  >
+    Home
+  </Link>
+
+  <span>/</span>
+
+  <Link
+    to="/category"
+    className="hover:text-emerald-600"
+  >
+    Kategori
+  </Link>
+
+  <span>/</span>
+
+  <span className="font-medium text-slate-700">
+    {name}
+  </span>
+</nav>
+
           <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
             {category}
           </span>
 
           {/* TITLE */}
 
-          <h1 className="mt-4 text-4xl font-extrabold leading-tight text-slate-900">
+          <h1 className="mt-4 text-4xl font-extrabold leading-tight text-slate-900 max-w-2xl">
             {name}
           </h1>
 
