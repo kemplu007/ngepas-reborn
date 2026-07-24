@@ -20,58 +20,54 @@ import rakBumbu from "../assets/products/rak-bumbu.jpg";
 
 const products = [
   {
-  id: 1,
-  room: "bedroom",
-  category: "lampu-tidur",
-  slug: "lampu-tidur-minimalis",
-  name: "Lampu Tidur Minimalis",
-  image: lampuTidur,
-    
-  price: "Rp89.000",
-  originalPrice: "Rp109.000",
-  discount: 18,
-    
-  badge: "Pilihan Ngepas",
-  reason: "Cahaya hangat dan hemat listrik.",
+    id: 1,
+    room: "bedroom",
+    category: "lampu-tidur",
+    slug: "lampu-tidur-minimalis",
+    name: "Lampu Tidur Minimalis",
+    image: lampuTidur,
 
-  rating: 4.8,
-  sold: 1200,
+    price: "Rp89.000",
+    originalPrice: "Rp109.000",
+    discount: 18,
 
-  featured: true,
-  stock: 35,
+    badge: "Pilihan Ngepas",
+    reason: "Cahaya hangat dan hemat listrik.",
 
-  affiliateLink: "#",
+    rating: 4.8,
+    sold: 1200,
 
-  description:
+    featured: true,
+    stock: 35,
+
+    affiliateLink: "#",
+
+    description:
       "Lampu tidur bergaya minimalis dengan cahaya hangat yang nyaman untuk menemani waktu istirahat maupun bekerja.",
 
-  features: [
+    features: [
       "LED Hemat Energi",
       "Cahaya Warm White",
       "Desain Minimalis Modern",
       "Material Premium",
     ],
 
-  specifications: {
+    specifications: {
       warna: "Warm White",
       material: "ABS + Acrylic",
       ukuran: "20 x 12 cm",
       daya: "8 Watt",
     },
 
-  whyWeRecommend: [
+    whyWeRecommend: [
       "Cahaya hangat yang nyaman di mata",
       "Desain minimalis cocok untuk berbagai ruangan",
       "Hemat listrik untuk penggunaan harian",
     ],
 
-  bestFor: [
-      "Kamar Tidur",
-      "Meja Belajar",
-      "Anak Kos",
-    ],
+    bestFor: ["Kamar Tidur", "Meja Belajar", "Anak Kos"],
 
-   considerations: [
+    considerations: [
       "Hanya untuk penggunaan indoor",
       "Bukan lampu utama ruangan",
     ],
@@ -97,7 +93,7 @@ const products = [
 
     affiliateLink: "#",
 
-        description:
+    description:
       "Rak dinding kayu multifungsi untuk menyimpan dekorasi, buku, maupun perlengkapan rumah agar lebih rapi.",
 
     features: [
@@ -114,17 +110,13 @@ const products = [
       kapasitas: "20 Kg",
     },
 
-        whyWeRecommend: [
+    whyWeRecommend: [
       "Memanfaatkan dinding agar ruangan lebih rapi",
       "Material kokoh dengan desain minimalis",
       "Mudah dipasang tanpa alat khusus",
     ],
 
-    bestFor: [
-      "Ruang Tamu",
-      "Kamar Tidur",
-      "Apartemen",
-    ],
+    bestFor: ["Ruang Tamu", "Kamar Tidur", "Apartemen"],
 
     considerations: [
       "Pastikan dinding cukup kuat",
@@ -135,7 +127,7 @@ const products = [
   {
     id: 3,
     room: "living-room",
-    category: "dekorasi",   
+    category: "dekorasi",
     slug: "tanaman-artificial",
     name: "Tanaman Artificial",
     image: tanaman,
@@ -152,7 +144,7 @@ const products = [
 
     affiliateLink: "#",
 
-        description:
+    description:
       "Tanaman artificial yang memberikan nuansa segar tanpa perlu disiram maupun perawatan rutin.",
 
     features: [
@@ -169,17 +161,13 @@ const products = [
       warna: "Hijau",
     },
 
-        whyWeRecommend: [
+    whyWeRecommend: [
       "Memberikan kesan segar tanpa perawatan",
       "Daun terlihat realistis",
       "Cocok sebagai dekorasi berbagai ruangan",
     ],
 
-    bestFor: [
-      "Ruang Tamu",
-      "Kantor",
-      "Meja Kerja",
-    ],
+    bestFor: ["Ruang Tamu", "Kantor", "Meja Kerja"],
 
     considerations: [
       "Perlu dibersihkan dari debu secara berkala",
@@ -188,10 +176,10 @@ const products = [
   },
 
   {
-   id: 4,
-   room: "kitchen",
-   category: "rak-bumbu",
-   slug: "rak-bumbu-dapur",
+    id: 4,
+    room: "kitchen",
+    category: "rak-bumbu",
+    slug: "rak-bumbu-dapur",
 
     name: "Rak Bumbu Dapur",
 
@@ -209,15 +197,10 @@ const products = [
 
     affiliateLink: "#",
 
-        description:
+    description:
       "Rak bumbu dapur bertingkat untuk menyusun bumbu masak agar dapur tetap bersih dan mudah dijangkau.",
 
-    features: [
-      "2 Tingkat",
-      "Anti Karat",
-      "Mudah Dibersihkan",
-      "Hemat Ruang",
-    ],
+    features: ["2 Tingkat", "Anti Karat", "Mudah Dibersihkan", "Hemat Ruang"],
 
     specifications: {
       material: "Besi Powder Coating",
@@ -226,17 +209,13 @@ const products = [
       tingkat: "2",
     },
 
-        whyWeRecommend: [
+    whyWeRecommend: [
       "Membuat dapur lebih rapi dan terorganisir",
       "Material tahan karat untuk penggunaan jangka panjang",
       "Menghemat ruang di meja dapur",
     ],
 
-    bestFor: [
-      "Dapur Minimalis",
-      "Rumah Tangga",
-      "Apartemen",
-    ],
+    bestFor: ["Dapur Minimalis", "Rumah Tangga", "Apartemen"],
 
     considerations: [
       "Rakit terlebih dahulu sebelum digunakan",

@@ -5,6 +5,7 @@ Semua perubahan penting pada project akan dicatat di sini.
 ---
 
 # Checkpoint 0.8
+
 Tanggal: 18 Juli 2026
 
 ## ✨ Added
@@ -25,6 +26,7 @@ Tanggal: 18 Juli 2026
 ---
 
 # Checkpoint 0.9
+
 Tanggal: 19 Juli 2026
 
 ## ✨ Added
@@ -54,6 +56,7 @@ Tanggal: 19 Juli 2026
 ---
 
 # Checkpoint 1.0
+
 Tanggal: 19 Juli 2026
 
 ## ✨ Added
@@ -79,6 +82,7 @@ Tanggal: 19 Juli 2026
 ---
 
 # Checkpoint 1.1
+
 Tanggal: 21 Juli 2026
 
 ## 🎨 Improved
@@ -105,6 +109,7 @@ Tanggal: 21 Juli 2026
 - Favorite logic
 
 ## Added
+
 - Add roomCategories data
 - Prepare room → category navigation
 - Blueprint Alive BP-03
@@ -112,24 +117,28 @@ Tanggal: 21 Juli 2026
 ## [0.6] - Blueprint Navigation System
 
 ### Added
+
 - Room navigation data
 - Room category mapping
 - Category selection state
 - Dynamic category rendering
 
 ### Changed
+
 - Refactored product data structure
 - Added room field
 - Updated category to blueprint-based structure
 - Reset selected category when room changes
 
 ### Improved
+
 - Consistent product object convention
 - Better foundation for product filtering engine
 
 ## [0.7]
 
 ### Added
+
 - Active room selection
 - Active category selection
 - Product filtering system
@@ -137,10 +146,12 @@ Tanggal: 21 Juli 2026
 - Empty state for unavailable products
 
 ### Improved
+
 - Blueprint navigation flow
 - Room & category interaction
 - UI feedback for selected items
 
 ### Refactored
+
 - Product data structure
 - Category filtering logic

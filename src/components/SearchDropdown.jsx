@@ -61,7 +61,6 @@ function SearchDropdown() {
   return (
     <div className="relative w-full">
       <div className="relative">
-
         <Search
           size={18}
           className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
@@ -74,12 +73,10 @@ function SearchDropdown() {
           onChange={handleChange}
           className="w-full rounded-full border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-emerald-500 hover:bg-green-50"
         />
-
       </div>
 
-            {keyword && (
+      {keyword && (
         <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
-
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <Link
@@ -95,34 +92,31 @@ function SearchDropdown() {
                 />
 
                 <div className="min-w-0 flex-1">
+                  <h3 className="truncate text-sm font-semibold text-slate-800">
+                    {highlightText(product.name, keyword)}
+                  </h3>
 
-  <h3 className="truncate text-sm font-semibold text-slate-800">
-    {highlightText(product.name, keyword)}
-  </h3>
-
-  <p className="mt-1 text-xs text-slate-500">
-    {highlightText(product.category, keyword)}
-    <span className="mx-1">•</span>
-    <span className="font-semibold text-emerald-600">
-      {product.price}
-    </span>
-  </p>
-
-</div>
+                  <p className="mt-1 text-xs text-slate-500">
+                    {highlightText(product.category, keyword)}
+                    <span className="mx-1">•</span>
+                    <span className="font-semibold text-emerald-600">
+                      {product.price}
+                    </span>
+                  </p>
+                </div>
               </Link>
             ))
           ) : (
             <div className="p-5 text-center">
-  <p className="font-medium text-slate-700">
-    Produk tidak ditemukan
-  </p>
+              <p className="font-medium text-slate-700">
+                Produk tidak ditemukan
+              </p>
 
-  <p className="mt-1 text-xs text-slate-500">
-    Coba gunakan kata kunci lain.
-  </p>
-</div>
+              <p className="mt-1 text-xs text-slate-500">
+                Coba gunakan kata kunci lain.
+              </p>
+            </div>
           )}
-
         </div>
       )}
     </div>

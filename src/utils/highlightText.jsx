@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
@@ -25,6 +24,6 @@ export default function highlightText(text, keyword) {
       </mark>
     ) : (
       part
-    )
+    ),
   );
 }

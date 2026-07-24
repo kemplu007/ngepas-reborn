@@ -16,8 +16,7 @@ import { Link } from "react-router-dom";
 import { Menu, Search, Heart, ShoppingCart } from "lucide-react";
 import navigation from "../data/navigation";
 import MenuItem from "./MenuItem";
-import SearchDropdown from "./SearchDropdown"
-
+import SearchDropdown from "./SearchDropdown";
 
 /*==================================================
  COMPONENT

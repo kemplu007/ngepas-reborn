@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
@@ -16,45 +15,15 @@
 ==================================================*/
 
 const roomCategories = {
-  bedroom: [
-    "kasur",
-    "lemari",
-    "lampu-tidur",
-    "meja",
-    "karpet",
-  ],
+  bedroom: ["kasur", "lemari", "lampu-tidur", "meja", "karpet"],
 
-  "living-room": [
-  "sofa",
-  "meja-tv",
-  "rak",
-  "karpet",
-  "lampu",
-],
+  "living-room": ["sofa", "meja-tv", "rak", "karpet", "lampu"],
 
-  kitchen: [
-  "kompor",
-  "rice-cooker",
-  "piring",
-  "wajan",
-  "rak-bumbu",
-],
+  kitchen: ["kompor", "rice-cooker", "piring", "wajan", "rak-bumbu"],
 
-  bathroom: [
-    "shower",
-    "rak-kamar-mandi",
-    "cermin",
-    "keset",
-    "handuk",
-  ],
+  bathroom: ["shower", "rak-kamar-mandi", "cermin", "keset", "handuk"],
 
-  workspace: [
-    "meja",
-    "kursi",
-    "monitor",
-    "lampu-meja",
-    "rak",
-  ],
+  workspace: ["meja", "kursi", "monitor", "lampu-meja", "rak"],
 };
 
 /*==================================================
