@@ -18,19 +18,19 @@ import { useProducts } from "../context/ProductContext";
 ==================================================*/
 
 /*
-Halaman untuk menampilkan seluruh produk
-yang tersimpan di data Ngepas.
+Halaman untuk mengelola seluruh produk
+yang tersimpan di shared product state.
 
-Untuk tahap ini halaman masih READ ONLY.
+Fitur aktif:
+- Menampilkan produk
+- Tambah produk
+- Hapus produk
 
 Fitur berikutnya:
-- Tambah produk
 - Edit produk
-- Hapus produk
 */
 
 function AdminProducts() {
-
   /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
@@ -42,7 +42,7 @@ function AdminProducts() {
   dapat langsung muncul tanpa membaca products.js lagi.
   */
 
-  const { products } = useProducts();
+  const { products, deleteProduct } = useProducts();
 
   return (
     <section>
@@ -159,32 +159,41 @@ function AdminProducts() {
             ==============================================*/}
 
             <div className="mt-4 flex gap-2 border-t border-slate-100 pt-4">
-              <button
-                type="button"
+              <Link
+                to={`/admin/products/${product.id}/edit`}
                 className="
-                  flex
-                  flex-1
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-xl
-                  border
-                  border-slate-200
-                  px-4
-                  py-2
-                  text-sm
-                  font-semibold
-                  text-slate-600
-                  transition
-                  hover:bg-slate-50
-                "
+    flex
+    flex-1
+    items-center
+    justify-center
+    gap-2
+    rounded-xl
+    border
+    border-slate-200
+    px-4
+    py-2
+    text-sm
+    font-semibold
+    text-slate-600
+    transition
+    hover:bg-slate-50
+  "
               >
                 <Pencil size={16} />
                 Edit
-              </button>
+              </Link>
 
               <button
                 type="button"
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    `Yakin mau hapus "${product.name}"?`,
+                  );
+
+                  if (confirmed) {
+                    deleteProduct(product.id);
+                  }
+                }}
                 className="
                   flex
                   flex-1

@@ -49,6 +49,12 @@ function App() {
           <Route path="products" element={<AdminProducts />} />
 
           <Route path="products/new" element={<AdminProductForm />} />
+
+          {/*==============================================
+ EDIT PRODUCT
+==============================================*/}
+
+          <Route path="products/:id/edit" element={<AdminProductForm />} />
         </Route>
       </Routes>
     </ProductProvider>

@@ -35,11 +35,55 @@ export function ProductProvider({ children }) {
     setProducts((currentProducts) => [...currentProducts, newProduct]);
   };
 
+  /*==================================================
+   DELETE PRODUCT
+  ==================================================*/
+
+  /*
+  Menghapus produk berdasarkan ID.
+
+  Product dengan ID yang sesuai akan
+  dikeluarkan dari shared product state.
+  */
+
+  const deleteProduct = (productId) => {
+    setProducts((currentProducts) =>
+      currentProducts.filter((product) => product.id !== productId),
+    );
+  };
+
+  /*==================================================
+   UPDATE PRODUCT
+  ==================================================*/
+
+  /*
+  Memperbarui data produk berdasarkan ID.
+
+  Product dengan ID yang sesuai akan diganti
+  dengan data terbaru dari Admin Product Form.
+  */
+
+  const updateProduct = (productId, updatedProduct) => {
+    setProducts((currentProducts) =>
+      currentProducts.map((product) =>
+        product.id === productId
+          ? {
+              ...product,
+              ...updatedProduct,
+              id: product.id,
+            }
+          : product,
+      ),
+    );
+  };
+
   return (
     <ProductContext.Provider
       value={{
         products,
         addProduct,
+        deleteProduct,
+        updateProduct,
       }}
     >
       {children}

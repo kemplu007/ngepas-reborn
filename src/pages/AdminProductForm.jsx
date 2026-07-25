@@ -9,12 +9,13 @@
  IMPORT
 ==================================================*/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Save } from "lucide-react";
 
 import rooms from "../data/rooms";
 import roomCategories from "../data/roomCategories";
 import { useProducts } from "../context/ProductContext";
+import { useParams } from "react-router-dom";
 
 /*==================================================
  INITIAL FORM DATA
@@ -48,18 +49,78 @@ const initialFormData = {
 ==================================================*/
 
 function AdminProductForm() {
+  /*==================================================
+   ROUTE PARAMETER
+  ==================================================*/
+
+  /*
+  Mengambil ID produk dari URL.
+
+  Jika ID tersedia, form berjalan dalam EDIT MODE.
+  Jika ID tidak tersedia, form berjalan dalam CREATE MODE.
+  */
+
+  const { id } = useParams();
 
   /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
 
-  const { addProduct } = useProducts();
+  const { products, addProduct, updateProduct } = useProducts();
+
+  /*==================================================
+   EDIT PRODUCT DATA
+  ==================================================*/
+
+  /*
+  Mencari produk berdasarkan ID dari URL.
+
+  Route parameter berbentuk string,
+  sehingga ID dikonversi menjadi Number.
+  */
+
+  const editingProduct = products.find((product) => product.id === Number(id));
+
+  const isEditMode = Boolean(id);
 
   /*==================================================
    FORM STATE
   ==================================================*/
 
   const [formData, setFormData] = useState(initialFormData);
+
+  /*==================================================
+   LOAD EDIT PRODUCT
+  ==================================================*/
+
+  /*
+  Mengisi form dengan data produk
+  ketika halaman berjalan dalam EDIT MODE.
+
+  Harga dikembalikan menjadi angka
+  agar dapat digunakan oleh input type="number".
+  */
+
+  useEffect(() => {
+    if (!editingProduct) return;
+
+    setFormData({
+      name: editingProduct.name || "",
+      room: editingProduct.room || "",
+      category: editingProduct.category || "",
+      image: editingProduct.image || "",
+
+      price: editingProduct.price?.replace(/\D/g, "") || "",
+
+      originalPrice: editingProduct.originalPrice?.replace(/\D/g, "") || "",
+
+      discount: editingProduct.discount ?? "",
+      rating: editingProduct.rating ?? "",
+      sold: editingProduct.sold ?? "",
+      stock: editingProduct.stock ?? "",
+      affiliateLink: editingProduct.affiliateLink || "",
+    });
+  }, [editingProduct]);
 
   /*==================================================
    INPUT HANDLER
@@ -102,7 +163,7 @@ function AdminProductForm() {
     }));
   };
 
-    /*==================================================
+  /*==================================================
    FORM SUBMIT
   ==================================================*/
 
@@ -117,10 +178,7 @@ function AdminProductForm() {
     const newProduct = {
       ...formData,
 
-      slug: formData.name
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, "-"),
+      slug: formData.name.toLowerCase().trim().replace(/\s+/g, "-"),
 
       price: `Rp${Number(formData.price).toLocaleString("id-ID")}`,
 
@@ -133,20 +191,29 @@ function AdminProductForm() {
       sold: Number(formData.sold) || 0,
       stock: Number(formData.stock) || 0,
 
-      featured: false,
+      featured: editingProduct?.featured ?? false,
 
-      description: "",
-      features: [],
-      specifications: {},
-      whyWeRecommend: [],
-      bestFor: [],
-      considerations: [],
+      description: editingProduct?.description ?? "",
+      features: editingProduct?.features ?? [],
+      specifications: editingProduct?.specifications ?? {},
+      whyWeRecommend: editingProduct?.whyWeRecommend ?? [],
+      bestFor: editingProduct?.bestFor ?? [],
+      considerations: editingProduct?.considerations ?? [],
     };
 
-    addProduct(newProduct);
+    /*==================================================
+ CREATE / UPDATE PRODUCT
+==================================================*/
 
-    setFormData(initialFormData);
+    if (isEditMode && editingProduct) {
+      updateProduct(editingProduct.id, newProduct);
+    } else {
+      addProduct(newProduct);
+
+      setFormData(initialFormData);
+    }
   };
+
   /*==================================================
    PRODUCT FORM UI
   ==================================================*/
@@ -163,11 +230,13 @@ function AdminProductForm() {
         </p>
 
         <h1 className="mt-1 text-3xl font-bold text-slate-900">
-          Tambah Produk
+          {isEditMode ? "Edit Produk" : "Tambah Produk"}
         </h1>
 
         <p className="mt-2 text-slate-500">
-          Tambahkan produk baru ke katalog Ngepas.
+          {isEditMode
+            ? "Perbarui data produk yang dipilih."
+            : "Tambahkan produk baru ke katalog Ngepas."}
         </p>
       </div>
 
@@ -330,10 +399,10 @@ function AdminProductForm() {
           <input
             id="image"
             name="image"
-            type="url"
+            type="text"
             value={formData.image}
             onChange={handleChange}
-            placeholder="https://..."
+            placeholder="url atau text"
             className="
       mt-2
       w-full
@@ -542,7 +611,8 @@ function AdminProductForm() {
           "
         >
           <Save size={18} />
-          Simpan Produk
+
+          {isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
         </button>
       </form>
     </section>

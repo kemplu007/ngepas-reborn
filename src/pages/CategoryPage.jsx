@@ -16,8 +16,7 @@ import ProductCard from "../components/ProductCard";
 ==================================================*/
 
 const CategoryPage = () => {
-
-    /*==================================================
+  /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
 
@@ -28,7 +27,6 @@ const CategoryPage = () => {
 
   const { products } = useProducts();
 
-  
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
