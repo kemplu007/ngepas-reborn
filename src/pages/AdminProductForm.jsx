@@ -49,6 +49,7 @@ const initialFormData = {
 ==================================================*/
 
 function AdminProductForm() {
+
   /*==================================================
    ROUTE PARAMETER
   ==================================================*/
@@ -61,6 +62,7 @@ function AdminProductForm() {
   */
 
   const { id } = useParams();
+  
 
   /*==================================================
    PRODUCT CONTEXT
@@ -68,7 +70,7 @@ function AdminProductForm() {
 
   const { products, addProduct, updateProduct } = useProducts();
 
-  /*==================================================
+    /*==================================================
    EDIT PRODUCT DATA
   ==================================================*/
 
@@ -79,7 +81,9 @@ function AdminProductForm() {
   sehingga ID dikonversi menjadi Number.
   */
 
-  const editingProduct = products.find((product) => product.id === Number(id));
+  const editingProduct = products.find(
+    (product) => product.id === Number(id)
+  );
 
   const isEditMode = Boolean(id);
 
@@ -89,7 +93,7 @@ function AdminProductForm() {
 
   const [formData, setFormData] = useState(initialFormData);
 
-  /*==================================================
+    /*==================================================
    LOAD EDIT PRODUCT
   ==================================================*/
 
@@ -110,9 +114,11 @@ function AdminProductForm() {
       category: editingProduct.category || "",
       image: editingProduct.image || "",
 
-      price: editingProduct.price?.replace(/\D/g, "") || "",
+      price:
+        editingProduct.price?.replace(/\D/g, "") || "",
 
-      originalPrice: editingProduct.originalPrice?.replace(/\D/g, "") || "",
+      originalPrice:
+        editingProduct.originalPrice?.replace(/\D/g, "") || "",
 
       discount: editingProduct.discount ?? "",
       rating: editingProduct.rating ?? "",
@@ -163,7 +169,7 @@ function AdminProductForm() {
     }));
   };
 
-  /*==================================================
+    /*==================================================
    FORM SUBMIT
   ==================================================*/
 
@@ -178,7 +184,10 @@ function AdminProductForm() {
     const newProduct = {
       ...formData,
 
-      slug: formData.name.toLowerCase().trim().replace(/\s+/g, "-"),
+      slug: formData.name
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-"),
 
       price: `Rp${Number(formData.price).toLocaleString("id-ID")}`,
 
@@ -193,28 +202,32 @@ function AdminProductForm() {
 
       featured: editingProduct?.featured ?? false,
 
-      description: editingProduct?.description ?? "",
-      features: editingProduct?.features ?? [],
-      specifications: editingProduct?.specifications ?? {},
-      whyWeRecommend: editingProduct?.whyWeRecommend ?? [],
-      bestFor: editingProduct?.bestFor ?? [],
-      considerations: editingProduct?.considerations ?? [],
+description: editingProduct?.description ?? "",
+features: editingProduct?.features ?? [],
+specifications: editingProduct?.specifications ?? {},
+whyWeRecommend: editingProduct?.whyWeRecommend ?? [],
+bestFor: editingProduct?.bestFor ?? [],
+considerations: editingProduct?.considerations ?? [],
     };
 
     /*==================================================
  CREATE / UPDATE PRODUCT
 ==================================================*/
 
-    if (isEditMode && editingProduct) {
-      updateProduct(editingProduct.id, newProduct);
-    } else {
-      addProduct(newProduct);
+if (isEditMode && editingProduct) {
 
-      setFormData(initialFormData);
-    }
+  updateProduct(editingProduct.id, newProduct);
+
+} else {
+
+  addProduct(newProduct);
+
+  setFormData(initialFormData);
+
+}
   };
 
-  /*==================================================
+    /*==================================================
    PRODUCT FORM UI
   ==================================================*/
 
@@ -225,20 +238,20 @@ function AdminProductForm() {
       ==============================================*/}
 
       <div>
-        <p className="text-sm font-semibold text-emerald-600">
-          Product Management
-        </p>
+  <p className="text-sm font-semibold text-emerald-600">
+    Product Management
+  </p>
 
-        <h1 className="mt-1 text-3xl font-bold text-slate-900">
-          {isEditMode ? "Edit Produk" : "Tambah Produk"}
-        </h1>
+  <h1 className="mt-1 text-3xl font-bold text-slate-900">
+    {isEditMode ? "Edit Produk" : "Tambah Produk"}
+  </h1>
 
-        <p className="mt-2 text-slate-500">
-          {isEditMode
-            ? "Perbarui data produk yang dipilih."
-            : "Tambahkan produk baru ke katalog Ngepas."}
-        </p>
-      </div>
+  <p className="mt-2 text-slate-500">
+    {isEditMode
+      ? "Perbarui data produk yang dipilih."
+      : "Tambahkan produk baru ke katalog Ngepas."}
+  </p>
+</div>
 
       {/*==============================================
        PRODUCT FORM
@@ -612,7 +625,7 @@ function AdminProductForm() {
         >
           <Save size={18} />
 
-          {isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
+{isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
         </button>
       </form>
     </section>

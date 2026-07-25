@@ -34,7 +34,7 @@ export function ProductProvider({ children }) {
 
     setProducts((currentProducts) => [...currentProducts, newProduct]);
   };
-
+  
   /*==================================================
    DELETE PRODUCT
   ==================================================*/
@@ -48,7 +48,9 @@ export function ProductProvider({ children }) {
 
   const deleteProduct = (productId) => {
     setProducts((currentProducts) =>
-      currentProducts.filter((product) => product.id !== productId),
+      currentProducts.filter(
+        (product) => product.id !== productId
+      )
     );
   };
 
@@ -72,8 +74,8 @@ export function ProductProvider({ children }) {
               ...updatedProduct,
               id: product.id,
             }
-          : product,
-      ),
+          : product
+      )
     );
   };
 
@@ -91,6 +93,7 @@ export function ProductProvider({ children }) {
   );
 }
 
+  
 /*==================================================
  PRODUCT HOOK
 ==================================================*/
