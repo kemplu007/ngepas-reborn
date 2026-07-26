@@ -42,6 +42,7 @@ const initialFormData = {
   sold: "",
   stock: "",
   affiliateLink: "",
+  featured: false,
 };
 
 /*==================================================
@@ -119,6 +120,7 @@ function AdminProductForm() {
       sold: editingProduct.sold ?? "",
       stock: editingProduct.stock ?? "",
       affiliateLink: editingProduct.affiliateLink || "",
+      featured: editingProduct.featured ?? false,
     });
   }, [editingProduct]);
 
@@ -132,13 +134,13 @@ function AdminProductForm() {
   */
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+  const { name, value, type, checked } = event.target;
 
-    setFormData((currentData) => ({
-      ...currentData,
-      [name]: value,
-    }));
-  };
+  setFormData((currentData) => ({
+    ...currentData,
+    [name]: type === "checkbox" ? checked : value,
+  }));
+};
 
   /*==================================================
    ROOM HANDLER
@@ -191,7 +193,7 @@ function AdminProductForm() {
       sold: Number(formData.sold) || 0,
       stock: Number(formData.stock) || 0,
 
-      featured: editingProduct?.featured ?? false,
+      featured: formData.featured,
 
       description: editingProduct?.description ?? "",
       features: editingProduct?.features ?? [],
@@ -588,6 +590,31 @@ function AdminProductForm() {
           />
         </div>
 
+        {/*==============================================
+ FEATURED PRODUCT
+==============================================*/}
+
+<div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+  <label className="flex cursor-pointer items-center gap-3">
+    <input
+      name="featured"
+      type="checkbox"
+      checked={formData.featured}
+      onChange={handleChange}
+      className="h-5 w-5 accent-emerald-600"
+    />
+
+    <div>
+      <p className="font-semibold text-slate-700">
+        Tampilkan di Pilihan Ngepas
+      </p>
+
+      <p className="text-sm text-slate-500">
+        Produk akan ditampilkan sebagai rekomendasi di homepage.
+      </p>
+    </div>
+  </label>
+</div>
         {/*==============================================
          SUBMIT BUTTON
         ==============================================*/}

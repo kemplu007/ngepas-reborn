@@ -10,10 +10,9 @@
  IMPORTS
 ==================================================*/
 
-import { useState } from "react";
-import Categories from "./Categories";
 import ProductCard from "./ProductCard";
 import { useProducts } from "../context/ProductContext";
+
 /*==================================================
  FEATURED PRODUCTS
 ==================================================*/
@@ -25,21 +24,15 @@ function FeaturedProducts() {
   ==================================================*/
 
   const { products } = useProducts();
-  /*==================================================
-   STATE
-  ==================================================*/
 
-  const [activeCategory, setActiveCategory] = useState("All");
+  
+/*==================================================
+ FEATURED PRODUCTS DATA
+==================================================*/
 
-  /*==================================================
-   FILTER PRODUCTS
-  ==================================================*/
-
-  const filteredProducts =
-    activeCategory === "All"
-      ? products
-      : products.filter((product) => product.category === activeCategory);
-
+const featuredProducts = products.filter(
+  (product) => product.featured === true
+);
   /*==================================================
    UI
   ==================================================*/
@@ -56,7 +49,7 @@ function FeaturedProducts() {
 
       <div className="mx-auto mb-8 max-w-2xl text-center">
         <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-          ✨ 5 Pilihan Ngepas
+          ✨ Pilihan Ngepas
         </h2>
 
         <p className="mt-4 text-slate-600">
@@ -69,19 +62,14 @@ function FeaturedProducts() {
         CATEGORY FILTER
       ==================================================*/}
 
-      <Categories
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
-      />
-
       {/*==================================================
         PRODUCT GRID
       ==================================================*/}
 
       <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {featuredProducts.map((product) => (
+  <ProductCard key={product.id} product={product} />
+))}
       </div>
     </section>
   );
