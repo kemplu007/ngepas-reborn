@@ -54,10 +54,7 @@ function App() {
  EDIT PRODUCT
 ==============================================*/}
 
-<Route
-  path="products/:id/edit"
-  element={<AdminProductForm />}
-/>
+          <Route path="products/:id/edit" element={<AdminProductForm />} />
         </Route>
       </Routes>
     </ProductProvider>

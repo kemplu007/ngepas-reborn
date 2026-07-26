@@ -31,7 +31,6 @@ Fitur berikutnya:
 */
 
 function AdminProducts() {
-
   /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
@@ -161,8 +160,8 @@ function AdminProducts() {
 
             <div className="mt-4 flex gap-2 border-t border-slate-100 pt-4">
               <Link
-  to={`/admin/products/${product.id}/edit`}
-  className="
+                to={`/admin/products/${product.id}/edit`}
+                className="
     flex
     flex-1
     items-center
@@ -179,21 +178,21 @@ function AdminProducts() {
     transition
     hover:bg-slate-50
   "
->
-  <Pencil size={16} />
-  Edit
-</Link>
+              >
+                <Pencil size={16} />
+                Edit
+              </Link>
 
               <button
                 type="button"
                 onClick={() => {
-    const confirmed = window.confirm(
-      `Yakin mau hapus "${product.name}"?`
-    );
+                  const confirmed = window.confirm(
+                    `Yakin mau hapus "${product.name}"?`,
+                  );
 
-    if (confirmed) {
-      deleteProduct(product.id);
-    }
+                  if (confirmed) {
+                    deleteProduct(product.id);
+                  }
                 }}
                 className="
                   flex

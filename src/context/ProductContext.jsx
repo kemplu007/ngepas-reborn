@@ -5,7 +5,7 @@
  Module  : Context
 ==================================================*/
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import initialProducts from "../data/products";
 
@@ -20,8 +20,28 @@ const ProductContext = createContext(null);
 ==================================================*/
 
 export function ProductProvider({ children }) {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState(() => {
+    const savedProducts = localStorage.getItem("ngepas-products");
 
+    if (savedProducts) {
+      return JSON.parse(savedProducts);
+    }
+
+    return initialProducts;
+  });
+
+  /*==================================================
+ SAVE PRODUCTS TO LOCAL STORAGE
+==================================================*/
+
+  /*
+Menyimpan products setiap kali
+data produk mengalami perubahan.
+*/
+
+  useEffect(() => {
+    localStorage.setItem("ngepas-products", JSON.stringify(products));
+  }, [products]);
   /*==================================================
    ADD PRODUCT
   ==================================================*/
@@ -34,7 +54,7 @@ export function ProductProvider({ children }) {
 
     setProducts((currentProducts) => [...currentProducts, newProduct]);
   };
-  
+
   /*==================================================
    DELETE PRODUCT
   ==================================================*/
@@ -48,9 +68,7 @@ export function ProductProvider({ children }) {
 
   const deleteProduct = (productId) => {
     setProducts((currentProducts) =>
-      currentProducts.filter(
-        (product) => product.id !== productId
-      )
+      currentProducts.filter((product) => product.id !== productId),
     );
   };
 
@@ -74,8 +92,8 @@ export function ProductProvider({ children }) {
               ...updatedProduct,
               id: product.id,
             }
-          : product
-      )
+          : product,
+      ),
     );
   };
 
@@ -93,7 +111,6 @@ export function ProductProvider({ children }) {
   );
 }
 
-  
 /*==================================================
  PRODUCT HOOK
 ==================================================*/
