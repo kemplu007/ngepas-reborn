@@ -13,13 +13,18 @@
 import { useState } from "react";
 import Categories from "./Categories";
 import ProductCard from "./ProductCard";
-import products from "../data/products";
-
+import { useProducts } from "../context/ProductContext";
 /*==================================================
  FEATURED PRODUCTS
 ==================================================*/
 
 function FeaturedProducts() {
+
+    /*==================================================
+   PRODUCT CONTEXT
+  ==================================================*/
+
+  const { products } = useProducts();
   /*==================================================
    STATE
   ==================================================*/

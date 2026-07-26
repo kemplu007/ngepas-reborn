@@ -13,8 +13,7 @@
 
 import { ArrowLeft, Star } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-
-import products from "../data/products";
+import { useProducts } from "../context/ProductContext";
 import ProductCard from "../components/ProductCard";
 
 /*==================================================
@@ -22,6 +21,18 @@ import ProductCard from "../components/ProductCard";
 ==================================================*/
 
 function ProductDetail() {
+
+    /*==================================================
+   PRODUCT CONTEXT
+  ==================================================*/
+
+  /*
+  Mengambil seluruh produk dari shared ProductContext
+  agar Product Detail menggunakan sumber data yang sama
+  dengan Admin dan halaman website lainnya.
+  */
+
+  const { products } = useProducts();
   /*==================================================
   GET URL PARAMETER
   ==================================================*/

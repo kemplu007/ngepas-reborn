@@ -20,28 +20,32 @@ const ProductContext = createContext(null);
 ==================================================*/
 
 export function ProductProvider({ children }) {
+  
   const [products, setProducts] = useState(() => {
-    const savedProducts = localStorage.getItem("ngepas-products");
+  const savedProducts = localStorage.getItem("ngepas-products");
 
-    if (savedProducts) {
-      return JSON.parse(savedProducts);
-    }
+  if (savedProducts) {
+    return JSON.parse(savedProducts);
+  }
 
-    return initialProducts;
-  });
+  return initialProducts;
+});
 
   /*==================================================
  SAVE PRODUCTS TO LOCAL STORAGE
 ==================================================*/
 
-  /*
+/*
 Menyimpan products setiap kali
 data produk mengalami perubahan.
 */
 
-  useEffect(() => {
-    localStorage.setItem("ngepas-products", JSON.stringify(products));
-  }, [products]);
+useEffect(() => {
+  localStorage.setItem(
+    "ngepas-products",
+    JSON.stringify(products)
+  );
+}, [products]);
   /*==================================================
    ADD PRODUCT
   ==================================================*/
@@ -54,7 +58,7 @@ data produk mengalami perubahan.
 
     setProducts((currentProducts) => [...currentProducts, newProduct]);
   };
-
+  
   /*==================================================
    DELETE PRODUCT
   ==================================================*/
@@ -68,7 +72,9 @@ data produk mengalami perubahan.
 
   const deleteProduct = (productId) => {
     setProducts((currentProducts) =>
-      currentProducts.filter((product) => product.id !== productId),
+      currentProducts.filter(
+        (product) => product.id !== productId
+      )
     );
   };
 
@@ -92,8 +98,8 @@ data produk mengalami perubahan.
               ...updatedProduct,
               id: product.id,
             }
-          : product,
-      ),
+          : product
+      )
     );
   };
 
@@ -111,6 +117,7 @@ data produk mengalami perubahan.
   );
 }
 
+  
 /*==================================================
  PRODUCT HOOK
 ==================================================*/
