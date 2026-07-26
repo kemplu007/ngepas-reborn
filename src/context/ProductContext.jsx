@@ -101,7 +101,24 @@ useEffect(() => {
           : product
       )
     );
+    
   };
+
+  /*==================================================
+ RESET PRODUCTS
+==================================================*/
+
+/*
+Mengembalikan seluruh data produk
+ke data awal dari products.js.
+
+Digunakan selama development untuk
+membersihkan perubahan dari localStorage.
+*/
+
+const resetProducts = () => {
+  setProducts(initialProducts);
+};
 
   return (
     <ProductContext.Provider
@@ -110,6 +127,7 @@ useEffect(() => {
         addProduct,
         deleteProduct,
         updateProduct,
+        resetProducts,
       }}
     >
       {children}

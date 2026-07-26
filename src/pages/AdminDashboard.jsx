@@ -16,8 +16,7 @@ import { useProducts } from "../context/ProductContext";
 ==================================================*/
 
 function AdminDashboard() {
-
-    /*==================================================
+  /*==================================================
    PRODUCT DATA
   ==================================================*/
 
@@ -27,7 +26,7 @@ function AdminDashboard() {
   perubahan produk dari Admin Panel.
   */
 
-  const { products } = useProducts();
+  const { products, resetProducts } = useProducts();
 
   const totalProducts = products.length;
 
@@ -35,24 +34,21 @@ function AdminDashboard() {
  ROOM & CATEGORY STATS
 ==================================================*/
 
-/*
+  /*
 Menghitung jumlah room dan category unik
 yang digunakan oleh produk.
 */
 
-const totalRooms = new Set(
-  products.map((product) => product.room)
-).size;
+  const totalRooms = new Set(products.map((product) => product.room)).size;
 
-const totalCategories = new Set(
-  products.map((product) => product.category)
-).size;
+  const totalCategories = new Set(products.map((product) => product.category))
+    .size;
 
   /*==================================================
  LATEST PRODUCTS
 ==================================================*/
 
-/*
+  /*
 Mengambil maksimal 3 produk terakhir.
 
 slice(-3) mengambil 3 data paling belakang,
@@ -60,17 +56,13 @@ kemudian reverse() membalik urutannya
 agar produk paling baru tampil pertama.
 */
 
-const latestProducts = [...products]
-  .slice(-3)
-  .reverse();
+  const latestProducts = [...products].slice(-3).reverse();
 
-  
   return (
     <main className="min-h-screen bg-slate-50">
       {/*==============================================
        ADMIN HEADER
       ==============================================*/}
-
       <section className="mx-auto max-w-7xl px-4 py-10">
         <p className="text-sm font-semibold text-emerald-600">Ngepas Admin</p>
 
@@ -80,12 +72,11 @@ const latestProducts = [...products]
           Kelola produk dan data Ngepas dari satu tempat.
         </p>
       </section>
-
       {/*==============================================
  DASHBOARD STATS
 ==============================================*/}
-
-<div className="
+      <div
+        className="
   mx-auto
   max-w-7xl
   px-4
@@ -94,14 +85,14 @@ const latestProducts = [...products]
   gap-4
   sm:grid-cols-2
   lg:grid-cols-4
-">
-
-  {/*============================================
+"
+      >
+        {/*============================================
    TOTAL PRODUCTS
   ============================================*/}
 
-  <div
-    className="
+        <div
+          className="
       rounded-2xl
       border
       border-slate-200
@@ -109,24 +100,20 @@ const latestProducts = [...products]
       p-5
       shadow-sm
     "
-  >
-    <p className="text-sm font-medium text-slate-500">
-      Total Produk
-    </p>
+        >
+          <p className="text-sm font-medium text-slate-500">Total Produk</p>
 
-    <p className="mt-2 text-3xl font-bold text-slate-900">
-      {totalProducts}
-    </p>
-  </div>
+          <p className="mt-2 text-3xl font-bold text-slate-900">
+            {totalProducts}
+          </p>
+        </div>
 
-</div>
-
-      {/*============================================
+        {/*============================================
  TOTAL ROOMS
 ============================================*/}
 
-<div
-  className="
+        <div
+          className="
     rounded-2xl
     border
     border-slate-200
@@ -134,22 +121,18 @@ const latestProducts = [...products]
     p-5
     shadow-sm
   "
->
-  <p className="text-sm font-medium text-slate-500">
-    Total Ruangan
-  </p>
+        >
+          <p className="text-sm font-medium text-slate-500">Total Ruangan</p>
 
-  <p className="mt-2 text-3xl font-bold text-slate-900">
-    {totalRooms}
-  </p>
-</div>
+          <p className="mt-2 text-3xl font-bold text-slate-900">{totalRooms}</p>
+        </div>
 
-{/*============================================
+        {/*============================================
  TOTAL CATEGORIES
 ============================================*/}
 
-<div
-  className="
+        <div
+          className="
     rounded-2xl
     border
     border-slate-200
@@ -157,49 +140,45 @@ const latestProducts = [...products]
     p-5
     shadow-sm
   "
->
-  <p className="text-sm font-medium text-slate-500">
-    Total Kategori
-  </p>
+        >
+          <p className="text-sm font-medium text-slate-500">Total Kategori</p>
 
-  <p className="mt-2 text-3xl font-bold text-slate-900">
-    {totalCategories}
-  </p>
-</div>
-
+          <p className="mt-2 text-3xl font-bold text-slate-900">
+            {totalCategories}
+          </p>
+        </div>
+      </div>{" "}
       {/*==============================================
  LATEST PRODUCTS
 ==============================================*/}
-
-<section className="mx-auto max-w-7xl px-4 py-10">
-
-  {/*============================================
+      <section className="mx-auto max-w-7xl px-4 py-10">
+        {/*============================================
    SECTION HEADER
   ============================================*/}
 
-  <div>
-    <p className="text-sm font-semibold text-emerald-600">
-      Product Activity
-    </p>
+        <div>
+          <p className="text-sm font-semibold text-emerald-600">
+            Product Activity
+          </p>
 
-    <h2 className="mt-1 text-2xl font-bold text-slate-900">
-      Produk Terbaru
-    </h2>
+          <h2 className="mt-1 text-2xl font-bold text-slate-900">
+            Produk Terbaru
+          </h2>
 
-    <p className="mt-2 text-slate-500">
-      Produk terbaru yang tersedia di katalog Ngepas.
-    </p>
-  </div>
+          <p className="mt-2 text-slate-500">
+            Produk terbaru yang tersedia di katalog Ngepas.
+          </p>
+        </div>
 
-  {/*============================================
+        {/*============================================
    PRODUCT LIST
   ============================================*/}
 
-  <div className="mt-6 space-y-3">
-    {latestProducts.map((product) => (
-      <div
-        key={product.id}
-        className="
+        <div className="mt-6 space-y-3">
+          {latestProducts.map((product) => (
+            <div
+              key={product.id}
+              className="
           flex
           items-center
           gap-4
@@ -210,60 +189,92 @@ const latestProducts = [...products]
           p-4
           shadow-sm
         "
-      >
-        {/* PRODUCT IMAGE */}
+            >
+              {/* PRODUCT IMAGE */}
 
-        <img
-          src={product.image}
-          alt={product.name}
-          className="
+              <img
+                src={product.image}
+                alt={product.name}
+                className="
             h-16
             w-16
             shrink-0
             rounded-xl
             object-cover
           "
-        />
+              />
 
-        {/* PRODUCT INFO */}
+              {/* PRODUCT INFO */}
 
-        <div className="min-w-0 flex-1">
-
-          <p className="
+              <div className="min-w-0 flex-1">
+                <p
+                  className="
             text-xs
             font-semibold
             uppercase
             text-emerald-600
-          ">
-            {product.room}
-          </p>
+          "
+                >
+                  {product.room}
+                </p>
 
-          <h3 className="
+                <h3
+                  className="
             truncate
             font-bold
             text-slate-900
-          ">
-            {product.name}
-          </h3>
+          "
+                >
+                  {product.name}
+                </h3>
 
-          <p className="
+                <p
+                  className="
             mt-1
             text-sm
             font-semibold
             text-slate-500
-          ">
-            {product.price}
+          "
+                >
+                  {product.price}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      {/*==============================================
+ DEVELOPMENT TOOLS
+==============================================*/}
+      <section className="mx-auto max-w-7xl px-4 pb-10">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="font-semibold text-slate-900">Development Tools</p>
+
+          <p className="mt-1 text-sm text-slate-500">
+            Kembalikan katalog ke data produk awal.
           </p>
 
+          <button
+            type="button"
+            onClick={resetProducts}
+            className="
+        mt-4
+        rounded-xl
+        bg-slate-900
+        px-4
+        py-2.5
+        text-sm
+        font-semibold
+        text-white
+        transition
+        hover:bg-slate-700
+      "
+          >
+            Reset Product Data
+          </button>
         </div>
-      </div>
-    ))}
-  </div>
-
-</section>
+      </section>
     </main>
-
-    
   );
 }
 
