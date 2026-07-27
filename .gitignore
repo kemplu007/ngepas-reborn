@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local SQLite database
+server/ngepas.db
+server/ngepas.db-shm
+server/ngepas.db-wal

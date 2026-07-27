@@ -32,6 +32,26 @@ export function ProductProvider({ children }) {
 });
 
   /*==================================================
+ LOAD PRODUCTS FROM BACKEND
+==================================================*/
+
+useEffect(() => {
+  fetch("http://localhost:3000/api/products")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Gagal mengambil produk");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      setProducts(data);
+    })
+    .catch((error) => {
+      console.error("Backend gagal dihubungi:", error);
+    });
+}, []);
+  /*==================================================
  SAVE PRODUCTS TO LOCAL STORAGE
 ==================================================*/
 
@@ -50,58 +70,96 @@ useEffect(() => {
    ADD PRODUCT
   ==================================================*/
 
-  const addProduct = (product) => {
-    const newProduct = {
-      ...product,
-      id: Date.now(),
-    };
+  const addProduct = async (product) => {
+  try {
+    const response = await fetch("http://localhost:3000/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    });
 
-    setProducts((currentProducts) => [...currentProducts, newProduct]);
-  };
+    if (!response.ok) {
+      throw new Error("Gagal menambahkan produk");
+    }
+
+    const newProduct = await response.json();
+
+    setProducts((currentProducts) => [
+      ...currentProducts,
+      newProduct,
+    ]);
+  } catch (error) {
+    console.error("Gagal menambahkan produk:", error);
+  }
+};
   
   /*==================================================
-   DELETE PRODUCT
-  ==================================================*/
+ DELETE PRODUCT FROM BACKEND
+==================================================*/
 
-  /*
-  Menghapus produk berdasarkan ID.
+const deleteProduct = async (productId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/products/${productId}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-  Product dengan ID yang sesuai akan
-  dikeluarkan dari shared product state.
-  */
+    if (!response.ok) {
+      throw new Error("Gagal menghapus produk");
+    }
 
-  const deleteProduct = (productId) => {
     setProducts((currentProducts) =>
       currentProducts.filter(
         (product) => product.id !== productId
       )
     );
-  };
-
-  /*==================================================
-   UPDATE PRODUCT
+  } catch (error) {
+    console.error("Gagal menghapus produk:", error);
+  }
+};
+    /*==================================================
+   UPDATE PRODUCT IN BACKEND
   ==================================================*/
 
   /*
-  Memperbarui data produk berdasarkan ID.
+  Memperbarui produk di backend berdasarkan ID.
 
-  Product dengan ID yang sesuai akan diganti
-  dengan data terbaru dari Admin Product Form.
+  Jika backend berhasil memperbarui produk,
+  state frontend ikut diperbarui menggunakan
+  data terbaru dari backend.
   */
 
-  const updateProduct = (productId, updatedProduct) => {
-    setProducts((currentProducts) =>
-      currentProducts.map((product) =>
-        product.id === productId
-          ? {
-              ...product,
-              ...updatedProduct,
-              id: product.id,
-            }
-          : product
-      )
-    );
-    
+  const updateProduct = async (productId, updatedProduct) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/products/${productId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedProduct),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Gagal memperbarui produk");
+      }
+
+      const savedProduct = await response.json();
+
+      setProducts((currentProducts) =>
+        currentProducts.map((product) =>
+          product.id === productId ? savedProduct : product
+        )
+      );
+    } catch (error) {
+      console.error("Gagal memperbarui produk:", error);
+    }
   };
 
   /*==================================================
