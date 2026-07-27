@@ -45,9 +45,9 @@ const productColumns = [
   ["description", "TEXT"],
   ["features", "TEXT"],
   ["specifications", "TEXT"],
-["whyWeRecommend", "TEXT"],
-["bestFor", "TEXT"],
-["considerations", "TEXT"],
+  ["whyWeRecommend", "TEXT"],
+  ["bestFor", "TEXT"],
+  ["considerations", "TEXT"],
 ];
 
 const existingColumns = db
@@ -57,9 +57,7 @@ const existingColumns = db
 
 for (const [columnName, columnType] of productColumns) {
   if (!existingColumns.includes(columnName)) {
-    db.exec(
-      `ALTER TABLE products ADD COLUMN ${columnName} ${columnType}`
-    );
+    db.exec(`ALTER TABLE products ADD COLUMN ${columnName} ${columnType}`);
 
     console.log(`Added product column: ${columnName}`);
   }

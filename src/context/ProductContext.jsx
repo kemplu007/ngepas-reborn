@@ -7,8 +7,6 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-import initialProducts from "../data/products";
-
 /*==================================================
  PRODUCT CONTEXT
 ==================================================*/
@@ -20,108 +18,83 @@ const ProductContext = createContext(null);
 ==================================================*/
 
 export function ProductProvider({ children }) {
-  
-  const [products, setProducts] = useState(() => {
-  const savedProducts = localStorage.getItem("ngepas-products");
-
-  if (savedProducts) {
-    return JSON.parse(savedProducts);
-  }
-
-  return initialProducts;
-});
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   /*==================================================
  LOAD PRODUCTS FROM BACKEND
 ==================================================*/
 
-useEffect(() => {
-  fetch("http://localhost:3000/api/products")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Gagal mengambil produk");
-      }
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil produk");
+        }
 
-      return response.json();
-    })
-    .then((data) => {
-      setProducts(data);
-    })
-    .catch((error) => {
-      console.error("Backend gagal dihubungi:", error);
-    });
-}, []);
-  /*==================================================
- SAVE PRODUCTS TO LOCAL STORAGE
-==================================================*/
-
-/*
-Menyimpan products setiap kali
-data produk mengalami perubahan.
-*/
-
-useEffect(() => {
-  localStorage.setItem(
-    "ngepas-products",
-    JSON.stringify(products)
-  );
-}, [products]);
+        return response.json();
+      })
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error("Backend gagal dihubungi:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
   /*==================================================
    ADD PRODUCT
   ==================================================*/
 
   const addProduct = async (product) => {
-  try {
-    const response = await fetch("http://localhost:3000/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(product),
-    });
+    try {
+      const response = await fetch("http://localhost:3000/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      });
 
-    if (!response.ok) {
-      throw new Error("Gagal menambahkan produk");
+      if (!response.ok) {
+        throw new Error("Gagal menambahkan produk");
+      }
+
+      const newProduct = await response.json();
+
+      setProducts((currentProducts) => [...currentProducts, newProduct]);
+    } catch (error) {
+      console.error("Gagal menambahkan produk:", error);
     }
+  };
 
-    const newProduct = await response.json();
-
-    setProducts((currentProducts) => [
-      ...currentProducts,
-      newProduct,
-    ]);
-  } catch (error) {
-    console.error("Gagal menambahkan produk:", error);
-  }
-};
-  
   /*==================================================
  DELETE PRODUCT FROM BACKEND
 ==================================================*/
 
-const deleteProduct = async (productId) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/products/${productId}`,
-      {
-        method: "DELETE",
+  const deleteProduct = async (productId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/products/${productId}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Gagal menghapus produk");
       }
-    );
 
-    if (!response.ok) {
-      throw new Error("Gagal menghapus produk");
+      setProducts((currentProducts) =>
+        currentProducts.filter((product) => product.id !== productId),
+      );
+    } catch (error) {
+      console.error("Gagal menghapus produk:", error);
     }
-
-    setProducts((currentProducts) =>
-      currentProducts.filter(
-        (product) => product.id !== productId
-      )
-    );
-  } catch (error) {
-    console.error("Gagal menghapus produk:", error);
-  }
-};
-    /*==================================================
+  };
+  /*==================================================
    UPDATE PRODUCT IN BACKEND
   ==================================================*/
 
@@ -143,7 +116,7 @@ const deleteProduct = async (productId) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(updatedProduct),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -154,38 +127,22 @@ const deleteProduct = async (productId) => {
 
       setProducts((currentProducts) =>
         currentProducts.map((product) =>
-          product.id === productId ? savedProduct : product
-        )
+          product.id === productId ? savedProduct : product,
+        ),
       );
     } catch (error) {
       console.error("Gagal memperbarui produk:", error);
     }
   };
 
-  /*==================================================
- RESET PRODUCTS
-==================================================*/
-
-/*
-Mengembalikan seluruh data produk
-ke data awal dari products.js.
-
-Digunakan selama development untuk
-membersihkan perubahan dari localStorage.
-*/
-
-const resetProducts = () => {
-  setProducts(initialProducts);
-};
-
   return (
     <ProductContext.Provider
       value={{
         products,
+        loading,
         addProduct,
         deleteProduct,
         updateProduct,
-        resetProducts,
       }}
     >
       {children}
@@ -193,7 +150,6 @@ const resetProducts = () => {
   );
 }
 
-  
 /*==================================================
  PRODUCT HOOK
 ==================================================*/

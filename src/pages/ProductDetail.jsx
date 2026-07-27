@@ -21,8 +21,7 @@ import ProductCard from "../components/ProductCard";
 ==================================================*/
 
 function ProductDetail() {
-
-    /*==================================================
+  /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
 
@@ -32,7 +31,7 @@ function ProductDetail() {
   dengan Admin dan halaman website lainnya.
   */
 
-  const { products } = useProducts();
+  const { products, loading } = useProducts();
   /*==================================================
   GET URL PARAMETER
   ==================================================*/
@@ -48,6 +47,13 @@ function ProductDetail() {
   /*==================================================
   PRODUCT NOT FOUND
   ==================================================*/
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Memuat produk...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -73,11 +79,11 @@ function ProductDetail() {
     image,
     category,
     description,
-    features,
-    specifications,
-    whyWeRecommend,
-    bestFor,
-    considerations,
+    features = [],
+    specifications = {},
+    whyWeRecommend = [],
+    bestFor = [],
+    considerations = [],
     price,
     originalPrice,
     discount,
@@ -230,24 +236,24 @@ function ProductDetail() {
 
           {/* CTA */}
 
-{affiliateLink ? (
-  <a
-    href={affiliateLink}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="mt-8 block w-full rounded-2xl bg-emerald-600 px-8 py-4 text-center text-lg font-bold text-white shadow-lg transition hover:-translate-y-1 hover:bg-emerald-700"
-  >
-    🛒 Cek Harga di Marketplace
-  </a>
-) : (
-  <button
-    type="button"
-    disabled
-    className="mt-8 block w-full cursor-not-allowed rounded-2xl bg-slate-300 px-8 py-4 text-center text-lg font-bold text-slate-500"
-  >
-    🛒 Link Marketplace Belum Tersedia
-  </button>
-)}
+          {affiliateLink ? (
+            <a
+              href={affiliateLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 block w-full rounded-2xl bg-emerald-600 px-8 py-4 text-center text-lg font-bold text-white shadow-lg transition hover:-translate-y-1 hover:bg-emerald-700"
+            >
+              🛒 Cek Harga di Marketplace
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="mt-8 block w-full cursor-not-allowed rounded-2xl bg-slate-300 px-8 py-4 text-center text-lg font-bold text-slate-500"
+            >
+              🛒 Link Marketplace Belum Tersedia
+            </button>
+          )}
 
           {/*==================================================
           FEATURES

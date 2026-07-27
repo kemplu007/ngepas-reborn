@@ -18,21 +18,19 @@ import { useProducts } from "../context/ProductContext";
 ==================================================*/
 
 function FeaturedProducts() {
-
-    /*==================================================
+  /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
 
   const { products } = useProducts();
 
-  
-/*==================================================
+  /*==================================================
  FEATURED PRODUCTS DATA
 ==================================================*/
 
-const featuredProducts = products.filter(
-  (product) => product.featured === true
-);
+  const featuredProducts = products.filter(
+    (product) => product.featured === true,
+  );
   /*==================================================
    UI
   ==================================================*/
@@ -68,8 +66,8 @@ const featuredProducts = products.filter(
 
       <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {featuredProducts.map((product) => (
-  <ProductCard key={product.id} product={product} />
-))}
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </section>
   );

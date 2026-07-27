@@ -51,10 +51,10 @@ function Category() {
             const Icon = item.icon;
             return (
               <Link
-  key={item.id}
-  to={`/category?room=${item.slug}`}
-  className="group flex min-w-[100px] snap-center cursor-pointer flex-col items-center justify-center rounded-2xl bg-white p-4 shadow-sm border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:border-green-200 hover:shadow-md"
->
+                key={item.id}
+                to={`/category?room=${item.slug}`}
+                className="group flex min-w-[100px] snap-center cursor-pointer flex-col items-center justify-center rounded-2xl bg-white p-4 shadow-sm border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:border-green-200 hover:shadow-md"
+              >
                 {/* Wadah Ikon */}
                 <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 text-slate-700 transition-colors duration-300 group-hover:bg-green-50 group-hover:text-green-600">
                   <Icon size={24} strokeWidth={1.5} />

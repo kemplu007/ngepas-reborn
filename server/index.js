@@ -38,7 +38,16 @@ app.get("/api/products", (req, res) => {
       .prepare("SELECT * FROM products ORDER BY id DESC")
       .all();
 
-    res.json(products);
+    const parsedProducts = products.map((product) => ({
+      ...product,
+      features: JSON.parse(product.features || "[]"),
+      specifications: JSON.parse(product.specifications || "{}"),
+      whyWeRecommend: JSON.parse(product.whyWeRecommend || "[]"),
+      bestFor: JSON.parse(product.bestFor || "[]"),
+      considerations: JSON.parse(product.considerations || "[]"),
+    }));
+
+    res.json(parsedProducts);
   } catch (error) {
     console.error("Gagal mengambil produk:", error);
 
@@ -73,9 +82,14 @@ app.post("/api/products", (req, res) => {
       description,
       features,
       specifications,
+      whyWeRecommend,
+      bestFor,
+      considerations,
     } = req.body;
 
-    const result = db.prepare(`
+    const result = db
+      .prepare(
+        `
       INSERT INTO products (
         name,
         room,
@@ -94,10 +108,158 @@ app.post("/api/products", (req, res) => {
         affiliateLink,
         description,
         features,
-        specifications
+specifications,
+whyWeRecommend,
+bestFor,
+considerations
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `,
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(
+      .run(
+        name,
+        room,
+        category,
+        slug ?? null,
+        price,
+        originalPrice ?? null,
+        discount ?? 0,
+        image ?? null,
+        badge ?? null,
+        reason ?? null,
+        rating ?? 0,
+        sold ?? 0,
+        featured ? 1 : 0,
+        stock ?? 0,
+        affiliateLink ?? null,
+        description ?? null,
+        JSON.stringify(features ?? []),
+        JSON.stringify(specifications ?? {}),
+        JSON.stringify(whyWeRecommend ?? []),
+        JSON.stringify(bestFor ?? []),
+        JSON.stringify(considerations ?? []),
+      );
+
+    const newProduct = db
+      .prepare("SELECT * FROM products WHERE id = ?")
+      .get(result.lastInsertRowid);
+
+    res.status(201).json({
+      ...newProduct,
+      features: JSON.parse(newProduct.features || "[]"),
+      specifications: JSON.parse(newProduct.specifications || "{}"),
+      whyWeRecommend: JSON.parse(newProduct.whyWeRecommend || "[]"),
+      bestFor: JSON.parse(newProduct.bestFor || "[]"),
+      considerations: JSON.parse(newProduct.considerations || "[]"),
+    });
+  } catch (error) {
+    console.error("Gagal menambahkan produk:", error);
+
+    res.status(500).json({
+      message: "Gagal menambahkan produk",
+    });
+  }
+});
+
+/*==================================================
+ DELETE PRODUCT
+==================================================*/
+
+app.delete("/api/products/:id", (req, res) => {
+  try {
+    const productId = Number(req.params.id);
+
+    const product = db
+      .prepare("SELECT * FROM products WHERE id = ?")
+      .get(productId);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Produk tidak ditemukan",
+      });
+    }
+
+    db.prepare("DELETE FROM products WHERE id = ?").run(productId);
+
+    res.json(product);
+  } catch (error) {
+    console.error("Gagal menghapus produk:", error);
+
+    res.status(500).json({
+      message: "Gagal menghapus produk",
+    });
+  }
+});
+/*==================================================
+ UPDATE PRODUCT
+==================================================*/
+
+app.put("/api/products/:id", (req, res) => {
+  try {
+    const productId = Number(req.params.id);
+
+    const existingProduct = db
+      .prepare("SELECT * FROM products WHERE id = ?")
+      .get(productId);
+
+    if (!existingProduct) {
+      return res.status(404).json({
+        message: "Produk tidak ditemukan",
+      });
+    }
+
+    const {
+      name,
+      room,
+      category,
+      slug,
+      price,
+      originalPrice,
+      discount,
+      image,
+      badge,
+      reason,
+      rating,
+      sold,
+      featured,
+      stock,
+      affiliateLink,
+      description,
+      features,
+      specifications,
+      whyWeRecommend,
+      bestFor,
+      considerations,
+    } = req.body;
+
+    db.prepare(
+      `
+      UPDATE products
+      SET
+        name = ?,
+        room = ?,
+        category = ?,
+        slug = ?,
+        price = ?,
+        originalPrice = ?,
+        discount = ?,
+        image = ?,
+        badge = ?,
+        reason = ?,
+        rating = ?,
+        sold = ?,
+        featured = ?,
+        stock = ?,
+        affiliateLink = ?,
+        description = ?,
+        features = ?,
+        specifications = ?,
+        whyWeRecommend = ?,
+        bestFor = ?,
+        considerations = ?
+      WHERE id = ?
+    `,
+    ).run(
       name,
       room,
       category,
@@ -115,71 +277,32 @@ app.post("/api/products", (req, res) => {
       affiliateLink ?? null,
       description ?? null,
       JSON.stringify(features ?? []),
-      JSON.stringify(specifications ?? {})
+      JSON.stringify(specifications ?? {}),
+      JSON.stringify(whyWeRecommend ?? []),
+      JSON.stringify(bestFor ?? []),
+      JSON.stringify(considerations ?? []),
+      productId,
     );
 
-    const newProduct = db
+    const updatedProduct = db
       .prepare("SELECT * FROM products WHERE id = ?")
-      .get(result.lastInsertRowid);
+      .get(productId);
 
-    res.status(201).json(newProduct);
+    res.json({
+      ...updatedProduct,
+      features: JSON.parse(updatedProduct.features || "[]"),
+      specifications: JSON.parse(updatedProduct.specifications || "{}"),
+      whyWeRecommend: JSON.parse(updatedProduct.whyWeRecommend || "[]"),
+      bestFor: JSON.parse(updatedProduct.bestFor || "[]"),
+      considerations: JSON.parse(updatedProduct.considerations || "[]"),
+    });
   } catch (error) {
-    console.error("Gagal menambahkan produk:", error);
+    console.error("Gagal memperbarui produk:", error);
 
     res.status(500).json({
-      message: "Gagal menambahkan produk",
+      message: "Gagal memperbarui produk",
     });
   }
-});
-
-/*==================================================
- DELETE PRODUCT
-==================================================*/
-
-app.delete("/api/products/:id", (req, res) => {
-  const productId = Number(req.params.id);
-
-  const productIndex = products.findIndex(
-    (product) => product.id === productId
-  );
-
-  if (productIndex === -1) {
-    return res.status(404).json({
-      message: "Produk tidak ditemukan",
-    });
-  }
-
-  const deletedProduct = products.splice(productIndex, 1);
-
-  res.json(deletedProduct[0]);
-});
-
-/*==================================================
- UPDATE PRODUCT
-==================================================*/
-
-app.put("/api/products/:id", (req, res) => {
-  const productId = Number(req.params.id);
-
-  const productIndex = products.findIndex(
-    (product) => product.id === productId
-  );
-
-  if (productIndex === -1) {
-    return res.status(404).json({
-      message: "Produk tidak ditemukan",
-    });
-  }
-
-  const updatedProduct = {
-    ...products[productIndex],
-    ...req.body,
-    id: productId,
-  };
-
-  products[productIndex] = updatedProduct;
-
-  res.json(updatedProduct);
 });
 /*==================================================
  START SERVER

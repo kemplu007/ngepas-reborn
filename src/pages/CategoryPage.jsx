@@ -27,17 +27,17 @@ const CategoryPage = () => {
 
   const { products } = useProducts();
 
-/*==================================================
+  /*==================================================
  URL ROOM PARAMETER
 ==================================================*/
 
-const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-const roomFromUrl = searchParams.get("room");
-const categoryFromUrl = searchParams.get("category");
+  const roomFromUrl = searchParams.get("room");
+  const categoryFromUrl = searchParams.get("category");
 
-const [selectedRoom, setSelectedRoom] = useState(roomFromUrl);
-const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl);
+  const [selectedRoom, setSelectedRoom] = useState(roomFromUrl);
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl);
 
   /*==================================================
  SEARCH STATE
@@ -123,11 +123,11 @@ Mengurutkan produk sesuai pilihan user.
           <button
             key={room.id}
             onClick={() => {
-  setSelectedRoom(room.slug);
-  setSearchParams({ room: room.slug });
-  setSelectedCategory(null);
-  setSearchTerm("");
-  setSortBy("default");
+              setSelectedRoom(room.slug);
+              setSearchParams({ room: room.slug });
+              setSelectedCategory(null);
+              setSearchTerm("");
+              setSortBy("default");
             }}
             className={`
   border
@@ -178,16 +178,16 @@ Mengurutkan produk sesuai pilihan user.
               <button
                 key={category}
                 onClick={() => {
-  setSelectedCategory(category);
+                  setSelectedCategory(category);
 
-  setSearchParams({
-    room: selectedRoom,
-    category: category,
-  });
+                  setSearchParams({
+                    room: selectedRoom,
+                    category: category,
+                  });
 
-  setSearchTerm("");
-  setSortBy("default");
-}}
+                  setSearchTerm("");
+                  setSortBy("default");
+                }}
 
                 className={`
   border
@@ -303,8 +303,8 @@ Mengurutkan produk sesuai pilihan user.
 "
           >
             <h2 className="text-2xl font-bold text-emerald-700">
-  💚 Rekomendasi Ngepas
-</h2>
+              💚 Rekomendasi Ngepas
+            </h2>
 
             <p className="mt-3 text-slate-600 leading-7">
               Kami sudah memilihkan produk terbaik berdasarkan kualitas, harga,

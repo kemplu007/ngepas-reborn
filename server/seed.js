@@ -191,12 +191,7 @@ const products = [
     description:
       "Rak bumbu dapur bertingkat untuk menyusun bumbu masak agar dapur tetap bersih dan mudah dijangkau.",
 
-    features: [
-      "2 Tingkat",
-      "Anti Karat",
-      "Mudah Dibersihkan",
-      "Hemat Ruang",
-    ],
+    features: ["2 Tingkat", "Anti Karat", "Mudah Dibersihkan", "Hemat Ruang"],
 
     specifications: {
       material: "Besi Powder Coating",
@@ -280,7 +275,7 @@ for (const product of products) {
     JSON.stringify(product.specifications),
     JSON.stringify(product.whyWeRecommend),
     JSON.stringify(product.bestFor),
-    JSON.stringify(product.considerations)
+    JSON.stringify(product.considerations),
   );
 
   console.log(`Seeded: ${product.name}`);
