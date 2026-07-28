@@ -13,7 +13,7 @@ const validateProduct = require("../helpers/validator");
 GET PRODUCTS
 ==================================================*/
 
-function getProducts(req, res) {
+function getProducts(req, res, next) {
   try {
     const products = db
       .prepare("SELECT * FROM products ORDER BY id DESC")
@@ -23,11 +23,7 @@ function getProducts(req, res) {
 
     res.json(parsedProducts);
   } catch (error) {
-    console.error("Gagal mengambil produk:", error);
-
-    res.status(500).json({
-      message: "Gagal mengambil produk",
-    });
+    next(error);
   }
 }
 
@@ -35,7 +31,7 @@ function getProducts(req, res) {
  ADD PRODUCT
 ==================================================*/
 
-function addProduct(req, res) {
+function addProduct(req, res, next) {
   try {
     const {
       name,
@@ -130,11 +126,7 @@ function addProduct(req, res) {
 
     res.status(201).json(parseProduct(newProduct));
   } catch (error) {
-    console.error("Gagal menambahkan produk:", error);
-
-    res.status(500).json({
-      message: "Gagal menambahkan produk",
-    });
+    next(error);
   }
 }
 
@@ -142,7 +134,7 @@ function addProduct(req, res) {
  DELETE PRODUCT
 ==================================================*/
 
-function deleteProduct(req, res) {
+function deleteProduct(req, res, next) {
   try {
     const productId = Number(req.params.id);
 
@@ -160,11 +152,7 @@ function deleteProduct(req, res) {
 
     res.json(product);
   } catch (error) {
-    console.error("Gagal menghapus produk:", error);
-
-    res.status(500).json({
-      message: "Gagal menghapus produk",
-    });
+    next(error);
   }
 }
 
@@ -172,7 +160,7 @@ function deleteProduct(req, res) {
  UPDATE PRODUCT
 ==================================================*/
 
-function updateProduct(req, res) {
+function updateProduct(req, res, next) {
   try {
     const productId = Number(req.params.id);
 
@@ -278,11 +266,7 @@ function updateProduct(req, res) {
 
     res.json(parseProduct(updatedProduct));
   } catch (error) {
-    console.error("Gagal memperbarui produk:", error);
-
-    res.status(500).json({
-      message: "Gagal memperbarui produk",
-    });
+    next(error);
   }
 }
 
