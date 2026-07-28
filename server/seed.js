@@ -4,7 +4,7 @@
  Module : Database Seeder
 ==================================================*/
 
-const db = require("./database");
+const db = require("./database/db");
 
 /*==================================================
  PRODUCT SEED DATA
