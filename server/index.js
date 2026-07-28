@@ -3,6 +3,7 @@
  File   : index.js
  Module : Backend Server
 ==================================================*/
+require("dotenv").config();
 
 const express = require("express");
 
@@ -11,7 +12,7 @@ const cors = require("cors");
 const productRoutes = require("./routes/productRoutes");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 /*==================================================
  MIDDLEWARE
