@@ -12,24 +12,18 @@
 ==================================================*/
 
 import { useState } from "react";
+
 import { Link } from "react-router-dom";
+
 import { Menu, Search, Heart, ShoppingCart } from "lucide-react";
-import navigation from "../data/navigation";
-import MenuItem from "./MenuItem";
+
+import navigation from "../../data/navigation";
+
 import SearchDropdown from "./SearchDropdown";
 
 /*==================================================
  COMPONENT
 ==================================================*/
-
-/*
- * Navbar utama Ngepas.
- *
- * Berisi:
- * - Logo
- * - Tombol Mobile Menu
- * - Navigasi (Next Sprint)
- */
 
 function Navbar() {
   /*==================================================
@@ -116,12 +110,14 @@ function Navbar() {
               {navigation
                 .filter((item) => item.enabled)
                 .map((item) => (
-                  <MenuItem
+                  <Link
                     key={item.id}
-                    label={item.label}
-                    path={item.path}
+                    to={item.path}
                     onClick={handleCloseMenu}
-                  />
+                    className="rounded-lg px-3 py-2 text-slate-700 transition hover:bg-slate-100"
+                  >
+                    {item.label}
+                  </Link>
                 ))}
             </div>
           </div>

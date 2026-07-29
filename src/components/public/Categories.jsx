@@ -9,7 +9,7 @@
  IMPORT
 ==================================================*/
 
-import categories from "../data/categories";
+import categories from "../../data/categories";
 
 /*==================================================
  CATEGORIES COMPONENT

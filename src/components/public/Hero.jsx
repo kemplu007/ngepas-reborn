@@ -6,10 +6,10 @@
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
-import heroBg from "../assets/images/hero-bg.png";
-import siPas from "../assets/mascot/si-pas.png";
+import heroBg from "../../assets/images/hero-bg.png";
+import siPas from "../../assets/mascot/si-pas.png";
 
-import hero from "../data/hero";
+import hero from "../../data/hero";
 
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";

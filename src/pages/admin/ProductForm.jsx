@@ -1,7 +1,7 @@
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : AdminProductForm.jsx
+ File    : ProductForm.jsx
  Module  : Admin Pages
 ==================================================*/
 
@@ -12,9 +12,9 @@
 import { useEffect, useState } from "react";
 import { Save } from "lucide-react";
 
-import rooms from "../data/rooms";
-import roomCategories from "../data/roomCategories";
-import { useProducts } from "../context/ProductContext";
+import rooms from "../../data/rooms";
+import roomCategories from "../../data/roomCategories";
+import { useProducts } from "../../context/ProductContext";
 import { useParams } from "react-router-dom";
 
 /*==================================================
@@ -49,7 +49,7 @@ const initialFormData = {
  ADMIN PRODUCT FORM
 ==================================================*/
 
-function AdminProductForm() {
+function ProductForm() {
   /*==================================================
    ROUTE PARAMETER
   ==================================================*/
@@ -650,4 +650,4 @@ function AdminProductForm() {
  EXPORT
 ==================================================*/
 
-export default AdminProductForm;
+export default ProductForm;

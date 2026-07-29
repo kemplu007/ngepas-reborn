@@ -11,7 +11,7 @@
 ==================================================*/
 
 import ProductCard from "./ProductCard";
-import { useProducts } from "../context/ProductContext";
+import { useProducts } from "../../context/ProductContext";
 
 /*==================================================
  FEATURED PRODUCTS

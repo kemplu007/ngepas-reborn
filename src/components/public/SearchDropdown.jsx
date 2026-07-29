@@ -9,8 +9,8 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 
-import products from "../data/products";
-import highlightText from "../utils/highlightText";
+import products from "../../data/products";
+import highlightText from "../../utils/highlightText";
 
 /*==================================================
  COMPONENT

@@ -3,7 +3,6 @@
  Project : Ngepas Reborn
  File    : ProductDetail.jsx
  Module  : Pages
- Version : 1.0
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
@@ -13,8 +12,8 @@
 
 import { ArrowLeft, Star } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import { useProducts } from "../context/ProductContext";
-import ProductCard from "../components/ProductCard";
+import { useProducts } from "../../context/ProductContext";
+import ProductCard from "../../components/public/ProductCard";
 
 /*==================================================
  PRODUCT DETAIL

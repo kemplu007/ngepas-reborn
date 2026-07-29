@@ -4,12 +4,13 @@
  File    : CategoryPage.jsx
  Module  : Pages
 ==================================================*/
-import rooms from "../data/rooms";
+
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import roomCategories from "../data/roomCategories";
-import { useProducts } from "../context/ProductContext";
-import ProductCard from "../components/ProductCard";
+import rooms from "../../data/rooms";
+import roomCategories from "../../data/roomCategories";
+import { useProducts } from "../../context/ProductContext";
+import ProductCard from "../../components/public/ProductCard";
 
 /*==================================================
  CATEGORY PAGE

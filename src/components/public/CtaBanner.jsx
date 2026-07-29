@@ -9,9 +9,9 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-import siPas from "../assets/mascot/si-pas.png";
+import siPas from "../../assets/mascot/si-pas.png";
 
-import ctaBanner from "../data/ctaBanner";
+import ctaBanner from "../../data/ctaBanner";
 
 function CtaBanner() {
   const { title, highlight, description, button } = ctaBanner;

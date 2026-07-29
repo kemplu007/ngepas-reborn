@@ -1,7 +1,7 @@
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : AdminDashboard.jsx
+ File    : Dashboard.jsx
  Module  : Admin Pages
 ==================================================*/
 
@@ -9,13 +9,13 @@
  IMPORT
 ==================================================*/
 
-import { useProducts } from "../context/ProductContext";
+import { useProducts } from "../../context/ProductContext";
 
 /*==================================================
  ADMIN DASHBOARD
 ==================================================*/
 
-function AdminDashboard() {
+function Dashboard() {
   /*==================================================
    PRODUCT DATA
   ==================================================*/
@@ -282,4 +282,4 @@ agar produk paling baru tampil pertama.
  EXPORT
 ==================================================*/
 
-export default AdminDashboard;
+export default Dashboard;

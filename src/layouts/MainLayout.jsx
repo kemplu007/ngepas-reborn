@@ -11,21 +11,11 @@
  IMPORTS
 ==================================================*/
 
-import Navbar from "../components/Navbar";
+import Navbar from "../components/public/Navbar";
 
 /*==================================================
  COMPONENT
 ==================================================*/
-
-/*
- * Main Layout digunakan sebagai
- * kerangka utama setiap halaman.
- *
- * Nantinya berisi:
- * - Navbar
- * - Content
- * - Footer
- */
 
 function MainLayout({ children }) {
   return (

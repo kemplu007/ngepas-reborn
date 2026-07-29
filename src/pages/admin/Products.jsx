@@ -1,7 +1,7 @@
 /*==================================================
  NGEPAS REBORN
  Project : Ngepas Reborn
- File    : AdminProducts.jsx
+ File    : Products.jsx
  Module  : Admin Pages
 ==================================================*/
 
@@ -12,7 +12,7 @@
 import { Link } from "react-router-dom";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
-import { useProducts } from "../context/ProductContext";
+import { useProducts } from "../../context/ProductContext";
 /*==================================================
  ADMIN PRODUCTS
 ==================================================*/
@@ -30,7 +30,7 @@ Fitur berikutnya:
 - Edit produk
 */
 
-function AdminProducts() {
+function Products() {
   /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
@@ -227,4 +227,4 @@ function AdminProducts() {
  EXPORT
 ==================================================*/
 
-export default AdminProducts;
+export default Products;

@@ -3,19 +3,23 @@
  Project : Ngepas Reborn
  File    : Home.jsx
  Module  : Pages
- Version : 0.1
  Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
 /*==================================================
  IMPORTS
 ==================================================*/
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Category from "../components/Category";
-import FeaturedProducts from "../components/FeaturedProducts";
-import WhyNgepas from "../components/WhyNgepas";
-import CtaBanner from "../components/CtaBanner";
+import Navbar from "../../components/public/Navbar";
+
+import Hero from "../../components/public/Hero";
+
+import Category from "../../components/public/Category";
+
+import FeaturedProducts from "../../components/public/FeaturedProducts";
+
+import WhyNgepas from "../../components/public/WhyNgepas";
+
+import CtaBanner from "../../components/public/CtaBanner";
 
 /*==================================================
  COMPONENT

@@ -12,13 +12,21 @@
 ==================================================*/
 
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import ProductDetail from "./pages/ProductDetail";
-import CategoryPage from "./pages/CategoryPage";
-import AdminDashboard from "./pages/AdminDashboard";
+
+import Home from "./pages/public/Home";
+
+import ProductDetail from "./pages/public/ProductDetail";
+
+import CategoryPage from "./pages/public/CategoryPage";
+
 import AdminLayout from "./layouts/AdminLayout";
-import AdminProducts from "./pages/AdminProducts";
-import AdminProductForm from "./pages/AdminProductForm";
+
+import Dashboard from "./pages/admin/Dashboard";
+
+import Products from "./pages/admin/Products";
+
+import ProductForm from "./pages/admin/ProductForm";
+
 import { ProductProvider } from "./context/ProductContext";
 
 /*==================================================
@@ -44,17 +52,17 @@ function App() {
         ==============================================*/}
 
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
+          <Route index element={<Dashboard />} />
 
-          <Route path="products" element={<AdminProducts />} />
+          <Route path="products" element={<Products />} />
 
-          <Route path="products/new" element={<AdminProductForm />} />
+          <Route path="products/new" element={<ProductForm />} />
 
           {/*==============================================
  EDIT PRODUCT
 ==============================================*/}
 
-          <Route path="products/:id/edit" element={<AdminProductForm />} />
+          <Route path="products/:id/edit" element={<ProductForm />} />
         </Route>
       </Routes>
     </ProductProvider>

@@ -7,7 +7,7 @@
 ==================================================*/
 
 import { BadgeCheck, Wallet, Clock3, ShieldCheck } from "lucide-react";
-import whyNgepas from "../data/whyNgepas";
+import whyNgepas from "../../data/whyNgepas";
 
 /*==================================================
  COMPONENT
