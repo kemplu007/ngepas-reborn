@@ -37,6 +37,7 @@ const initialFormData = {
   badge: "",
   tags: "",
   status: "published",
+  gallery: "",
 };
 
 /*==================================================
@@ -120,6 +121,7 @@ function ProductForm() {
       badge: editingProduct.badge || "",
       tags: editingProduct.tags?.join(", ") || "",
       status: editingProduct.status || "published",
+      gallery: editingProduct.gallery?.join("\n") || "",
     });
   }, [editingProduct]);
 
@@ -191,6 +193,10 @@ function ProductForm() {
         .split(",")
         .map((tag) => tag.trim())
         .filter(Boolean),
+      gallery: formData.gallery
+  .split("\n")
+  .map((url) => url.trim())
+  .filter(Boolean),
     };
 
     /*==================================================
@@ -426,6 +432,50 @@ function ProductForm() {
       focus:ring-emerald-100
     "
             />
+
+            {/*==============================================
+ PRODUCT GALLERY
+==============================================*/}
+
+<div>
+  <label
+    htmlFor="gallery"
+    className="text-sm font-semibold text-slate-700"
+  >
+    Gallery Produk
+  </label>
+
+  <textarea
+    id="gallery"
+    name="gallery"
+    rows={5}
+    value={formData.gallery}
+    onChange={handleChange}
+    placeholder={`https://...
+
+https://...
+
+https://...`}
+    className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-none
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+  />
+
+  <p className="mt-2 text-xs text-slate-500">
+    Satu URL untuk setiap baris.
+  </p>
+</div>
 
             {/*==============================================
    IMAGE PREVIEW
