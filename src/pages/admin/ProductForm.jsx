@@ -38,6 +38,12 @@ const initialFormData = {
   tags: "",
   status: "published",
   gallery: "",
+  description: "",
+  features: "",
+  specifications: "",
+  whyWeRecommend: "",
+  bestFor: "",
+  considerations: "",
 };
 
 /*==================================================
@@ -122,6 +128,16 @@ function ProductForm() {
       tags: editingProduct.tags?.join(", ") || "",
       status: editingProduct.status || "published",
       gallery: editingProduct.gallery?.join("\n") || "",
+      description: editingProduct.description || "",
+      features: editingProduct.features?.join("\n") || "",
+      specifications: editingProduct.specifications
+        ? Object.entries(editingProduct.specifications)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join("\n")
+        : "",
+      whyWeRecommend: editingProduct.whyWeRecommend?.join("\n") || "",
+      bestFor: editingProduct.bestFor?.join("\n") || "",
+      considerations: editingProduct.considerations?.join("\n") || "",
     });
   }, [editingProduct]);
 
@@ -181,12 +197,22 @@ function ProductForm() {
 
       featured: formData.featured,
 
-      description: editingProduct?.description ?? "",
-      features: editingProduct?.features ?? [],
-      specifications: editingProduct?.specifications ?? {},
-      whyWeRecommend: editingProduct?.whyWeRecommend ?? [],
-      bestFor: editingProduct?.bestFor ?? [],
-      considerations: editingProduct?.considerations ?? [],
+      description: formData.description,
+      features: formData.features
+        .split("\n")
+        .map((item) => item.trim())
+        .filter(Boolean),
+      specifications: Object.fromEntries(
+        formData.specifications
+          .split("\n")
+          .map((line) => line.split(":"))
+          .filter(([key, value]) => key && value)
+          .map(([key, value]) => [key.trim(), value.trim()]),
+      ),
+      whyWeRecommend: formData.whyWeRecommend
+        .split("\n")
+        .map((item) => item.trim())
+        .filter(Boolean),
       status: formData.status,
       badge: formData.badge,
       tags: formData.tags
@@ -194,9 +220,17 @@ function ProductForm() {
         .map((tag) => tag.trim())
         .filter(Boolean),
       gallery: formData.gallery
-  .split("\n")
-  .map((url) => url.trim())
-  .filter(Boolean),
+        .split("\n")
+        .map((url) => url.trim())
+        .filter(Boolean),
+      bestFor: formData.bestFor
+        .split("\n")
+        .map((item) => item.trim())
+        .filter(Boolean),
+      considerations: formData.considerations
+        .split("\n")
+        .map((item) => item.trim())
+        .filter(Boolean),
     };
 
     /*==================================================
@@ -434,50 +468,6 @@ function ProductForm() {
             />
 
             {/*==============================================
- PRODUCT GALLERY
-==============================================*/}
-
-<div>
-  <label
-    htmlFor="gallery"
-    className="text-sm font-semibold text-slate-700"
-  >
-    Gallery Produk
-  </label>
-
-  <textarea
-    id="gallery"
-    name="gallery"
-    rows={5}
-    value={formData.gallery}
-    onChange={handleChange}
-    placeholder={`https://...
-
-https://...
-
-https://...`}
-    className="
-      mt-2
-      w-full
-      rounded-xl
-      border
-      border-slate-300
-      px-4
-      py-3
-      outline-none
-      resize-none
-      focus:border-emerald-600
-      focus:ring-2
-      focus:ring-emerald-100
-    "
-  />
-
-  <p className="mt-2 text-xs text-slate-500">
-    Satu URL untuk setiap baris.
-  </p>
-</div>
-
-            {/*==============================================
    IMAGE PREVIEW
   ==============================================*/}
 
@@ -498,6 +488,296 @@ https://...`}
               </div>
             )}
           </div>
+          {/*==============================================
+ PRODUCT GALLERY
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="gallery"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Gallery Produk
+            </label>
+
+            <textarea
+              id="gallery"
+              name="gallery"
+              rows={5}
+              value={formData.gallery}
+              onChange={handleChange}
+              placeholder={`https://...
+
+https://...
+
+https://...`}
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-none
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            />
+
+            <p className="mt-2 text-xs text-slate-500">
+              Satu URL untuk setiap baris.
+            </p>
+          </div>
+
+          {/*==============================================
+ PRODUCT DESCRIPTION
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="description"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Deskripsi Produk
+            </label>
+
+            <textarea
+              id="description"
+              name="description"
+              rows={6}
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Jelaskan produk secara singkat..."
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-y
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            />
+          </div>
+
+          {/*==============================================
+ PRODUCT FEATURES
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="features"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Keunggulan Produk
+            </label>
+
+            <textarea
+              id="features"
+              name="features"
+              rows={5}
+              value={formData.features}
+              onChange={handleChange}
+              placeholder={`Material premium
+Mudah dibersihkan
+Desain minimalis`}
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-y
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            />
+
+            <p className="mt-2 text-xs text-slate-500">
+              Satu keunggulan untuk setiap baris.
+            </p>
+          </div>
+
+          {/*==============================================
+ PRODUCT SPECIFICATIONS
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="specifications"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Spesifikasi Produk
+            </label>
+
+            <textarea
+              id="specifications"
+              name="specifications"
+              rows={6}
+              value={formData.specifications}
+              onChange={handleChange}
+              placeholder={`Material: Kayu Pinus
+Warna: Natural
+Ukuran: 60 x 30 cm`}
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-y
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            />
+
+            <p className="mt-2 text-xs text-slate-500">
+              Format setiap baris: Nama: Nilai
+            </p>
+          </div>
+
+          {/*==============================================
+ WHY WE RECOMMEND
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="whyWeRecommend"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Kenapa Kami Merekomendasikan
+            </label>
+
+            <textarea
+              id="whyWeRecommend"
+              name="whyWeRecommend"
+              rows={5}
+              value={formData.whyWeRecommend}
+              onChange={handleChange}
+              placeholder={`Harga sesuai kualitas
+Material premium
+Desain timeless`}
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-y
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            />
+
+            <p className="mt-2 text-xs text-slate-500">
+              Satu alasan pada setiap baris.
+            </p>
+          </div>
+
+          {/*==============================================
+ BEST FOR
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="bestFor"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Cocok Untuk
+            </label>
+
+            <textarea
+              id="bestFor"
+              name="bestFor"
+              rows={5}
+              value={formData.bestFor}
+              onChange={handleChange}
+              placeholder={`Apartemen
+Rumah Minimalis
+Kamar Kos`}
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-y
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            />
+
+            <p className="mt-2 text-xs text-slate-500">
+              Satu item untuk setiap baris.
+            </p>
+          </div>
+
+          {/*==============================================
+ CONSIDERATIONS
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="considerations"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Hal yang Perlu Diperhatikan
+            </label>
+
+            <textarea
+              id="considerations"
+              name="considerations"
+              rows={5}
+              value={formData.considerations}
+              onChange={handleChange}
+              placeholder={`Tidak tahan air
+Perlu dirakit sendiri
+Hanya untuk penggunaan indoor`}
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      resize-y
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            />
+
+            <p className="mt-2 text-xs text-slate-500">
+              Satu catatan untuk setiap baris.
+            </p>
+          </div>
+
           {/*==============================================
          PRICE
         ==============================================*/}
