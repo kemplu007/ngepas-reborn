@@ -34,6 +34,9 @@ const initialFormData = {
   stock: "",
   affiliateLink: "",
   featured: false,
+  badge: "",
+  tags: "",
+  status: "published",
 };
 
 /*==================================================
@@ -45,12 +48,11 @@ function ProductForm() {
    ROUTE PARAMETER
   ==================================================*/
 
-
   const { id } = useParams();
 
   const navigate = useNavigate();
 
-/*==================================================
+  /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
 
@@ -59,7 +61,6 @@ function ProductForm() {
   /*==================================================
    EDIT PRODUCT DATA
   ==================================================*/
-
 
   const editingProduct = products.find((product) => product.id === Number(id));
 
@@ -70,12 +71,32 @@ function ProductForm() {
   ==================================================*/
 
   const [formData, setFormData] = useState(initialFormData);
-  
-const [imageError, setImageError] = useState(false);
+
+  const [imageError, setImageError] = useState(false);
+
+  /*==============================================
+ DERIVED VALUE
+==============================================*/
+
+  const calculatedDiscount =
+    formData.originalPrice &&
+    formData.price &&
+    Number(formData.originalPrice) > Number(formData.price)
+      ? Math.round(
+          ((Number(formData.originalPrice) - Number(formData.price)) /
+            Number(formData.originalPrice)) *
+            100,
+        )
+      : 0;
+
+  const generatedSlug = formData.name
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
   /*==================================================
    LOAD EDIT PRODUCT
   ==================================================*/
-
 
   useEffect(() => {
     if (!editingProduct) return;
@@ -96,6 +117,9 @@ const [imageError, setImageError] = useState(false);
       stock: editingProduct.stock ?? "",
       affiliateLink: editingProduct.affiliateLink || "",
       featured: editingProduct.featured ?? false,
+      badge: editingProduct.badge || "",
+      tags: editingProduct.tags?.join(", ") || "",
+      status: editingProduct.status || "published",
     });
   }, [editingProduct]);
 
@@ -107,8 +131,8 @@ const [imageError, setImageError] = useState(false);
     const { name, value, type, checked } = event.target;
 
     if (name === "image") {
-  setImageError(false);
-}
+      setImageError(false);
+    }
 
     setFormData((currentData) => ({
       ...currentData,
@@ -134,14 +158,13 @@ const [imageError, setImageError] = useState(false);
    FORM SUBMIT
   ==================================================*/
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const newProduct = {
       ...formData,
 
-      slug: formData.name.toLowerCase().trim().replace(/\s+/g, "-"),
+      slug: generatedSlug,
 
       price: `Rp${Number(formData.price).toLocaleString("id-ID")}`,
 
@@ -149,7 +172,7 @@ const [imageError, setImageError] = useState(false);
         ? `Rp${Number(formData.originalPrice).toLocaleString("id-ID")}`
         : "",
 
-      discount: Number(formData.discount) || 0,
+      discount: calculatedDiscount,
       rating: Number(formData.rating) || 0,
       sold: Number(formData.sold) || 0,
       stock: Number(formData.stock) || 0,
@@ -162,6 +185,12 @@ const [imageError, setImageError] = useState(false);
       whyWeRecommend: editingProduct?.whyWeRecommend ?? [],
       bestFor: editingProduct?.bestFor ?? [],
       considerations: editingProduct?.considerations ?? [],
+      status: formData.status,
+      badge: formData.badge,
+      tags: formData.tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean),
     };
 
     /*==================================================
@@ -182,7 +211,7 @@ const [imageError, setImageError] = useState(false);
   ==================================================*/
 
   return (
- <section className="mx-auto max-w-3xl px-4 py-8">
+    <section className="mx-auto max-w-3xl px-4 py-8">
       {/*==============================================
        PAGE HEADER
       ==============================================*/}
@@ -203,38 +232,38 @@ const [imageError, setImageError] = useState(false);
         </p>
       </div>
 
-   <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-      {/*==============================================
+      <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        {/*==============================================
        PRODUCT FORM
       ==============================================*/}
 
-      <form
-  onSubmit={handleSubmit}
-  className="
+        <form
+          onSubmit={handleSubmit}
+          className="
     space-y-6
   "
->
-        {/*==============================================
+        >
+          {/*==============================================
          PRODUCT NAME
         ==============================================*/}
 
-        <div>
-          <label
-            htmlFor="name"
-            className="text-sm font-semibold text-slate-700"
-          >
-            Nama Produk
-          </label>
+          <div>
+            <label
+              htmlFor="name"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Nama Produk
+            </label>
 
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Contoh: Lampu Tidur Minimalis"
-            required
-            className="
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Contoh: Lampu Tidur Minimalis"
+              required
+              className="
               mt-2
               w-full
               rounded-xl
@@ -248,28 +277,50 @@ const [imageError, setImageError] = useState(false);
               focus:ring-2
               focus:ring-emerald-100
             "
-          />
-        </div>
+            />
+          </div>
 
-        {/*==============================================
+          <div className="mt-4">
+            <label className="text-sm font-semibold text-slate-700">Slug</label>
+
+            <input
+              type="text"
+              value={generatedSlug}
+              readOnly
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-200
+      bg-slate-100
+      px-4
+      py-3
+      text-slate-500
+      cursor-not-allowed
+    "
+            />
+          </div>
+
+          {/*==============================================
          ROOM
         ==============================================*/}
 
-        <div>
-          <label
-            htmlFor="room"
-            className="text-sm font-semibold text-slate-700"
-          >
-            Ruangan
-          </label>
+          <div>
+            <label
+              htmlFor="room"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Ruangan
+            </label>
 
-          <select
-            id="room"
-            name="room"
-            value={formData.room}
-            onChange={handleRoomChange}
-            required
-            className="
+            <select
+              id="room"
+              name="room"
+              value={formData.room}
+              onChange={handleRoomChange}
+              required
+              className="
               mt-2
               w-full
               rounded-xl
@@ -283,37 +334,37 @@ const [imageError, setImageError] = useState(false);
               focus:ring-2
               focus:ring-emerald-100
             "
-          >
-            <option value="">Pilih ruangan</option>
+            >
+              <option value="">Pilih ruangan</option>
 
-            {rooms.map((room) => (
-              <option key={room.id} value={room.slug}>
-                {room.name}
-              </option>
-            ))}
-          </select>
-        </div>
+              {rooms.map((room) => (
+                <option key={room.id} value={room.slug}>
+                  {room.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/*==============================================
+          {/*==============================================
          CATEGORY
         ==============================================*/}
 
-        <div>
-          <label
-            htmlFor="category"
-            className="text-sm font-semibold text-slate-700"
-          >
-            Kategori
-          </label>
+          <div>
+            <label
+              htmlFor="category"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Kategori
+            </label>
 
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            disabled={!formData.room}
-            required
-            className="
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              disabled={!formData.room}
+              required
+              className="
               mt-2
               w-full
               rounded-xl
@@ -329,38 +380,38 @@ const [imageError, setImageError] = useState(false);
               focus:ring-2
               focus:ring-emerald-100
             "
-          >
-            <option value="">Pilih kategori</option>
+            >
+              <option value="">Pilih kategori</option>
 
-            {formData.room &&
-              roomCategories[formData.room]?.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-          </select>
-        </div>
+              {formData.room &&
+                roomCategories[formData.room]?.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+            </select>
+          </div>
 
-        {/*==============================================
+          {/*==============================================
  PRODUCT IMAGE
 ==================================================*/}
 
-        <div>
-          <label
-            htmlFor="image"
-            className="text-sm font-semibold text-slate-700"
-          >
-            URL Gambar Produk
-          </label>
+          <div>
+            <label
+              htmlFor="image"
+              className="text-sm font-semibold text-slate-700"
+            >
+              URL Gambar Produk
+            </label>
 
-          <input
-            id="image"
-            name="image"
-            type="text"
-            value={formData.image}
-            onChange={handleChange}
-            placeholder="url atau text"
-            className="
+            <input
+              id="image"
+              name="image"
+              type="text"
+              value={formData.image}
+              onChange={handleChange}
+              placeholder="url atau text"
+              className="
       mt-2
       w-full
       rounded-xl
@@ -374,52 +425,52 @@ const [imageError, setImageError] = useState(false);
       focus:ring-2
       focus:ring-emerald-100
     "
-          />
+            />
 
-          {/*==============================================
+            {/*==============================================
    IMAGE PREVIEW
   ==============================================*/}
 
-          {formData.image && (
-  <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
-    {imageError ? (
-      <div className="flex aspect-video items-center justify-center bg-slate-100 text-sm text-slate-500">
-        Preview tidak tersedia
-      </div>
-    ) : (
-      <img
-        src={formData.image}
-        alt="Preview produk"
-        onError={() => setImageError(true)}
-        className="aspect-video w-full object-cover"
-      />
-    )}
-  </div>
-)}
-        </div>
-        {/*==============================================
+            {formData.image && (
+              <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
+                {imageError ? (
+                  <div className="flex aspect-video items-center justify-center bg-slate-100 text-sm text-slate-500">
+                    Preview tidak tersedia
+                  </div>
+                ) : (
+                  <img
+                    src={formData.image}
+                    alt="Preview produk"
+                    onError={() => setImageError(true)}
+                    className="aspect-video w-full object-cover"
+                  />
+                )}
+              </div>
+            )}
+          </div>
+          {/*==============================================
          PRICE
         ==============================================*/}
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label
-              htmlFor="price"
-              className="text-sm font-semibold text-slate-700"
-            >
-              Harga
-            </label>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label
+                htmlFor="price"
+                className="text-sm font-semibold text-slate-700"
+              >
+                Harga
+              </label>
 
-            <input
-              id="price"
-              name="price"
-              type="number"
-              min="0"
-              value={formData.price}
-              onChange={handleChange}
-              placeholder="89000"
-              required
-              className="
+              <input
+                id="price"
+                name="price"
+                type="number"
+                min="0"
+                value={formData.price}
+                onChange={handleChange}
+                placeholder="89000"
+                required
+                className="
                 mt-2
                 w-full
                 rounded-xl
@@ -432,26 +483,26 @@ const [imageError, setImageError] = useState(false);
                 focus:ring-2
                 focus:ring-emerald-100
               "
-            />
-          </div>
+              />
+            </div>
 
-          <div>
-            <label
-              htmlFor="originalPrice"
-              className="text-sm font-semibold text-slate-700"
-            >
-              Harga Asli
-            </label>
+            <div>
+              <label
+                htmlFor="originalPrice"
+                className="text-sm font-semibold text-slate-700"
+              >
+                Harga Asli
+              </label>
 
-            <input
-              id="originalPrice"
-              name="originalPrice"
-              type="number"
-              min="0"
-              value={formData.originalPrice}
-              onChange={handleChange}
-              placeholder="109000"
-              className="
+              <input
+                id="originalPrice"
+                name="originalPrice"
+                type="number"
+                min="0"
+                value={formData.originalPrice}
+                onChange={handleChange}
+                placeholder="109000"
+                className="
                 mt-2
                 w-full
                 rounded-xl
@@ -464,79 +515,78 @@ const [imageError, setImageError] = useState(false);
                 focus:ring-2
                 focus:ring-emerald-100
               "
-            />
+              />
+            </div>
           </div>
-        </div>
 
-        {/*==============================================
+          <div className="mt-3 rounded-xl bg-emerald-50 px-4 py-3">
+            <p className="text-xs font-medium uppercase tracking-wide text-emerald-700">
+              Diskon Otomatis
+            </p>
+
+            <p className="mt-1 text-2xl font-bold text-emerald-600">
+              {calculatedDiscount}%
+            </p>
+          </div>
+
+          {/*==============================================
          PRODUCT META
         ==============================================*/}
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <input
-            name="discount"
-            type="number"
-            min="0"
-            max="100"
-            value={formData.discount}
-            onChange={handleChange}
-            placeholder="Diskon %"
-            className="rounded-xl border border-slate-300 px-4 py-3"
-          />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <input
+              name="rating"
+              type="number"
+              min="0"
+              max="5"
+              step="0.1"
+              value={formData.rating}
+              onChange={handleChange}
+              placeholder="Rating"
+              className="rounded-xl border border-slate-300 px-4 py-3"
+            />
 
-          <input
-            name="rating"
-            type="number"
-            min="0"
-            max="5"
-            step="0.1"
-            value={formData.rating}
-            onChange={handleChange}
-            placeholder="Rating"
-            className="rounded-xl border border-slate-300 px-4 py-3"
-          />
+            <input
+              name="sold"
+              type="number"
+              min="0"
+              value={formData.sold}
+              onChange={handleChange}
+              placeholder="Terjual"
+              className="rounded-xl border border-slate-300 px-4 py-3"
+            />
 
-          <input
-            name="sold"
-            type="number"
-            min="0"
-            value={formData.sold}
-            onChange={handleChange}
-            placeholder="Terjual"
-            className="rounded-xl border border-slate-300 px-4 py-3"
-          />
+            <input
+              name="stock"
+              type="number"
+              min="0"
+              value={formData.stock}
+              onChange={handleChange}
+              placeholder="Stok"
+              className="rounded-xl border border-slate-300 px-4 py-3"
+            />
+          </div>
 
-          <input
-            name="stock"
-            type="number"
-            min="0"
-            value={formData.stock}
-            onChange={handleChange}
-            placeholder="Stok"
-            className="rounded-xl border border-slate-300 px-4 py-3"
-          />
-        </div>
-
-        {/*==============================================
+          {/*==============================================
          AFFILIATE LINK
         ==============================================*/}
 
-        <div>
-          <label
-            htmlFor="affiliateLink"
-            className="text-sm font-semibold text-slate-700"
-          >
-            Affiliate Link
-          </label>
+          <div>
+            <label
+              htmlFor="affiliateLink"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Affiliate Link
+            </label>
 
-          <input
-            id="affiliateLink"
-            name="affiliateLink"
-            type="url"
-            value={formData.affiliateLink}
-            onChange={handleChange}
-            placeholder="https://..."
-            className="
+            <input
+              id="affiliateLink"
+              name="affiliateLink"
+              type="url"
+              value={formData.affiliateLink}
+              onChange={handleChange}
+              placeholder="https://..."
+              className="
               mt-2
               w-full
               rounded-xl
@@ -549,43 +599,161 @@ const [imageError, setImageError] = useState(false);
               focus:ring-2
               focus:ring-emerald-100
             "
-          />
-        </div>
+            />
+          </div>
 
-        {/*==============================================
+          {/*==============================================
+ PRODUCT STATUS
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="status"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Status Produk
+            </label>
+
+            <select
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      bg-white
+      px-4
+      py-3
+      outline-none
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            >
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+              <option value="hidden">Hidden</option>
+            </select>
+          </div>
+
+          {/*==============================================
  FEATURED PRODUCT
 ==============================================*/}
 
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-          <label className="flex cursor-pointer items-center gap-3">
-            <input
-              name="featured"
-              type="checkbox"
-              checked={formData.featured}
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <label className="flex cursor-pointer items-center gap-3">
+              <input
+                name="featured"
+                type="checkbox"
+                checked={formData.featured}
+                onChange={handleChange}
+                className="h-5 w-5 accent-emerald-600"
+              />
+
+              <div>
+                <p className="font-semibold text-slate-700">
+                  Tampilkan di Pilihan Ngepas
+                </p>
+
+                <p className="text-sm text-slate-500">
+                  Produk akan ditampilkan sebagai rekomendasi di homepage.
+                </p>
+              </div>
+            </label>
+          </div>
+          {/*==============================================
+ PRODUCT BADGE
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="badge"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Badge Produk
+            </label>
+
+            <select
+              id="badge"
+              name="badge"
+              value={formData.badge}
               onChange={handleChange}
-              className="h-5 w-5 accent-emerald-600"
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      bg-white
+      px-4
+      py-3
+      outline-none
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
+            >
+              <option value="">Tanpa Badge</option>
+              <option value="Best Seller">Best Seller</option>
+              <option value="Premium">Premium</option>
+              <option value="Paling Worth It">Paling Worth It</option>
+              <option value="Limited">Limited</option>
+              <option value="New">New</option>
+            </select>
+          </div>
+
+          {/*==============================================
+ PRODUCT TAGS
+==============================================*/}
+
+          <div>
+            <label
+              htmlFor="tags"
+              className="text-sm font-semibold text-slate-700"
+            >
+              Tags
+            </label>
+
+            <input
+              id="tags"
+              name="tags"
+              type="text"
+              value={formData.tags}
+              onChange={handleChange}
+              placeholder="minimalis, kayu, bedroom"
+              className="
+      mt-2
+      w-full
+      rounded-xl
+      border
+      border-slate-300
+      px-4
+      py-3
+      outline-none
+      focus:border-emerald-600
+      focus:ring-2
+      focus:ring-emerald-100
+    "
             />
 
-            <div>
-              <p className="font-semibold text-slate-700">
-                Tampilkan di Pilihan Ngepas
-              </p>
+            <p className="mt-2 text-xs text-slate-500">
+              Pisahkan setiap tag dengan tanda koma (,)
+            </p>
+          </div>
 
-              <p className="text-sm text-slate-500">
-                Produk akan ditampilkan sebagai rekomendasi di homepage.
-              </p>
-            </div>
-          </label>
-        </div>
-        {/*==============================================
+          {/*==============================================
          SUBMIT BUTTON
         ==============================================*/}
 
-        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-  <button
-    type="button"
-    onClick={() => navigate("/admin/products")}
-    className="
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+            <button
+              type="button"
+              onClick={() => navigate("/admin/products")}
+              className="
       rounded-xl
       border
       border-slate-300
@@ -596,13 +764,13 @@ const [imageError, setImageError] = useState(false);
       transition
       hover:bg-slate-100
     "
-  >
-    Batal
-  </button>
+            >
+              Batal
+            </button>
 
-  <button
-    type="submit"
-    className="
+            <button
+              type="submit"
+              className="
       flex
       items-center
       justify-center
@@ -616,13 +784,13 @@ const [imageError, setImageError] = useState(false);
       transition
       hover:bg-emerald-700
     "
-  >
-    <Save size={18} />
-    {isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
-  </button>
-</div>
-      </form>
-     </div>
+            >
+              <Save size={18} />
+              {isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
   );
 }
