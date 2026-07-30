@@ -15,20 +15,11 @@ import { Save } from "lucide-react";
 import rooms from "../../data/rooms";
 import roomCategories from "../../data/roomCategories";
 import { useProducts } from "../../context/ProductContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 /*==================================================
  INITIAL FORM DATA
 ==================================================*/
-
-/*
-Nilai awal form produk.
-
-Dipisahkan dari component agar:
-- Struktur data mudah dibaca
-- Form mudah di-reset
-- Mudah dikembangkan saat CRUD aktif
-*/
 
 const initialFormData = {
   name: "",
@@ -54,16 +45,12 @@ function ProductForm() {
    ROUTE PARAMETER
   ==================================================*/
 
-  /*
-  Mengambil ID produk dari URL.
-
-  Jika ID tersedia, form berjalan dalam EDIT MODE.
-  Jika ID tidak tersedia, form berjalan dalam CREATE MODE.
-  */
 
   const { id } = useParams();
 
-  /*==================================================
+  const navigate = useNavigate();
+
+/*==================================================
    PRODUCT CONTEXT
   ==================================================*/
 
@@ -73,12 +60,6 @@ function ProductForm() {
    EDIT PRODUCT DATA
   ==================================================*/
 
-  /*
-  Mencari produk berdasarkan ID dari URL.
-
-  Route parameter berbentuk string,
-  sehingga ID dikonversi menjadi Number.
-  */
 
   const editingProduct = products.find((product) => product.id === Number(id));
 
@@ -89,18 +70,12 @@ function ProductForm() {
   ==================================================*/
 
   const [formData, setFormData] = useState(initialFormData);
-
+  
+const [imageError, setImageError] = useState(false);
   /*==================================================
    LOAD EDIT PRODUCT
   ==================================================*/
 
-  /*
-  Mengisi form dengan data produk
-  ketika halaman berjalan dalam EDIT MODE.
-
-  Harga dikembalikan menjadi angka
-  agar dapat digunakan oleh input type="number".
-  */
 
   useEffect(() => {
     if (!editingProduct) return;
@@ -128,13 +103,12 @@ function ProductForm() {
    INPUT HANDLER
   ==================================================*/
 
-  /*
-  Mengubah state berdasarkan input
-  yang sedang diedit.
-  */
-
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
+
+    if (name === "image") {
+  setImageError(false);
+}
 
     setFormData((currentData) => ({
       ...currentData,
@@ -145,15 +119,6 @@ function ProductForm() {
   /*==================================================
    ROOM HANDLER
   ==================================================*/
-
-  /*
-  Saat room berubah:
-  - Simpan room baru
-  - Reset category
-
-  Category harus di-reset karena setiap
-  room memiliki daftar kategori berbeda.
-  */
 
   const handleRoomChange = (event) => {
     const room = event.target.value;
@@ -169,10 +134,6 @@ function ProductForm() {
    FORM SUBMIT
   ==================================================*/
 
-  /*
-  Membentuk data produk baru dari form,
-  kemudian mengirimkannya ke ProductContext.
-  */
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -221,7 +182,7 @@ function ProductForm() {
   ==================================================*/
 
   return (
-    <section>
+ <section className="mx-auto max-w-3xl px-4 py-8">
       {/*==============================================
        PAGE HEADER
       ==============================================*/}
@@ -242,23 +203,17 @@ function ProductForm() {
         </p>
       </div>
 
+   <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
       {/*==============================================
        PRODUCT FORM
       ==============================================*/}
 
       <form
-        onSubmit={handleSubmit}
-        className="
-          mt-8
-          space-y-6
-          rounded-3xl
-          border
-          border-slate-200
-          bg-white
-          p-6
-          shadow-sm
-        "
-      >
+  onSubmit={handleSubmit}
+  className="
+    space-y-6
+  "
+>
         {/*==============================================
          PRODUCT NAME
         ==============================================*/}
@@ -426,14 +381,21 @@ function ProductForm() {
   ==============================================*/}
 
           {formData.image && (
-            <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
-              <img
-                src={formData.image}
-                alt="Preview produk"
-                className="aspect-video w-full object-cover"
-              />
-            </div>
-          )}
+  <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
+    {imageError ? (
+      <div className="flex aspect-video items-center justify-center bg-slate-100 text-sm text-slate-500">
+        Preview tidak tersedia
+      </div>
+    ) : (
+      <img
+        src={formData.image}
+        alt="Preview produk"
+        onError={() => setImageError(true)}
+        className="aspect-video w-full object-cover"
+      />
+    )}
+  </div>
+)}
         </div>
         {/*==============================================
          PRICE
@@ -619,29 +581,48 @@ function ProductForm() {
          SUBMIT BUTTON
         ==============================================*/}
 
-        <button
-          type="submit"
-          className="
-            flex
-            w-full
-            items-center
-            justify-center
-            gap-2
-            rounded-xl
-            bg-emerald-600
-            px-5
-            py-3
-            font-semibold
-            text-white
-            transition
-            hover:bg-emerald-700
-          "
-        >
-          <Save size={18} />
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+  <button
+    type="button"
+    onClick={() => navigate("/admin/products")}
+    className="
+      rounded-xl
+      border
+      border-slate-300
+      px-5
+      py-3
+      font-semibold
+      text-slate-700
+      transition
+      hover:bg-slate-100
+    "
+  >
+    Batal
+  </button>
 
-          {isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
-        </button>
+  <button
+    type="submit"
+    className="
+      flex
+      items-center
+      justify-center
+      gap-2
+      rounded-xl
+      bg-emerald-600
+      px-5
+      py-3
+      font-semibold
+      text-white
+      transition
+      hover:bg-emerald-700
+    "
+  >
+    <Save size={18} />
+    {isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
+  </button>
+</div>
       </form>
+     </div>
     </section>
   );
 }

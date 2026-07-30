@@ -9,6 +9,7 @@
  IMPORT
 ==================================================*/
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
@@ -17,32 +18,41 @@ import { useProducts } from "../../context/ProductContext";
  ADMIN PRODUCTS
 ==================================================*/
 
-/*
-Halaman untuk mengelola seluruh produk
-yang tersimpan di shared product state.
-
-Fitur aktif:
-- Menampilkan produk
-- Tambah produk
-- Hapus produk
-
-Fitur berikutnya:
-- Edit produk
-*/
-
 function Products() {
   /*==================================================
    PRODUCT CONTEXT
   ==================================================*/
 
-  /*
-  Mengambil seluruh data produk dari ProductContext.
-
-  Dengan shared state ini, produk baru dari Admin Form
-  dapat langsung muncul tanpa membaca products.js lagi.
-  */
-
   const { products, deleteProduct } = useProducts();
+
+  /*==================================================
+ SEARCH
+==================================================*/
+
+const [search, setSearch] = useState("");
+
+const [selectedCategory, setSelectedCategory] =
+  useState("All"); 
+
+  const categories = [
+  "All",
+  ...new Set(products.map((product) => product.category)),
+];
+  
+const filteredProducts = products.filter((product) => {
+  const keyword = search.toLowerCase();
+
+  const matchSearch =
+    product.name.toLowerCase().includes(keyword) ||
+    product.category.toLowerCase().includes(keyword) ||
+    product.room.toLowerCase().includes(keyword);
+
+  const matchCategory =
+    selectedCategory === "All" ||
+    product.category === selectedCategory;
+
+  return matchSearch && matchCategory;
+});
 
   return (
     <section>
@@ -98,27 +108,79 @@ function Products() {
       </div>
 
       {/*==============================================
+ SEARCH
+==============================================*/}
+
+<div className="mt-6">
+  <input
+    type="text"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    placeholder="Cari produk, kategori, atau room..."
+    className="
+      w-full
+      rounded-xl
+      border
+      border-slate-200
+      bg-white
+      px-4
+      py-3
+      outline-none
+      transition
+      focus:border-emerald-500
+    "
+  />
+</div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+  {categories.map((category) => (
+    <button
+      key={category}
+      type="button"
+      onClick={() => setSelectedCategory(category)}
+      className={`
+        rounded-full
+        px-4
+        py-2
+        text-sm
+        font-medium
+        transition
+        ${
+          selectedCategory === category
+            ? "bg-emerald-600 text-white"
+            : "border border-slate-200 bg-white text-slate-600 hover:border-emerald-300"
+        }
+      `}
+    >
+      {category}
+    </button>
+  ))}
+</div>
+      {/*==============================================
        PRODUCT LIST
       ==============================================*/}
 
       <div className="mt-8 space-y-4">
-        {products.map((product) => (
-          <article
-            key={product.id}
-            className="
-              rounded-2xl
-              border
-              border-slate-200
-              bg-white
-              p-4
-              shadow-sm
-            "
-          >
-            <div className="flex gap-4">
+
+  {filteredProducts.length > 0 ? (
+
+    filteredProducts.map((product) => (
+      <article
+        key={product.id}
+        className="
+          rounded-2xl
+          border
+          border-slate-200
+          bg-white
+          p-4
+          shadow-sm
+        "
+      >
               {/*==============================================
                PRODUCT IMAGE
               ==============================================*/}
 
+        <div className="flex gap-4">
               <img
                 src={product.image}
                 alt={product.name}
@@ -216,8 +278,33 @@ function Products() {
                 Hapus
               </button>
             </div>
-          </article>
-        ))}
+                    </article>
+        ))
+
+      ) : (
+
+        <div
+          className="
+            rounded-2xl
+            border
+            border-dashed
+            border-slate-300
+            bg-white
+            p-10
+            text-center
+          "
+        >
+          <p className="text-lg font-semibold text-slate-700">
+            Produk tidak ditemukan
+          </p>
+
+          <p className="mt-2 text-slate-500">
+            Coba gunakan kata kunci lain atau pilih kategori yang berbeda.
+          </p>
+        </div>
+
+      )}
+
       </div>
     </section>
   );
