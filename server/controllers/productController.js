@@ -4,10 +4,11 @@
  Module : Product Controller
 ==================================================*/
 
-const db = require("../database/db");
+const productModel = require("../models/productModel");
 const parseProduct = require("../helpers/parsers/productParser");
 const sanitizeProduct = require("../helpers/sanitizers/productSanitizer");
 const validateProduct = require("../helpers/validators/productValidator");
+const { success, error } = require("../utils/response");
 
 /*==================================================
 GET PRODUCTS
@@ -15,13 +16,15 @@ GET PRODUCTS
 
 function getProducts(req, res, next) {
   try {
-    const products = db
-      .prepare("SELECT * FROM products ORDER BY id DESC")
-      .all();
+    const products = productModel.getAllProducts();
 
     const parsedProducts = products.map(parseProduct);
 
-    res.json(parsedProducts);
+    return success(
+  res,
+  parsedProducts,
+  "Berhasil mengambil data produk"
+);
   } catch (error) {
     next(error);
   }
@@ -59,72 +62,48 @@ function addProduct(req, res, next) {
 
     const cleanProduct = sanitizeProduct(req.body);
 
-    const error = validateProduct(cleanProduct);
+    const validationError = validateProduct(cleanProduct);
 
-    if (error) {
-      return res.status(400).json({
-        message: error,
-      });
-    }
+    if (validationError) {
+    return error(
+        res,
+        validationError,
+        400
+    );
+}
 
-    const result = db
-      .prepare(
-        `
-      INSERT INTO products (
-        name,
-        room,
-        category,
-        slug,
-        price,
-        originalPrice,
-        discount,
-        image,
-        badge,
-        reason,
-        rating,
-        sold,
-        featured,
-        stock,
-        affiliateLink,
-        description,
-        features,
-        specifications,
-        whyWeRecommend,
-        bestFor,
-        considerations
-      )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `,
-      )
-      .run(
-        cleanProduct.name,
-        cleanProduct.room,
-        cleanProduct.category,
-        slug ?? null,
-        price,
-        originalPrice ?? null,
-        discount ?? 0,
-        cleanProduct.image,
-        badge ?? null,
-        reason ?? null,
-        rating ?? 0,
-        sold ?? 0,
-        featured ? 1 : 0,
-        stock ?? 0,
-        cleanProduct.affiliateLink,
-        cleanProduct.description,
-        JSON.stringify(features ?? []),
-        JSON.stringify(specifications ?? {}),
-        JSON.stringify(whyWeRecommend ?? []),
-        JSON.stringify(bestFor ?? []),
-        JSON.stringify(considerations ?? []),
-      );
+    const result = productModel.createProduct({
+  name: cleanProduct.name,
+  room: cleanProduct.room,
+  category: cleanProduct.category,
+  slug: slug ?? null,
+  price,
+  originalPrice: originalPrice ?? null,
+  discount: discount ?? 0,
+  image: cleanProduct.image,
+  badge: badge ?? null,
+  reason: reason ?? null,
+  rating: rating ?? 0,
+  sold: sold ?? 0,
+  featured: featured ? 1 : 0,
+  stock: stock ?? 0,
+  affiliateLink: cleanProduct.affiliateLink,
+  description: cleanProduct.description,
+  features: features ?? [],
+  specifications: specifications ?? {},
+  whyWeRecommend: whyWeRecommend ?? [],
+  bestFor: bestFor ?? [],
+  considerations: considerations ?? [],
+});
 
-    const newProduct = db
-      .prepare("SELECT * FROM products WHERE id = ?")
-      .get(result.lastInsertRowid);
+    const newProduct = productModel.getProductById(result.lastInsertRowid);
 
-    res.status(201).json(parseProduct(newProduct));
+    return success(
+  res,
+  parseProduct(newProduct),
+  "Produk berhasil ditambahkan",
+  201
+);
   } catch (error) {
     next(error);
   }
@@ -138,19 +117,23 @@ function deleteProduct(req, res, next) {
   try {
     const productId = Number(req.params.id);
 
-    const product = db
-      .prepare("SELECT * FROM products WHERE id = ?")
-      .get(productId);
-
+    const product = productModel.getProductById(productId);
+    
     if (!product) {
-      return res.status(404).json({
-        message: "Produk tidak ditemukan",
-      });
+      return error(
+  res,
+  "Produk tidak ditemukan",
+  404
+);
     }
 
-    db.prepare("DELETE FROM products WHERE id = ?").run(productId);
+ productModel.deleteProduct(productId);
 
-    res.json(product);
+    return success(
+  res,
+  parseProduct(product),
+  "Produk berhasil dihapus"
+);
   } catch (error) {
     next(error);
   }
@@ -164,15 +147,15 @@ function updateProduct(req, res, next) {
   try {
     const productId = Number(req.params.id);
 
-    const existingProduct = db
-      .prepare("SELECT * FROM products WHERE id = ?")
-      .get(productId);
-
+    const existingProduct = productModel.getProductById(productId);
+    
     if (!existingProduct) {
-      return res.status(404).json({
-        message: "Produk tidak ditemukan",
-      });
-    }
+  return error(
+    res,
+    "Produk tidak ditemukan",
+    404
+  );
+}
 
     const {
       name,
@@ -200,71 +183,47 @@ function updateProduct(req, res, next) {
 
     const cleanProduct = sanitizeProduct(req.body);
 
-    const error = validateProduct(cleanProduct);
+    const validationError = validateProduct(cleanProduct);
 
-    if (error) {
-      return res.status(400).json({
-        message: error,
-      });
-    }
+if (validationError) {
+  return error(
+    res,
+    validationError,
+    400
+  );
+}
 
-    db.prepare(
-      `
-      UPDATE products
-      SET
-        name = ?,
-        room = ?,
-        category = ?,
-        slug = ?,
-        price = ?,
-        originalPrice = ?,
-        discount = ?,
-        image = ?,
-        badge = ?,
-        reason = ?,
-        rating = ?,
-        sold = ?,
-        featured = ?,
-        stock = ?,
-        affiliateLink = ?,
-        description = ?,
-        features = ?,
-        specifications = ?,
-        whyWeRecommend = ?,
-        bestFor = ?,
-        considerations = ?
-      WHERE id = ?
-    `,
-    ).run(
-      cleanProduct.name,
-      cleanProduct.room,
-      cleanProduct.category,
-      slug ?? null,
-      price,
-      originalPrice ?? null,
-      discount ?? 0,
-      cleanProduct.image,
-      badge ?? null,
-      reason ?? null,
-      rating ?? 0,
-      sold ?? 0,
-      featured ? 1 : 0,
-      stock ?? 0,
-      cleanProduct.affiliateLink,
-      cleanProduct.description,
-      JSON.stringify(features ?? []),
-      JSON.stringify(specifications ?? {}),
-      JSON.stringify(whyWeRecommend ?? []),
-      JSON.stringify(bestFor ?? []),
-      JSON.stringify(considerations ?? []),
-      productId,
-    );
+    productModel.updateProduct(productId, {
+  name: cleanProduct.name,
+  room: cleanProduct.room,
+  category: cleanProduct.category,
+  slug: slug ?? null,
+  price,
+  originalPrice: originalPrice ?? null,
+  discount: discount ?? 0,
+  image: cleanProduct.image,
+  badge: badge ?? null,
+  reason: reason ?? null,
+  rating: rating ?? 0,
+  sold: sold ?? 0,
+  featured: featured ? 1 : 0,
+  stock: stock ?? 0,
+  affiliateLink: cleanProduct.affiliateLink,
+  description: cleanProduct.description,
+  features: features ?? [],
+  specifications: specifications ?? {},
+  whyWeRecommend: whyWeRecommend ?? [],
+  bestFor: bestFor ?? [],
+  considerations: considerations ?? [],
+});
 
-    const updatedProduct = db
-      .prepare("SELECT * FROM products WHERE id = ?")
-      .get(productId);
+    const updatedProduct = productModel.getProductById(productId);
 
-    res.json(parseProduct(updatedProduct));
+    return success(
+  res,
+  parseProduct(updatedProduct),
+  "Produk berhasil diperbarui"
+);
   } catch (error) {
     next(error);
   }
