@@ -5,9 +5,9 @@
 ==================================================*/
 
 const db = require("../database/db");
-const parseProduct = require("../helpers/parser");
-const sanitizeProduct = require("../helpers/sanitizer");
-const validateProduct = require("../helpers/validator");
+const parseProduct = require("../helpers/parsers/productParser");
+const sanitizeProduct = require("../helpers/sanitizers/productSanitizer");
+const validateProduct = require("../helpers/validators/productValidator");
 
 /*==================================================
 GET PRODUCTS

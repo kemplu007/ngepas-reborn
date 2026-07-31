@@ -16,15 +16,6 @@ import { LayoutDashboard, Package, PlusCircle, Home } from "lucide-react";
  ADMIN LAYOUT
 ==================================================*/
 
-/*
-Layout utama untuk seluruh halaman Admin.
-
-Tugas:
-- Menampilkan navigasi Admin
-- Menjadi kerangka halaman Admin
-- Merender halaman aktif melalui Outlet
-*/
-
 function AdminLayout() {
   return (
     <div className="min-h-screen bg-slate-50">

@@ -10,6 +10,7 @@
  IMPORT
 ==================================================*/
 
+import { useMemo, useState } from "react";
 import { ArrowLeft, Star } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useProducts } from "../../context/ProductContext";
@@ -24,11 +25,6 @@ function ProductDetail() {
    PRODUCT CONTEXT
   ==================================================*/
 
-  /*
-  Mengambil seluruh produk dari shared ProductContext
-  agar Product Detail menggunakan sumber data yang sama
-  dengan Admin dan halaman website lainnya.
-  */
 
   const { products, loading } = useProducts();
   /*==================================================
@@ -74,24 +70,50 @@ function ProductDetail() {
   ==================================================*/
 
   const {
-    name,
-    image,
-    category,
-    description,
-    features = [],
-    specifications = {},
-    whyWeRecommend = [],
-    bestFor = [],
-    considerations = [],
-    price,
-    originalPrice,
-    discount,
-    rating,
-    sold,
-    stock,
-    affiliateLink,
-  } = product;
+  name,
+  image,
+  room,
+  category,
+  badge,
+  tags = [],
+  description,
+  features = [],
+  specifications = {},
+  whyWeRecommend = [],
+  bestFor = [],
+  considerations = [],
+  price,
+  originalPrice,
+  discount,
+  rating,
+  sold,
+  stock,
+  affiliateLink,
+} = product;
 
+/*==================================================
+  PRODUCT GALLERY
+  ==================================================*/
+
+  const galleryImages = useMemo(() => {
+    const images = [];
+
+    if (image) {
+      images.push(image);
+    }
+
+    if (product.gallery?.length) {
+      product.gallery.forEach((item) => {
+        if (!images.includes(item)) {
+          images.push(item);
+        }
+      });
+    }
+
+    return images;
+  }, [image, product.gallery]);
+
+  const [selectedImage, setSelectedImage] = useState(0);
   /*==================================================
   RELATED PRODUCTS
   ==================================================*/
@@ -126,17 +148,47 @@ function ProductDetail() {
 
       <div className="mt-10 grid gap-12 lg:grid-cols-2">
         {/*==================================================
-        PRODUCT IMAGE
-        ==================================================*/}
+PRODUCT IMAGE
+==================================================*/}
 
-        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
-          <img
-            src={image}
-            alt={name}
-            className="aspect-square w-full object-cover"
-          />
-        </div>
+<div className="space-y-4">
+  {/*--------------------------------------------------
+  MAIN IMAGE
+  --------------------------------------------------*/}
 
+  <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-xl">
+    <img
+      src={galleryImages[selectedImage]}
+      alt={name}
+      className="aspect-square w-full rounded-2xl object-cover transition duration-300 hover:scale-105"
+    />
+  </div>
+
+  {/*--------------------------------------------------
+  GALLERY THUMBNAIL
+  --------------------------------------------------*/}
+
+  <div className="flex gap-3 overflow-x-auto pb-1">
+    {galleryImages.map((item, index) => (
+      <button
+        key={index}
+        type="button"
+        onClick={() => setSelectedImage(index)}
+        className={`overflow-hidden rounded-2xl border-2 transition-all duration-300 ${
+          selectedImage === index
+            ? "scale-105 border-emerald-600 shadow-lg"
+            : "border-slate-200 hover:border-emerald-300"
+        }`}
+      >
+        <img
+          src={item}
+          alt={`${name} ${index + 1}`}
+          className="h-20 w-20 object-cover"
+        />
+      </button>
+    ))}
+  </div>
+</div>
         {/*==================================================
         PRODUCT INFO
         ==================================================*/}
@@ -151,18 +203,29 @@ function ProductDetail() {
 
             <span>/</span>
 
-            <Link to="/category" className="hover:text-emerald-600">
-              Kategori
-            </Link>
+            <span>{room}</span>
 
-            <span>/</span>
+<span>/</span>
 
-            <span className="font-medium text-slate-700">{name}</span>
+<span>{category}</span>
+
+<span>/</span>
+
+<span className="font-medium text-slate-700">
+  {name}
+</span>
+
           </nav>
 
           <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
             {category}
           </span>
+
+          {badge && (
+  <span className="ml-3 inline-flex rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-700">
+    {badge}
+  </span>
+)}
 
           {/* TITLE */}
 
@@ -174,6 +237,19 @@ function ProductDetail() {
 
           <p className="mt-5 leading-8 text-slate-600">{description}</p>
 
+          {tags.length > 0 && (
+  <div className="mt-6 flex flex-wrap gap-2">
+    {tags.map((tag) => (
+      <span
+        key={tag}
+        className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600"
+      >
+        #{tag}
+      </span>
+    ))}
+  </div>
+)}
+
           {/* PRICE */}
 
           <div className="mt-8">
@@ -182,7 +258,7 @@ function ProductDetail() {
             </p>
 
             <div className="mt-2 flex items-center gap-3">
-              <h2 className="text-4xl font-extrabold text-emerald-600">
+              <h2 className="text-5xl font-black tracking-tight text-emerald-600">
                 {price}
               </h2>
 
@@ -235,24 +311,26 @@ function ProductDetail() {
 
           {/* CTA */}
 
-          {affiliateLink ? (
-            <a
-              href={affiliateLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 block w-full rounded-2xl bg-emerald-600 px-8 py-4 text-center text-lg font-bold text-white shadow-lg transition hover:-translate-y-1 hover:bg-emerald-700"
-            >
-              🛒 Cek Harga di Marketplace
-            </a>
-          ) : (
-            <button
-              type="button"
-              disabled
-              className="mt-8 block w-full cursor-not-allowed rounded-2xl bg-slate-300 px-8 py-4 text-center text-lg font-bold text-slate-500"
-            >
-              🛒 Link Marketplace Belum Tersedia
-            </button>
-          )}
+          <div className="sticky bottom-4 z-20 mt-8">
+  {affiliateLink ? (
+    <a
+      href={affiliateLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-full rounded-2xl bg-emerald-600 px-8 py-4 text-center text-lg font-bold text-white shadow-xl transition hover:-translate-y-1 hover:bg-emerald-700"
+    >
+      🛒 Cek Harga di Marketplace
+    </a>
+  ) : (
+    <button
+      type="button"
+      disabled
+      className="block w-full cursor-not-allowed rounded-2xl bg-slate-300 px-8 py-4 text-lg font-bold text-slate-500"
+    >
+      🛒 Link Marketplace Belum Tersedia
+    </button>
+  )}
+</div>
 
           {/*==================================================
           FEATURES
