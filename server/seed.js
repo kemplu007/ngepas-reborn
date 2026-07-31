@@ -7,6 +7,61 @@
 const db = require("./database/db");
 
 /*==================================================
+ CATEGORY SEED DATA
+==================================================*/
+
+const categories = [
+  {
+    name: "Bedroom",
+    slug: "bedroom",
+    room: "bedroom",
+    icon: "🛏️",
+    status: 1,
+    sortOrder: 1,
+  },
+  {
+    name: "Living Room",
+    slug: "living-room",
+    room: "living-room",
+    icon: "🛋️",
+    status: 1,
+    sortOrder: 2,
+  },
+  {
+    name: "Kitchen",
+    slug: "kitchen",
+    room: "kitchen",
+    icon: "🍳",
+    status: 1,
+    sortOrder: 3,
+  },
+  {
+    name: "Bathroom",
+    slug: "bathroom",
+    room: "bathroom",
+    icon: "🚿",
+    status: 1,
+    sortOrder: 4,
+  },
+  {
+    name: "Office",
+    slug: "office",
+    room: "office",
+    icon: "💻",
+    status: 1,
+    sortOrder: 5,
+  },
+  {
+    name: "Outdoor",
+    slug: "outdoor",
+    room: "outdoor",
+    icon: "🌳",
+    status: 1,
+    sortOrder: 6,
+  },
+];
+
+/*==================================================
  PRODUCT SEED DATA
 ==================================================*/
 
@@ -216,6 +271,22 @@ const products = [
 ];
 
 /*==================================================
+ INSERT CATEGORIES
+==================================================*/
+
+const insertCategory = db.prepare(`
+  INSERT INTO categories (
+    name,
+    slug,
+    room,
+    icon,
+    status,
+    sortOrder
+  )
+  VALUES (?, ?, ?, ?, ?, ?)
+`);
+
+/*==================================================
  INSERT PRODUCTS
 ==================================================*/
 
@@ -253,6 +324,37 @@ const insertProduct = db.prepare(`
  RUN SEED
 ==================================================*/
 
+/*==================================================
+ CLEAR TABLES
+==================================================*/
+
+db.exec(`
+  DELETE FROM products;
+  DELETE FROM categories;
+`);
+
+/*==================================================
+ INSERT CATEGORIES
+==================================================*/
+
+for (const category of categories) {
+  insertCategory.run(
+    category.name,
+    category.slug,
+    category.room,
+    category.icon,
+    category.status,
+    category.sortOrder
+  );
+
+  console.log(`Seeded Category: ${category.name}`);
+}
+
+/*==================================================
+ INSERT PRODUCTS
+==================================================*/
+
+
 for (const product of products) {
   insertProduct.run(
     product.name,
@@ -281,4 +383,4 @@ for (const product of products) {
   console.log(`Seeded: ${product.name}`);
 }
 
-console.log("🌱 Ngepas product seed completed.");
+console.log("🌱 Ngepas database seeded successfully.");

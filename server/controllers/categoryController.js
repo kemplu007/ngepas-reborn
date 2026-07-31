@@ -7,6 +7,8 @@
 
 const db = require("../database/db");
 
+const categoryModel = require("../models/categoryModel");
+
 const validateCategory = require("../helpers/validators/categoryValidator");
 
 const {
@@ -19,13 +21,7 @@ const {
 ==================================================*/
 
 function getCategories(req, res) {
-  const categories = db
-    .prepare(`
-      SELECT *
-      FROM categories
-      ORDER BY sortOrder ASC, id ASC
-    `)
-    .all();
+  const categories = categoryModel.getAllCategories();
 
   success(
   res,
@@ -58,25 +54,14 @@ if (validationError) {
     sortOrder,
   } = req.body;
 
-  const result = db.prepare(`
-    INSERT INTO categories
-    (
-      name,
-      slug,
-      room,
-      icon,
-      status,
-      sortOrder
-    )
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(
-    name,
-    slug,
-    room,
-    icon || "",
-    status ?? 1,
-    sortOrder ?? 0
-  );
+  const result = categoryModel.createCategory({
+  name,
+  slug,
+  room,
+  icon,
+  status,
+  sortOrder,
+});
 
   success(
   res,
@@ -114,25 +99,17 @@ if (validationError) {
     sortOrder,
   } = req.body;
 
-  const result = db.prepare(`
-    UPDATE categories
-    SET
-      name = ?,
-      slug = ?,
-      room = ?,
-      icon = ?,
-      status = ?,
-      sortOrder = ?
-    WHERE id = ?
-  `).run(
+  const result = categoryModel.updateCategory(
+  req.params.id,
+  {
     name,
     slug,
     room,
-    icon || "",
-    status ?? 1,
-    sortOrder ?? 0,
-    req.params.id
-  );
+    icon,
+    status,
+    sortOrder,
+  }
+);
 
   if (result.changes === 0) {
   return error(
@@ -156,10 +133,9 @@ if (validationError) {
 
 function deleteCategory(req, res) {
 
-  const result = db.prepare(`
-    DELETE FROM categories
-    WHERE id = ?
-  `).run(req.params.id);
+  const result = categoryModel.deleteCategory(
+  req.params.id
+);
 
   if (result.changes === 0) {
     return error(
