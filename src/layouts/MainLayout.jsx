@@ -1,34 +1,22 @@
 /*==================================================
  NGEPAS REBORN
- Project : Ngepas Reborn
  File    : MainLayout.jsx
  Module  : Layouts
- Version : 0.1
- Author  : Muhammad Abdul Chakim & ChatGPT
 ==================================================*/
 
-/*==================================================
- IMPORTS
-==================================================*/
-
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/public/Navbar";
 
-/*==================================================
- COMPONENT
-==================================================*/
-
-function MainLayout({ children }) {
+function MainLayout() {
   return (
     <>
       <Navbar />
-
-      <main>{children}</main>
+      {/* Outlet ini ibarat "lubang" buat isi halaman ganti-ganti */}
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 }
-
-/*==================================================
- EXPORT
-==================================================*/
 
 export default MainLayout;

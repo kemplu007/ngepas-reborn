@@ -3,7 +3,6 @@
  Project : Ngepas Reborn
  File    : FeaturedProducts.jsx
  Module  : Components
- Author  : Muhammad Abdul Chakim, ChatGPT & Gemini
 ==================================================*/
 
 /*==================================================
@@ -18,33 +17,28 @@ import { useProducts } from "../../context/ProductContext";
 ==================================================*/
 
 function FeaturedProducts() {
+  const { products, loading } = useProducts();
+
   /*==================================================
-   PRODUCT CONTEXT
+   LOADING STATE
   ==================================================*/
-
-  const { products } = useProducts();
+  if (loading) return <p className="p-6 text-center text-slate-500">Sedang memuat produk...</p>;
 
   /*==================================================
- FEATURED PRODUCTS DATA
-==================================================*/
-
+   FEATURED PRODUCTS DATA
+  ==================================================*/
   const featuredProducts = products.filter(
     (product) => product.featured === true,
   );
+
   /*==================================================
    UI
   ==================================================*/
-
   return (
     <section className="px-6 py-16 bg-slate-50">
       {/*==================================================
         SECTION HEADER
       ==================================================*/}
-
-      {/*==================================================
-  SECTION HEADER
-==================================================*/}
-
       <div className="mx-auto mb-8 max-w-2xl text-center">
         <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
           ✨ Pilihan Ngepas
@@ -57,13 +51,8 @@ function FeaturedProducts() {
       </div>
 
       {/*==================================================
-        CATEGORY FILTER
-      ==================================================*/}
-
-      {/*==================================================
         PRODUCT GRID
       ==================================================*/}
-
       <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {featuredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />

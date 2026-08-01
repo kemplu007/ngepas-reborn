@@ -1,6 +1,5 @@
 /*==================================================
  NGEPAS REBORN
- Project : Ngepas Reborn
  File    : ProductContext.jsx
  Module  : Context
 ==================================================*/
@@ -8,142 +7,103 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 /*==================================================
- PRODUCT CONTEXT
+ CONTEXT
 ==================================================*/
-
 const ProductContext = createContext(null);
 
 /*==================================================
- PRODUCT PROVIDER
+ PROVIDER
 ==================================================*/
-
 export function ProductProvider({ children }) {
+  /*==================================================
+   STATE
+  ==================================================*/
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   /*==================================================
- LOAD PRODUCTS FROM BACKEND
-==================================================*/
-
+   FETCH DATA FROM BACKEND
+  ==================================================*/
   useEffect(() => {
-    fetch("http://localhost:3000/api/products")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Gagal mengambil produk");
-        }
+    const getProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/products");
+        const json = await res.json();
 
-        return response.json();
-      })
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.error("Backend gagal dihubungi:", error);
-      })
-      .finally(() => {
+        // Ambil data dari properti "data" (sesuai response backend lu)
+        if (json.success) setProducts(json.data);
+      } catch (err) {
+        console.error("Koneksi backend gagal:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    getProducts();
   }, []);
+
   /*==================================================
    ADD PRODUCT
   ==================================================*/
-
   const addProduct = async (product) => {
     try {
-      const response = await fetch("http://localhost:3000/api/products", {
+      const res = await fetch("http://localhost:3000/api/products", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product),
       });
 
-      if (!response.ok) {
-        throw new Error("Gagal menambahkan produk");
-      }
-
-      const newProduct = await response.json();
-
-      setProducts((currentProducts) => [...currentProducts, newProduct]);
-    } catch (error) {
-      console.error("Gagal menambahkan produk:", error);
+      if (!res.ok) throw new Error("Gagal tambah produk");
+      
+      const result = await res.json();
+      setProducts((prev) => [...prev, result.data]);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   /*==================================================
- DELETE PRODUCT FROM BACKEND
-==================================================*/
-
-  const deleteProduct = async (productId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/products/${productId}`,
-        {
-          method: "DELETE",
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Gagal menghapus produk");
-      }
-
-      setProducts((currentProducts) =>
-        currentProducts.filter((product) => product.id !== productId),
-      );
-    } catch (error) {
-      console.error("Gagal menghapus produk:", error);
-    }
-  };
-  /*==================================================
-   UPDATE PRODUCT IN BACKEND
+   DELETE PRODUCT
   ==================================================*/
-
-  /*
-  Memperbarui produk di backend berdasarkan ID.
-
-  Jika backend berhasil memperbarui produk,
-  state frontend ikut diperbarui menggunakan
-  data terbaru dari backend.
-  */
-
-  const updateProduct = async (productId, updatedProduct) => {
+  const deleteProduct = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/products/${productId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedProduct),
-        },
+      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Gagal hapus produk");
+
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /*==================================================
+   UPDATE PRODUCT
+  ==================================================*/
+  const updateProduct = async (id, updated) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated),
+      });
+
+      if (!res.ok) throw new Error("Gagal update produk");
+
+      const result = await res.json();
+      setProducts((prev) =>
+        prev.map((p) => (p.id === id ? result.data : p))
       );
-
-      if (!response.ok) {
-        throw new Error("Gagal memperbarui produk");
-      }
-
-      const savedProduct = await response.json();
-
-      setProducts((currentProducts) =>
-        currentProducts.map((product) =>
-          product.id === productId ? savedProduct : product,
-        ),
-      );
-    } catch (error) {
-      console.error("Gagal memperbarui produk:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   return (
     <ProductContext.Provider
-      value={{
-        products,
-        loading,
-        addProduct,
-        deleteProduct,
-        updateProduct,
-      }}
+      value={{ products, loading, addProduct, deleteProduct, updateProduct }}
     >
       {children}
     </ProductContext.Provider>
@@ -151,15 +111,10 @@ export function ProductProvider({ children }) {
 }
 
 /*==================================================
- PRODUCT HOOK
+ HOOK
 ==================================================*/
-
-export function useProducts() {
-  const context = useContext(ProductContext);
-
-  if (!context) {
-    throw new Error("useProducts harus digunakan di dalam ProductProvider");
-  }
-
-  return context;
-}
+export const useProducts = () => {
+  const ctx = useContext(ProductContext);
+  if (!ctx) throw new Error("useProducts wajib dipakai di dalam ProductProvider");
+  return ctx;
+};

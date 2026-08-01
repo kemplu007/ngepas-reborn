@@ -9,7 +9,6 @@
 /*==================================================
  IMPORTS
 ==================================================*/
-import Navbar from "../../components/public/Navbar";
 
 import Hero from "../../components/public/Hero";
 
@@ -28,7 +27,6 @@ import CtaBanner from "../../components/public/CtaBanner";
 function Home() {
   return (
     <>
-      <Navbar />
       <Hero />
       <Category />
       <WhyNgepas />
