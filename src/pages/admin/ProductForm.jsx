@@ -79,6 +79,9 @@ function ProductForm() {
 
   const [formData, setFormData] = useState(initialFormData);
 
+  const [gallery, setGallery] = useState([]);
+const [newGalleryUrl, setNewGalleryUrl] = useState("");
+
   const [imageError, setImageError] = useState(false);
 
   /*==============================================
@@ -102,44 +105,45 @@ function ProductForm() {
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-");
   /*==================================================
-   LOAD EDIT PRODUCT
-  ==================================================*/
+ LOAD EDIT PRODUCT
+==================================================*/
 
-  useEffect(() => {
-    if (!editingProduct) return;
+useEffect(() => {
+  if (!editingProduct) return;
 
-    setFormData({
-      name: editingProduct.name || "",
-      room: editingProduct.room || "",
-      category: editingProduct.category || "",
-      image: editingProduct.image || "",
+  setFormData({
+    name: editingProduct.name || "",
+    room: editingProduct.room || "",
+    category: editingProduct.category || "",
+    image: editingProduct.image || "",
+    price: String(editingProduct.price || "").replace(/\D/g, "") || "",
+    originalPrice: String(editingProduct.originalPrice || "").replace(/\D/g, "") || "",
 
-      price: editingProduct.price?.replace(/\D/g, "") || "",
+    discount: editingProduct.discount ?? "",
+    rating: editingProduct.rating ?? "",
+    sold: editingProduct.sold ?? "",
+    stock: editingProduct.stock ?? "",
+    affiliateLink: editingProduct.affiliateLink || "",
+    featured: editingProduct.featured ?? false,
+    badge: editingProduct.badge || "",
+    tags: editingProduct.tags?.join(", ") || "",
+    status: editingProduct.status || "published",
+    gallery: editingProduct.gallery?.join("\n") || "",
+    description: editingProduct.description || "",
+    features: editingProduct.features?.join("\n") || "",
+    specifications: editingProduct.specifications
+      ? Object.entries(editingProduct.specifications)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join("\n")
+      : "",
+    whyWeRecommend: editingProduct.whyWeRecommend?.join("\n") || "",
+    bestFor: editingProduct.bestFor?.join("\n") || "",
+    considerations: editingProduct.considerations?.join("\n") || "",
+  });
 
-      originalPrice: editingProduct.originalPrice?.replace(/\D/g, "") || "",
-
-      discount: editingProduct.discount ?? "",
-      rating: editingProduct.rating ?? "",
-      sold: editingProduct.sold ?? "",
-      stock: editingProduct.stock ?? "",
-      affiliateLink: editingProduct.affiliateLink || "",
-      featured: editingProduct.featured ?? false,
-      badge: editingProduct.badge || "",
-      tags: editingProduct.tags?.join(", ") || "",
-      status: editingProduct.status || "published",
-      gallery: editingProduct.gallery?.join("\n") || "",
-      description: editingProduct.description || "",
-      features: editingProduct.features?.join("\n") || "",
-      specifications: editingProduct.specifications
-        ? Object.entries(editingProduct.specifications)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join("\n")
-        : "",
-      whyWeRecommend: editingProduct.whyWeRecommend?.join("\n") || "",
-      bestFor: editingProduct.bestFor?.join("\n") || "",
-      considerations: editingProduct.considerations?.join("\n") || "",
-    });
-  }, [editingProduct]);
+  // Load existing gallery array into state
+setGallery(editingProduct.gallery || []);
+}, [editingProduct]);
 
   /*==================================================
    INPUT HANDLER
@@ -154,7 +158,7 @@ function ProductForm() {
 
     setFormData((currentData) => ({
       ...currentData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : (value === "" ? "" : value ),
     }));
   };
 
@@ -173,22 +177,32 @@ function ProductForm() {
   };
 
   /*==================================================
+ GALLERY HANDLERS
+==================================================*/
+const handleAddGallery = () => {
+  const url = newGalleryUrl.trim();
+  if (url && !gallery.includes(url)) {
+    setGallery((prev) => [...prev, url]);
+    setNewGalleryUrl("");
+  }
+};
+
+const handleRemoveGallery = (urlToRemove) => {
+  setGallery((prev) => prev.filter((url) => url !== urlToRemove));
+};
+  /*==================================================
    FORM SUBMIT
   ==================================================*/
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const newProduct = {
       ...formData,
-
       slug: generatedSlug,
 
-      price: `Rp${Number(formData.price).toLocaleString("id-ID")}`,
-
-      originalPrice: formData.originalPrice
-        ? `Rp${Number(formData.originalPrice).toLocaleString("id-ID")}`
-        : "",
+      // PERBAIKAN DI SINI: Hapus format Rp, kirim angka murni ke backend
+      price: Number(formData.price),
+      originalPrice: Number(formData.originalPrice) || 0,
 
       discount: calculatedDiscount,
       rating: Number(formData.rating) || 0,
@@ -219,10 +233,7 @@ function ProductForm() {
         .split(",")
         .map((tag) => tag.trim())
         .filter(Boolean),
-      gallery: formData.gallery
-        .split("\n")
-        .map((url) => url.trim())
-        .filter(Boolean),
+      gallery: gallery, // Passing the array state directly
       bestFor: formData.bestFor
         .split("\n")
         .map((item) => item.trim())
@@ -241,7 +252,6 @@ function ProductForm() {
       updateProduct(editingProduct.id, newProduct);
     } else {
       addProduct(newProduct);
-
       setFormData(initialFormData);
     }
   };
@@ -491,47 +501,51 @@ function ProductForm() {
           {/*==============================================
  PRODUCT GALLERY
 ==============================================*/}
+<div>
+  <label htmlFor="gallery" className="text-sm font-semibold text-slate-700">
+    Product Gallery
+  </label>
 
-          <div>
-            <label
-              htmlFor="gallery"
-              className="text-sm font-semibold text-slate-700"
-            >
-              Gallery Produk
-            </label>
+  {/* Input & Add Button */}
+  <div className="mt-2 flex gap-2">
+    <input
+      type="text"
+      value={newGalleryUrl}
+      onChange={(e) => setNewGalleryUrl(e.target.value)}
+      placeholder="https://example.com/image.jpg"
+      className="flex-1 rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+    />
+    <button
+      type="button"
+      onClick={handleAddGallery}
+      className="shrink-0 rounded-xl bg-emerald-600 px-4 py-3 font-semibold text-white transition hover:bg-emerald-700"
+    >
+      + Add
+    </button>
+  </div>
 
-            <textarea
-              id="gallery"
-              name="gallery"
-              rows={5}
-              value={formData.gallery}
-              onChange={handleChange}
-              placeholder={`https://...
-
-https://...
-
-https://...`}
-              className="
-      mt-2
-      w-full
-      rounded-xl
-      border
-      border-slate-300
-      px-4
-      py-3
-      outline-none
-      resize-none
-      focus:border-emerald-600
-      focus:ring-2
-      focus:ring-emerald-100
-    "
-            />
-
-            <p className="mt-2 text-xs text-slate-500">
-              Satu URL untuk setiap baris.
-            </p>
-          </div>
-
+  {/* Gallery Grid Preview */}
+  <div className="mt-4 grid grid-cols-3 gap-3">
+    {gallery.length > 0 ? (
+      gallery.map((url, idx) => (
+        <div key={idx} className="group relative aspect-square overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
+          <img src={url} alt={`Gallery ${idx + 1}`} className="h-full w-full object-cover" onError={(e) => { e.target.src = "https://placehold.co/150x150?text=Error"; }} />
+          <button
+            type="button"
+            onClick={() => handleRemoveGallery(url)}
+            className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white opacity-0 transition group-hover:opacity-100"
+          >
+            <span className="block h-3 w-3">✕</span>
+          </button>
+        </div>
+      ))
+    ) : (
+      <p className="col-span-3 text-center text-sm text-slate-400 py-4">
+        No images added yet.
+      </p>
+    )}
+  </div>
+</div>
           {/*==============================================
  PRODUCT DESCRIPTION
 ==============================================*/}
