@@ -6,6 +6,12 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
+import {
+  getProducts,
+  addProduct as createProduct,
+  updateProduct as editProduct,
+  deleteProduct as removeProduct,
+} from "../services/productService";
 /*==================================================
  CONTEXT
 ==================================================*/
@@ -20,88 +26,84 @@ export function ProductProvider({ children }) {
   ==================================================*/
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   /*==================================================
    FETCH DATA FROM BACKEND
   ==================================================*/
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/products");
-        const json = await res.json();
+  const refreshProducts = async () => {
+  try {
+    setLoading(true);
+    setError(null);
 
-        // Ambil data dari properti "data" (sesuai response backend lu)
-        if (json.success) setProducts(json.data);
-      } catch (err) {
-        console.error("Koneksi backend gagal:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const data = await getProducts();
 
-    getProducts();
-  }, []);
+    setProducts(data);
+  } catch (err) {
+    console.error(err);
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
+useEffect(() => {
+  refreshProducts();
+}, []);
   /*==================================================
    ADD PRODUCT
   ==================================================*/
   const addProduct = async (product) => {
-    try {
-      const res = await fetch("http://localhost:3000/api/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
-      });
+  try {
+    const newProduct = await createProduct(product);
 
-      if (!res.ok) throw new Error("Gagal tambah produk");
-
-      const result = await res.json();
-      setProducts((prev) => [...prev, result.data]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    setProducts((prev) => [...prev, newProduct]);
+  } catch (err) {
+    console.error(err);
+    setError(err.message);
+  }
+};
 
   /*==================================================
    DELETE PRODUCT
   ==================================================*/
   const deleteProduct = async (id) => {
-    try {
-      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-        method: "DELETE",
-      });
+  try {
+    await removeProduct(id);
 
-      if (!res.ok) throw new Error("Gagal hapus produk");
-
-      setProducts((prev) => prev.filter((p) => p.id !== id));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+    setProducts((prev) => prev.filter((p) => p.id !== id));
+  } catch (err) {
+    console.error(err);
+    setError(err.message);
+  }
+};
   /*==================================================
    UPDATE PRODUCT
   ==================================================*/
   const updateProduct = async (id, updated) => {
-    try {
-      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated),
-      });
+  try {
+    const product = await editProduct(id, updated);
 
-      if (!res.ok) throw new Error("Gagal update produk");
-
-      const result = await res.json();
-      setProducts((prev) => prev.map((p) => (p.id === id ? result.data : p)));
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    setProducts((prev) =>
+      prev.map((p) => (p.id === id ? product : p))
+    );
+  } catch (err) {
+    console.error(err);
+    setError(err.message);
+  }
+};
 
   return (
     <ProductContext.Provider
-      value={{ products, loading, addProduct, deleteProduct, updateProduct }}
+      value={{
+  products,
+  loading,
+  error,
+  refreshProducts,
+  addProduct,
+  deleteProduct,
+  updateProduct,
+}}
     >
       {children}
     </ProductContext.Provider>

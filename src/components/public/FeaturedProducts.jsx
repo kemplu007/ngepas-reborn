@@ -31,8 +31,8 @@ function FeaturedProducts() {
    FEATURED PRODUCTS DATA
   ==================================================*/
   const featuredProducts = products.filter(
-    (product) => product.featured === true,
-  );
+  (product) => Boolean(Number(product.featured)),
+);
 
   /*==================================================
    UI
