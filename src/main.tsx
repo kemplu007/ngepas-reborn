@@ -13,6 +13,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
+import { ProductProvider } from "./context/ProductContext";
+import { CategoryProvider } from "./context/CategoryContext";
 import ScrollToTop from "./components/common/ScrollToTop";
 import { FavoritesProvider } from "./context/FavoritesContext";
 
@@ -22,11 +24,23 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <FavoritesProvider>
-        <ScrollToTop />
-        <App />
-      </FavoritesProvider>
-    </BrowserRouter>
-  </StrictMode>,
+  <BrowserRouter>
+
+    <CategoryProvider>
+
+      <ProductProvider>
+
+        <FavoritesProvider>
+
+          <ScrollToTop />
+          <App />
+
+        </FavoritesProvider>
+
+      </ProductProvider>
+
+    </CategoryProvider>
+
+  </BrowserRouter>
+</StrictMode>,
 );

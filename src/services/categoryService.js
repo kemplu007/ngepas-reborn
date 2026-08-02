@@ -7,13 +7,27 @@
 import API_URL from "./api";
 
 /*==================================================
+ REQUEST HELPER
+==================================================*/
+
+async function request(endpoint, options = {}) {
+  const response = await fetch(`${API_URL}${endpoint}`, options);
+
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.message || "Terjadi kesalahan.");
+  }
+
+  return result.data;
+}
+
+/*==================================================
  GET CATEGORIES
 ==================================================*/
 
 export async function getCategories() {
-  const response = await fetch(`${API_URL}/categories`);
-
-  return response.json();
+  return request("/categories");
 }
 
 /*==================================================
@@ -21,17 +35,13 @@ export async function getCategories() {
 ==================================================*/
 
 export async function createCategory(category) {
-  const response = await fetch(`${API_URL}/categories`, {
+  return request("/categories", {
     method: "POST",
-
     headers: {
       "Content-Type": "application/json",
     },
-
     body: JSON.stringify(category),
   });
-
-  return response.json();
 }
 
 /*==================================================
@@ -39,17 +49,13 @@ export async function createCategory(category) {
 ==================================================*/
 
 export async function updateCategory(id, category) {
-  const response = await fetch(`${API_URL}/categories/${id}`, {
+  return request(`/categories/${id}`, {
     method: "PUT",
-
     headers: {
       "Content-Type": "application/json",
     },
-
     body: JSON.stringify(category),
   });
-
-  return response.json();
 }
 
 /*==================================================
@@ -57,9 +63,7 @@ export async function updateCategory(id, category) {
 ==================================================*/
 
 export async function deleteCategory(id) {
-  const response = await fetch(`${API_URL}/categories/${id}`, {
+  return request(`/categories/${id}`, {
     method: "DELETE",
   });
-
-  return response.json();
 }

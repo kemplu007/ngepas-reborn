@@ -8,8 +8,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
-
-import products from "../../data/products";
+import { useProducts } from "../../context/ProductContext";
 import highlightText from "../../utils/highlightText";
 
 /*==================================================
@@ -22,7 +21,8 @@ function SearchDropdown() {
 ==================================================*/
 
   const [keyword, setKeyword] = useState("");
-
+  
+const { products } = useProducts();
   /*==================================================
  FILTER PRODUCT
 ==================================================*/
