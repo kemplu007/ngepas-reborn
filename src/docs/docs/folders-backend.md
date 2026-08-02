@@ -243,10 +243,28 @@ emailService.js
 
 ---
 
+
 STATUS
+Mengikuti prinsip YAGNI
 
-NOT IMPLEMENTED
+Backend CRUD Product
 
-Mengikuti prinsip YAGNI.
+✔
 
-Service hanya dibuat saat dibutuhkan.
+Backend CRUD Category
+
+✔
+
+Frontend Integration
+
+✔
+
+NEXT
+
+Authentication
+
+Upload
+
+Settings
+
+Service Layer Backend (Jika diperlukan)

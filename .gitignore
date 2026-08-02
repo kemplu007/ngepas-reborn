@@ -27,3 +27,8 @@ dist-ssr
 server/ngepas.db
 server/ngepas.db-shm
 server/ngepas.db-wal
+
+# Environment
+.env
+.env.local
+.env.production

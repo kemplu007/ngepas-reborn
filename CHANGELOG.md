@@ -1,157 +1,81 @@
-# NGEPAS REBORN CHANGELOG
+# ==================================================
+# NGEPAS REBORN
+# CHANGELOG
+# ==================================================
 
-Semua perubahan penting pada project akan dicatat di sini.
+## v0.8.0
 
----
+Release Date
 
-# Checkpoint 0.8
+2026-08-02
 
-Tanggal: 18 Juli 2026
+==================================================
+FRONTEND
+==================================================
 
-## ✨ Added
+✓ Menambahkan CategoryContext
 
-- React Router
-- Dynamic Route (`:slug`)
-- Product Detail Page
-- Back Navigation
-- Product Slug
-- Affiliate Link Structure
+✓ Migrasi Categories.jsx ke Backend API
 
-## 🎨 Improved
+✓ Migrasi SearchDropdown ke ProductContext
 
-- Product data architecture
-- URL readability
-- Router structure
+✓ Homepage Product menggunakan Backend API
 
----
+✓ Homepage Category menggunakan Backend API
 
-# Checkpoint 0.9
+✓ ProductContext menggunakan Product Service
 
-Tanggal: 19 Juli 2026
+✓ CategoryContext menggunakan Category Service
 
-## ✨ Added
+✓ Search tidak lagi menggunakan data statis
 
-- Dynamic Product Detail
-- Related Products
-- Scroll To Top
-- Decision Engine
-  - Why We Recommend
-  - Best For
-  - Considerations
+✓ Folder data/products.js menjadi LEGACY
 
-## 🎨 Improved
+✓ Folder data/categories.js menjadi LEGACY
 
-- Product Detail Typography
-- Product Image Presentation
-- Decision Section Hierarchy
-- Header Navigation
-- Stock Badge
-- Overall Readability
+==================================================
+BACKEND
+==================================================
 
-## 🔧 Refactor
+✓ CRUD Product Stabil
 
-- Product Detail Layout
-- Cleaner UI Hierarchy
+✓ CRUD Category Stabil
 
----
+✓ API Contract Stabil
 
-# Checkpoint 1.0
+✓ Response Helper Konsisten
 
-Tanggal: 19 Juli 2026
+==================================================
+DOCUMENTATION
+==================================================
 
-## ✨ Added
+✓ backend-architekture.md
 
-- Favorite System
-- Favorites Context API
-- Custom Hook
-- Local Storage Persistence
-- Favorite Button
-- Favorite Synchronization
+✓ folders-backend.md
 
-## 🔧 Refactor
+✓ folders-frontend.md
 
-- ProductCard consumes Context
-- Removed Prop Drilling
-- FeaturedProducts simplified
+✓ api-contract.md
 
-## 🐛 Fixed
+✓ coding-standard.md
 
-- Favorite persists after refresh
-- Favorite sync between Home & Detail
+==================================================
+STATUS
+==================================================
 
----
+SPRINT 3.2
 
-# Checkpoint 1.1
+COMPLETED
 
-Tanggal: 21 Juli 2026
+NEXT
 
-## 🎨 Improved
+Admin Categories
 
-- Complete Product Detail redesign
-- Better visual hierarchy
-- Marketplace CTA repositioned
-- Premium information cards
-- Improved spacing & typography
-- Better Related Products section
-- Better mobile experience
+Admin Product Form
 
-## 🔧 Refactor
+Upload Image
 
-- Removed Favorite System
-- Simplified Product Detail
-- Cleaner Product Detail structure
-- Better component readability
+Authentication
 
-## 🗑 Removed
-
-- Favorite Context
-- Favorite Button
-- Favorite logic
-
-## Added
-
-- Add roomCategories data
-- Prepare room → category navigation
-- Blueprint Alive BP-03
-
-## [0.6] - Blueprint Navigation System
-
-### Added
-
-- Room navigation data
-- Room category mapping
-- Category selection state
-- Dynamic category rendering
-
-### Changed
-
-- Refactored product data structure
-- Added room field
-- Updated category to blueprint-based structure
-- Reset selected category when room changes
-
-### Improved
-
-- Consistent product object convention
-- Better foundation for product filtering engine
-
-## [0.7]
-
-### Added
-
-- Active room selection
-- Active category selection
-- Product filtering system
-- Dynamic product rendering
-- Empty state for unavailable products
-
-### Improved
-
-- Blueprint navigation flow
-- Room & category interaction
-- UI feedback for selected items
-
-### Refactored
-
-- Product data structure
-- Category filtering logic
+==================================================
+END

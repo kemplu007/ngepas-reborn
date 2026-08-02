@@ -194,6 +194,46 @@ API Helper
 request()
 
 ==================================================
+CONTEXT RULES
+==================================================
+
+Context hanya bertugas:
+
+✓ Mengelola Global State
+
+✓ Memanggil Service
+
+✓ Menyimpan Loading
+
+✓ Menyimpan Error
+
+Context tidak boleh:
+
+×
+
+fetch()
+
+×
+
+Hardcode URL Backend
+
+==================================================
+ENVIRONMENT
+==================================================
+
+×
+
+Hardcode URL Backend
+
+✓
+
+Gunakan Environment Variable
+
+Contoh
+
+VITE_API_URL
+
+==================================================
 DOCUMENTATION
 ==================================================
 

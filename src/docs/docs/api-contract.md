@@ -62,6 +62,12 @@ Component hanya menggunakan Context.
 BASE URL
 ==================================================
 
+BASE URL
+
+VITE_API_URL
+
+Default Development
+
 http://localhost:3000/api
 
 ==================================================
@@ -409,7 +415,19 @@ Product Context
 
 100%
 
+Category Context
+
+██████████
+
+100%
+
 Homepage
+
+██████████
+
+100%
+
+Search
 
 ██████████
 
@@ -417,7 +435,9 @@ Homepage
 
 Status
 
-READY FOR NEXT SPRINT
+SPRINT 3.2 COMPLETED
+
+READY FOR ADMIN MODULE
 
 ==================================================
 END OF DOCUMENT

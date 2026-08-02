@@ -74,8 +74,12 @@ src/
 ├── context/
 │ ├── FavoritesContext.jsx
 │ └── ProductContext.jsx
+|  └── CategoryContext.jsx
 │
 ├── data/
+|      mock/
+|       ├── categories.js
+|       └── products.js
 │ ├── categories.js
 │ ├── ctaBanner.js
 │ ├── features.js
@@ -233,6 +237,18 @@ ProductContext.jsx
 
 • Menyediakan refreshProducts().
 
+CategoryContext.jsx
+
+• Global State Category.
+
+• Mengelola loading.
+
+• Mengelola error.
+
+• Menggunakan Category Service.
+
+• Tidak melakukan fetch() langsung.
+
 ---
 
 📁 data
@@ -265,6 +281,22 @@ whyNgepas.js
 • Data Why Ngepas.
 
 ---
+
+📁 mock
+
+products.js
+
+• LEGACY
+• Backup data frontend.
+• Digantikan ProductContext + Backend API.
+
+---
+
+categories.js
+
+• LEGACY
+• Backup data frontend.
+• Digantikan CategoryContext + Backend API.
 
 📁 docs
 
@@ -389,3 +421,4 @@ highlightText.jsx
 • Base Style.
 • Reset.
 • Utility Global.
+

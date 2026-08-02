@@ -1,10 +1,9 @@
-
 # ==================================================
 # NGEPAS REBORN
 # CHANGELOG
 # ==================================================
 
-## v0.7.0
+## v0.8.0
 
 Release Date
 
@@ -14,45 +13,47 @@ Release Date
 FRONTEND
 ==================================================
 
-✓ Menambahkan folder services
+✓ Menambahkan CategoryContext
 
-✓ api.js
+✓ Migrasi Categories.jsx ke Backend API
 
-✓ productService.js
+✓ Migrasi SearchDropdown ke ProductContext
 
-✓ categoryService.js
+✓ Homepage Product menggunakan Backend API
 
-✓ Refactor ProductContext
+✓ Homepage Category menggunakan Backend API
 
-✓ Menghapus fetch() langsung dari Context
+✓ ProductContext menggunakan Product Service
 
-✓ Menambahkan loading state
+✓ CategoryContext menggunakan Category Service
 
-✓ Menambahkan error state
+✓ Search tidak lagi menggunakan data statis
 
-✓ Menambahkan refreshProducts()
+✓ Folder data/products.js menjadi LEGACY
+
+✓ Folder data/categories.js menjadi LEGACY
 
 ==================================================
 BACKEND
 ==================================================
 
-✓ Backend CRUD Product Stabil
+✓ CRUD Product Stabil
 
-✓ Backend CRUD Category Stabil
+✓ CRUD Category Stabil
 
-✓ Response Helper Stabil
+✓ API Contract Stabil
 
-✓ Audit Backend Selesai
+✓ Response Helper Konsisten
 
 ==================================================
 DOCUMENTATION
 ==================================================
 
-✓ folders-frontend.md
+✓ backend-architekture.md
 
 ✓ folders-backend.md
 
-✓ backend-architekture.md
+✓ folders-frontend.md
 
 ✓ api-contract.md
 
@@ -62,22 +63,19 @@ DOCUMENTATION
 STATUS
 ==================================================
 
-SPRINT 3.1
+SPRINT 3.2
 
 COMPLETED
 
 NEXT
 
-Frontend API Integration
+Admin Categories
 
-Category Context
+Admin Product Form
 
-Product Detail
+Upload Image
 
-Search API
-
-Admin Integration
+Authentication
 
 ==================================================
 END
-==================================================
