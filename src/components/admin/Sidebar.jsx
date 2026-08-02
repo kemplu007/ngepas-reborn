@@ -1,51 +1,64 @@
 /*==================================================
  NGEPAS REBORN
- Project : Ngepas Reborn
  File    : Sidebar.jsx
  Module  : Admin Components
 ==================================================*/
 
-/*==================================================
- IMPORTS
-==================================================*/
-
 import { NavLink } from "react-router-dom";
+import { LogOut } from "lucide-react";
 import adminMenu from "../../config/admin/menu";
 
 /*==================================================
  COMPONENT
 ==================================================*/
-
-function Sidebar() {
+function Sidebar({ isOpen, toggleSidebar }) {
+  
   /*==================================================
-   UI
+   CLOSE SIDEBAR ON NAVIGATION (Mobile UX)
   ==================================================*/
+  const handleLinkClick = () => {
+    if (window.innerWidth < 1024) {
+      toggleSidebar();
+    }
+  };
 
   return (
-    <aside className="w-64 min-h-screen bg-green-900 text-white flex flex-col">
-      {/*==================================================
-        LOGO
-      ==================================================*/}
-      <div className="p-6 border-b border-green-800">
-        <h1 className="text-2xl font-bold">Ngepas</h1>
-        <p className="text-sm text-green-200">Admin Panel</p>
+    <aside
+      className={`
+        fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-emerald-900 text-white
+        transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0 lg:static lg:z-auto
+      `}
+    >
+      {/*==============================================
+       SIDEBAR HEADER (LOGO)
+      ==============================================*/}
+      <div className="border-b border-emerald-800 p-6">
+        <h1 className="text-2xl font-bold tracking-tight">Ngepas</h1>
+        <p className="text-xs text-emerald-300">Admin Panel</p>
       </div>
 
-      {/*==================================================
-        MENU
-      ==================================================*/}
-      <nav className="flex-1 p-4 space-y-2">
+      {/*==============================================
+       SIDEBAR MENU (NARIK DARI adminMenu)
+      ==============================================*/}
+      <nav className="flex-1 space-y-1 overflow-y-auto p-4">
         {adminMenu.map((item) => {
           const Icon = item.icon;
-
           return (
             <NavLink
               key={item.path}
               to={item.path}
+              onClick={handleLinkClick}
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-4 py-3 transition ${
-                  isActive ? "bg-green-700 font-semibold" : "hover:bg-green-800"
-                }`
+                `
+                  flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition
+                  ${
+                    isActive
+                      ? "bg-emerald-800 text-white"
+                      : "text-emerald-100 hover:bg-emerald-800/50"
+                  }
+                `
               }
             >
               <Icon size={20} />
@@ -55,20 +68,24 @@ function Sidebar() {
         })}
       </nav>
 
-      {/*==================================================
-        LOGOUT
-      ==================================================*/}
-      <div className="border-t border-green-800 p-4">
-        <button className="w-full rounded-lg bg-red-500 px-4 py-3 font-medium transition hover:bg-red-600">
-          Logout
+      {/*==============================================
+       SIDEBAR FOOTER (LOGOUT)
+      ==============================================*/}
+      <div className="border-t border-emerald-800 p-4">
+        <button
+          type="button"
+          onClick={() => {
+            // Placeholder untuk logic logout di masa depan
+            alert("Logout functionality coming soon!");
+          }}
+          className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-emerald-100 transition hover:bg-red-500/20 hover:text-red-200"
+        >
+          <LogOut size={20} />
+          <span>Logout</span>
         </button>
       </div>
     </aside>
   );
 }
-
-/*==================================================
- EXPORT
-==================================================*/
 
 export default Sidebar;

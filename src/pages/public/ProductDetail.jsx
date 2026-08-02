@@ -25,7 +25,6 @@ function ProductDetail() {
    PRODUCT CONTEXT
   ==================================================*/
 
-
   const { products, loading } = useProducts();
   /*==================================================
   GET URL PARAMETER
@@ -70,28 +69,28 @@ function ProductDetail() {
   ==================================================*/
 
   const {
-  name,
-  image,
-  room,
-  category,
-  badge,
-  tags = [],
-  description,
-  features = [],
-  specifications = {},
-  whyWeRecommend = [],
-  bestFor = [],
-  considerations = [],
-  price,
-  originalPrice,
-  discount,
-  rating,
-  sold,
-  stock,
-  affiliateLink,
-} = product;
+    name,
+    image,
+    room,
+    category,
+    badge,
+    tags = [],
+    description,
+    features = [],
+    specifications = {},
+    whyWeRecommend = [],
+    bestFor = [],
+    considerations = [],
+    price,
+    originalPrice,
+    discount,
+    rating,
+    sold,
+    stock,
+    affiliateLink,
+  } = product;
 
-/*==================================================
+  /*==================================================
   PRODUCT GALLERY
   ==================================================*/
 
@@ -151,44 +150,44 @@ function ProductDetail() {
 PRODUCT IMAGE
 ==================================================*/}
 
-<div className="space-y-4">
-  {/*--------------------------------------------------
+        <div className="space-y-4">
+          {/*--------------------------------------------------
   MAIN IMAGE
   --------------------------------------------------*/}
 
-  <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-xl">
-    <img
-      src={galleryImages[selectedImage]}
-      alt={name}
-      className="aspect-square w-full rounded-2xl object-cover transition duration-300 hover:scale-105"
-    />
-  </div>
+          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-xl">
+            <img
+              src={galleryImages[selectedImage]}
+              alt={name}
+              className="aspect-square w-full rounded-2xl object-cover transition duration-300 hover:scale-105"
+            />
+          </div>
 
-  {/*--------------------------------------------------
+          {/*--------------------------------------------------
   GALLERY THUMBNAIL
   --------------------------------------------------*/}
 
-  <div className="flex gap-3 overflow-x-auto pb-1">
-    {galleryImages.map((item, index) => (
-      <button
-        key={index}
-        type="button"
-        onClick={() => setSelectedImage(index)}
-        className={`overflow-hidden rounded-2xl border-2 transition-all duration-300 ${
-          selectedImage === index
-            ? "scale-105 border-emerald-600 shadow-lg"
-            : "border-slate-200 hover:border-emerald-300"
-        }`}
-      >
-        <img
-          src={item}
-          alt={`${name} ${index + 1}`}
-          className="h-20 w-20 object-cover"
-        />
-      </button>
-    ))}
-  </div>
-</div>
+          <div className="flex gap-3 overflow-x-auto pb-1">
+            {galleryImages.map((item, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setSelectedImage(index)}
+                className={`overflow-hidden rounded-2xl border-2 transition-all duration-300 ${
+                  selectedImage === index
+                    ? "scale-105 border-emerald-600 shadow-lg"
+                    : "border-slate-200 hover:border-emerald-300"
+                }`}
+              >
+                <img
+                  src={item}
+                  alt={`${name} ${index + 1}`}
+                  className="h-20 w-20 object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
         {/*==================================================
         PRODUCT INFO
         ==================================================*/}
@@ -205,16 +204,13 @@ PRODUCT IMAGE
 
             <span>{room}</span>
 
-<span>/</span>
+            <span>/</span>
 
-<span>{category}</span>
+            <span>{category}</span>
 
-<span>/</span>
+            <span>/</span>
 
-<span className="font-medium text-slate-700">
-  {name}
-</span>
-
+            <span className="font-medium text-slate-700">{name}</span>
           </nav>
 
           <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
@@ -222,10 +218,10 @@ PRODUCT IMAGE
           </span>
 
           {badge && (
-  <span className="ml-3 inline-flex rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-700">
-    {badge}
-  </span>
-)}
+            <span className="ml-3 inline-flex rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-700">
+              {badge}
+            </span>
+          )}
 
           {/* TITLE */}
 
@@ -238,17 +234,17 @@ PRODUCT IMAGE
           <p className="mt-5 leading-8 text-slate-600">{description}</p>
 
           {tags.length > 0 && (
-  <div className="mt-6 flex flex-wrap gap-2">
-    {tags.map((tag) => (
-      <span
-        key={tag}
-        className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600"
-      >
-        #{tag}
-      </span>
-    ))}
-  </div>
-)}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* PRICE */}
 
@@ -312,25 +308,25 @@ PRODUCT IMAGE
           {/* CTA */}
 
           <div className="sticky bottom-4 z-20 mt-8">
-  {affiliateLink ? (
-    <a
-      href={affiliateLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block w-full rounded-2xl bg-emerald-600 px-8 py-4 text-center text-lg font-bold text-white shadow-xl transition hover:-translate-y-1 hover:bg-emerald-700"
-    >
-      🛒 Cek Harga di Marketplace
-    </a>
-  ) : (
-    <button
-      type="button"
-      disabled
-      className="block w-full cursor-not-allowed rounded-2xl bg-slate-300 px-8 py-4 text-lg font-bold text-slate-500"
-    >
-      🛒 Link Marketplace Belum Tersedia
-    </button>
-  )}
-</div>
+            {affiliateLink ? (
+              <a
+                href={affiliateLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full rounded-2xl bg-emerald-600 px-8 py-4 text-center text-lg font-bold text-white shadow-xl transition hover:-translate-y-1 hover:bg-emerald-700"
+              >
+                🛒 Cek Harga di Marketplace
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="block w-full cursor-not-allowed rounded-2xl bg-slate-300 px-8 py-4 text-lg font-bold text-slate-500"
+              >
+                🛒 Link Marketplace Belum Tersedia
+              </button>
+            )}
+          </div>
 
           {/*==================================================
           FEATURES

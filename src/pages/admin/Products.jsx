@@ -77,7 +77,9 @@ function Products() {
           className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-emerald-500 sm:w-40"
         >
           {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
           ))}
         </select>
       </div>
@@ -89,7 +91,9 @@ function Products() {
         <ProductTable products={filteredProducts} onDelete={deleteProduct} />
       ) : (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
-          <p className="text-lg font-semibold text-slate-700">Produk tidak ditemukan</p>
+          <p className="text-lg font-semibold text-slate-700">
+            Produk tidak ditemukan
+          </p>
           <p className="mt-2 text-slate-500">Coba gunakan kata kunci lain.</p>
         </div>
       )}

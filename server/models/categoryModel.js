@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  File   : categoryModel.js
@@ -12,11 +11,15 @@ const db = require("../database/db");
 ==================================================*/
 
 function getAllCategories() {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     SELECT *
     FROM categories
     ORDER BY sortOrder ASC, id ASC
-  `).all();
+  `,
+    )
+    .all();
 }
 
 /*==================================================
@@ -24,7 +27,9 @@ function getAllCategories() {
 ==================================================*/
 
 function createCategory(category) {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     INSERT INTO categories
     (
       name,
@@ -35,14 +40,16 @@ function createCategory(category) {
       sortOrder
     )
     VALUES (?, ?, ?, ?, ?, ?)
-  `).run(
-    category.name,
-    category.slug,
-    category.room,
-    category.icon || "",
-    category.status ?? 1,
-    category.sortOrder ?? 0
-  );
+  `,
+    )
+    .run(
+      category.name,
+      category.slug,
+      category.room,
+      category.icon || "",
+      category.status ?? 1,
+      category.sortOrder ?? 0,
+    );
 }
 
 /*==================================================
@@ -50,7 +57,9 @@ function createCategory(category) {
 ==================================================*/
 
 function updateCategory(id, category) {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     UPDATE categories
     SET
       name = ?,
@@ -60,15 +69,17 @@ function updateCategory(id, category) {
       status = ?,
       sortOrder = ?
     WHERE id = ?
-  `).run(
-    category.name,
-    category.slug,
-    category.room,
-    category.icon || "",
-    category.status ?? 1,
-    category.sortOrder ?? 0,
-    id
-  );
+  `,
+    )
+    .run(
+      category.name,
+      category.slug,
+      category.room,
+      category.icon || "",
+      category.status ?? 1,
+      category.sortOrder ?? 0,
+      id,
+    );
 }
 
 /*==================================================
@@ -76,10 +87,14 @@ function updateCategory(id, category) {
 ==================================================*/
 
 function deleteCategory(id) {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     DELETE FROM categories
     WHERE id = ?
-  `).run(id);
+  `,
+    )
+    .run(id);
 }
 
 module.exports = {

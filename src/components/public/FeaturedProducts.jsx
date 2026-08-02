@@ -22,7 +22,10 @@ function FeaturedProducts() {
   /*==================================================
    LOADING STATE
   ==================================================*/
-  if (loading) return <p className="p-6 text-center text-slate-500">Sedang memuat produk...</p>;
+  if (loading)
+    return (
+      <p className="p-6 text-center text-slate-500">Sedang memuat produk...</p>
+    );
 
   /*==================================================
    FEATURED PRODUCTS DATA

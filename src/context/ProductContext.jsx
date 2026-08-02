@@ -54,7 +54,7 @@ export function ProductProvider({ children }) {
       });
 
       if (!res.ok) throw new Error("Gagal tambah produk");
-      
+
       const result = await res.json();
       setProducts((prev) => [...prev, result.data]);
     } catch (err) {
@@ -93,9 +93,7 @@ export function ProductProvider({ children }) {
       if (!res.ok) throw new Error("Gagal update produk");
 
       const result = await res.json();
-      setProducts((prev) =>
-        prev.map((p) => (p.id === id ? result.data : p))
-      );
+      setProducts((prev) => prev.map((p) => (p.id === id ? result.data : p)));
     } catch (err) {
       console.error(err);
     }
@@ -115,6 +113,7 @@ export function ProductProvider({ children }) {
 ==================================================*/
 export const useProducts = () => {
   const ctx = useContext(ProductContext);
-  if (!ctx) throw new Error("useProducts wajib dipakai di dalam ProductProvider");
+  if (!ctx)
+    throw new Error("useProducts wajib dipakai di dalam ProductProvider");
   return ctx;
 };

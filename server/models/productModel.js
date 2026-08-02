@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  File   : productModel.js
@@ -12,11 +11,15 @@ const db = require("../database/db");
 ==================================================*/
 
 function getAllProducts() {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     SELECT *
     FROM products
     ORDER BY id DESC
-  `).all();
+  `,
+    )
+    .all();
 }
 
 /*==================================================
@@ -24,7 +27,9 @@ function getAllProducts() {
 ==================================================*/
 
 function createProduct(product) {
-  const result = db.prepare(`
+  const result = db
+    .prepare(
+      `
     INSERT INTO products (
       name,
       room,
@@ -49,29 +54,31 @@ function createProduct(product) {
       considerations
     )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    product.name,
-    product.room,
-    product.category,
-    product.slug,
-    product.price,
-    product.originalPrice,
-    product.discount,
-    product.image,
-    product.badge,
-    product.reason,
-    product.rating,
-    product.sold,
-    product.featured,
-    product.stock,
-    product.affiliateLink,
-    product.description,
-    JSON.stringify(product.features),
-    JSON.stringify(product.specifications),
-    JSON.stringify(product.whyWeRecommend),
-    JSON.stringify(product.bestFor),
-    JSON.stringify(product.considerations)
-  );
+  `,
+    )
+    .run(
+      product.name,
+      product.room,
+      product.category,
+      product.slug,
+      product.price,
+      product.originalPrice,
+      product.discount,
+      product.image,
+      product.badge,
+      product.reason,
+      product.rating,
+      product.sold,
+      product.featured,
+      product.stock,
+      product.affiliateLink,
+      product.description,
+      JSON.stringify(product.features),
+      JSON.stringify(product.specifications),
+      JSON.stringify(product.whyWeRecommend),
+      JSON.stringify(product.bestFor),
+      JSON.stringify(product.considerations),
+    );
 
   return result;
 }
@@ -81,7 +88,9 @@ function createProduct(product) {
 ==================================================*/
 
 function updateProduct(id, product) {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     UPDATE products
     SET
       name = ?,
@@ -106,30 +115,32 @@ function updateProduct(id, product) {
       bestFor = ?,
       considerations = ?
     WHERE id = ?
-  `).run(
-    product.name,
-    product.room,
-    product.category,
-    product.slug,
-    product.price,
-    product.originalPrice,
-    product.discount,
-    product.image,
-    product.badge,
-    product.reason,
-    product.rating,
-    product.sold,
-    product.featured,
-    product.stock,
-    product.affiliateLink,
-    product.description,
-    JSON.stringify(product.features),
-    JSON.stringify(product.specifications),
-    JSON.stringify(product.whyWeRecommend),
-    JSON.stringify(product.bestFor),
-    JSON.stringify(product.considerations),
-    id
-  );
+  `,
+    )
+    .run(
+      product.name,
+      product.room,
+      product.category,
+      product.slug,
+      product.price,
+      product.originalPrice,
+      product.discount,
+      product.image,
+      product.badge,
+      product.reason,
+      product.rating,
+      product.sold,
+      product.featured,
+      product.stock,
+      product.affiliateLink,
+      product.description,
+      JSON.stringify(product.features),
+      JSON.stringify(product.specifications),
+      JSON.stringify(product.whyWeRecommend),
+      JSON.stringify(product.bestFor),
+      JSON.stringify(product.considerations),
+      id,
+    );
 }
 
 /*==================================================
@@ -137,10 +148,14 @@ function updateProduct(id, product) {
 ==================================================*/
 
 function deleteProduct(id) {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     DELETE FROM products
     WHERE id = ?
-  `).run(id);
+  `,
+    )
+    .run(id);
 }
 
 /*==================================================
@@ -148,11 +163,15 @@ function deleteProduct(id) {
 ==================================================*/
 
 function getProductById(id) {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     SELECT *
     FROM products
     WHERE id = ?
-  `).get(id);
+  `,
+    )
+    .get(id);
 }
 
 module.exports = {

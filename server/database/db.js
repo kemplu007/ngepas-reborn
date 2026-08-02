@@ -4,6 +4,6 @@
  Module : Database
 ==================================================*/
 
-const { DatabaseSync } = require('node:sqlite');
-const db = new DatabaseSync('ngepas.db');
+const { DatabaseSync } = require("node:sqlite");
+const db = new DatabaseSync("ngepas.db");
 module.exports = db;

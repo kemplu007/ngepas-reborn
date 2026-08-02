@@ -1,44 +1,47 @@
 # ==================================================
+
 # NGEPAS REBORN
+
 # BACKEND STRUCTURE v1.0
+
 # ==================================================
 
 server/
 │
 ├── controllers/
-│   ├── categoryController.js
-│   └── productController.js
+│ ├── categoryController.js
+│ └── productController.js
 │
 ├── database/
-│   ├── db.js
-│   └── init.js
+│ ├── db.js
+│ └── init.js
 │
 ├── helpers/
-│   │
-│   ├── parsers/
-│   │   └── productParser.js
-│   │
-│   ├── sanitizers/
-│   │   └── productSanitizer.js
-│   │
-│   └── validators/
-│       ├── categoryValidator.js
-│       └── productValidator.js
+│ │
+│ ├── parsers/
+│ │ └── productParser.js
+│ │
+│ ├── sanitizers/
+│ │ └── productSanitizer.js
+│ │
+│ └── validators/
+│ ├── categoryValidator.js
+│ └── productValidator.js
 │
 ├── middleware/
-│   ├── errorMiddleware.js
-│   └── notFoundMiddleware.js
+│ ├── errorMiddleware.js
+│ └── notFoundMiddleware.js
 │
 ├── models/
-│   ├── categoryModel.js
-│   └── productModel.js
+│ ├── categoryModel.js
+│ └── productModel.js
 │
 ├── routes/
-│   ├── categoryRoutes.js
-│   └── productRoutes.js
+│ ├── categoryRoutes.js
+│ └── productRoutes.js
 │
 ├── utils/
-│   └── response.js
+│ └── response.js
 │
 ├── .env
 ├── .gitignore
@@ -47,7 +50,6 @@ server/
 ├── package.json
 ├── package-lock.json
 └── seed.js
-
 
 ==================================================
 NOTE PER FOLDER & FILE
@@ -63,8 +65,7 @@ productController.js
 • Logic CRUD Product.
 • Mengatur Create, Read, Update, Delete.
 
-
---------------------------------------------------
+---
 
 📁 database
 
@@ -76,8 +77,7 @@ init.js
 • Membuat tabel jika belum ada.
 • Inisialisasi struktur database.
 
-
---------------------------------------------------
+---
 
 📁 helpers
 
@@ -87,7 +87,7 @@ productParser.js
 • Mengubah request mentah menjadi object yang siap diproses.
 • Parsing body, query, atau parameter.
 
---------------------------
+---
 
 sanitizers/
 
@@ -96,7 +96,7 @@ productSanitizer.js
 • Menghapus karakter yang tidak diperlukan.
 • Normalisasi data sebelum disimpan.
 
---------------------------
+---
 
 validators/
 
@@ -108,8 +108,7 @@ productValidator.js
 • Validasi data produk.
 • Memastikan data sesuai aturan aplikasi.
 
-
---------------------------------------------------
+---
 
 📁 middleware
 
@@ -121,8 +120,7 @@ notFoundMiddleware.js
 • Handler Route 404.
 • Mengembalikan response jika endpoint tidak ditemukan.
 
-
---------------------------------------------------
+---
 
 📁 models
 
@@ -134,8 +132,7 @@ productModel.js
 • Query Database Product.
 • Semua operasi SQL produk berada di sini.
 
-
---------------------------------------------------
+---
 
 📁 routes
 
@@ -145,8 +142,7 @@ categoryRoutes.js
 productRoutes.js
 • Endpoint API Product.
 
-
---------------------------------------------------
+---
 
 📁 utils
 
@@ -156,8 +152,7 @@ response.js
 • Error Response.
 • Konsisten untuk seluruh backend.
 
-
---------------------------------------------------
+---
 
 📄 index.js
 
@@ -167,23 +162,20 @@ response.js
 • Register seluruh Routes.
 • Menjalankan server.
 
-
---------------------------------------------------
+---
 
 📄 seed.js
 
 • Seeder Database.
 • Mengisi data awal produk & kategori.
 
-
---------------------------------------------------
+---
 
 📄 ngepas.db
 
 • Database SQLite Project.
 
-
---------------------------------------------------
+---
 
 📄 package.json
 
@@ -191,15 +183,13 @@ response.js
 • Script npm.
 • Konfigurasi project.
 
-
---------------------------------------------------
+---
 
 📄 package-lock.json
 
 • Lock Version Dependency npm.
 
-
---------------------------------------------------
+---
 
 📄 .env
 
@@ -208,8 +198,7 @@ response.js
 • Database Path
 • Konfigurasi rahasia aplikasi.
 
-
---------------------------------------------------
+---
 
 📄 .gitignore
 

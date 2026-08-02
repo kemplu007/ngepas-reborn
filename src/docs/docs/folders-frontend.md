@@ -1,123 +1,125 @@
 # ==================================================
+
 # NGEPAS REBORN
+
 # FRONTEND STRUCTURE v1.0
+
 # ==================================================
 
 src/
 │
 ├── assets/
-│   │
-│   ├── banner/
-│   │
-│   ├── categories/
-│   │   ├── bathroom.png
-│   │   ├── coffee-space.png
-│   │   ├── kitchen.png
-│   │   └── living-room.png
-│   │
-│   ├── icon/
-│   │
-│   ├── illustration/
-│   │
-│   ├── images/
-│   │   └── hero-bg.png
-│   │
-│   ├── logo/
-│   │
-│   ├── mascot/
-│   │   └── si-pas.png
-│   │
-│   ├── placeholder/
-│   │
-│   └── products/
-│       ├── lampu-tidur.jpg
-│       ├── rak-bumbu.jpg
-│       ├── rak-dinding.jpg
-│       └── tanaman.jpg
+│ │
+│ ├── banner/
+│ │
+│ ├── categories/
+│ │ ├── bathroom.png
+│ │ ├── coffee-space.png
+│ │ ├── kitchen.png
+│ │ └── living-room.png
+│ │
+│ ├── icon/
+│ │
+│ ├── illustration/
+│ │
+│ ├── images/
+│ │ └── hero-bg.png
+│ │
+│ ├── logo/
+│ │
+│ ├── mascot/
+│ │ └── si-pas.png
+│ │
+│ ├── placeholder/
+│ │
+│ └── products/
+│ ├── lampu-tidur.jpg
+│ ├── rak-bumbu.jpg
+│ ├── rak-dinding.jpg
+│ └── tanaman.jpg
 │
 ├── components/
-│   │
-│   ├── admin/
-│   │   └── Sidebar.jsx
-│   │
-│   ├── common/
-│   │   ├── Button.jsx
-│   │   └── ScrollToTop.jsx
-│   │
-│   └── public/
-│       ├── Categories.jsx
-│       ├── Category.jsx
-│       ├── CtaBanner.jsx
-│       ├── FeaturedProducts.jsx
-│       ├── Hero.jsx
-│       ├── Navbar.jsx
-│       ├── ProductCard.jsx
-│       ├── SearchDropdown.jsx
-│       └── WhyNgepas.jsx
+│ │
+│ ├── admin/
+│ │ └── Sidebar.jsx
+│ │
+│ ├── common/
+│ │ ├── Button.jsx
+│ │ └── ScrollToTop.jsx
+│ │
+│ └── public/
+│ ├── Categories.jsx
+│ ├── Category.jsx
+│ ├── CtaBanner.jsx
+│ ├── FeaturedProducts.jsx
+│ ├── Hero.jsx
+│ ├── Navbar.jsx
+│ ├── ProductCard.jsx
+│ ├── SearchDropdown.jsx
+│ └── WhyNgepas.jsx
 │
 ├── config/
-│   │
-│   ├── admin/
-│   │   ├── menu.js
-│   │   └── routes.js
-│   │
-│   ├── public/
-│   │   ├── navigation.js
-│   │   └── routes.js
-│   │
-│   ├── constants.js
-│   └── theme.js
+│ │
+│ ├── admin/
+│ │ ├── menu.js
+│ │ └── routes.js
+│ │
+│ ├── public/
+│ │ ├── navigation.js
+│ │ └── routes.js
+│ │
+│ ├── constants.js
+│ └── theme.js
 │
 ├── context/
-│   ├── FavoritesContext.jsx
-│   └── ProductContext.jsx
+│ ├── FavoritesContext.jsx
+│ └── ProductContext.jsx
 │
 ├── data/
-│   ├── categories.js
-│   ├── ctaBanner.js
-│   ├── features.js
-│   ├── hero.js
-│   ├── navigation.js
-│   ├── products.js
-│   ├── roomCategories.js
-│   ├── rooms.js
-│   └── whyNgepas.js
+│ ├── categories.js
+│ ├── ctaBanner.js
+│ ├── features.js
+│ ├── hero.js
+│ ├── navigation.js
+│ ├── products.js
+│ ├── roomCategories.js
+│ ├── rooms.js
+│ └── whyNgepas.js
 │
 ├── docs/
-│   ├── assets/
-│   ├── blueprint/
-│   ├── checkpoint/
-│   ├── docs/
-│   ├── mockup/
-│   ├── roadmap/
-│   └── folders-frontend.md
+│ ├── assets/
+│ ├── blueprint/
+│ ├── checkpoint/
+│ ├── docs/
+│ ├── mockup/
+│ ├── roadmap/
+│ └── folders-frontend.md
 │
 ├── hooks/
-│   └── useFavorites.js
+│ └── useFavorites.js
 │
 ├── layouts/
-│   ├── AdminLayout.jsx
-│   └── MainLayout.jsx
+│ ├── AdminLayout.jsx
+│ └── MainLayout.jsx
 │
 ├── pages/
-│   │
-│   ├── admin/
-│   │   ├── Dashboard.jsx
-│   │   ├── ProductForm.jsx
-│   │   └── Products.jsx
-│   │
-│   └── public/
-│       ├── Home.jsx
-│       ├── CategoryPage.jsx
-│       └── ProductDetail.jsx
+│ │
+│ ├── admin/
+│ │ ├── Dashboard.jsx
+│ │ ├── ProductForm.jsx
+│ │ └── Products.jsx
+│ │
+│ └── public/
+│ ├── Home.jsx
+│ ├── CategoryPage.jsx
+│ └── ProductDetail.jsx
 │
 ├── utils/
-│   └── highlightText.jsx
+│ └── highlightText.jsx
 │
 ├── App.tsx
 ├── index.css
 └── main.tsx
-
 
 ==================================================
 NOTE PER FOLDER & FILE
@@ -129,8 +131,7 @@ Sidebar.jsx
 • Sidebar khusus Admin Panel.
 • Berisi menu Dashboard, Product, Category, Settings, dll.
 
-
---------------------------------------------------
+---
 
 📁 components/common
 
@@ -142,8 +143,7 @@ Button.jsx
 ScrollToTop.jsx
 • Otomatis scroll ke atas setiap pindah halaman.
 
-
---------------------------------------------------
+---
 
 📁 components/public
 
@@ -169,7 +169,7 @@ FeaturedProducts.jsx
 ProductCard.jsx
 • Card produk reusable.
 • Digunakan di FeaturedProducts,
-  CategoryPage, Search Result, dll.
+CategoryPage, Search Result, dll.
 
 SearchDropdown.jsx
 • Live Search Product.
@@ -181,8 +181,7 @@ WhyNgepas.jsx
 • Section branding.
 • Menjelaskan value Ngepas.
 
-
---------------------------------------------------
+---
 
 📁 config
 
@@ -208,8 +207,7 @@ constants.js
 theme.js
 • Pengaturan tema aplikasi.
 
-
---------------------------------------------------
+---
 
 📁 context
 
@@ -219,8 +217,7 @@ FavoritesContext.jsx
 ProductContext.jsx
 • Global State Produk.
 
-
---------------------------------------------------
+---
 
 📁 data
 
@@ -251,8 +248,7 @@ rooms.js
 whyNgepas.js
 • Data Why Ngepas.
 
-
---------------------------------------------------
+---
 
 📁 docs
 
@@ -277,16 +273,14 @@ roadmap/
 folders-frontend.md
 • Dokumentasi struktur frontend.
 
-
---------------------------------------------------
+---
 
 📁 hooks
 
 useFavorites.js
 • Custom Hook FavoritesContext.
 
-
---------------------------------------------------
+---
 
 📁 layouts
 
@@ -296,8 +290,7 @@ MainLayout.jsx
 AdminLayout.jsx
 • Layout Dashboard Admin.
 
-
---------------------------------------------------
+---
 
 📁 pages/admin
 
@@ -310,8 +303,7 @@ Products.jsx
 ProductForm.jsx
 • Form Tambah/Edit Produk.
 
-
---------------------------------------------------
+---
 
 📁 pages/public
 
@@ -324,16 +316,14 @@ CategoryPage.jsx
 ProductDetail.jsx
 • Detail Produk.
 
-
---------------------------------------------------
+---
 
 📁 utils
 
 highlightText.jsx
 • Utility Highlight Text.
 
-
---------------------------------------------------
+---
 
 📄 App.tsx
 
@@ -341,8 +331,7 @@ highlightText.jsx
 • Mengatur seluruh React Router.
 • Memasang Provider Global.
 
-
---------------------------------------------------
+---
 
 📄 main.tsx
 
@@ -350,8 +339,7 @@ highlightText.jsx
 • BrowserRouter.
 • Render App.
 
-
---------------------------------------------------
+---
 
 📄 index.css
 

@@ -27,7 +27,6 @@ function App() {
   return (
     <ProductProvider>
       <Routes>
-        
         {/* =============================================
              BUNGKUS HALAMAN PUBLIK DISINI
              (Biar Navbarnya muncul di semua halaman)
@@ -47,7 +46,6 @@ function App() {
           <Route path="products/new" element={<ProductForm />} />
           <Route path="products/:id/edit" element={<ProductForm />} />
         </Route>
-
       </Routes>
     </ProductProvider>
   );

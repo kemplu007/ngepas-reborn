@@ -10,7 +10,13 @@ import { Package, Star, Grid2X2, Database, ArrowUpRight } from "lucide-react";
 /*==================================================
  KOMPONEN KARTU STATISTIK (Reusable)
 ==================================================*/
-function StatCard({ title, value, subtitle, icon, valueColor = "text-slate-900" }) {
+function StatCard({
+  title,
+  value,
+  subtitle,
+  icon,
+  valueColor = "text-slate-900",
+}) {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between">
@@ -39,7 +45,7 @@ function Dashboard() {
   const totalProducts = products.length;
   const featuredProducts = products.filter((p) => p.featured === true).length;
   const totalCategories = new Set(products.map((p) => p.category)).size;
-  
+
   // Ambil 5 produk terbaru (berdasarkan ID terbesar)
   const latestProducts = [...products].sort((a, b) => b.id - a.id).slice(0, 5);
 
@@ -50,7 +56,9 @@ function Dashboard() {
       ==============================================*/}
       <div>
         <h1 className="text-3xl font-extrabold text-slate-900">Dashboard</h1>
-        <p className="mt-1 text-slate-500">Ringkasan aktivitas produk Ngepas.</p>
+        <p className="mt-1 text-slate-500">
+          Ringkasan aktivitas produk Ngepas.
+        </p>
       </div>
 
       {/*==============================================
@@ -102,11 +110,17 @@ function Dashboard() {
                   className="h-14 w-14 shrink-0 rounded-lg object-cover border border-slate-100"
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold text-slate-800">{product.name}</p>
+                  <p className="truncate font-semibold text-slate-800">
+                    {product.name}
+                  </p>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs text-slate-400">{product.category}</span>
+                    <span className="text-xs text-slate-400">
+                      {product.category}
+                    </span>
                     <span className="text-xs text-slate-300">•</span>
-                    <span className="text-xs font-semibold text-emerald-600">{product.price}</span>
+                    <span className="text-xs font-semibold text-emerald-600">
+                      {product.price}
+                    </span>
                   </div>
                 </div>
               </div>

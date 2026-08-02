@@ -344,7 +344,7 @@ for (const category of categories) {
     category.room,
     category.icon,
     category.status,
-    category.sortOrder
+    category.sortOrder,
   );
 
   console.log(`Seeded Category: ${category.name}`);
@@ -353,7 +353,6 @@ for (const category of categories) {
 /*==================================================
  INSERT PRODUCTS
 ==================================================*/
-
 
 for (const product of products) {
   insertProduct.run(

@@ -20,11 +20,7 @@ function getProducts(req, res, next) {
 
     const parsedProducts = products.map(parseProduct);
 
-    return success(
-  res,
-  parsedProducts,
-  "Berhasil mengambil data produk"
-);
+    return success(res, parsedProducts, "Berhasil mengambil data produk");
   } catch (error) {
     next(error);
   }
@@ -65,45 +61,41 @@ function addProduct(req, res, next) {
     const validationError = validateProduct(cleanProduct);
 
     if (validationError) {
-    return error(
-        res,
-        validationError,
-        400
-    );
-}
+      return error(res, validationError, 400);
+    }
 
     const result = productModel.createProduct({
-  name: cleanProduct.name,
-  room: cleanProduct.room,
-  category: cleanProduct.category,
-  slug: slug ?? null,
-  price,
-  originalPrice: originalPrice ?? null,
-  discount: discount ?? 0,
-  image: cleanProduct.image,
-  badge: badge ?? null,
-  reason: reason ?? null,
-  rating: rating ?? 0,
-  sold: sold ?? 0,
-  featured: featured ? 1 : 0,
-  stock: stock ?? 0,
-  affiliateLink: cleanProduct.affiliateLink,
-  description: cleanProduct.description,
-  features: features ?? [],
-  specifications: specifications ?? {},
-  whyWeRecommend: whyWeRecommend ?? [],
-  bestFor: bestFor ?? [],
-  considerations: considerations ?? [],
-});
+      name: cleanProduct.name,
+      room: cleanProduct.room,
+      category: cleanProduct.category,
+      slug: slug ?? null,
+      price,
+      originalPrice: originalPrice ?? null,
+      discount: discount ?? 0,
+      image: cleanProduct.image,
+      badge: badge ?? null,
+      reason: reason ?? null,
+      rating: rating ?? 0,
+      sold: sold ?? 0,
+      featured: featured ? 1 : 0,
+      stock: stock ?? 0,
+      affiliateLink: cleanProduct.affiliateLink,
+      description: cleanProduct.description,
+      features: features ?? [],
+      specifications: specifications ?? {},
+      whyWeRecommend: whyWeRecommend ?? [],
+      bestFor: bestFor ?? [],
+      considerations: considerations ?? [],
+    });
 
     const newProduct = productModel.getProductById(result.lastInsertRowid);
 
     return success(
-  res,
-  parseProduct(newProduct),
-  "Produk berhasil ditambahkan",
-  201
-);
+      res,
+      parseProduct(newProduct),
+      "Produk berhasil ditambahkan",
+      201,
+    );
   } catch (error) {
     next(error);
   }
@@ -118,22 +110,14 @@ function deleteProduct(req, res, next) {
     const productId = Number(req.params.id);
 
     const product = productModel.getProductById(productId);
-    
+
     if (!product) {
-      return error(
-  res,
-  "Produk tidak ditemukan",
-  404
-);
+      return error(res, "Produk tidak ditemukan", 404);
     }
 
- productModel.deleteProduct(productId);
+    productModel.deleteProduct(productId);
 
-    return success(
-  res,
-  parseProduct(product),
-  "Produk berhasil dihapus"
-);
+    return success(res, parseProduct(product), "Produk berhasil dihapus");
   } catch (error) {
     next(error);
   }
@@ -148,14 +132,10 @@ function updateProduct(req, res, next) {
     const productId = Number(req.params.id);
 
     const existingProduct = productModel.getProductById(productId);
-    
+
     if (!existingProduct) {
-  return error(
-    res,
-    "Produk tidak ditemukan",
-    404
-  );
-}
+      return error(res, "Produk tidak ditemukan", 404);
+    }
 
     const {
       name,
@@ -185,45 +165,41 @@ function updateProduct(req, res, next) {
 
     const validationError = validateProduct(cleanProduct);
 
-if (validationError) {
-  return error(
-    res,
-    validationError,
-    400
-  );
-}
+    if (validationError) {
+      return error(res, validationError, 400);
+    }
 
     productModel.updateProduct(productId, {
-  name: cleanProduct.name,
-  room: cleanProduct.room,
-  category: cleanProduct.category,
-  slug: slug ?? null,
-  price,
-  originalPrice: originalPrice ?? null,
-  discount: discount ?? 0,
-  image: cleanProduct.image,
-  badge: badge ?? null,
-  reason: reason ?? null,
-  rating: rating ?? 0,
-  sold: sold ?? 0,
-  featured: featured ? 1 : 0,
-  stock: stock ?? 0,
-  affiliateLink: cleanProduct.affiliateLink,
-  description: cleanProduct.description,
-  features: features ?? [],
-  specifications: specifications ?? {},
-  whyWeRecommend: whyWeRecommend ?? [],
-  bestFor: bestFor ?? [],
-  considerations: considerations ?? [],
-});
+      name: cleanProduct.name,
+      room: cleanProduct.room,
+      category: cleanProduct.category,
+      slug: slug ?? null,
+      price,
+      originalPrice: originalPrice ?? null,
+      discount: discount ?? 0,
+      image: cleanProduct.image,
+      badge: badge ?? null,
+      reason: reason ?? null,
+      rating: rating ?? 0,
+      sold: sold ?? 0,
+      featured: featured ? 1 : 0,
+      stock: stock ?? 0,
+      affiliateLink: cleanProduct.affiliateLink,
+      description: cleanProduct.description,
+      features: features ?? [],
+      specifications: specifications ?? {},
+      whyWeRecommend: whyWeRecommend ?? [],
+      bestFor: bestFor ?? [],
+      considerations: considerations ?? [],
+    });
 
     const updatedProduct = productModel.getProductById(productId);
 
     return success(
-  res,
-  parseProduct(updatedProduct),
-  "Produk berhasil diperbarui"
-);
+      res,
+      parseProduct(updatedProduct),
+      "Produk berhasil diperbarui",
+    );
   } catch (error) {
     next(error);
   }

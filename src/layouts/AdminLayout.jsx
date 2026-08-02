@@ -1,146 +1,96 @@
 /*==================================================
  NGEPAS REBORN
- Project : Ngepas Reborn
  File    : AdminLayout.jsx
  Module  : Layouts
 ==================================================*/
 
-/*==================================================
- IMPORT
-==================================================*/
+import { useState } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { PanelLeft, Home } from "lucide-react";
 
-import { NavLink, Outlet } from "react-router-dom";
-import { LayoutDashboard, Package, PlusCircle, Home } from "lucide-react";
+import Sidebar from "../components/admin/Sidebar";
 
 /*==================================================
  ADMIN LAYOUT
 ==================================================*/
-
 function AdminLayout() {
+  const location = useLocation();
+  
+  /*==================================================
+   SIDEBAR STATE (Mobile Drawer)
+  ==================================================*/
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  /*==================================================
+   TOGGLE HANDLER
+  ==================================================*/
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-slate-50">
+      
       {/*==============================================
-       ADMIN HEADER
+       SIDEBAR COMPONENT
       ==============================================*/}
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-          <div>
-            <p className="font-bold text-emerald-600">Ngepas Admin</p>
+      {/*==============================================
+       MOBILE OVERLAY (Click outside to close sidebar)
+      ==============================================*/}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm lg:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
 
-            <p className="text-xs text-slate-500">Control Center</p>
-          </div>
-
-          <NavLink
-            to="/"
-            className="flex items-center gap-2 text-sm font-medium text-slate-600"
+      {/*==============================================
+       MAIN CONTENT AREA
+      ==============================================*/}
+      <div className="flex flex-1 flex-col">
+        
+        {/*==============================================
+         MOBILE HEADER (Hanya muncul di HP)
+        ==============================================*/}
+        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200 bg-white px-4 py-4 lg:hidden shadow-sm">
+          <button
+            type="button"
+            onClick={toggleSidebar}
+            className="rounded-lg p-2 text-slate-700 transition hover:bg-slate-100"
           >
+            <PanelLeft size={24} />
+          </button>
+          <p className="font-bold text-emerald-600">Ngepas Admin</p>
+          <NavLink to="/" className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-emerald-600 transition">
             <Home size={18} />
             Website
           </NavLink>
-        </div>
-      </header>
+        </header>
 
-      {/*==============================================
-       ADMIN NAVIGATION
-      ==============================================*/}
-
-      <nav className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3">
-          <NavLink
-            to="/admin"
-            end
-            className={({ isActive }) =>
-              `
-                flex
-                shrink-0
-                items-center
-                gap-2
-                rounded-xl
-                px-4
-                py-2
-                text-sm
-                font-semibold
-                transition
-                ${
-                  isActive
-                    ? "bg-emerald-600 text-white"
-                    : "text-slate-600 hover:bg-slate-100"
-                }
-              `
-            }
-          >
-            <LayoutDashboard size={18} />
-            Dashboard
+        {/*==============================================
+         DESKTOP HEADER (Hanya muncul di PC/Laptop)
+        ==============================================*/}
+        <header className="hidden border-b border-slate-200 bg-white px-8 py-4 lg:flex lg:items-center lg:justify-between">
+          <p className="text-lg font-bold text-slate-800">
+            {location.pathname.includes('/categories') ? 'Categories' : 
+             location.pathname.includes('/products') ? 'Products' : 'Dashboard'}
+          </p>
+          <NavLink to="/" className="flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-emerald-600">
+            <Home size={18} />
+            Kembali ke Website
           </NavLink>
+        </header>
 
-          <NavLink
-            to="/admin/products"
-            className={({ isActive }) =>
-              `
-                flex
-                shrink-0
-                items-center
-                gap-2
-                rounded-xl
-                px-4
-                py-2
-                text-sm
-                font-semibold
-                transition
-                ${
-                  isActive
-                    ? "bg-emerald-600 text-white"
-                    : "text-slate-600 hover:bg-slate-100"
-                }
-              `
-            }
-          >
-            <Package size={18} />
-            Products
-          </NavLink>
+        {/*==============================================
+         ADMIN CONTENT
+        ==============================================*/}
+        <main className="flex-1 p-4 lg:p-8">
+          <Outlet />
+        </main>
 
-          <NavLink
-            to="/admin/products/new"
-            className={({ isActive }) =>
-              `
-                flex
-                shrink-0
-                items-center
-                gap-2
-                rounded-xl
-                px-4
-                py-2
-                text-sm
-                font-semibold
-                transition
-                ${
-                  isActive
-                    ? "bg-emerald-600 text-white"
-                    : "text-slate-600 hover:bg-slate-100"
-                }
-              `
-            }
-          >
-            <PlusCircle size={18} />
-            Add Product
-          </NavLink>
-        </div>
-      </nav>
-
-      {/*==============================================
-       ADMIN CONTENT
-      ==============================================*/}
-
-      <main className="mx-auto max-w-7xl px-4 py-8">
-        <Outlet />
-      </main>
+      </div>
     </div>
   );
 }
-
-/*==================================================
- EXPORT
-==================================================*/
 
 export default AdminLayout;

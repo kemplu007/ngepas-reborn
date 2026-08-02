@@ -1,4 +1,3 @@
-
 /*==================================================
  NGEPAS REBORN
  File   : categoryValidator.js
@@ -6,11 +5,7 @@
 ==================================================*/
 
 function validateCategory(category) {
-  if (
-    !category.name ||
-    !category.slug ||
-    !category.room
-  ) {
+  if (!category.name || !category.slug || !category.room) {
     return "Field wajib belum lengkap.";
   }
 
