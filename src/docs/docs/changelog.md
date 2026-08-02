@@ -1,37 +1,36 @@
 # ==================================================
+
 # NGEPAS REBORN
+
 # CHANGELOG
+
 # ==================================================
 
-## v0.8.0
+## v0.9.0
 
 Release Date
 
-2026-08-02
+2026-08-03
 
 ==================================================
 FRONTEND
 ==================================================
 
-✓ Menambahkan CategoryContext
+✓ Admin Categories Page
 
-✓ Migrasi Categories.jsx ke Backend API
+✓ Category Form (Create)
 
-✓ Migrasi SearchDropdown ke ProductContext
+✓ Category Form (Edit)
 
-✓ Homepage Product menggunakan Backend API
+✓ Category CRUD Integration
 
-✓ Homepage Category menggunakan Backend API
+✓ Category Context Stabil
 
-✓ ProductContext menggunakan Product Service
+✓ Category Service Stabil
 
-✓ CategoryContext menggunakan Category Service
+✓ Category Route Admin
 
-✓ Search tidak lagi menggunakan data statis
-
-✓ Folder data/products.js menjadi LEGACY
-
-✓ Folder data/categories.js menjadi LEGACY
+✓ Admin Category Backend Integration
 
 ==================================================
 BACKEND
@@ -41,9 +40,27 @@ BACKEND
 
 ✓ CRUD Category Stabil
 
+✓ Category Controller Stabil
+
+✓ Category Routes Stabil
+
+✓ SQLite Boolean Handling
+
 ✓ API Contract Stabil
 
 ✓ Response Helper Konsisten
+
+==================================================
+BUG FIX
+==================================================
+
+✓ Fix Admin Category Edit Route
+
+✓ Fix Category Update Flow
+
+✓ Fix SQLite Status Boolean
+
+✓ Fix Category Context Refresh
 
 ==================================================
 DOCUMENTATION
@@ -59,23 +76,32 @@ DOCUMENTATION
 
 ✓ coding-standard.md
 
+✓ CHANGELOG v0.9.0
+
 ==================================================
 STATUS
 ==================================================
 
-SPRINT 3.2
+SPRINT 4.0
+
+ADMIN CATEGORY CRUD
 
 COMPLETED
 
+==================================================
 NEXT
+==================================================
 
-Admin Categories
+□ Delete Category
 
-Admin Product Form
+□ Dashboard Statistics
 
-Upload Image
+□ Responsive Admin
 
-Authentication
+□ Public Category Synchronization
+
+□ Room CRUD
 
 ==================================================
 END
+==================================================

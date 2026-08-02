@@ -1,17 +1,17 @@
-
 /*==================================================
  NGEPAS REBORN
  File    : CategoryContext.jsx
  Module  : Context
 ==================================================*/
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+/*==================================================
+ IMPORT
+==================================================*/
 
+/* React */
+import { createContext, useContext, useEffect, useState } from "react";
+
+/* Services */
 import {
   getCategories,
   createCategory,
@@ -30,13 +30,21 @@ const CategoryContext = createContext(null);
 ==================================================*/
 
 export function CategoryProvider({ children }) {
+  /*==================================================
+   STATE
+  ==================================================*/
+
   const [categories, setCategories] = useState([]);
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState(null);
 
   /*==================================================
-   REFRESH CATEGORIES
+   HELPERS
   ==================================================*/
+
+  /* Refresh Categories */
 
   const refreshCategories = async () => {
     try {
@@ -45,69 +53,81 @@ export function CategoryProvider({ children }) {
 
       const data = await getCategories();
 
-      setCategories(data);
+      setCategories(data || []);
     } catch (err) {
       console.error(err);
+
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
+  /*==================================================
+   LIFECYCLE
+  ==================================================*/
+
   useEffect(() => {
     refreshCategories();
   }, []);
 
   /*==================================================
-   ADD CATEGORY
+   ACTIONS
   ==================================================*/
+
+  /* Add Category */
 
   const addCategory = async (category) => {
     try {
       const newCategory = await createCategory(category);
 
       setCategories((prev) => [...prev, newCategory]);
+
+      return newCategory;
     } catch (err) {
       console.error(err);
+
       setError(err.message);
+
+      throw err;
     }
   };
 
-  /*==================================================
-   UPDATE CATEGORY
-  ==================================================*/
+  /* Update Category */
 
   const updateCategory = async (id, category) => {
     try {
-      const updated = await editCategory(id, category);
+      await editCategory(id, category);
 
-      setCategories((prev) =>
-        prev.map((item) =>
-          item.id === id ? updated : item
-        )
-      );
+      await refreshCategories();
     } catch (err) {
       console.error(err);
+
       setError(err.message);
+
+      throw err;
     }
   };
 
-  /*==================================================
-   DELETE CATEGORY
-  ==================================================*/
+  /* Delete Category */
 
   const deleteCategory = async (id) => {
     try {
       await removeCategory(id);
 
-      setCategories((prev) =>
-        prev.filter((item) => item.id !== id)
-      );
+      await refreshCategories();
     } catch (err) {
       console.error(err);
+
       setError(err.message);
+
+      throw err;
     }
   };
+
+  /*==================================================
+   RENDER
+  ==================================================*/
 
   return (
     <CategoryContext.Provider
@@ -117,7 +137,7 @@ export function CategoryProvider({ children }) {
         error,
         refreshCategories,
         addCategory,
-        updateCategory,
+        editCategory: updateCategory,
         deleteCategory,
       }}
     >
@@ -134,9 +154,7 @@ export const useCategories = () => {
   const ctx = useContext(CategoryContext);
 
   if (!ctx) {
-    throw new Error(
-      "useCategories wajib dipakai di dalam CategoryProvider"
-    );
+    throw new Error("useCategories wajib dipakai di dalam CategoryProvider");
   }
 
   return ctx;

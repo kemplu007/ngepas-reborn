@@ -30,9 +30,9 @@ function FeaturedProducts() {
   /*==================================================
    FEATURED PRODUCTS DATA
   ==================================================*/
-  const featuredProducts = products.filter(
-  (product) => Boolean(Number(product.featured)),
-);
+  const featuredProducts = products.filter((product) =>
+    Boolean(Number(product.featured)),
+  );
 
   /*==================================================
    UI

@@ -24,23 +24,15 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-  <BrowserRouter>
-
-    <CategoryProvider>
-
-      <ProductProvider>
-
-        <FavoritesProvider>
-
-          <ScrollToTop />
-          <App />
-
-        </FavoritesProvider>
-
-      </ProductProvider>
-
-    </CategoryProvider>
-
-  </BrowserRouter>
-</StrictMode>,
+    <BrowserRouter>
+      <CategoryProvider>
+        <ProductProvider>
+          <FavoritesProvider>
+            <ScrollToTop />
+            <App />
+          </FavoritesProvider>
+        </ProductProvider>
+      </CategoryProvider>
+    </BrowserRouter>
+  </StrictMode>,
 );

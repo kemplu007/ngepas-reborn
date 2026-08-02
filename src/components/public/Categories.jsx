@@ -12,30 +12,21 @@
 import { useCategories } from "../../context/CategoryContext";
 
 function Categories({ activeCategory, setActiveCategory }) {
-
   /*================================================== CONTEXT
 ==================================================*/
 
-const { categories, loading, error } = useCategories();
-  
+  const { categories, loading, error } = useCategories();
+
   /*==================================================
  ACTIVE CATEGORY
 ==================================================*/
-if (loading) {
-  return (
-    <section className="py-8 text-center">
-      Memuat kategori...
-    </section>
-  );
-}
+  if (loading) {
+    return <section className="py-8 text-center">Memuat kategori...</section>;
+  }
 
-if (error) {
-  return (
-    <section className="py-8 text-center text-red-500">
-      {error}
-    </section>
-  );
-}
+  if (error) {
+    return <section className="py-8 text-center text-red-500">{error}</section>;
+  }
   return (
     <section className="py-8">
       {/*==============================================

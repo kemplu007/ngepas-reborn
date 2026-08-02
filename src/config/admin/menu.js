@@ -1,4 +1,11 @@
-import { LayoutDashboard, Package, Tags, ShoppingCart, Users, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  Package,
+  Tags,
+  ShoppingCart,
+  Users,
+  Settings,
+} from "lucide-react";
 
 const adminMenu = [
   { label: "Dashboard", path: "/admin", icon: LayoutDashboard },

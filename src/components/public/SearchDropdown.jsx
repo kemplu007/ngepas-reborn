@@ -21,8 +21,8 @@ function SearchDropdown() {
 ==================================================*/
 
   const [keyword, setKeyword] = useState("");
-  
-const { products } = useProducts();
+
+  const { products } = useProducts();
   /*==================================================
  FILTER PRODUCT
 ==================================================*/

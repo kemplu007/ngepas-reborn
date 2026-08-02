@@ -4,12 +4,25 @@
  Module  : Admin Pages
 ==================================================*/
 
+/*==================================================
+ IMPORT
+==================================================*/
+
+/* Context */
 import { useProducts } from "../../context/ProductContext";
+import { useCategories } from "../../context/CategoryContext";
+
+/* Icons */
 import { Package, Star, Grid2X2, Database, ArrowUpRight } from "lucide-react";
 
 /*==================================================
- KOMPONEN KARTU STATISTIK (Reusable)
+ KOMPONEN
 ==================================================*/
+
+/*==================================================
+ STAT CARD
+==================================================*/
+
 function StatCard({
   title,
   value,
@@ -21,11 +34,15 @@ function StatCard({
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-slate-500">{title}</p>
+
         {icon}
       </div>
+
       <p className={`mt-1 text-3xl font-bold ${valueColor}`}>{value}</p>
+
       <div className="mt-3 flex items-center justify-between">
         <p className="text-xs text-slate-500">{subtitle}</p>
+
         <ArrowUpRight size={16} className="text-emerald-500" />
       </div>
     </div>
@@ -33,37 +50,64 @@ function StatCard({
 }
 
 /*==================================================
- KOMPONEN DASHBOARD UTAMA
+ DASHBOARD
 ==================================================*/
+
 function Dashboard() {
-  // Ambil data produk dari Context (Backend)
+  /*==================================================
+   CONTEXT
+  ==================================================*/
+
   const { products } = useProducts();
 
-  /*==============================================
-   HITUNG STATISTIK
-  ==============================================*/
-  const totalProducts = products.length;
-  const featuredProducts = products.filter((p) => p.featured === true).length;
-  const totalCategories = new Set(products.map((p) => p.category)).size;
+  const { categories } = useCategories();
 
-  // Ambil 5 produk terbaru (berdasarkan ID terbesar)
+  /*==================================================
+   STATISTICS
+  ==================================================*/
+
+  /* Total Produk */
+
+  const totalProducts = products.length;
+
+  /* Produk Unggulan */
+
+  const featuredProducts = products.filter((product) =>
+    Boolean(Number(product.featured)),
+  ).length;
+
+  /* Total Kategori */
+
+  const totalCategories = categories.length;
+
+  /*==================================================
+   LATEST PRODUCTS
+  ==================================================*/
+
   const latestProducts = [...products].sort((a, b) => b.id - a.id).slice(0, 5);
+
+  /*==================================================
+   RENDER
+  ==================================================*/
 
   return (
     <div className="flex flex-col gap-6">
-      {/*==============================================
-       HEADER HALAMAN
-      ==============================================*/}
+      {/*==================================================
+       HEADER
+      ==================================================*/}
+
       <div>
         <h1 className="text-3xl font-extrabold text-slate-900">Dashboard</h1>
+
         <p className="mt-1 text-slate-500">
           Ringkasan aktivitas produk Ngepas.
         </p>
       </div>
 
-      {/*==============================================
-       GRID STATISTIK (4 KARTU)
-      ==============================================*/}
+      {/*==================================================
+       STATISTICS
+      ==================================================*/}
+
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard
           title="Total Produk"
@@ -71,18 +115,21 @@ function Dashboard() {
           subtitle="Produk aktif"
           icon={<Package size={18} className="text-emerald-600" />}
         />
+
         <StatCard
           title="Produk Unggulan"
           value={featuredProducts}
           subtitle="Produk Featured"
           icon={<Star size={18} className="text-yellow-500" />}
         />
+
         <StatCard
           title="Kategori"
           value={totalCategories}
           subtitle="Kategori aktif"
           icon={<Grid2X2 size={18} className="text-sky-500" />}
         />
+
         <StatCard
           title="Database"
           value="Online"
@@ -92,12 +139,14 @@ function Dashboard() {
         />
       </div>
 
-      {/*==============================================
-       SECTION PRODUK TERBARU
-      ==============================================*/}
-      <div className="mt-4">
+      {/*==================================================
+       LATEST PRODUCTS
+      ==================================================*/}
+
+      <div>
         <h2 className="text-xl font-bold text-slate-900">Produk Terbaru</h2>
-        <div className="mt-4 grid grid-cols-1 gap-3">
+
+        <div className="mt-4 grid gap-3">
           {latestProducts.length > 0 ? (
             latestProducts.map((product) => (
               <div
@@ -107,17 +156,21 @@ function Dashboard() {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="h-14 w-14 shrink-0 rounded-lg object-cover border border-slate-100"
+                  className="h-14 w-14 rounded-lg border border-slate-100 object-cover"
                 />
+
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold text-slate-800">
                     {product.name}
                   </p>
-                  <div className="flex items-center gap-2 mt-1">
+
+                  <div className="mt-1 flex items-center gap-2">
                     <span className="text-xs text-slate-400">
                       {product.category}
                     </span>
+
                     <span className="text-xs text-slate-300">•</span>
+
                     <span className="text-xs font-semibold text-emerald-600">
                       {product.price}
                     </span>

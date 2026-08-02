@@ -1,6 +1,9 @@
 # ==================================================
+
 # NGEPAS REBORN
+
 # BACKEND ARCHITECTURE v1.0
+
 # ==================================================
 
 ## Filosofi
@@ -19,41 +22,41 @@ Backend Ngepas dibangun dengan prinsip:
 # FLOW REQUEST
 
 Frontend
-    │
-    ▼
+│
+▼
 index.js
-    │
-    ▼
+│
+▼
 Routes
-    │
-    ▼
+│
+▼
 Middleware
-    │
-    ▼
+│
+▼
 Validator
-    │
-    ▼
+│
+▼
 Sanitizer
-    │
-    ▼
+│
+▼
 Parser
-    │
-    ▼
+│
+▼
 Controller
-    │
-    ▼
+│
+▼
 Service (Future)
-    │
-    ▼
+│
+▼
 Model
-    │
-    ▼
+│
+▼
 SQLite
-    │
-    ▼
+│
+▼
 Response Helper
-    │
-    ▼
+│
+▼
 Frontend
 
 ---
@@ -137,9 +140,15 @@ STATUS
 
 ✔ Homepage Backend Driven
 
+✔ Admin Product CRUD
+
+✔ Admin Category CRUD
+
+✔ Backend CRUD Audit
+
 STATUS
 
-COMPLETED
+SPRINT 4.0 COMPLETED
 
 # LAYER
 
@@ -314,6 +323,12 @@ CRUD Product
 ██████████ 100%
 
 CRUD Category
+██████████ 100%
+
+Admin Product
+██████████ 100%
+
+Admin Category
 ██████████ 100%
 
 Backend Audit

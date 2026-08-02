@@ -1,10 +1,13 @@
 # ==================================================
+
 # NGEPAS REBORN
+
 # API CONTRACT v1.0
+
 # ==================================================
 
-Status  : ACTIVE
-Module  : Backend API
+Status : ACTIVE
+Module : Backend API
 Version : 1.0
 
 ==================================================
@@ -77,25 +80,26 @@ STANDARD RESPONSE
 Success
 
 {
-  "success": true,
-  "message": "Berhasil mengambil data.",
-  "data": {}
+"success": true,
+"message": "Berhasil mengambil data.",
+"data": {}
 }
 
---------------------------------------------------
+---
 
 Error
 
 {
-  "success": false,
-  "message": "Terjadi kesalahan."
+"success": false,
+"message": "Terjadi kesalahan."
 }
 
 ==================================================
 PRODUCT API
 ==================================================
 
---------------------------------------------------
+---
+
 GET
 /api/products
 --------------------------------------------------
@@ -111,14 +115,15 @@ Request
 Response
 
 {
-  success,
-  message,
-  data: [
-      Product
-  ]
+success,
+message,
+data: [
+Product
+]
 }
 
---------------------------------------------------
+---
+
 POST
 /api/products
 --------------------------------------------------
@@ -130,38 +135,39 @@ Menambahkan produk baru.
 Body
 
 {
-  name,
-  room,
-  category,
-  slug,
-  price,
-  originalPrice,
-  discount,
-  image,
-  badge,
-  reason,
-  rating,
-  sold,
-  featured,
-  stock,
-  affiliateLink,
-  description,
-  features,
-  specifications,
-  whyWeRecommend,
-  bestFor,
-  considerations
+name,
+room,
+category,
+slug,
+price,
+originalPrice,
+discount,
+image,
+badge,
+reason,
+rating,
+sold,
+featured,
+stock,
+affiliateLink,
+description,
+features,
+specifications,
+whyWeRecommend,
+bestFor,
+considerations
 }
 
 Response
 
 {
-  success,
-  message,
-  data: Product
+success,
+message,
+data: Product
 }
 
---------------------------------------------------
+---
+
 PUT
 /api/products/:id
 --------------------------------------------------
@@ -181,12 +187,13 @@ Sama seperti POST.
 Response
 
 {
-  success,
-  message,
-  data: Product
+success,
+message,
+data: Product
 }
 
---------------------------------------------------
+---
+
 DELETE
 /api/products/:id
 --------------------------------------------------
@@ -202,16 +209,17 @@ Parameter
 Response
 
 {
-  success,
-  message,
-  data: Product
+success,
+message,
+data: Product
 }
 
 ==================================================
 CATEGORY API
 ==================================================
 
---------------------------------------------------
+---
+
 GET
 /api/categories
 --------------------------------------------------
@@ -223,14 +231,15 @@ Mengambil seluruh kategori.
 Response
 
 {
-  success,
-  message,
-  data: [
-      Category
-  ]
+success,
+message,
+data: [
+Category
+]
 }
 
---------------------------------------------------
+---
+
 POST
 /api/categories
 --------------------------------------------------
@@ -242,23 +251,24 @@ Menambahkan kategori.
 Body
 
 {
-  name,
-  slug,
-  room,
-  icon,
-  status,
-  sortOrder
+name,
+slug,
+room,
+icon,
+status,
+sortOrder
 }
 
 Response
 
 {
-  success,
-  message,
-  data: Category
+success,
+message,
+data: Category
 }
 
---------------------------------------------------
+---
+
 PUT
 /api/categories/:id
 --------------------------------------------------
@@ -274,23 +284,24 @@ Parameter
 Body
 
 {
-  name,
-  slug,
-  room,
-  icon,
-  status,
-  sortOrder
+name,
+slug,
+room,
+icon,
+status,
+sortOrder
 }
 
 Response
 
 {
-  success,
-  message,
-  data: Category
+success,
+message,
+data: Category
 }
 
---------------------------------------------------
+---
+
 DELETE
 /api/categories/:id
 --------------------------------------------------
@@ -306,9 +317,9 @@ Parameter
 Response
 
 {
-  success,
-  message,
-  data: Category
+success,
+message,
+data: Category
 }
 
 ==================================================
@@ -361,37 +372,37 @@ NEXT ENDPOINT
 
 Sprint Berikutnya
 
-GET    /api/products/:slug
+GET /api/products/:slug
 
-GET    /api/products/featured
+GET /api/products/featured
 
-GET    /api/products/search
+GET /api/products/search
 
-GET    /api/products/category/:category
+GET /api/products/category/:category
 
-GET    /api/products/room/:room
+GET /api/products/room/:room
 
---------------------------------------------------
+---
 
 Authentication
 
-POST   /api/auth/login
+POST /api/auth/login
 
-POST   /api/auth/logout
+POST /api/auth/logout
 
---------------------------------------------------
+---
 
 Upload
 
-POST   /api/upload
+POST /api/upload
 
---------------------------------------------------
+---
 
 Settings
 
-GET    /api/settings
+GET /api/settings
 
-PUT    /api/settings
+PUT /api/settings
 
 ==================================================
 IMPLEMENTATION STATUS
@@ -433,11 +444,41 @@ Search
 
 100%
 
-Status
+Admin Product
 
-SPRINT 3.2 COMPLETED
+██████████
 
-READY FOR ADMIN MODULE
+100%
+
+Admin Category
+
+██████████
+
+100%
+
+==================================================
+CURRENT STATUS
+==================================================
+
+SPRINT 4.0
+
+ADMIN CATEGORY CRUD
+
+COMPLETED
+
+==================================================
+NEXT SPRINT
+==================================================
+
+□ Delete Category
+
+□ Dashboard Statistics
+
+□ Responsive Admin
+
+□ Public Category Synchronization
+
+□ Room CRUD
 
 ==================================================
 END OF DOCUMENT

@@ -1,10 +1,13 @@
 # ==================================================
+
 # NGEPAS REBORN
+
 # CODING STANDARD v1.0
+
 # ==================================================
 
-Status  : ACTIVE
-Module  : Global
+Status : ACTIVE
+Module : Global
 Version : 1.0
 
 ==================================================
@@ -38,7 +41,7 @@ STRUKTUR FRONTEND
 ==================================================
 
 Component
-    ↓
+↓
 
 Context
 
@@ -115,7 +118,7 @@ services
 
 helpers
 
---------------------------------------------------
+---
 
 Component
 
@@ -125,7 +128,7 @@ ProductCard.jsx
 
 AdminLayout.jsx
 
---------------------------------------------------
+---
 
 Function
 
@@ -137,7 +140,7 @@ createCategory()
 
 updateProduct()
 
---------------------------------------------------
+---
 
 Variable
 
@@ -157,11 +160,11 @@ Setiap file wajib memiliki Header.
 
 Contoh
 
-/*==================================================
- NGEPAS REBORN
- File :
- Module :
-==================================================*/
+/_==================================================
+NGEPAS REBORN
+File :
+Module :
+==================================================_/
 
 Section besar wajib diberi pemisah.
 

@@ -32,78 +32,76 @@ export function ProductProvider({ children }) {
    FETCH DATA FROM BACKEND
   ==================================================*/
   const refreshProducts = async () => {
-  try {
-    setLoading(true);
-    setError(null);
+    try {
+      setLoading(true);
+      setError(null);
 
-    const data = await getProducts();
+      const data = await getProducts();
 
-    setProducts(data);
-  } catch (err) {
-    console.error(err);
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+      setProducts(data);
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-useEffect(() => {
-  refreshProducts();
-}, []);
+  useEffect(() => {
+    refreshProducts();
+  }, []);
   /*==================================================
    ADD PRODUCT
   ==================================================*/
   const addProduct = async (product) => {
-  try {
-    const newProduct = await createProduct(product);
+    try {
+      const newProduct = await createProduct(product);
 
-    setProducts((prev) => [...prev, newProduct]);
-  } catch (err) {
-    console.error(err);
-    setError(err.message);
-  }
-};
+      setProducts((prev) => [...prev, newProduct]);
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  };
 
   /*==================================================
    DELETE PRODUCT
   ==================================================*/
   const deleteProduct = async (id) => {
-  try {
-    await removeProduct(id);
+    try {
+      await removeProduct(id);
 
-    setProducts((prev) => prev.filter((p) => p.id !== id));
-  } catch (err) {
-    console.error(err);
-    setError(err.message);
-  }
-};
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  };
   /*==================================================
    UPDATE PRODUCT
   ==================================================*/
   const updateProduct = async (id, updated) => {
-  try {
-    const product = await editProduct(id, updated);
+    try {
+      const product = await editProduct(id, updated);
 
-    setProducts((prev) =>
-      prev.map((p) => (p.id === id ? product : p))
-    );
-  } catch (err) {
-    console.error(err);
-    setError(err.message);
-  }
-};
+      setProducts((prev) => prev.map((p) => (p.id === id ? product : p)));
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  };
 
   return (
     <ProductContext.Provider
       value={{
-  products,
-  loading,
-  error,
-  refreshProducts,
-  addProduct,
-  deleteProduct,
-  updateProduct,
-}}
+        products,
+        loading,
+        error,
+        refreshProducts,
+        addProduct,
+        deleteProduct,
+        updateProduct,
+      }}
     >
       {children}
     </ProductContext.Provider>

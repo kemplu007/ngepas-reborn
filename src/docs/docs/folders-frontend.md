@@ -74,12 +74,12 @@ src/
 ├── context/
 │ ├── FavoritesContext.jsx
 │ └── ProductContext.jsx
-|  └── CategoryContext.jsx
+| └── CategoryContext.jsx
 │
 ├── data/
-|      mock/
-|       ├── categories.js
-|       └── products.js
+| mock/
+| ├── categories.js
+| └── products.js
 │ ├── categories.js
 │ ├── ctaBanner.js
 │ ├── features.js
@@ -241,13 +241,27 @@ CategoryContext.jsx
 
 • Global State Category.
 
-• Mengelola loading.
+• CRUD Category.
 
-• Mengelola error.
+• Refresh Category.
+
+• Loading State.
+
+• Error State.
 
 • Menggunakan Category Service.
 
 • Tidak melakukan fetch() langsung.
+
+• Menyediakan:
+
+- refreshCategories()
+
+- addCategory()
+
+- editCategory()
+
+- deleteCategory()
 
 ---
 
@@ -344,14 +358,33 @@ AdminLayout.jsx
 
 Dashboard.jsx
 • Halaman Dashboard Admin.
-
-Products.jsx
-• CRUD Produk.
-
-ProductForm.jsx
-• Form Tambah/Edit Produk.
+• Menampilkan statistik Product & Category.
 
 ---
+
+Products.jsx
+• Halaman CRUD Produk.
+
+---
+
+ProductForm.jsx
+• Form Tambah Produk.
+• Form Edit Produk.
+
+---
+
+Categories.jsx
+• Halaman CRUD Category.
+• Menampilkan seluruh kategori.
+• Terhubung dengan CategoryContext.
+
+---
+
+CategoryForm.jsx
+• Form Tambah Category.
+• Form Edit Category.
+• Auto Generate Slug.
+• Menggunakan CategoryContext.
 
 📁 pages/public
 
@@ -402,8 +435,16 @@ highlightText.jsx
 📄 App.tsx
 
 • Root React App.
-• Mengatur seluruh React Router.
-• Memasang Provider Global.
+
+• Mengatur Public Route.
+
+• Mengatur Admin Route.
+
+• Memasang ProductProvider.
+
+• Memasang CategoryProvider.
+
+• Menghubungkan seluruh Layout aplikasi.
 
 ---
 
@@ -421,4 +462,3 @@ highlightText.jsx
 • Base Style.
 • Reset.
 • Utility Global.
-

@@ -15,7 +15,7 @@ import Sidebar from "../components/admin/Sidebar";
 ==================================================*/
 function AdminLayout() {
   const location = useLocation();
-  
+
   /*==================================================
    SIDEBAR STATE (Mobile Drawer)
   ==================================================*/
@@ -28,7 +28,6 @@ function AdminLayout() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      
       {/*==============================================
        SIDEBAR COMPONENT
       ==============================================*/}
@@ -48,7 +47,6 @@ function AdminLayout() {
        MAIN CONTENT AREA
       ==============================================*/}
       <div className="flex flex-1 flex-col">
-        
         {/*==============================================
          MOBILE HEADER (Hanya muncul di HP)
         ==============================================*/}
@@ -61,7 +59,10 @@ function AdminLayout() {
             <PanelLeft size={24} />
           </button>
           <p className="font-bold text-emerald-600">Ngepas Admin</p>
-          <NavLink to="/" className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-emerald-600 transition">
+          <NavLink
+            to="/"
+            className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-emerald-600 transition"
+          >
             <Home size={18} />
             Website
           </NavLink>
@@ -72,10 +73,16 @@ function AdminLayout() {
         ==============================================*/}
         <header className="hidden border-b border-slate-200 bg-white px-8 py-4 lg:flex lg:items-center lg:justify-between">
           <p className="text-lg font-bold text-slate-800">
-            {location.pathname.includes('/categories') ? 'Categories' : 
-             location.pathname.includes('/products') ? 'Products' : 'Dashboard'}
+            {location.pathname.includes("/categories")
+              ? "Categories"
+              : location.pathname.includes("/products")
+                ? "Products"
+                : "Dashboard"}
           </p>
-          <NavLink to="/" className="flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-emerald-600">
+          <NavLink
+            to="/"
+            className="flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-emerald-600"
+          >
             <Home size={18} />
             Kembali ke Website
           </NavLink>
@@ -87,7 +94,6 @@ function AdminLayout() {
         <main className="flex-1 p-4 lg:p-8">
           <Outlet />
         </main>
-
       </div>
     </div>
   );

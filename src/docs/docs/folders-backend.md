@@ -58,12 +58,18 @@ NOTE PER FOLDER & FILE
 📁 controllers
 
 categoryController.js
-• Logic CRUD Category.
-• Menghubungkan Request → Model → Response.
 
-productController.js
-• Logic CRUD Product.
-• Mengatur Create, Read, Update, Delete.
+• CRUD Category.
+
+• GET Category.
+
+• CREATE Category.
+
+• UPDATE Category.
+
+• DELETE Category.
+
+• Menghubungkan Request → Model → Response.
 
 ---
 
@@ -137,7 +143,16 @@ productModel.js
 📁 routes
 
 categoryRoutes.js
-• Endpoint API Category.
+
+• Routing CRUD Category.
+
+• GET
+
+• POST
+
+• PUT
+
+• DELETE
 
 productRoutes.js
 • Endpoint API Product.
@@ -243,28 +258,26 @@ emailService.js
 
 ---
 
-
 STATUS
+
 Mengikuti prinsip YAGNI
 
-Backend CRUD Product
+✔ Backend CRUD Product
 
-✔
+✔ Backend CRUD Category
 
-Backend CRUD Category
+✔ Frontend Integration
 
-✔
+✔ Admin Product CRUD
 
-Frontend Integration
-
-✔
+✔ Admin Category CRUD
 
 NEXT
 
-Authentication
+□ Authentication
 
-Upload
+□ Upload Image
 
-Settings
+□ Settings
 
-Service Layer Backend (Jika diperlukan)
+□ Backend Service Layer (Jika diperlukan)

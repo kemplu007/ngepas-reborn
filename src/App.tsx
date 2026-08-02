@@ -1,53 +1,71 @@
 /*==================================================
  NGEPAS REBORN
- Project : Ngepas Reborn
  File    : App.tsx
+ Module  : Application Router
 ==================================================*/
 
 import { Routes, Route } from "react-router-dom";
 
-// Import Layout
+/*==================================================
+ LAYOUTS
+==================================================*/
 import MainLayout from "./layouts/MainLayout";
 import AdminLayout from "./layouts/AdminLayout";
 
-// Import Public Pages
+/*==================================================
+ PUBLIC PAGES
+==================================================*/
 import Home from "./pages/public/Home";
 import ProductDetail from "./pages/public/ProductDetail";
 import CategoryPage from "./pages/public/CategoryPage";
 
-// Import Admin Pages
+/*==================================================
+ ADMIN PAGES
+==================================================*/
 import Dashboard from "./pages/admin/Dashboard";
 import Products from "./pages/admin/Products";
 import ProductForm from "./pages/admin/ProductForm";
+import Categories from "./pages/admin/Categories";
+import CategoryForm from "./pages/admin/CategoryForm";
 
-// Import Context
-import { ProductProvider } from "./context/ProductContext";
-
+/*==================================================
+ APP
+==================================================*/
 function App() {
   return (
-    <ProductProvider>
-      <Routes>
-        {/* =============================================
-             BUNGKUS HALAMAN PUBLIK DISINI
-             (Biar Navbarnya muncul di semua halaman)
-            ============================================= */}
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:slug" element={<ProductDetail />} />
-          <Route path="/category" element={<CategoryPage />} />
-        </Route>
+    <Routes>
+      {/*==================================================
+          PUBLIC ROUTES
+        ==================================================*/}
 
-        {/* =============================================
-             BAGIAN ADMIN (Dibawah ini jangan diutak-atik)
-            ============================================= */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
-          <Route path="products/new" element={<ProductForm />} />
-          <Route path="products/:id/edit" element={<ProductForm />} />
-        </Route>
-      </Routes>
-    </ProductProvider>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/product/:slug" element={<ProductDetail />} />
+
+        <Route path="/category" element={<CategoryPage />} />
+      </Route>
+
+      {/*==================================================
+          ADMIN ROUTES
+        ==================================================*/}
+
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+
+        <Route path="products" element={<Products />} />
+
+        <Route path="products/new" element={<ProductForm />} />
+
+        <Route path="products/:id/edit" element={<ProductForm />} />
+
+        <Route path="categories" element={<Categories />} />
+
+        <Route path="categories/new" element={<CategoryForm />} />
+
+        <Route path="categories/:id/edit" element={<CategoryForm />} />
+      </Route>
+    </Routes>
   );
 }
 

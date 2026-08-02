@@ -12,7 +12,6 @@ import adminMenu from "../../config/admin/menu";
  COMPONENT
 ==================================================*/
 function Sidebar({ isOpen, toggleSidebar }) {
-  
   /*==================================================
    CLOSE SIDEBAR ON NAVIGATION (Mobile UX)
   ==================================================*/
@@ -27,7 +26,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
       className={`
         fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-emerald-900 text-white
         transition-transform duration-300 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0 lg:static lg:z-auto
       `}
     >

@@ -26,6 +26,10 @@ function getCategories(req, res) {
 ==================================================*/
 
 function createCategory(req, res) {
+  console.log("===== CREATE BODY =====");
+  console.log(req.body);
+  console.log("=======================");
+
   const validationError = validateCategory(req.body);
 
   if (validationError) {
@@ -39,7 +43,7 @@ function createCategory(req, res) {
     slug,
     room,
     icon,
-    status,
+    status: status ? 1 : 0,
     sortOrder,
   });
 
@@ -47,6 +51,12 @@ function createCategory(req, res) {
     res,
     {
       id: result.lastInsertRowid,
+      name,
+      slug,
+      room,
+      icon,
+      status,
+      sortOrder,
     },
     "Category berhasil dibuat.",
     201,
@@ -71,7 +81,7 @@ function updateCategory(req, res) {
     slug,
     room,
     icon,
-    status,
+    status: status ? 1 : 0,
     sortOrder,
   });
 
