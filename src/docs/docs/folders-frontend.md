@@ -113,6 +113,11 @@ src/
 │ ├── Home.jsx
 │ ├── CategoryPage.jsx
 │ └── ProductDetail.jsx
+├── services/
+│
+├── api.js
+├── productService.js
+└── categoryService.js
 │
 ├── utils/
 │ └── highlightText.jsx
@@ -215,7 +220,18 @@ FavoritesContext.jsx
 • Global State Favorite.
 
 ProductContext.jsx
+
 • Global State Produk.
+
+• Mengelola loading.
+
+• Mengelola error.
+
+• Menggunakan Product Service.
+
+• Tidak melakukan fetch() langsung.
+
+• Menyediakan refreshProducts().
 
 ---
 
@@ -317,6 +333,32 @@ ProductDetail.jsx
 • Detail Produk.
 
 ---
+
+📁 services
+
+api.js
+
+• Konfigurasi Base URL Backend.
+
+• Satu pintu perubahan API.
+
+---
+
+productService.js
+
+• Seluruh komunikasi Product API.
+
+• Request Helper.
+
+• CRUD Product.
+
+---
+
+categoryService.js
+
+• Seluruh komunikasi Category API.
+
+• CRUD Category.
 
 📁 utils
 

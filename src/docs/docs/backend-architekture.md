@@ -58,6 +58,81 @@ Frontend
 
 ---
 
+---
+
+# FRONTEND FLOW
+
+Frontend Ngepas menggunakan Service Layer.
+
+Seluruh komunikasi API wajib mengikuti alur berikut.
+
+Component
+
+↓
+
+Context
+
+↓
+
+Service
+
+↓
+
+API Configuration
+
+↓
+
+Backend API
+
+↓
+
+SQLite
+
+==================================================
+SERVICE LAYER
+==================================================
+
+Service menjadi satu-satunya pintu komunikasi
+antara Frontend dan Backend.
+
+Component tidak boleh menggunakan fetch().
+
+Context tidak boleh menggunakan URL Backend.
+
+Semua request harus melalui Service.
+
+Contoh
+
+Hero
+
+↓
+
+ProductContext
+
+↓
+
+productService
+
+↓
+
+api.js
+
+↓
+
+Backend
+
+==================================================
+STATUS
+==================================================
+
+✔ Product Service
+✔ API Configuration
+✔ ProductContext Migration
+
+STATUS
+
+COMPLETED
+
 # LAYER
 
 ## index.js

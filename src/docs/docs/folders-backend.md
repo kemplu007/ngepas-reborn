@@ -206,3 +206,47 @@ response.js
 • node_modules
 • .env
 • file sementara.
+
+==================================================
+ROADMAP NEXT
+==================================================
+
+📁 services/
+
+productService.js
+
+• Business Logic Product.
+
+• Digunakan jika Controller mulai terlalu besar.
+
+---
+
+categoryService.js
+
+• Business Logic Category.
+
+---
+
+authService.js
+
+• Login
+
+• JWT
+
+• Hash Password
+
+---
+
+emailService.js
+
+• Email Notification
+
+---
+
+STATUS
+
+NOT IMPLEMENTED
+
+Mengikuti prinsip YAGNI.
+
+Service hanya dibuat saat dibutuhkan.

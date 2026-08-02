@@ -8,7 +8,7 @@ Module  : Backend API
 Version : 1.0
 
 ==================================================
-TUJUAN
+RULES
 ==================================================
 
 Dokumen ini menjadi kontrak antara Backend dan Frontend.
@@ -18,6 +18,45 @@ terdaftar di dokumen ini.
 
 Backend wajib mengembalikan format response yang
 konsisten menggunakan Response Helper.
+
+==================================================
+FRONTEND RULES
+==================================================
+
+Component
+
+×
+
+fetch()
+
+Context
+
+×
+
+fetch()
+
+Service
+
+✓
+
+fetch()
+
+Semua komunikasi API Frontend harus melalui
+Service Layer.
+
+Service bertanggung jawab:
+
+• Fetch API
+
+• Error Handling
+
+• Parsing Response
+
+• Return Data Bersih
+
+Context hanya menerima data.
+
+Component hanya menggunakan Context.
 
 ==================================================
 BASE URL
@@ -347,6 +386,38 @@ Settings
 GET    /api/settings
 
 PUT    /api/settings
+
+==================================================
+IMPLEMENTATION STATUS
+==================================================
+
+Backend API
+
+██████████
+
+100%
+
+Frontend Service Layer
+
+██████████
+
+100%
+
+Product Context
+
+██████████
+
+100%
+
+Homepage
+
+██████████
+
+100%
+
+Status
+
+READY FOR NEXT SPRINT
 
 ==================================================
 END OF DOCUMENT
