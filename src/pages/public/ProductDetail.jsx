@@ -11,7 +11,17 @@
 ==================================================*/
 
 import { useMemo, useState } from "react";
-import { ArrowLeft, Star } from "lucide-react";
+import {
+  ArrowLeft,
+  Star,
+  Check,
+  Heart,
+  Info,
+  Sparkles,
+  ClipboardList,
+  Target,
+  ShoppingCart,
+} from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useProducts } from "../../context/ProductContext";
 import ProductCard from "../../components/public/ProductCard";
@@ -52,11 +62,13 @@ function ProductDetail() {
   if (!product) {
     return (
       <section className="py-20 text-center">
-        <h2 className="text-2xl font-bold">Produk tidak ditemukan.</h2>
+        <h2 className="text-2xl font-bold text-foreground">
+          Produk tidak ditemukan.
+        </h2>
 
         <Link
           to="/"
-          className="mt-6 inline-block text-emerald-600 hover:underline"
+          className="mt-6 inline-block text-primary hover:underline"
         >
           ← Kembali ke Home
         </Link>
@@ -135,7 +147,7 @@ function ProductDetail() {
 
       <Link
         to="/"
-        className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-100"
+        className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-primary hover:text-primary-foreground"
       >
         <ArrowLeft size={18} />
         Kembali
@@ -155,7 +167,7 @@ PRODUCT IMAGE
   MAIN IMAGE
   --------------------------------------------------*/}
 
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-xl">
+          <div className="overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-sm">
             <img
               src={galleryImages[selectedImage]}
               alt={name}
@@ -175,8 +187,8 @@ PRODUCT IMAGE
                 onClick={() => setSelectedImage(index)}
                 className={`overflow-hidden rounded-2xl border-2 transition-all duration-300 ${
                   selectedImage === index
-                    ? "scale-105 border-emerald-600 shadow-lg"
-                    : "border-slate-200 hover:border-emerald-300"
+                    ? "scale-105 border-primary shadow-md"
+                    : "border-border hover:border-primary/50"
                 }`}
               >
                 <img
@@ -195,8 +207,8 @@ PRODUCT IMAGE
         <div>
           {/* CATEGORY */}
 
-          <nav className="mb-4 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-            <Link to="/" className="hover:text-emerald-600">
+          <nav className="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <Link to="/" className="hover:text-primary">
               Home
             </Link>
 
@@ -210,10 +222,10 @@ PRODUCT IMAGE
 
             <span>/</span>
 
-            <span className="font-medium text-slate-700">{name}</span>
+            <span className="font-medium text-foreground">{name}</span>
           </nav>
 
-          <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
+          <span className="inline-flex rounded-full bg-accent px-4 py-1 text-sm font-semibold text-accent-foreground">
             {category}
           </span>
 
@@ -225,20 +237,20 @@ PRODUCT IMAGE
 
           {/* TITLE */}
 
-          <h1 className="mt-4 text-4xl font-extrabold leading-tight text-slate-900 max-w-2xl">
+          <h1 className="mt-4 text-4xl font-extrabold leading-tight text-foreground text-balance max-w-2xl">
             {name}
           </h1>
 
           {/* DESCRIPTION */}
 
-          <p className="mt-5 leading-8 text-slate-600">{description}</p>
+          <p className="mt-5 leading-8 text-muted-foreground">{description}</p>
 
           {tags.length > 0 && (
             <div className="mt-6 flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600"
+                  className="rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground"
                 >
                   #{tag}
                 </span>
@@ -249,16 +261,16 @@ PRODUCT IMAGE
           {/* PRICE */}
 
           <div className="mt-8">
-            <p className="text-base text-slate-400 line-through">
+            <p className="text-base text-muted-foreground line-through">
               {originalPrice}
             </p>
 
             <div className="mt-2 flex items-center gap-3">
-              <h2 className="text-5xl font-black tracking-tight text-emerald-600">
+              <h2 className="text-5xl font-black tracking-tight text-primary">
                 {price}
               </h2>
 
-              <span className="rounded-lg bg-red-100 px-3 py-1 text-sm font-bold text-red-600">
+              <span className="rounded-lg bg-destructive/10 px-3 py-1 text-sm font-bold text-destructive">
                 -{discount}%
               </span>
             </div>
@@ -273,15 +285,15 @@ PRODUCT IMAGE
               {rating}
             </div>
 
-            <div className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
+            <div className="rounded-xl bg-muted px-4 py-2 text-sm font-semibold text-foreground">
               {sold} Terjual
             </div>
 
             <div
               className={`rounded-xl px-4 py-2 text-sm font-semibold ${
                 stock > 10
-                  ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
+                  ? "bg-accent text-accent-foreground"
+                  : "bg-destructive/10 text-destructive"
               }`}
             >
               {stock > 10 ? `Stok ${stock}` : `Sisa ${stock}`}
@@ -290,15 +302,16 @@ PRODUCT IMAGE
 
           {/* WHY WE RECOMMEND */}
 
-          <div className="mt-10 rounded-3xl border border-emerald-100 bg-emerald-50 p-6">
-            <h2 className="text-2xl font-bold text-slate-900">
-              💚 Kenapa Kami Memilih Produk Ini
+          <div className="mt-10 rounded-3xl border border-primary/15 bg-accent p-6">
+            <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
+              <Heart size={22} className="text-primary" fill="currentColor" />
+              Kenapa Kami Memilih Produk Ini
             </h2>
 
             <ul className="mt-5 space-y-3">
               {whyWeRecommend.map((item) => (
-                <li key={item} className="flex gap-3 text-slate-700">
-                  <span>✅</span>
+                <li key={item} className="flex gap-3 text-foreground">
+                  <Check size={20} className="mt-0.5 shrink-0 text-primary" />
                   <span>{item}</span>
                 </li>
               ))}

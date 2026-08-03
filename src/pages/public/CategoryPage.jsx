@@ -102,15 +102,15 @@ Mengurutkan produk sesuai pilihan user.
         Header
       ==============================================*/}
       <div className="mb-8">
-        <p className="text-sm text-green-600 font-semibold">
+        <p className="text-sm text-primary font-semibold">
           Blueprint Navigation
         </p>
 
-        <h1 className="text-3xl font-bold mt-2">
+        <h1 className="text-3xl font-bold mt-2 text-foreground text-balance">
           Mau cari produk buat ruangan apa?
         </h1>
 
-        <p className="text-gray-500 mt-3">
+        <p className="text-muted-foreground mt-3 text-pretty">
           Pilih salah satu ruangan untuk mulai menemukan rekomendasi produk
           terbaik versi Ngepas.
         </p>
@@ -134,18 +134,22 @@ Mengurutkan produk sesuai pilihan user.
   border
   rounded-2xl
   p-4
-  transition
+  transition-all
   text-left
 
   ${
     selectedRoom === room.slug
-      ? "bg-green-600 text-white border-green-600 shadow-lg"
-      : "bg-white hover:shadow-lg"
+      ? "bg-primary text-primary-foreground border-primary shadow-lg"
+      : "bg-card border-border hover:-translate-y-1 hover:border-primary/40 hover:shadow-md"
   }
 `}
           >
             {/* Image Placeholder */}
-            <div className="aspect-square rounded-xl bg-gray-100 mb-4" />
+            <div
+              className={`aspect-square rounded-xl mb-4 ${
+                selectedRoom === room.slug ? "bg-primary-foreground/20" : "bg-muted"
+              }`}
+            />
 
             {/* Room Name */}
             <h2 className="font-semibold text-lg">{room.name}</h2>
@@ -153,7 +157,9 @@ Mengurutkan produk sesuai pilihan user.
             {/* Product Count */}
             <p
               className={`text-sm mt-1 ${
-                selectedRoom === room.slug ? "text-green-100" : "text-gray-500"
+                selectedRoom === room.slug
+                  ? "text-primary-foreground/80"
+                  : "text-muted-foreground"
               }`}
             >
               {products.filter((product) => product.room === room.slug).length}{" "}
@@ -167,10 +173,10 @@ Mengurutkan produk sesuai pilihan user.
   Category List
 ==============================================*/}
       <section className="mt-10">
-        <h2 className="text-2xl font-bold">Pilih Jenis Barang</h2>
+        <h2 className="text-2xl font-bold text-foreground">Pilih Jenis Barang</h2>
 
         {!selectedRoom ? (
-          <p className="text-gray-500 mt-2">
+          <p className="text-muted-foreground mt-2">
             Silakan pilih ruangan terlebih dahulu.
           </p>
         ) : (
@@ -196,12 +202,14 @@ Mengurutkan produk sesuai pilihan user.
   px-4
   py-3
   text-left
+  text-sm
+  font-medium
   transition
 
   ${
     selectedCategory === category
-      ? "bg-green-600 text-white border-green-600"
-      : "bg-white hover:bg-green-50 hover:border-green-600"
+      ? "bg-primary text-primary-foreground border-primary"
+      : "bg-card border-border text-foreground hover:bg-accent hover:border-primary/40"
   }
 `}
               >
@@ -212,16 +220,16 @@ Mengurutkan produk sesuai pilihan user.
         )}
         {selectedCategory && (
           <div className="mt-4">
-            <p className="text-green-600 font-medium">
+            <p className="text-primary font-medium">
               Kategori dipilih: {selectedCategory}
             </p>
 
-            <p className="mt-2 text-green-600 font-medium">
+            <p className="mt-2 text-primary font-medium">
               Total Produk: {filteredProducts.length}
             </p>
 
             {filteredProducts.length === 0 && (
-              <p className="text-gray-500 mt-2">
+              <p className="text-muted-foreground mt-2">
                 Belum ada produk untuk kategori ini.
               </p>
             )}
@@ -236,21 +244,22 @@ Mengurutkan produk sesuai pilihan user.
           <div className="mt-8 mb-8">
             <input
               type="text"
-              placeholder="🔍 Cari produk..."
+              placeholder="Cari produk..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="
         w-full
         rounded-2xl
         border
-        border-slate-300
+        border-border
+        bg-card
         px-5
         py-4
         outline-none
         transition
-        focus:border-green-600
+        focus:border-primary
         focus:ring-2
-        focus:ring-green-200
+        focus:ring-ring/20
       "
             />
           </div>
@@ -269,22 +278,23 @@ Mengurutkan produk sesuai pilihan user.
       w-full
       rounded-2xl
       border
-      border-slate-300
+      border-border
+      bg-card
       px-5
       py-4
       outline-none
-      focus:border-green-600
+      focus:border-primary
       focus:ring-2
-      focus:ring-green-200
+      focus:ring-ring/20
     "
             >
-              <option value="default">Default</option>
+              <option value="default">Urutkan: Default</option>
 
-              <option value="rating">⭐ Rating Tertinggi</option>
+              <option value="rating">Rating Tertinggi</option>
 
-              <option value="price">💰 Harga Termurah</option>
+              <option value="price">Harga Termurah</option>
 
-              <option value="sold">🔥 Terlaris</option>
+              <option value="sold">Terlaris</option>
             </select>
           </div>
         )}
@@ -298,16 +308,16 @@ Mengurutkan produk sesuai pilihan user.
   mb-8
   rounded-3xl
   border
-  border-emerald-200
-  bg-emerald-50
+  border-primary/15
+  bg-accent
   p-6
 "
           >
-            <h2 className="text-2xl font-bold text-emerald-700">
-              💚 Rekomendasi Ngepas
+            <h2 className="text-2xl font-bold text-primary">
+              Rekomendasi Ngepas
             </h2>
 
-            <p className="mt-3 text-slate-600 leading-7">
+            <p className="mt-3 text-muted-foreground leading-7">
               Kami sudah memilihkan produk terbaik berdasarkan kualitas, harga,
               dan ulasan positif agar kamu tidak perlu bingung memilih.
             </p>

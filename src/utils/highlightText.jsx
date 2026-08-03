@@ -18,7 +18,7 @@ export default function highlightText(text, keyword) {
     part.toLowerCase() === keyword.toLowerCase() ? (
       <mark
         key={index}
-        className="rounded bg-emerald-100 px-1 font-semibold text-emerald-700"
+        className="rounded bg-accent px-1 font-semibold text-accent-foreground"
       >
         {part}
       </mark>

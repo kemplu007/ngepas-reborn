@@ -63,7 +63,7 @@ function SearchDropdown() {
       <div className="relative">
         <Search
           size={18}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
         />
 
         <input
@@ -71,19 +71,19 @@ function SearchDropdown() {
           placeholder="Cari produk..."
           value={keyword}
           onChange={handleChange}
-          className="w-full rounded-full border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-emerald-500 hover:bg-green-50"
+          className="w-full rounded-full border border-border bg-muted/50 py-2.5 pl-11 pr-4 text-sm outline-none transition focus:border-primary focus:bg-background focus:ring-2 focus:ring-ring/20"
         />
       </div>
 
       {keyword && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+        <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-border bg-popover shadow-lg">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <Link
                 key={product.id}
                 to={`/product/${product.slug}`}
                 onClick={clearSearch}
-                className="flex items-center gap-3 border-b border-slate-100 px-3 py-2.5 transition hover:bg-emerald-50 last:border-none"
+                className="flex items-center gap-3 border-b border-border px-3 py-2.5 transition hover:bg-accent last:border-none"
               >
                 <img
                   src={product.image}
@@ -92,14 +92,14 @@ function SearchDropdown() {
                 />
 
                 <div className="min-w-0 flex-1">
-                  <h3 className="truncate text-sm font-semibold text-slate-800">
+                  <h3 className="truncate text-sm font-semibold text-foreground">
                     {highlightText(product.name, keyword)}
                   </h3>
 
-                  <p className="mt-1 text-xs text-slate-500">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     {highlightText(product.category, keyword)}
                     <span className="mx-1">•</span>
-                    <span className="font-semibold text-emerald-600">
+                    <span className="font-semibold text-primary">
                       {product.price}
                     </span>
                   </p>
@@ -108,11 +108,11 @@ function SearchDropdown() {
             ))
           ) : (
             <div className="p-5 text-center">
-              <p className="font-medium text-slate-700">
+              <p className="font-medium text-foreground">
                 Produk tidak ditemukan
               </p>
 
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-muted-foreground">
                 Coba gunakan kata kunci lain.
               </p>
             </div>

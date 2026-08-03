@@ -25,16 +25,16 @@ function Button({ children }) {
         items-center
         justify-center
         rounded-xl
-        bg-green-600
+        bg-primary
         px-6
         py-3
         font-semibold
-        text-white
-        shadow-md
+        text-primary-foreground
+        shadow-sm
         transition-all
         duration-300
-        hover:bg-green-700
-        hover:shadow-lg
+        hover:bg-primary/90
+        hover:shadow-md
         active:scale-95
         cursor-pointer
     "

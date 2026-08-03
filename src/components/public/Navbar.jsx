@@ -48,7 +48,7 @@ function Navbar() {
   ==================================================*/
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 gap-2 sm:gap-4">
         {/*==================================================
             KIRI: MOBILE MENU BUTTON & LOGO
@@ -57,13 +57,16 @@ function Navbar() {
           <button
             type="button"
             onClick={handleToggleMenu}
-            className="rounded-lg p-2 text-slate-700 transition hover:bg-slate-100"
+            className="rounded-lg p-2 text-muted-foreground transition hover:bg-muted hover:text-foreground"
           >
             <Menu size={20} />
           </button>
 
-          <Link to="/">
-            <h2 className="text-xl sm:text-lg font-extrabold text-green-600 tracking-tight">
+          <Link to="/" className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-black text-primary-foreground">
+              N
+            </span>
+            <h2 className="text-xl sm:text-lg font-extrabold text-foreground tracking-tight">
               Ngepas
             </h2>
           </Link>
@@ -81,7 +84,7 @@ function Navbar() {
           {/* Tombol Favorit */}
           <Link
             to="/favorit"
-            className="relative rounded-lg p-2 text-slate-700 transition hover:bg-slate-100"
+            className="relative rounded-lg p-2 text-muted-foreground transition hover:bg-muted hover:text-foreground"
             title="Favorit"
           >
             <Heart size={20} />
@@ -90,12 +93,12 @@ function Navbar() {
           {/* Tombol Keranjang */}
           <Link
             to="/keranjang"
-            className="relative rounded-lg p-2 text-slate-700 transition hover:bg-slate-100 flex items-center"
+            className="relative rounded-lg p-2 text-muted-foreground transition hover:bg-muted hover:text-foreground flex items-center"
             title="Keranjang"
           >
             <ShoppingCart size={20} />
             {/* Badge Angka Keranjang */}
-            <span className="absolute -top-1 -right-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-green-600 text-[10px] sm:text-xs font-bold text-white shadow-sm">
+            <span className="absolute -top-1 -right-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-primary text-[10px] sm:text-xs font-bold text-primary-foreground shadow-sm">
               3
             </span>
           </Link>
@@ -105,8 +108,8 @@ function Navbar() {
             MOBILE DROPDOWN MENU
         ==================================================*/}
         {isMenuOpen && (
-          <div className="absolute left-0 top-16 w-full border-b border-slate-200 bg-white shadow-lg">
-            <div className="flex flex-col gap-2 p-4">
+          <div className="absolute left-0 top-16 w-full border-b border-border bg-background shadow-lg">
+            <div className="flex flex-col gap-1 p-4">
               {navigation
                 .filter((item) => item.enabled)
                 .map((item) => (
@@ -114,7 +117,7 @@ function Navbar() {
                     key={item.id}
                     to={item.path}
                     onClick={handleCloseMenu}
-                    className="rounded-lg px-3 py-2 text-slate-700 transition hover:bg-slate-100"
+                    className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-accent hover:text-accent-foreground"
                   >
                     {item.label}
                   </Link>

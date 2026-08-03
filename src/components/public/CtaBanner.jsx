@@ -22,25 +22,25 @@ function CtaBanner() {
     ==================================================*/
 
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-      <div className="overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
+      <div className="overflow-hidden rounded-3xl border border-primary/15 bg-accent p-6 sm:p-8">
         <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-between">
           {/*==================================================
             CTA CONTENT
           ==================================================*/}
 
-          <div className="max-w-xl">
-            <h2 className="text-2xl font-bold leading-tight text-slate-900">
+          <div className="max-w-xl text-center lg:text-left">
+            <h2 className="text-2xl font-bold leading-tight text-foreground text-balance sm:text-3xl">
               {title}
-              <span className="block text-emerald-700">{highlight}</span>
+              <span className="block text-primary">{highlight}</span>
             </h2>
 
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {description}
             </p>
 
             <Link
               to="/category"
-              className="mt-5 inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
             >
               {button}
               <ArrowRight size={18} />

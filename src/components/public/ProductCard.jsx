@@ -10,7 +10,7 @@
  IMPORT
 ==================================================*/
 
-import { Star } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 /*==================================================
@@ -41,13 +41,14 @@ function ProductCard({ product }) {
         overflow-hidden
         rounded-2xl
         border
-        border-slate-200
-        bg-white
+        border-border
+        bg-card
         shadow-sm
         transition-all
         duration-300
         hover:-translate-y-1
-        hover:shadow-xl
+        hover:border-primary/30
+        hover:shadow-lg
       "
     >
       {/*==================================================
@@ -55,9 +56,11 @@ function ProductCard({ product }) {
       ==================================================*/}
 
       <div className="relative overflow-hidden">
-        <span className="absolute left-2 top-2 z-10 rounded-full bg-red-500 px-2 py-1 text-xs font-semibold text-white shadow">
-          -{discount}%
-        </span>
+        {discount > 0 && (
+          <span className="absolute left-2 top-2 z-10 rounded-full bg-destructive px-2 py-1 text-xs font-semibold text-white shadow-sm">
+            -{discount}%
+          </span>
+        )}
 
         <img
           src={image}
@@ -81,14 +84,14 @@ function ProductCard({ product }) {
       <div className="space-y-1.5 p-3">
         {/* PRODUCT NAME */}
 
-        <h3 className="text-[15px] line-clamp-2 min-h-10 font-semibold leading-snug text-slate-900">
+        <h3 className="text-[15px] line-clamp-2 min-h-10 font-semibold leading-snug text-foreground">
           {name}
         </h3>
 
         {/* PRODUCT RATING */}
 
-        <div className="flex items-center gap-1 text-xs text-slate-500">
-          <Star size={13} className="fill-yellow-400 text-yellow-400" />
+        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          <Star size={13} className="fill-amber-400 text-amber-400" />
 
           <span>{rating}</span>
         </div>
@@ -96,9 +99,9 @@ function ProductCard({ product }) {
         {/* PRODUCT PRICE */}
 
         <div>
-          <p className="text-base font-bold text-emerald-600">{price}</p>
+          <p className="text-base font-bold text-primary">{price}</p>
 
-          <p className="text-[11px] text-slate-400 line-through">
+          <p className="text-[11px] text-muted-foreground line-through">
             {originalPrice}
           </p>
         </div>
@@ -106,7 +109,7 @@ function ProductCard({ product }) {
         {/* BADGE */}
 
         {badge && (
-          <span className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+          <span className="inline-block rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
             {badge}
           </span>
         )}
@@ -114,7 +117,7 @@ function ProductCard({ product }) {
         {/* REASON */}
 
         {reason && (
-          <p className="text-xs leading-relaxed text-slate-500">{reason}</p>
+          <p className="text-xs leading-relaxed text-muted-foreground">{reason}</p>
         )}
 
         {/* CTA */}
@@ -123,19 +126,24 @@ function ProductCard({ product }) {
           to={`/product/${slug}`}
           className="
             mt-3
-            block
+            flex
+            items-center
+            justify-center
+            gap-1
             rounded-lg
-            bg-emerald-600
+            bg-secondary
             py-2
             text-center
             text-[13px]
             font-semibold
-            text-white
+            text-secondary-foreground
             transition-colors
-            hover:bg-emerald-700
+            hover:bg-primary
+            hover:text-primary-foreground
           "
         >
-          Lihat Detail →
+          Lihat Detail
+          <ArrowRight size={14} />
         </Link>
       </div>
     </article>

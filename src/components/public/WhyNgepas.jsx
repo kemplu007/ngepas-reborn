@@ -22,10 +22,10 @@ function WhyNgepas() {
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       {/* Heading */}
 
-      <div className="mb-5">
-        <h2 className="text-xl font-bold text-slate-900">Kenapa Ngepas?</h2>
+      <div className="mb-6">
+        <h2 className="text-xl font-bold text-foreground md:text-2xl">Kenapa Ngepas?</h2>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-muted-foreground">
           Alasan kenapa banyak orang memilih Ngepas.
         </p>
       </div>
@@ -39,17 +39,17 @@ function WhyNgepas() {
           return (
             <div
               key={item.id}
-              className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
+              className="rounded-2xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-md"
             >
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary">
                 <Icon size={24} />
               </div>
 
-              <h3 className="text-sm font-semibold text-slate-900">
+              <h3 className="text-sm font-semibold text-foreground">
                 {item.title}
               </h3>
 
-              <p className="mt-2 text-xs leading-relaxed text-slate-500">
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
             </div>

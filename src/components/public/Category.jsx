@@ -31,15 +31,18 @@ const categoryItems = [
 
 function Category() {
   return (
-    <section className="bg-slate-50 py-8">
+    <section className="bg-muted/50 py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/*==============================================
          SECTION HEADER
         ==============================================*/}
-        <div className="mb-5">
-          <h2 className="text-xl font-bold text-slate-900 md:text-2xl">
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground md:text-2xl text-balance">
             Pilih cara kamu
           </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Mulai jelajahi dari ruangan favoritmu.
+          </p>
         </div>
 
         {/*==============================================
@@ -53,15 +56,15 @@ function Category() {
               <Link
                 key={item.id}
                 to={`/category?room=${item.slug}`}
-                className="group flex min-w-[100px] snap-center cursor-pointer flex-col items-center justify-center rounded-2xl bg-white p-4 shadow-sm border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:border-green-200 hover:shadow-md"
+                className="group flex min-w-[100px] snap-center cursor-pointer flex-col items-center justify-center rounded-2xl bg-card p-4 shadow-sm border border-border transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md"
               >
                 {/* Wadah Ikon */}
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 text-slate-700 transition-colors duration-300 group-hover:bg-green-50 group-hover:text-green-600">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-muted-foreground transition-colors duration-300 group-hover:bg-accent group-hover:text-primary">
                   <Icon size={24} strokeWidth={1.5} />
                 </div>
 
                 {/* Teks Nama Kategori */}
-                <h3 className="text-center text-xs font-medium text-slate-700 group-hover:text-green-700">
+                <h3 className="text-center text-xs font-medium text-foreground group-hover:text-primary">
                   {item.name}
                 </h3>
               </Link>

@@ -28,7 +28,7 @@ function Hero() {
       ==================================================*/}
 
       <div
-        className="relative overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat p-4 sm:p-6 shadow-sm"
+        className="relative overflow-hidden rounded-3xl border border-border bg-cover bg-center bg-no-repeat p-4 sm:p-8 shadow-sm"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
         {/*==================================================
@@ -38,7 +38,7 @@ function Hero() {
           ilustrasi ruangan pada sisi kanan.
         ==================================================*/}
 
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent"></div>
 
         {/*==================================================
           HERO CONTENT
@@ -52,31 +52,31 @@ function Hero() {
           <div className="z-20 flex-1 space-y-2 sm:space-y-3">
             {/* Badge */}
 
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100/90 px-3 py-0.5 text-[10px] font-semibold text-emerald-800 sm:text-xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1 text-[10px] font-semibold text-accent-foreground sm:text-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
               {badge}
             </span>
 
             {/* Heading */}
 
-            <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-foreground text-balance sm:text-4xl lg:text-5xl">
               {heading.title}{" "}
-              <span className="text-emerald-700">{heading.highlight}</span>{" "}
+              <span className="text-primary">{heading.highlight}</span>{" "}
               {heading.subtitle}
             </h1>
 
             {/* Description */}
 
-            <p className="max-w-[220px] text-[14px] leading-relaxed text-slate-600 sm:max-w-sm sm:text-sm">
+            <p className="max-w-[220px] text-[14px] leading-relaxed text-muted-foreground sm:max-w-sm sm:text-sm">
               {description}
             </p>
 
             {/* CTA */}
 
-            <div className="pt-1">
+            <div className="pt-2">
               <Link
                 to="/category"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-800 px-4 py-2 text-xs font-bold text-white shadow transition-all hover:bg-emerald-900 sm:px-5 sm:py-2.5 sm:text-sm"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md sm:px-5 sm:py-3 sm:text-sm"
               >
                 {cta.text}
                 <ArrowRight size={16} />
