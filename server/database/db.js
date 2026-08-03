@@ -4,6 +4,10 @@
  Module : Database
 ==================================================*/
 
-const { DatabaseSync } = require("node:sqlite");
-const db = new DatabaseSync("ngepas.db");
+const Database = require("better-sqlite3");
+const path = require("path");
+
+const dbPath = process.env.DB_PATH || path.join(__dirname, "..", "ngepas.db");
+const db = new Database(dbPath);
+
 module.exports = db;
