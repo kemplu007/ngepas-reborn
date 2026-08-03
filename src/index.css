@@ -46,6 +46,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* Warna kunci Version A */
+--ngepas-green: #16a34a;        /* green-600 */
+--ngepas-green-dark: #15803d;   /* green-700 */
+--ngepas-green-soft: #dcfce7;   /* green-100 */
+--ngepas-bg: #f8fafc;           /* slate-50 / sangat airy */
 }
 
 :root {

@@ -1,41 +1,42 @@
-/*==================================================
- NGEPAS REBORN
- Project : Ngepas Reborn
- File    : hero.js
- Module  : Data
- Version : 0.2
- Author  : Muhammad Abdul Chakim & ChatGPT
-==================================================*/
-
-/*==================================================
- HERO DATA
-
- Data Hero Section.
-
- Semua konten Hero disimpan di sini
- agar mudah diubah tanpa mengedit komponen.
-==================================================*/
-
 const hero = {
-  badge: "🌿 Pilihan terbaik untuk setiap sudut rumah",
-
+  badge: "Selamat datang di Ngepas",
   heading: {
-    title: "Cari barang bagus itu susah. Biar",
-    highlight: "Ngepas",
-    subtitle: "yang milihin.",
+    line1: "Semua yang kamu",
+    highlight: "butuhkan,",
+    line2: "pas untukmu.",
   },
-
   description:
-    "Kami memilih produk terbaik dengan harga masuk akal untuk kebutuhan rumahmu.",
-
-  cta: {
-    text: "Mulai Jelajahi",
+    "Temukan ribuan produk berkualitas dengan harga terbaik untuk rumah, gaya hidup, dan kebutuhan sehari-hari.",
+  primaryCta: {
+    text: "Belanja Sekarang",
     link: "/category",
   },
+  secondaryCta: {
+    text: "Lihat Kategori",
+    link: "/category",
+  },
+  trusts: [
+    {
+      icon: "Star",
+      title: "Produk Berkualitas",
+      desc: "Terjamin original & terbaik",
+    },
+    {
+      icon: "BadgeCheck",
+      title: "Harga Ngepas",
+      desc: "Harga pas di kantong",
+    },
+    {
+      icon: "Truck",
+      title: "Pengiriman Cepat",
+      desc: "Sampai ke seluruh Indonesia",
+    },
+    {
+      icon: "Headset",
+      title: "Layanan 24/7",
+      desc: "Kami selalu siap bantu",
+    },
+  ],
 };
-
-/*==================================================
- EXPORT
-==================================================*/
 
 export default hero;
