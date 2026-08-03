@@ -4,28 +4,50 @@
  Module  : Admin Pages
 ==================================================*/
 
+/*==================================================
+ IMPORT
+==================================================*/
+
+/* React */
 import { useState } from "react";
+
+/* Router */
 import { Link } from "react-router-dom";
+
+/* Icons */
 import { Plus } from "lucide-react";
 
+/* Context */
 import { useProducts } from "../../context/ProductContext";
+
+/* Components */
 import ProductTable from "../../components/admin/ProductTable";
 
 /*==================================================
- ADMIN PRODUCTS
+ COMPONENTS 
 ==================================================*/
-function Products() {
-  const { products, deleteProduct } = useProducts();
 
+function Products() {
   /*==================================================
-   SEARCH & FILTER STATE
-  ==================================================*/
+ HOOKS
+==================================================*/
+  
+  const { products, deleteProduct } = useProducts();
+  /*==================================================
+  STATE
+==================================================*/
+
+  /*search*/
   const [search, setSearch] = useState("");
+
+  /*selectedCategory*/
+  
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  /*==================================================
+ /*==================================================
    DERIVED DATA
-  ==================================================*/
+==================================================*/
+  
   const categories = ["All", ...new Set(products.map((p) => p.category))];
 
   const filteredProducts = products.filter((product) => {
@@ -37,15 +59,15 @@ function Products() {
       selectedCategory === "All" || product.category === selectedCategory;
     return matchSearch && matchCategory;
   });
-
   /*==================================================
    UI
-  ==================================================*/
+ ==================================================*/
+  
   return (
     <section className="flex flex-col gap-6">
       {/*==============================================
-       HEADER
-      ==============================================*/}
+       HEADER      ==============================================*/}
+      
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-emerald-600">Management</p>
@@ -59,10 +81,9 @@ function Products() {
           Tambah Produk
         </Link>
       </div>
-
       {/*==============================================
-       FILTERS
-      ==============================================*/}
+       FILTERS      ==============================================*/}
+      
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <input
           type="text"
@@ -83,10 +104,9 @@ function Products() {
           ))}
         </select>
       </div>
-
       {/*==============================================
-       PRODUCT TABLE
-      ==============================================*/}
+       PRODUCT TABLE      ==============================================*/}
+      
       {filteredProducts.length > 0 ? (
         <ProductTable products={filteredProducts} onDelete={deleteProduct} />
       ) : (

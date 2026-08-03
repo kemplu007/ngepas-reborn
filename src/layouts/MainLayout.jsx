@@ -1,22 +1,37 @@
 /*==================================================
  NGEPAS REBORN
- File    : MainLayout.jsx
- Module  : Layouts
+ Nama File : MainLayout.jsx
+ Desc      : Layout wrapper for all public pages
+ Author    : Tim Ngepas
 ==================================================*/
 
+/*==================================================
+ IMPORTS
+==================================================*/
+
+/* Router */
 import { Outlet } from "react-router-dom";
+
+/* Components */
 import Navbar from "../components/public/Navbar";
+
+/*==================================================
+ RENDER / UI
+==================================================*/
 
 function MainLayout() {
   return (
     <>
       <Navbar />
-      {/* Outlet ini ibarat "lubang" buat isi halaman ganti-ganti */}
       <main>
         <Outlet />
       </main>
     </>
   );
 }
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default MainLayout;

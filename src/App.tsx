@@ -1,42 +1,40 @@
 /*==================================================
  NGEPAS REBORN
- File    : App.tsx
- Module  : Application Router
+ Nama File : App.tsx
+ Desc      : Routing Aplication 
+ Author    : Tim Ngepas
 ==================================================*/
 
+/*==================================================
+ IMPORTS
+==================================================*/
+
+/* Router */
 import { Routes, Route } from "react-router-dom";
 
-/*==================================================
- LAYOUTS
-==================================================*/
+/* Components */
 import MainLayout from "./layouts/MainLayout";
 import AdminLayout from "./layouts/AdminLayout";
-
-/*==================================================
- PUBLIC PAGES
-==================================================*/
 import Home from "./pages/public/Home";
 import ProductDetail from "./pages/public/ProductDetail";
 import CategoryPage from "./pages/public/CategoryPage";
-
-/*==================================================
- ADMIN PAGES
-==================================================*/
 import Dashboard from "./pages/admin/Dashboard";
 import Products from "./pages/admin/Products";
 import ProductForm from "./pages/admin/ProductForm";
 import Categories from "./pages/admin/Categories";
 import CategoryForm from "./pages/admin/CategoryForm";
+import NotFound from "./pages/public/NotFound";
 
 /*==================================================
- APP
+ RENDER / UI
 ==================================================*/
+
 function App() {
   return (
     <Routes>
-      {/*==================================================
-          PUBLIC ROUTES
-        ==================================================*/}
+      {/*============================================
+        PUBLIC ROUTES
+      ============================================*/}
 
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
@@ -44,11 +42,13 @@ function App() {
         <Route path="/product/:slug" element={<ProductDetail />} />
 
         <Route path="/category" element={<CategoryPage />} />
+
+        <Route path="/category/:slug" element={<CategoryPage />} />
       </Route>
 
-      {/*==================================================
-          ADMIN ROUTES
-        ==================================================*/}
+      {/*============================================
+        ADMIN ROUTES
+      ============================================*/}
 
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
@@ -65,8 +65,19 @@ function App() {
 
         <Route path="categories/:id/edit" element={<CategoryForm />} />
       </Route>
+
+      {/*============================================
+        404 ROUTE
+      ============================================*/}
+
+      <Route path="*" element={<NotFound />} />
+      
     </Routes>
   );
 }
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default App;

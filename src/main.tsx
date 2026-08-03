@@ -8,13 +8,20 @@
  IMPORTS
 ==================================================*/
 
+/* React */
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+
+/* Router */
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
+
+/* Context */
 import { ProductProvider } from "./context/ProductContext";
 import { CategoryProvider } from "./context/CategoryContext";
+
+/* Components */
 import ScrollToTop from "./components/common/ScrollToTop";
 import { FavoritesProvider } from "./context/FavoritesContext";
 

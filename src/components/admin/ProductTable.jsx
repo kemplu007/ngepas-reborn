@@ -4,16 +4,44 @@
  Module  : Admin Components
 ==================================================*/
 
+/*==================================================
+ IMPORT
+==================================================*/
+
+/* Router */
 import { Link } from "react-router-dom";
-import { Pencil, Trash2 } from "lucide-react";
+
+/* Icons */
+import {
+  Pencil,
+  Trash2,
+} from "lucide-react";
 
 /*==================================================
  COMPONENT
 ==================================================*/
+
 function ProductTable({ products, onDelete }) {
+
+    /*==================================================
+   PROPS
+  ==================================================*/
+
+  /* Products */
+
+  /* onDelete */
+  
   return (
+
+        /*==================================================
+     PRODUCT TABLE   ==================================================*/
+    
     <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
       <table className="w-full text-left text-sm">
+
+                {/*==================================================
+         TABLE HEADER       ==================================================*/}
+        
         <thead className="border-b border-slate-200 bg-slate-50 text-slate-600">
           <tr>
             <th className="px-4 py-3 font-medium">Produk</th>
@@ -30,13 +58,19 @@ function ProductTable({ products, onDelete }) {
             <th className="px-4 py-3 font-medium text-right">Aksi</th>
           </tr>
         </thead>
+                {/*==================================================
+         TABLE BODY      ==================================================*/}
+        
         <tbody className="divide-y divide-slate-100">
           {products.map((product) => (
+                  /*==================================================
+             PRODUCT ROW            ==================================================*/    
             <tr
               key={product.id}
               className="transition-all duration-200 hover:shadow-md hover:bg-slate-50/80"
             >
-              {/* Kolom Gambar & Nama */}
+              {/* Product info*/}
+              
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
                   <img
@@ -55,17 +89,20 @@ function ProductTable({ products, onDelete }) {
                 </div>
               </td>
 
-              {/* Kategori */}
+              {/* Category */}
+              
               <td className="px-4 py-3 hidden md:table-cell text-slate-600 capitalize">
                 {product.category}
               </td>
 
-              {/* Harga */}
+              {/* Price  */}
+              
               <td className="px-4 py-3 hidden md:table-cell font-medium text-emerald-600">
                 {product.price}
               </td>
 
-              {/* Stok */}
+              {/* Stock */}
+              
               <td className="px-4 py-3 hidden lg:table-cell">
                 <span
                   className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
@@ -79,6 +116,7 @@ function ProductTable({ products, onDelete }) {
               </td>
 
               {/* Status */}
+              
               <td className="px-4 py-3 hidden lg:table-cell">
                 <span
                   className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
@@ -91,7 +129,8 @@ function ProductTable({ products, onDelete }) {
                 </span>
               </td>
 
-              {/* Aksi (Edit & Hapus) */}
+              {/* Akction */}
+              
               <td className="px-4 py-3 text-right">
                 <div className="flex items-center justify-end gap-2">
                   <Link

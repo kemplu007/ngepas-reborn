@@ -4,22 +4,35 @@
  Module  : Admin Components
 ==================================================*/
 
+/*==================================================
+ IMPORT
+==================================================*/
+
+/* Router */
 import { NavLink } from "react-router-dom";
+
+/* Icons */
 import { LogOut } from "lucide-react";
+
+/* Config */
 import adminMenu from "../../config/admin/menu";
 
 /*==================================================
  COMPONENT
 ==================================================*/
+
 function Sidebar({ isOpen, toggleSidebar }) {
   /*==================================================
-   CLOSE SIDEBAR ON NAVIGATION (Mobile UX)
-  ==================================================*/
-  const handleLinkClick = () => {
-    if (window.innerWidth < 1024) {
-      toggleSidebar();
-    }
-  };
+ HANDLERS
+==================================================*/
+
+/* Close Sidebar */
+
+const handleLinkClick = () => {
+  if (window.innerWidth < 1024) {
+    toggleSidebar();
+  }
+};
 
   return (
     <aside
@@ -31,16 +44,15 @@ function Sidebar({ isOpen, toggleSidebar }) {
       `}
     >
       {/*==============================================
-       SIDEBAR HEADER (LOGO)
-      ==============================================*/}
+       SIDEBAR HEADER (LOGO)     ==============================================*/}
+      
       <div className="border-b border-emerald-800 p-6">
         <h1 className="text-2xl font-bold tracking-tight">Ngepas</h1>
         <p className="text-xs text-emerald-300">Admin Panel</p>
       </div>
-
-      {/*==============================================
-       SIDEBAR MENU (NARIK DARI adminMenu)
-      ==============================================*/}
+     {/*==============================================
+       SIDEBAR MENU    ==============================================*/}
+      
       <nav className="flex-1 space-y-1 overflow-y-auto p-4">
         {adminMenu.map((item) => {
           const Icon = item.icon;
@@ -68,13 +80,15 @@ function Sidebar({ isOpen, toggleSidebar }) {
       </nav>
 
       {/*==============================================
-       SIDEBAR FOOTER (LOGOUT)
-      ==============================================*/}
+       SIDEBAR FOOTER (LOGOUT)      ==============================================*/}
+      
       <div className="border-t border-emerald-800 p-4">
         <button
           type="button"
           onClick={() => {
-            // Placeholder untuk logic logout di masa depan
+            /* TODO:
+   Implement Authentication Logout
+*/
             alert("Logout functionality coming soon!");
           }}
           className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-emerald-100 transition hover:bg-red-500/20 hover:text-red-200"
