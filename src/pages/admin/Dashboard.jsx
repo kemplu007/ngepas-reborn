@@ -68,7 +68,7 @@ function Dashboard() {
 
   /* Total Produk */
 
-  const totalProducts = products.length;
+  const totalProducts = products?.length || 0;
 
   /* Produk Unggulan */
 
@@ -78,13 +78,13 @@ function Dashboard() {
 
   /* Total Kategori */
 
-  const totalCategories = categories.length;
+  const totalCategories = categories?.length || 0;
 
   /*==================================================
    LATEST PRODUCTS
   ==================================================*/
 
-  const latestProducts = [...products].sort((a, b) => b.id - a.id).slice(0, 5);
+  const latestProducts = [...(products || [])].sort((a, b) => b.id - a.id).slice(0, 5);
 
   /*==================================================
    RENDER
@@ -172,7 +172,7 @@ function Dashboard() {
                     <span className="text-xs text-slate-300">•</span>
 
                     <span className="text-xs font-semibold text-emerald-600">
-                      {product.price}
+                      Rp {Number(product.price).toLocaleString("id-ID")}
                     </span>
                   </div>
                 </div>
