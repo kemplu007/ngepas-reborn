@@ -4,7 +4,6 @@
  Module : Backend Server
 ==================================================*/
 require("dotenv").config();
-require("./database/init");
 
 const express = require("express");
 
