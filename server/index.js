@@ -5,6 +5,8 @@
 ==================================================*/
 require("dotenv").config();
 
+require("./database/init");
+
 const express = require("express");
 
 const cors = require("cors");
