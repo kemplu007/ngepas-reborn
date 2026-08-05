@@ -1,0 +1,159 @@
+.
+├── @
+│   ├── components
+│   │   └── ui
+│   │       └── button.tsx
+│   └── lib
+│       └── utils.ts
+├── CHANGELOG.md
+├── README.md
+├── components.json
+├── eslint.config.js
+├── index.html
+├── items.json
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.svg
+│   └── icons.svg
+├── server
+│   ├── controllers
+│   │   ├── categoryController.js
+│   │   └── productController.js
+│   ├── database
+│   │   ├── db.js
+│   │   └── init.js
+│   ├── helpers
+│   │   ├── parsers
+│   │   │   └── productParser.js
+│   │   ├── sanitizers
+│   │   │   └── productSanitizer.js
+│   │   └── validators
+│   │       ├── categoryValidator.js
+│   │       └── productValidator.js
+│   ├── index.js
+│   ├── middleware
+│   │   ├── errorMiddleware.js
+│   │   └── notFoundMiddleware.js
+│   ├── models
+│   │   ├── categoryModel.js
+│   │   └── productModel.js
+│   ├── ngepas.db
+│   ├── package.json
+│   ├── railway.json
+│   ├── routes
+│   │   ├── categoryRoutes.js
+│   │   └── productRoutes.js
+│   ├── seed.js
+│   └── utils
+│       └── response.js
+├── src
+│   ├── App.tsx
+│   ├── assets
+│   │   ├── banner
+│   │   ├── categories
+│   │   │   ├── bathroom.png
+│   │   │   ├── coffee-space.png
+│   │   │   ├── kitchen.png
+│   │   │   └── living-room.png
+│   │   ├── icon
+│   │   ├── illustration
+│   │   ├── images
+│   │   │   └── hero-bg.png
+│   │   ├── logo
+│   │   ├── mascot
+│   │   │   └── si-pas.png
+│   │   ├── placeholder
+│   │   └── products
+│   │       ├── lampu-tidur.jpg
+│   │       ├── rak-bumbu.jpg
+│   │       ├── rak-dinding.jpg
+│   │       └── tanaman.jpg
+│   ├── components
+│   │   ├── admin
+│   │   │   ├── ProductTable.jsx
+│   │   │   └── Sidebar.jsx
+│   │   ├── common
+│   │   │   ├── Button.jsx
+│   │   │   └── ScrollToTop.jsx
+│   │   └── public
+│   │       ├── Categories.jsx
+│   │       ├── Category.jsx
+│   │       ├── CtaBanner.jsx
+│   │       ├── FeaturedProducts.jsx
+│   │       ├── Hero.jsx
+│   │       ├── Navbar.jsx
+│   │       ├── ProductCard.jsx
+│   │       ├── SearchDropdown.jsx
+│   │       └── WhyNgepas.jsx
+│   ├── config
+│   │   ├── admin
+│   │   │   ├── menu.js
+│   │   │   └── routes.js
+│   │   ├── constants.js
+│   │   ├── public
+│   │   │   ├── navigation.js
+│   │   │   └── routes.js
+│   │   └── theme.js
+│   ├── context
+│   │   ├── CategoryContext.jsx
+│   │   ├── FavoritesContext.jsx
+│   │   └── ProductContext.jsx
+│   ├── data
+│   │   ├── ctaBanner.js
+│   │   ├── features.js
+│   │   ├── hero.js
+│   │   ├── mock
+│   │   │   ├── categories.js
+│   │   │   └── products.js
+│   │   ├── navigation.js
+│   │   ├── roomCategories.js
+│   │   ├── rooms.js
+│   │   └── whyNgepas.js
+│   ├── docs
+│   │   ├── assets
+│   │   ├── blueprint
+│   │   ├── checkpoint
+│   │   ├── docs
+│   │   │   ├── api-contract.md
+│   │   │   ├── backend-architekture.md
+│   │   │   ├── changelog.md
+│   │   │   ├── coding-standard.md
+│   │   │   ├── folders-backend.md
+│   │   │   └── folders-frontend.md
+│   │   ├── mockup
+│   │   └── roadmap
+│   ├── hooks
+│   │   └── useFavorites.js
+│   ├── index.css
+│   ├── layouts
+│   │   ├── AdminLayout.jsx
+│   │   └── MainLayout.jsx
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── admin
+│   │   │   ├── Categories.jsx
+│   │   │   ├── CategoryForm.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── ProductForm.jsx
+│   │   │   └── Products.jsx
+│   │   └── public
+│   │       ├── CategoryPage.jsx
+│   │       ├── Home.jsx
+│   │       ├── NotFound.jsx
+│   │       └── ProductDetail.jsx
+│   ├── services
+│   │   ├── api.js
+│   │   ├── categoryService.js
+│   │   └── productService.js
+│   └── utils
+│       ├── form.js
+│       └── highlightText.jsx
+├── structure.txt
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vercel.json
+└── vite.config.ts
+
+52 directories, 105 files
