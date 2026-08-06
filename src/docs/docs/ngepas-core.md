@@ -58,7 +58,44 @@ Backend: Routes → Validator → Sanitizer → Parser → Controller → Model 
 
 ---
 
-## 4. STRUKTUR CEPAT
+## 4. DEVELOPMENT WORKFLOW
+
+Ngepas menggunakan dua environment yang berbeda.
+
+### Local Development
+
+- Frontend dijalankan di localhost.
+- Konfigurasi menggunakan `server/.env`.
+- `.env` tidak ikut ke Git (`.gitignore`).
+- Digunakan untuk konfigurasi lokal seperti:
+  - `PORT`
+  - `DB_PATH`
+  - `ADMIN_API_KEY`
+
+### Production
+
+- Frontend di Vercel.
+- Backend di Railway.
+- Konfigurasi menggunakan Railway Variables.
+- Nilai environment production dapat berbeda dengan lokal.
+
+Contoh:
+
+Local
+
+DB_PATH=./ngepas.db
+
+Production
+
+DB_PATH=/app/data/ngepas.db
+
+Prinsip:
+
+Kode tetap sama.
+
+Yang berubah hanya konfigurasi environment.
+
+## 5. STRUKTUR CEPAT
 
 server/          → Backend Express
 controllers/   → Alur request (tanpa SQL)
@@ -82,7 +119,7 @@ Detail folder: `folders-frontend.md` & `folders-backend.md`.
 
 ---
 
-## 5. API (RINGKAS)
+## 6. API (RINGKAS)
 
 Base: `VITE_API_URL` (= `.../api`)
 
@@ -100,7 +137,7 @@ Kontrak lengkap: `api-contract.md`.
 
 ---
 
-## 6. CODING STANDARD (INTI)
+## 7. CODING STANDARD (INTI)
 
 - Header wajib di setiap file
 - Naming: folder `lowercase`, component `PascalCase`, function `camelCase`
@@ -111,7 +148,7 @@ Lengkap: `coding-standard.md`.
 
 ---
 
-## 7. ARSITEKTUR BACKEND (INTI)
+## 8. ARSITEKTUR BACKEND (INTI)
 
 - Controller = orkestrasi saja
 - Model = SQL saja
@@ -123,7 +160,7 @@ Lengkap: `backend-architekture.md`.
 
 ---
 
-## 8. STATUS SEKARANG (2026-08-06)
+## 9. STATUS SEKARANG (2026-08-06)
 
 **Selesai / kokoh**
 - CRUD Product & Category (BE + Admin FE)
@@ -149,7 +186,35 @@ Changelog: `changelog.md`.
 
 ---
 
-## 9. PETA DOKUMEN
+## 10. KNOWN LIMITATIONS
+
+### Backend Local (Android / Termux)
+
+Backend Express dengan `better-sqlite3` bukan workflow resmi untuk development di Android.
+
+Alasan:
+
+- `better-sqlite3` merupakan native module.
+- Proses build di Termux membutuhkan Android NDK.
+- Build sering gagal walaupun source code benar.
+
+Keputusan proyek:
+
+Backend dikembangkan melalui Railway.
+
+Workflow resmi:
+
+Frontend Local
+        ↓
+Railway Backend
+        ↓
+Testing
+        ↓
+Deploy
+
+Jangan menghabiskan waktu memperbaiki build native module di Termux selama backend production masih berjalan normal.
+
+## 11. PETA DOKUMEN
 
 | File | Isi |
 |------|-----|
@@ -165,7 +230,7 @@ Kalau konflik antar dokumen → **CORE + api-contract menang**, lalu perbaiki MD
 
 ---
 
-## 10. INSTRUKSI UNTUK AI
+## 12. INSTRUKSI UNTUK AI
 
 1. Baca `ngepas-core.md` dulu.
 2. Jangan bypass Service layer (FE) atau taruh SQL di Controller (BE).
@@ -173,6 +238,7 @@ Kalau konflik antar dokumen → **CORE + api-contract menang**, lalu perbaiki MD
 4. Satu perubahan kecil per sesi; update docs jika perilaku berubah.
 5. Volume: path production lewat `DB_PATH`, bukan hardcode sembarangan; jangan rusak deploy dengan config Railway yang tidak didukung.
 6. Ingat: dev di HP, solo, waktu terbatas → solusi harus sederhana.
+7. Jangan menyarankan debugging backend lokal di Termux apabila error berasal dari build native `better-sqlite3`. Ikuti workflow resmi project.
 
 ---
 
