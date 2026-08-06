@@ -1,4 +1,3 @@
-
 # NGEPAS REBORN — CORE (AI ENTRY POINT)
 
 > Baca file ini dulu sebelum mengubah code.
@@ -6,7 +5,7 @@
 
 **Status:** LIVE  
 **Stack:** React + Vite + Tailwind (FE) · Express + better-sqlite3 (BE)  
-**Deploy:** Vercel (frontend) · Railway (backend)  
+**Deploy:** Vercel (frontend) · Railway (backend + Volume)  
 **Dev:** Solo · mobile-first · AI-assisted
 
 ---
@@ -42,13 +41,20 @@ Backend: Routes → Validator → Sanitizer → Parser → Controller → Model 
 |--------|-------------|
 | Frontend | https://ngepas-reborn.vercel.app |
 | Backend | https://ngepas-reborn-production-c3aa.up.railway.app |
-| `VITE_API_URL` | `https://ngepas-reborn-production-c3aa.up.railway.app/api` |
+| `VITE_API_URL` (Vercel) | `https://ngepas-reborn-production-c3aa.up.railway.app/api` |
 | Local API default | `http://localhost:3000/api` |
+| `DB_PATH` (Railway) | `/app/data/ngepas.db` |
 
-- Root Directory Railway: `server`
-- Start: `node index.js`
+**Railway**
+- Root Directory: `server`
+- Start: `node index.js` (atau `npm start`)
+- Build: `npm install`
 - Init DB: `require("./database/init")` di `index.js` (wajib)
-- SQLite **ephemeral** tanpa Volume → data bisa hilang saat redeploy
+- Volume: mount path `/app/data` (dashboard Railway, service `ngepas-reborn`)
+- SQLite path production: env `DB_PATH=/app/data/ngepas.db`
+- Local fallback: `path.join(__dirname, "..", "ngepas.db")` di `db.js`
+
+**Jangan** mengandalkan key `volumes` di `railway.json` saja — Volume dibuat/ditempel lewat **UI Railway**.
 
 ---
 
@@ -61,6 +67,8 @@ routes/        → Endpoint
 helpers/       → validator, sanitizer, parser
 database/      → db.js, init.js
 utils/response.js
+railway.json
+seed.js
 src/
 services/      → Satu-satunya tempat fetch
 context/       → State global (panggil service)
@@ -70,7 +78,7 @@ config/        → routes, menu, constants
 data/          → Konten statis (hero, dll). mock/ = legacy
 docs/docs/     → Semua dokumentasi MD
 
-Detail folder: lihat `folders-frontend.md` & `folders-backend.md`.
+Detail folder: `folders-frontend.md` & `folders-backend.md`.
 
 ---
 
@@ -85,6 +93,7 @@ Base: `VITE_API_URL` (= `.../api`)
 | GET/POST | `/categories` | List / create |
 | PUT/DELETE | `/categories/:id` | Update / hapus |
 
+`GET /api` saja → 404 “Route tidak ditemukan” (normal).  
 Belum ada: `GET /products/:slug`, featured, search, auth, upload.
 
 Kontrak lengkap: `api-contract.md`.
@@ -104,37 +113,39 @@ Lengkap: `coding-standard.md`.
 
 ## 7. ARSITEKTUR BACKEND (INTI)
 
-- Controller = orkestrasi saja  
-- Model = SQL saja  
-- Validator / Sanitizer / Parser = di helpers  
-- Response = `success()` / `error()` saja  
+- Controller = orkestrasi saja
+- Model = SQL saja
+- Validator / Sanitizer / Parser = di helpers
+- Response = `success()` / `error()` saja
+- DB driver: **better-sqlite3** (bukan `node:sqlite`)
 
 Lengkap: `backend-architekture.md`.
 
 ---
 
-## 8. STATUS SEKARANG
+## 8. STATUS SEKARANG (2026-08-06)
 
-**Selesai**
+**Selesai / kokoh**
 - CRUD Product & Category (BE + Admin FE)
 - Service layer + Context
 - Homepage terhubung API
 - Deploy Vercel + Railway
 - Init DB on start
-- Seed pernah dijalankan
+- Seed (jalankan via Railway console bila perlu)
+- Railway Volume `/app/data` + `DB_PATH` → data persist saat redeploy
 
-**Belum kokoh**
-- Railway Volume (data persistent)
+**Belum**
 - Auth admin
 - GET by slug / featured / search (API)
 - Proteksi admin route
+- Upload image
 
-**Next (prioritas pondasi, bukan fitur hias)**
-1. Volume SQLite di Railway  
-2. Pastikan docs & CORE ini selalu di-update  
-3. Baru fitur (auth, upload, dsb)
+**Next (boleh fitur, pondasi data sudah naik kelas)**
+1. Auth / proteksi admin
+2. Endpoint publik tambahan sesuai `api-contract.md`
+3. Polish UI / responsive admin
 
-Changelog detail: `changelog.md`.
+Changelog: `changelog.md`.
 
 ---
 
@@ -156,11 +167,12 @@ Kalau konflik antar dokumen → **CORE + api-contract menang**, lalu perbaiki MD
 
 ## 10. INSTRUKSI UNTUK AI
 
-1. Baca `ngepas-core.md` dulu.  
-2. Jangan bypass Service layer (FE) atau taruh SQL di Controller (BE).  
-3. Jangan tambah endpoint di luar `api-contract.md` tanpa update contract.  
-4. Satu perubahan kecil per sesi; update docs jika perilaku berubah.  
-5. Ingat: dev di HP, solo, waktu terbatas → solusi harus sederhana.
+1. Baca `ngepas-core.md` dulu.
+2. Jangan bypass Service layer (FE) atau taruh SQL di Controller (BE).
+3. Jangan tambah endpoint di luar `api-contract.md` tanpa update contract.
+4. Satu perubahan kecil per sesi; update docs jika perilaku berubah.
+5. Volume: path production lewat `DB_PATH`, bukan hardcode sembarangan; jangan rusak deploy dengan config Railway yang tidak didukung.
+6. Ingat: dev di HP, solo, waktu terbatas → solusi harus sederhana.
 
 ---
 
