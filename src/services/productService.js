@@ -11,7 +11,18 @@ import API_URL from "./api";
 ==================================================*/
 
 async function request(endpoint, options = {}) {
-  const response = await fetch(`${API_URL}${endpoint}`, options);
+  const headers = {
+  ...(options.headers || {}),
+};
+
+if (options.method && options.method !== "GET") {
+  headers["x-api-key"] = import.meta.env.VITE_ADMIN_API_KEY;
+}
+
+const response = await fetch(`${API_URL}${endpoint}`, {
+  ...options,
+  headers,
+});
 
   const result = await response.json();
 
