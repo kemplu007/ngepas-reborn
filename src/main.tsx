@@ -20,6 +20,7 @@ import App from "./App.tsx";
 /* Context */
 import { ProductProvider } from "./context/ProductContext";
 import { CategoryProvider } from "./context/CategoryContext";
+import { ToastProvider } from "./context/ToastContext";
 
 /* Components */
 import ScrollToTop from "./components/common/ScrollToTop";
@@ -32,14 +33,16 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <CategoryProvider>
-        <ProductProvider>
-          <FavoritesProvider>
-            <ScrollToTop />
-            <App />
-          </FavoritesProvider>
-        </ProductProvider>
-      </CategoryProvider>
+      <ToastProvider>
+        <CategoryProvider>
+          <ProductProvider>
+            <FavoritesProvider>
+              <ScrollToTop />
+              <App />
+            </FavoritesProvider>
+          </ProductProvider>
+        </CategoryProvider>
+      </ToastProvider>
     </BrowserRouter>
   </StrictMode>,
 );

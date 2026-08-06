@@ -10,6 +10,7 @@ import { Save, ArrowLeft } from "lucide-react";
 import rooms from "../../data/rooms";
 import roomCategories from "../../data/roomCategories";
 import { useProducts } from "../../context/ProductContext";
+import { useToast } from "../../context/ToastContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 /*==================================================
@@ -47,6 +48,7 @@ function ProductForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products, addProduct, updateProduct } = useProducts();
+  const { toast } = useToast();
 
   const editingProduct = products.find((p) => p.id === Number(id));
   const isEditMode = Boolean(id);
@@ -200,11 +202,14 @@ function ProductForm() {
 
     if (isEditMode && editingProduct) {
       updateProduct(editingProduct.id, payload);
+      toast("Produk berhasil diperbarui", "success");
     } else {
       addProduct(payload);
+      toast("Produk baru berhasil ditambahkan", "success");
       setFormData(initialFormData);
       setGallery([]);
     }
+    navigate("/admin/products");
   };
 
   /*==================================================

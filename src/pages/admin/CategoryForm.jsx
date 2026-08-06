@@ -19,6 +19,9 @@ import rooms from "../../data/rooms";
 /* Context */
 import { useCategories } from "../../context/CategoryContext";
 
+/* Toast */
+import { useToast } from "../../context/ToastContext";
+
 /*==================================================
  COMPONENT
 ==================================================*/
@@ -31,7 +34,7 @@ function CategoryForm() {
   const navigate = useNavigate();
 
   const { categories, addCategory, editCategory } = useCategories();
-
+  const { toast } = useToast();
   const { id } = useParams();
 
   /*==================================================
@@ -102,17 +105,17 @@ function CategoryForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (id) {
         await editCategory(id, form);
+        toast("Kategori berhasil diperbarui", "success");
       } else {
         await addCategory(form);
+        toast("Kategori baru berhasil ditambahkan", "success");
       }
-
       navigate("/admin/categories");
     } catch (err) {
-      console.error("CategoryForm :", err);
+      toast(err.message || "Gagal menyimpan kategori", "error");
     }
   };
 
