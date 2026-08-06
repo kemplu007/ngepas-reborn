@@ -3,6 +3,41 @@
 # CHANGELOG
 # ==================================================
 
+## v1.1.0 — Admin Panel Improvements
+
+Release Date: 2026-08-06
+
+==================================================
+FRONTEND — ADMIN
+==================================================
+
+✓ Dashboard: tambah statistik Estimasi Revenue, Stok Menipis, Stok Habis
+✓ Dashboard: tambah Produk per Kategori + persentase
+✓ Dashboard: tambah Produk Terlaris (top 5 by sold)
+✓ Dashboard: tambah Peringatan Stok Menipis dengan tombol Edit
+✓ Products: tambah Bulk Delete (checkbox + select all)
+✓ Products: tambah Confirm Dialog sebelum hapus
+✓ Products: tambah Toast Notification (success/error)
+✓ Categories: tambah Confirm Dialog sebelum hapus
+✓ Categories: tambah Toast Notification (success/error)
+✓ Categories: tambah tampilan Icon & Status Indicator
+✓ CategoryForm: tambah Toast Notification (success/error)
+✓ ProductForm: tambah Toast Notification + auto-redirect
+✓ New: ToastContext (notifikasi visual success/error/info)
+✓ New: ConfirmDialog component (konfirmasi aksi destruktif)
+✓ New: Checkbox bulk selection di ProductTable
+✓ main.tsx: tambah ToastProvider di Provider tree
+
+==================================================
+STATUS
+==================================================
+
+SPRINT 4.1 — ADMIN PANEL IMPROVEMENTS
+
+COMPLETED
+
+==================================================
+
 ## v1.0.0 — Foundation Live
 
 Release Date: 2026-08-06

@@ -41,11 +41,13 @@ src/
 ├── components/
 │ │
 │ ├── admin/
-│ │ └── Sidebar.jsx
+│ │ ├── Sidebar.jsx
+│ │ └── ProductTable.jsx
 │ │
 │ ├── common/
 │ │ ├── Button.jsx
-│ │ └── ScrollToTop.jsx
+│ │ ├── ScrollToTop.jsx
+│ │ └── ConfirmDialog.jsx
 │ │
 │ └── public/
 │ ├── Categories.jsx
@@ -73,8 +75,9 @@ src/
 │
 ├── context/
 │ ├── FavoritesContext.jsx
-│ └── ProductContext.jsx
-| └── CategoryContext.jsx
+│ ├── ProductContext.jsx
+│ ├── CategoryContext.jsx
+│ └── ToastContext.jsx
 │
 ├── data/
 | mock/
@@ -140,6 +143,10 @@ Sidebar.jsx
 • Sidebar khusus Admin Panel.
 • Berisi menu Dashboard, Product, Category, Settings, dll.
 
+ProductTable.jsx
+• Tabel produk admin dengan checkbox bulk select.
+• Props: selectedIds, onToggleSelect, onSelectAll, allSelected.
+
 ---
 
 📁 components/common
@@ -151,6 +158,11 @@ Button.jsx
 
 ScrollToTop.jsx
 • Otomatis scroll ke atas setiap pindah halaman.
+
+ConfirmDialog.jsx
+• Dialog konfirmasi untuk aksi destruktif (hapus).
+• Props: open, title, message, onConfirm, onCancel.
+• Backdrop blur + icon warning.
 
 ---
 
@@ -224,44 +236,32 @@ FavoritesContext.jsx
 • Global State Favorite.
 
 ProductContext.jsx
-
 • Global State Produk.
-
 • Mengelola loading.
-
 • Mengelola error.
-
 • Menggunakan Product Service.
-
 • Tidak melakukan fetch() langsung.
-
 • Menyediakan refreshProducts().
 
 CategoryContext.jsx
-
 • Global State Category.
-
 • CRUD Category.
-
 • Refresh Category.
-
 • Loading State.
-
 • Error State.
-
 • Menggunakan Category Service.
-
 • Tidak melakukan fetch() langsung.
-
 • Menyediakan:
+  - refreshCategories()
+  - addCategory()
+  - editCategory()
+  - deleteCategory()
 
-- refreshCategories()
-
-- addCategory()
-
-- editCategory()
-
-- deleteCategory()
+ToastContext.jsx
+• Sistem notifikasi visual (toast).
+• Tipe: success, error, info.
+• Auto-dismiss 3.5 detik.
+• Provider tree di main.tsx (ToastProvider).
 
 ---
 

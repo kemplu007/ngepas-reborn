@@ -133,6 +133,11 @@ Lengkap: `backend-architekture.md`.
 - Init DB on start
 - Seed (jalankan via Railway console bila perlu)
 - Railway Volume `/app/data` + `DB_PATH` → data persist saat redeploy
+- Dashboard statistik (Revenue, Stok Menipis, Stok Habis, Produk per Kategori, Produk Terlaris)
+- Bulk Delete produk (checkbox + select all)
+- Toast Notification (success/error/info)
+- Confirm Dialog (konfirmasi hapus)
+- Auto-redirect setelah simpan produk
 
 **Belum**
 - Auth admin
