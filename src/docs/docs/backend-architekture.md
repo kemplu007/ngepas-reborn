@@ -1,9 +1,6 @@
 # ==================================================
-
 # NGEPAS REBORN
-
 # BACKEND ARCHITECTURE v1.0
-
 # ==================================================
 
 ## Filosofi
@@ -51,7 +48,7 @@ Service (Future)
 Model
 │
 ▼
-SQLite
+SQLite(better-SQLite3)
 │
 ▼
 Response Helper
@@ -69,28 +66,7 @@ Frontend Ngepas menggunakan Service Layer.
 
 Seluruh komunikasi API wajib mengikuti alur berikut.
 
-Component
-
-↓
-
-Context
-
-↓
-
-Service
-
-↓
-
-API Configuration
-
-↓
-
-Backend API
-
-↓
-
-SQLite
-
+Component → Context → Service → api.js → Backend API → SQLite
 ==================================================
 SERVICE LAYER
 ==================================================
@@ -276,72 +252,91 @@ INSERT
 
 UPDATE
 
-DELETE
+Service = satu-satunya pintu fetch.  
+Component & Context dilarang `fetch()` langsung.
 
 ---
 
-## Database
+# DATABASE
 
-SQLite
-
-Semua query berasal dari Model.
+- Driver: **better-sqlite3**
+- Config: `server/database/db.js`
+- Path: `process.env.DB_PATH` atau fallback lokal `../ngepas.db`
+- Production (Railway): `DB_PATH=/app/data/ngepas.db` + Volume mount `/app/data`
+- Init: `server/database/init.js` dipanggil dari `index.js` saat start (`CREATE TABLE IF NOT EXISTS`)
+- Seed: `server/seed.js` (jalankan manual di Railway console bila perlu)
 
 ---
+
+# LAYER
+
+## index.js
+
+Entry point · dotenv · init DB · middleware · routes · listen
+
+## Routes
+
+Endpoint saja · mapping ke controller · tanpa business logic
+
+## Middleware
+
+errorMiddleware · notFoundMiddleware · (auth future)
+
+## Validator / Sanitizer / Parser
+
+helpers/ — validasi, bersihkan input, parsing
+
+## Controller
+
+Orkestrasi saja · panggil model · response helper · **tanpa SQL**
+
+## Model
+
+SQL only (SELECT / INSERT / UPDATE / DELETE)
 
 ## Response Helper
 
-Semua Response API harus menggunakan:
+`success()` · `error()` — format `{ success, message, data? }`
 
-success()
+## Service (Future)
 
-error()
+Hanya jika logic controller membesar / dipakai banyak tempat
 
-Agar Frontend selalu menerima format JSON yang sama.
+---
+
+# DEPLOY NOTES
+
+- Railway root: `server`
+- Start: `node index.js`
+- Volume via **dashboard** (mount `/app/data`), bukan andalkan JSON volumes saja
+- Env wajib production: `DB_PATH`, `PORT` (otomatis Railway)
+
+---
+
+# STATUS (2026-08-06)
+
+| Area | Status |
+|------|--------|
+| Foundation | 100% |
+| CRUD Product | 100% |
+| CRUD Category | 100% |
+| Admin FE | 100% |
+| Service layer FE | 100% |
+| Deploy Vercel + Railway | 100% |
+| Volume + DB_PATH | 100% |
+| Authentication | 0% |
+| Upload Image | 0% |
 
 ---
 
 # PRINSIP NGEPAS
 
-✔ Satu file satu tanggung jawab.
-
-✔ Tidak over engineering.
-
-✔ Bangun saat dibutuhkan.
-
-✔ Dokumentasi lebih penting daripada ingatan AI.
-
-✔ Konsisten lebih penting daripada keren.
+✔ Satu file satu tanggung jawab  
+✔ Tidak over engineering  
+✔ Bangun saat dibutuhkan  
+✔ Dokumentasi lebih penting daripada ingatan AI  
+✔ Konsisten lebih penting daripada keren  
 
 ---
 
-# ROADMAP
-
-Foundation
-██████████ 100%
-
-CRUD Product
-██████████ 100%
-
-CRUD Category
-██████████ 100%
-
-Admin Product
-██████████ 100%
-
-Admin Category
-██████████ 100%
-
-Backend Audit
-██████████ 100%
-
-Service Layer
-██████████ 100%
-
-Authentication
-░░░░░░░░░░
-
-Upload Image
-░░░░░░░░░░
-
-Deployment
-░░░░░░░░░░
+**END**
