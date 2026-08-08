@@ -56,6 +56,9 @@ Backend: Routes → Validator → Sanitizer → Parser → Controller → Model 
 
 **Jangan** mengandalkan key `volumes` di `railway.json` saja — Volume dibuat/ditempel lewat **UI Railway**.
 
+| `ADMIN_API_KEY` (Railway) | secret backend |
+| `VITE_ADMIN_API_KEY` (Vercel) | key FE write (sama nilai, lewat env dashboard) |
+
 ---
 
 ## 4. DEVELOPMENT WORKFLOW
@@ -133,6 +136,8 @@ Base: `VITE_API_URL` (= `.../api`)
 `GET /api` saja → 404 “Route tidak ditemukan” (normal).  
 Belum ada: `GET /products/:slug`, featured, search, auth, upload.
 
+Write (POST/PUT/DELETE) wajib header `x-api-key`.
+
 Kontrak lengkap: `api-contract.md`.
 
 ---
@@ -160,31 +165,41 @@ Lengkap: `backend-architekture.md`.
 
 ---
 
-## 9. STATUS SEKARANG (2026-08-06)
+## 9. STATUS SEKARANG (2026-08-08)
 
 **Selesai / kokoh**
 - CRUD Product & Category (BE + Admin FE)
 - Service layer + Context
 - Homepage terhubung API
 - Deploy Vercel + Railway
-- Init DB on start
-- Seed (jalankan via Railway console bila perlu)
-- Railway Volume `/app/data` + `DB_PATH` → data persist saat redeploy
+- Init DB on start + Volume `/app/data` + `DB_PATH`
+- Dashboard stats, bulk delete, toast, confirm dialog
+- **Sprint 6.0:** `authMiddleware` + proteksi POST/PUT/DELETE
+- **Sprint 6.1:** FE kirim `x-api-key` dari `VITE_ADMIN_API_KEY`
+- Env: Railway `ADMIN_API_KEY` · Vercel `VITE_ADMIN_API_KEY` (jangan hardcode di git)
+
+**Auth saat ini (transisi)**
+- Header: `x-api-key`
+- GET tetap publik
+- API Key = solusi sementara + nanti internal (seed/backup)
+- **Bukan** auth user final
 
 **Belum**
-- Auth admin
-- GET by slug / featured / search (API)
-- Proteksi admin route
+- Login + password hash + JWT + role (Sprint 6.5)
+- GET `/products/:slug`, featured, search, pagination
+- CORS ketat / rate limit write
 - Upload image
+- Polish UI → Mockup A (mobile first)
 
-**Next (boleh fitur, pondasi data sudah naik kelas)**
-1. Auth / proteksi admin
-2. Endpoint publik tambahan sesuai `api-contract.md`
-3. Polish UI / responsive admin
+**Next (prioritas)**
+1. Sprint 6.5 JWT (BE dulu, lalu FE login) — atau paralel polish UI FE murni
+2. Endpoint baca publik sesuai `api-contract.md`
+3. Polish UI: Hero + Why Ngepas HP dulu (max 2–3 file / sprint)
 
-Changelog: `changelog.md`.
-
----
+**Git**
+- `main` = stabil
+- Kerja di `feat/...` → review → merge
+- AI dilarang push langsung ke `main`
 
 ## 10. KNOWN LIMITATIONS
 

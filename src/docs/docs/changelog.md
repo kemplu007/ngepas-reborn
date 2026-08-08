@@ -3,6 +3,43 @@
 # CHANGELOG
 # ==================================================
 
+## v1.2.0 — Auth Foundation (API Key)
+
+Release Date: 2026-08-06
+
+==================================================
+BACKEND
+==================================================
+
+✓ authMiddleware (x-api-key vs ADMIN_API_KEY)
+✓ POST/PUT/DELETE products + categories diproteksi
+✓ GET tetap publik
+
+==================================================
+FRONTEND
+==================================================
+
+✓ productService + categoryService kirim x-api-key pada non-GET
+✓ Key dari VITE_ADMIN_API_KEY (env, bukan hardcode)
+
+==================================================
+STATUS
+==================================================
+
+SPRINT 6.0 + 6.1 COMPLETED
+
+==================================================
+NEXT
+==================================================
+
+□ Sprint 6.5 Login + JWT + role (BE dulu)
+□ GET slug / featured / search + pagination
+□ Polish UI Mockup A (mobile)
+□ CORS + rate limit
+□ Upload image
+
+==================================================
+
 ## v1.0.0 — Foundation Live
 
 Release Date: 2026-08-06
@@ -11,67 +48,25 @@ Release Date: 2026-08-06
 DEPLOYMENT
 ==================================================
 
-✓ Backend live di Railway
-✓ Frontend live di Vercel
-✓ Root Directory Railway = `server`
-✓ Start command = `node index.js`
-✓ better-sqlite3 (ganti dari node:sqlite)
-✓ Auto init DB: `require("./database/init")` di index.js
-✓ Seed dijalankan via Railway console
-✓ Railway Volume mount `/app/data`
-✓ Env `DB_PATH=/app/data/ngepas.db` (data persist)
-✓ `VITE_API_URL` mengarah ke Railway API
+✓ Backend Railway + Frontend Vercel
+✓ better-sqlite3
+✓ Init DB on start
+✓ Volume /app/data + DB_PATH
+✓ VITE_API_URL → Railway
 
 ==================================================
-BACKEND
+BACKEND / FRONTEND
 ==================================================
 
-✓ CRUD Product stabil
-✓ CRUD Category stabil
-✓ Response helper konsisten
-✓ Init on start
-✓ DB path via env (local + production)
-
-==================================================
-FRONTEND
-==================================================
-
-✓ Service layer (product + category)
-✓ ProductContext + CategoryContext
-✓ Admin Product + Category CRUD
-✓ Homepage API-driven
-✓ vercel.json SPA rewrite
-
-==================================================
-DOCUMENTATION
-==================================================
-
-✓ ngepas-core.md (AI entry point)
-✓ api-contract.md
-✓ coding-standard.md
-✓ backend-architekture.md
-✓ folders-backend.md
-✓ folders-frontend.md
-✓ Sync docs ke state live + Volume
+✓ CRUD Product + Category
+✓ Service layer + Context
+✓ Admin CRUD + homepage API-driven
 
 ==================================================
 STATUS
 ==================================================
 
-SPRINT FOUNDATION + DEPLOY + VOLUME
-
-COMPLETED
-
-==================================================
-NEXT
-==================================================
-
-□ Auth admin / proteksi route
-□ GET /api/products/:slug
-□ Featured / search endpoints
-□ Dashboard statistics
-□ Responsive admin polish
-□ Upload image
+FOUNDATION + DEPLOY + VOLUME COMPLETED
 
 ==================================================
 
@@ -79,36 +74,9 @@ NEXT
 
 Release Date: 2026-08-03
 
-==================================================
-FRONTEND
-==================================================
-
-✓ Admin Categories Page
-✓ Category Form (Create / Edit)
-✓ Category CRUD Integration
-✓ Category Context + Service stabil
-
-==================================================
-BACKEND
-==================================================
-
-✓ CRUD Product + Category stabil
-✓ SQLite boolean handling
-✓ API Contract + Response Helper
-
-==================================================
-BUG FIX
-==================================================
-
-✓ Fix Admin Category Edit Route
-✓ Fix Category Update Flow
-✓ Fix Category Context Refresh
-
-==================================================
-STATUS
-==================================================
-
-SPRINT 4.0 — ADMIN CATEGORY CRUD — COMPLETED
+✓ Admin Category CRUD
+✓ API contract + response helper
+✓ Bugfix category edit / refresh
 
 ==================================================
 END
