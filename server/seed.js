@@ -4,7 +4,16 @@
  Module : Database Seeder
 ==================================================*/
 
+const bcrypt = require("bcryptjs");
+
 const db = require("./database/db");
+
+/*==================================================
+ ADMIN CONFIG
+==================================================*/
+
+const adminEmail = process.env.ADMIN_EMAIL || "admin@ngepas.com";
+const adminPassword = process.env.ADMIN_PASSWORD;
 
 /*==================================================
  CATEGORY SEED DATA
@@ -271,7 +280,7 @@ const products = [
 ];
 
 /*==================================================
- INSERT CATEGORIES
+ INSERT CATEGORY
 ==================================================*/
 
 const insertCategory = db.prepare(`
@@ -287,7 +296,7 @@ const insertCategory = db.prepare(`
 `);
 
 /*==================================================
- INSERT PRODUCTS
+ INSERT PRODUCT
 ==================================================*/
 
 const insertProduct = db.prepare(`
@@ -325,7 +334,7 @@ const insertProduct = db.prepare(`
 ==================================================*/
 
 /*==================================================
- CLEAR TABLES
+ CLEAR PRODUCT & CATEGORY DATA
 ==================================================*/
 
 db.exec(`
@@ -381,5 +390,33 @@ for (const product of products) {
 
   console.log(`Seeded: ${product.name}`);
 }
+
+/*==================================================
+ INSERT ADMIN
+==================================================*/
+
+if (!adminPassword) {
+  throw new Error(
+    "ADMIN_PASSWORD belum diset. Set environment variable sebelum menjalankan seed.",
+  );
+}
+
+const passwordHash = bcrypt.hashSync(adminPassword, 10);
+
+const insertAdmin = db.prepare(`
+  INSERT OR IGNORE INTO users (
+    email,
+    password_hash
+  )
+  VALUES (?, ?)
+`);
+
+insertAdmin.run(adminEmail, passwordHash);
+
+console.log(`Seeded Admin: ${adminEmail}`);
+
+/*==================================================
+ COMPLETE
+==================================================*/
 
 console.log("🌱 Ngepas database seeded successfully.");

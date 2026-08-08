@@ -19,6 +19,8 @@ const notFoundMiddleware = require("./middleware/notFoundMiddleware");
 
 const categoryRoutes = require("./routes/categoryRoutes");
 
+const authRoutes = require("./routes/authRoutes");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -45,6 +47,8 @@ app.get("/", (req, res) => {
 app.use("/api/products", productRoutes);
 
 app.use("/api/categories", categoryRoutes);
+
+app.use("/api/auth", authRoutes);
 
 app.use(notFoundMiddleware);
 
