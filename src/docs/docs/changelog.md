@@ -3,40 +3,53 @@
 # CHANGELOG
 # ==================================================
 
-## v1.2.0 — Auth Foundation (API Key)
+## v1.3.0 — JWT Login (Backend)
 
-Release Date: 2026-08-06
+Release Date: 2026-08-08
 
 ==================================================
 BACKEND
 ==================================================
 
-✓ authMiddleware (x-api-key vs ADMIN_API_KEY)
-✓ POST/PUT/DELETE products + categories diproteksi
-✓ GET tetap publik
-
-==================================================
-FRONTEND
-==================================================
-
-✓ productService + categoryService kirim x-api-key pada non-GET
-✓ Key dari VITE_ADMIN_API_KEY (env, bukan hardcode)
+✓ Tabel users (init.js)
+✓ userModel.getUserByEmail
+✓ POST /api/auth/login (bcrypt + JWT 1d)
+✓ authMiddleware: Bearer JWT dulu, fallback x-api-key
+✓ seed admin (ADMIN_EMAIL + ADMIN_PASSWORD)
+✓ package: bcryptjs, jsonwebtoken
+✓ Production: JWT_SECRET + seed + login 200 + token
 
 ==================================================
 STATUS
 ==================================================
 
-SPRINT 6.0 + 6.1 COMPLETED
+SPRINT 6.5 BE COMPLETED
+(FE login + Bearer header = next)
 
 ==================================================
 NEXT
 ==================================================
 
-□ Sprint 6.5 Login + JWT + role (BE dulu)
-□ GET slug / featured / search + pagination
-□ Polish UI Mockup A (mobile)
-□ CORS + rate limit
+□ FE login page + simpan token + Authorization Bearer
+□ GET /api/products/:slug
+□ Search / featured / pagination
+□ Validasi kurasi wajib di admin form
+□ CORS ketat + rate limit write
+□ Polish UI mobile
 □ Upload image
+□ product_offers multi-marketplace (Phase 3)
+
+==================================================
+
+## v1.2.0 — Auth Foundation (API Key)
+
+Release Date: 2026-08-06
+
+✓ authMiddleware x-api-key
+✓ POST/PUT/DELETE products + categories diproteksi
+✓ FE Service kirim x-api-key (VITE_ADMIN_API_KEY)
+
+STATUS: SPRINT 6.0 + 6.1 COMPLETED
 
 ==================================================
 
@@ -44,29 +57,9 @@ NEXT
 
 Release Date: 2026-08-06
 
-==================================================
-DEPLOYMENT
-==================================================
-
-✓ Backend Railway + Frontend Vercel
-✓ better-sqlite3
-✓ Init DB on start
-✓ Volume /app/data + DB_PATH
-✓ VITE_API_URL → Railway
-
-==================================================
-BACKEND / FRONTEND
-==================================================
-
+✓ Railway + Vercel + Volume + better-sqlite3
 ✓ CRUD Product + Category
-✓ Service layer + Context
-✓ Admin CRUD + homepage API-driven
-
-==================================================
-STATUS
-==================================================
-
-FOUNDATION + DEPLOY + VOLUME COMPLETED
+✓ Service layer + Context + Admin
 
 ==================================================
 
@@ -74,9 +67,7 @@ FOUNDATION + DEPLOY + VOLUME COMPLETED
 
 Release Date: 2026-08-03
 
-✓ Admin Category CRUD
-✓ API contract + response helper
-✓ Bugfix category edit / refresh
+✓ Admin Category CRUD + bugfix
 
 ==================================================
 END

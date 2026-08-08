@@ -12,8 +12,13 @@
 
 ## 1. APA ITU NGEPAS
 
-Platform rekomendasi produk rumah (affiliate).  
-User lihat produk → admin kelola produk & kategori via dashboard.
+Platform kurasi & bantu keputusan belanja (affiliate).
+Bukan toko. Bukan marketplace.
+User yakin di Ngepas → checkout di marketplace.
+
+Phase 1: kurasi (dimulai Home & Living) + 1 link affiliate.
+Kategori lain = ekspansi data, bukan rewrite backend.
+Multi-harga marketplace = Phase 3 (product_offers).
 
 ---
 
@@ -44,6 +49,10 @@ Backend: Routes → Validator → Sanitizer → Parser → Controller → Model 
 | `VITE_API_URL` (Vercel) | `https://ngepas-reborn-production-c3aa.up.railway.app/api` |
 | Local API default | `http://localhost:3000/api` |
 | `DB_PATH` (Railway) | `/app/data/ngepas.db` |
+| `JWT_SECRET` (Railway) | wajib untuk login JWT |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | seed admin saja |
+| `ADMIN_API_KEY` (Railway) | legacy write + internal |
+| `VITE_ADMIN_API_KEY` (Vercel) | FE write selama belum full Bearer |
 
 **Railway**
 - Root Directory: `server`
@@ -126,17 +135,17 @@ Detail folder: `folders-frontend.md` & `folders-backend.md`.
 
 Base: `VITE_API_URL` (= `.../api`)
 
-| Method | Path | Ket |
-|--------|------|-----|
-| GET/POST | `/products` | List / create |
-| PUT/DELETE | `/products/:id` | Update / hapus |
-| GET/POST | `/categories` | List / create |
-| PUT/DELETE | `/categories/:id` | Update / hapus |
+| Method | Path | Auth |
+|--------|------|------|
+| GET | `/products` | publik |
+| POST/PUT/DELETE | `/products`… | Bearer **atau** x-api-key |
+| GET | `/categories` | publik |
+| POST/PUT/DELETE | `/categories`… | Bearer **atau** x-api-key |
+| POST | `/auth/login` | publik (body: email, password) → `{ token }` |
 
-`GET /api` saja → 404 “Route tidak ditemukan” (normal).  
-Belum ada: `GET /products/:slug`, featured, search, auth, upload.
+Belum: `GET /products/:slug`, featured, search, pagination, upload.
 
-Write (POST/PUT/DELETE) wajib header `x-api-key`.
+Write: `Authorization: Bearer <token>` (utama) atau `x-api-key` (legacy).
 
 Kontrak lengkap: `api-contract.md`.
 
@@ -165,41 +174,46 @@ Lengkap: `backend-architekture.md`.
 
 ---
 
-## 9. STATUS SEKARANG (2026-08-08)
+## 9. STATUS SEKARANG (2026-08-09)
 
 **Selesai / kokoh**
+- Deploy Vercel + Railway + Volume + DB_PATH
 - CRUD Product & Category (BE + Admin FE)
 - Service layer + Context
-- Homepage terhubung API
-- Deploy Vercel + Railway
-- Init DB on start + Volume `/app/data` + `DB_PATH`
-- Dashboard stats, bulk delete, toast, confirm dialog
-- **Sprint 6.0:** `authMiddleware` + proteksi POST/PUT/DELETE
-- **Sprint 6.1:** FE kirim `x-api-key` dari `VITE_ADMIN_API_KEY`
-- Env: Railway `ADMIN_API_KEY` · Vercel `VITE_ADMIN_API_KEY` (jangan hardcode di git)
+- Dashboard stats, bulk delete, toast, confirm
+- Sprint 6.0–6.1: API key write lock
+- **Sprint 6.5 BE:** JWT login production (tes token OK)
+- Middleware: Bearer → fallback x-api-key
+- users + seed admin
+- Kategori di schema **generic** (ekspansi kategori = data, bukan rombak)
 
-**Auth saat ini (transisi)**
-- Header: `x-api-key`
-- GET tetap publik
-- API Key = solusi sementara + nanti internal (seed/backup)
-- **Bukan** auth user final
+**Auth**
+- Login: POST /api/auth/login
+- Write: JWT Bearer (utama) atau x-api-key (legacy/internal)
+- Role multi-admin: belum (YAGNI)
+- FE masih x-api-key; Bearer = sprint FE berikutnya
 
 **Belum**
-- Login + password hash + JWT + role (Sprint 6.5)
-- GET `/products/:slug`, featured, search, pagination
-- CORS ketat / rate limit write
+- FE login + simpan token + header Bearer
+- GET /products/:slug, search, featured, pagination
+- Validasi field kurasi wajib (reason, whyWeRecommend, considerations)
+- CORS ketat / rate limit
 - Upload image
-- Polish UI → Mockup A (mobile first)
+- product_offers (multi marketplace)
+- Polish UI mobile
 
-**Next (prioritas)**
-1. Sprint 6.5 JWT (BE dulu, lalu FE login) — atau paralel polish UI FE murni
-2. Endpoint baca publik sesuai `api-contract.md`
-3. Polish UI: Hero + Why Ngepas HP dulu (max 2–3 file / sprint)
+**Next (urut, jangan loncat)**
+1. Update docs ini (done setelah commit)
+2. FE login + Bearer pada write
+3. GET /products/:slug
+4. Admin form: wajibkan field kurasi
+5. Search sederhana
+6. Polish UI / konten produk
 
 **Git**
-- `main` = stabil
-- Kerja di `feat/...` → review → merge
-- AI dilarang push langsung ke `main`
+- main = stabil
+- Kerja di feat/* → merge
+- AI: jangan push main tanpa izin mandor
 
 ## 10. KNOWN LIMITATIONS
 
@@ -254,6 +268,9 @@ Kalau konflik antar dokumen → **CORE + api-contract menang**, lalu perbaiki MD
 5. Volume: path production lewat `DB_PATH`, bukan hardcode sembarangan; jangan rusak deploy dengan config Railway yang tidak didukung.
 6. Ingat: dev di HP, solo, waktu terbatas → solusi harus sederhana.
 7. Jangan menyarankan debugging backend lokal di Termux apabila error berasal dari build native `better-sqlite3`. Ikuti workflow resmi project.
+8. Jangan rebuild JWT BE — sudah live. Lanjut FE login atau slug.
+9. Jangan usul ganti stack / rombak total untuk multi-kategori.
+10. Satu outcome per sesi. Update changelog jika perilaku API berubah.
 
 ---
 

@@ -323,6 +323,35 @@ data: Category
 }
 
 ==================================================
+AUTH API
+==================================================
+
+POST /api/auth/login
+
+Body: { "email": "...", "password": "..." }
+
+Success 200:
+{
+  "success": true,
+  "message": "Login berhasil",
+  "data": { "token": "<jwt>" }
+}
+
+Error 401: email/password salah
+Error 400: email/password kosong
+Error 500: JWT_SECRET tidak di-set
+
+---
+
+WRITE AUTH (products & categories POST/PUT/DELETE)
+
+Utama:
+Authorization: Bearer <token>
+
+Legacy (masih didukung):
+x-api-key: <ADMIN_API_KEY>
+
+==================================================
 HTTP STATUS
 ==================================================
 
