@@ -10,20 +10,21 @@
 ==================================================*/
 
 /* Router */
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 
 /* Components */
-import MainLayout from "./layouts/MainLayout";
-import AdminLayout from "./layouts/AdminLayout";
-import Home from "./pages/public/Home";
-import ProductDetail from "./pages/public/ProductDetail";
-import CategoryPage from "./pages/public/CategoryPage";
-import Dashboard from "./pages/admin/Dashboard";
-import Products from "./pages/admin/Products";
-import ProductForm from "./pages/admin/ProductForm";
-import Categories from "./pages/admin/Categories";
-import CategoryForm from "./pages/admin/CategoryForm";
-import NotFound from "./pages/public/NotFound";
+import MainLayout from './layouts/MainLayout';
+import AdminLayout from './layouts/AdminLayout';
+import Home from './pages/public/Home';
+import ProductDetail from './pages/public/ProductDetail';
+import CategoryPage from './pages/public/CategoryPage';
+import Dashboard from './pages/admin/Dashboard';
+import Products from './pages/admin/Products';
+import ProductForm from './pages/admin/ProductForm';
+import Categories from './pages/admin/Categories';
+import CategoryForm from './pages/admin/CategoryForm';
+import NotFound from './pages/public/NotFound';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 /*==================================================
  RENDER / UI
@@ -50,20 +51,22 @@ function App() {
         ADMIN ROUTES
       ============================================*/}
 
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<Dashboard />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
 
-        <Route path="products" element={<Products />} />
+          <Route path="products" element={<Products />} />
 
-        <Route path="products/new" element={<ProductForm />} />
+          <Route path="products/new" element={<ProductForm />} />
 
-        <Route path="products/:id/edit" element={<ProductForm />} />
+          <Route path="products/:id/edit" element={<ProductForm />} />
 
-        <Route path="categories" element={<Categories />} />
+          <Route path="categories" element={<Categories />} />
 
-        <Route path="categories/new" element={<CategoryForm />} />
+          <Route path="categories/new" element={<CategoryForm />} />
 
-        <Route path="categories/:id/edit" element={<CategoryForm />} />
+          <Route path="categories/:id/edit" element={<CategoryForm />} />
+        </Route>
       </Route>
 
       {/*============================================
@@ -71,7 +74,6 @@ function App() {
       ============================================*/}
 
       <Route path="*" element={<NotFound />} />
-      
     </Routes>
   );
 }

@@ -4,41 +4,14 @@
  Module : Category API Service
 ==================================================*/
 
-import API_URL from "./api";
-
-/*==================================================
- REQUEST HELPER
-==================================================*/
-
-async function request(endpoint, options = {}) {
-  const headers = {
-  ...(options.headers || {}),
-};
-
-if (options.method && options.method !== "GET") {
-  headers["x-api-key"] = import.meta.env.VITE_ADMIN_API_KEY;
-}
-
-const response = await fetch(`${API_URL}${endpoint}`, {
-  ...options,
-  headers,
-});
-
-  const result = await response.json();
-
-  if (!response.ok || !result.success) {
-    throw new Error(result.message || "Terjadi kesalahan.");
-  }
-
-  return result.data;
-}
+import { apiRequest } from './api';
 
 /*==================================================
  GET CATEGORIES
 ==================================================*/
 
 export async function getCategories() {
-  return request("/categories");
+  return apiRequest('/categories');
 }
 
 /*==================================================
@@ -46,11 +19,13 @@ export async function getCategories() {
 ==================================================*/
 
 export async function createCategory(category) {
-  return request("/categories", {
-    method: "POST",
+  return apiRequest('/categories', {
+    method: 'POST',
+
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
+
     body: JSON.stringify(category),
   });
 }
@@ -60,11 +35,13 @@ export async function createCategory(category) {
 ==================================================*/
 
 export async function updateCategory(id, category) {
-  return request(`/categories/${id}`, {
-    method: "PUT",
+  return apiRequest(`/categories/${id}`, {
+    method: 'PUT',
+
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
+
     body: JSON.stringify(category),
   });
 }
@@ -74,7 +51,7 @@ export async function updateCategory(id, category) {
 ==================================================*/
 
 export async function deleteCategory(id) {
-  return request(`/categories/${id}`, {
-    method: "DELETE",
+  return apiRequest(`/categories/${id}`, {
+    method: 'DELETE',
   });
 }
