@@ -25,6 +25,7 @@ import Categories from './pages/admin/Categories';
 import CategoryForm from './pages/admin/CategoryForm';
 import NotFound from './pages/public/NotFound';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import Login from './pages/admin/Login'
 
 /*==================================================
  RENDER / UI
@@ -46,6 +47,12 @@ function App() {
 
         <Route path="/category/:slug" element={<CategoryPage />} />
       </Route>
+
+      {/*============================================
+  ADMIN AUTH ROUTES
+============================================*/}
+
+<Route path="/admin/login" element={<Login />} />
 
       {/*============================================
         ADMIN ROUTES
