@@ -10,6 +10,7 @@
 
 /* Router */
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 /* Icons */
 import { LogOut } from "lucide-react";
@@ -22,6 +23,8 @@ import adminMenu from "../../config/admin/menu";
 ==================================================*/
 
 function Sidebar({ isOpen, toggleSidebar }) {
+
+  const { logout } = useAuth();
   /*==================================================
  HANDLERS
 ==================================================*/
@@ -85,12 +88,7 @@ const handleLinkClick = () => {
       <div className="border-t border-emerald-800 p-4">
         <button
           type="button"
-          onClick={() => {
-            /* TODO:
-   Implement Authentication Logout
-*/
-            alert("Logout functionality coming soon!");
-          }}
+          onClick={logout}
           className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-emerald-100 transition hover:bg-red-500/20 hover:text-red-200"
         >
           <LogOut size={20} />
