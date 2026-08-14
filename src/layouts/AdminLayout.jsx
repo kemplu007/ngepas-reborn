@@ -20,6 +20,7 @@ import { PanelLeft, Home } from "lucide-react";
 
 /* Components */
 import Sidebar from "../components/admin/Sidebar";
+import { useAuth } from "../context/AuthContext";
 
 /*==================================================
  RENDER / UI
@@ -32,6 +33,7 @@ function AdminLayout() {
   ============================================*/
 
   const location = useLocation();
+  const { logout } = useAuth();
 
   /*============================================
     STATE
@@ -118,6 +120,13 @@ function AdminLayout() {
             <Home size={18} />
             Kembali ke Website
           </NavLink>
+          <button
+  type="button"
+  onClick={logout}
+  className="text-sm font-medium text-red-600 transition hover:text-red-700"
+>
+  Logout
+</button>
         </header>
 
         {/*========================================
