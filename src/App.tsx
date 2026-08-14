@@ -12,6 +12,9 @@
 /* Router */
 import { Routes, Route } from 'react-router-dom';
 
+/* Vercel Speed Insights */
+import { SpeedInsights } from '@vercel/speed-insights/react';
+
 /* Components */
 import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -33,55 +36,58 @@ import Login from './pages/admin/Login'
 
 function App() {
   return (
-    <Routes>
-      {/*============================================
-        PUBLIC ROUTES
-      ============================================*/}
+    <>
+      <Routes>
+        {/*============================================
+          PUBLIC ROUTES
+        ============================================*/}
 
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
 
-        <Route path="/product/:slug" element={<ProductDetail />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
 
-        <Route path="/category" element={<CategoryPage />} />
+          <Route path="/category" element={<CategoryPage />} />
 
-        <Route path="/category/:slug" element={<CategoryPage />} />
-      </Route>
-
-      {/*============================================
-  ADMIN AUTH ROUTES
-============================================*/}
-
-<Route path="/admin/login" element={<Login />} />
-
-      {/*============================================
-        ADMIN ROUTES
-      ============================================*/}
-
-      <Route element={<ProtectedRoute />}>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
-
-          <Route path="products" element={<Products />} />
-
-          <Route path="products/new" element={<ProductForm />} />
-
-          <Route path="products/:id/edit" element={<ProductForm />} />
-
-          <Route path="categories" element={<Categories />} />
-
-          <Route path="categories/new" element={<CategoryForm />} />
-
-          <Route path="categories/:id/edit" element={<CategoryForm />} />
+          <Route path="/category/:slug" element={<CategoryPage />} />
         </Route>
-      </Route>
 
-      {/*============================================
-        404 ROUTE
-      ============================================*/}
+        {/*============================================
+    ADMIN AUTH ROUTES
+  ============================================*/}
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+  <Route path="/admin/login" element={<Login />} />
+
+        {/*============================================
+          ADMIN ROUTES
+        ============================================*/}
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+
+            <Route path="products" element={<Products />} />
+
+            <Route path="products/new" element={<ProductForm />} />
+
+            <Route path="products/:id/edit" element={<ProductForm />} />
+
+            <Route path="categories" element={<Categories />} />
+
+            <Route path="categories/new" element={<CategoryForm />} />
+
+            <Route path="categories/:id/edit" element={<CategoryForm />} />
+          </Route>
+        </Route>
+
+        {/*============================================
+          404 ROUTE
+        ============================================*/}
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <SpeedInsights />
+    </>
   );
 }
 
