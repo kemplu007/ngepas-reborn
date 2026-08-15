@@ -20,7 +20,18 @@ FRONTEND FOUNDATION
 
 VALIDATION: `git diff --check` + `npx vite build` PASSED (1838 modules)
 
-STATUS: FE FOUNDATION BASELINE REVIEW
+==================================================
+PUBLIC PAGE MIGRATION
+==================================================
+
+✓ `CategoryPage.jsx` memakai `Section`, `SectionHeading`, `Card`, `SearchInput`, `SelectField`, dan Discover `ProductCard`
+✓ State filter, query params `room`/`category`, sorting, loading/error state, dan destination `/product/:slug` dipertahankan
+✓ `SelectField.jsx` memakai kontrak reusable berbasis `options` array, semantic tokens, accessible labeling, helper/error state, dan reduced-motion-safe transition
+✓ Tidak ada perubahan pada auth JWT, service/context/API, backend, database, atau route contract
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1842 modules)
+
+STATUS: CATEGORY PAGE FOUNDATION MIGRATION REVIEW
 
 ==================================================
 
