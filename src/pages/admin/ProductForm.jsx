@@ -5,13 +5,23 @@
 ==================================================*/
 
 import { useEffect, useState } from "react";
-import { Save, ArrowLeft } from "lucide-react";
+import { ArrowLeft, Save } from "lucide-react";
 
 import rooms from "../../data/rooms";
 import roomCategories from "../../data/roomCategories";
 import { useProducts } from "../../context/ProductContext";
 import { useToast } from "../../context/ToastContext";
 import { useNavigate, useParams } from "react-router-dom";
+
+/* UI Foundation */
+import Badge from "../../components/ui/Badge";
+import Button from "../../components/ui/Button";
+import Card from "../../components/ui/Card";
+import Container from "../../components/ui/Container";
+import FormField from "../../components/ui/FormField";
+import IconButton from "../../components/ui/IconButton";
+import Input from "../../components/ui/Input";
+import SelectField from "../../components/ui/SelectField";
 
 /*==================================================
  INITIAL STATE
@@ -79,6 +89,42 @@ function ProductForm() {
     .trim()
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-");
+
+  /*==================================================
+   FOUNDATION OPTIONS
+  ==================================================*/
+  const roomOptions = [
+    { value: "", label: "Pilih ruangan" },
+    ...rooms.map((room) => ({
+      value: room.slug,
+      label: room.name,
+    })),
+  ];
+
+  const categoryOptions = [
+    { value: "", label: "Pilih kategori" },
+    ...(formData.room
+      ? (roomCategories[formData.room] || []).map((category) => ({
+          value: category,
+          label: category,
+        }))
+      : []),
+  ];
+
+  const statusOptions = [
+    { value: "published", label: "Published" },
+    { value: "draft", label: "Draft" },
+    { value: "hidden", label: "Hidden" },
+  ];
+
+  const badgeOptions = [
+    { value: "", label: "Tanpa badge" },
+    { value: "Best Seller", label: "Best Seller" },
+    { value: "Premium", label: "Premium" },
+    { value: "Paling Worth It", label: "Paling Worth It" },
+    { value: "Limited", label: "Limited" },
+    { value: "New", label: "New" },
+  ];
 
   /*==================================================
    HANDLERS
@@ -216,159 +262,149 @@ function ProductForm() {
    UI LAYOUT (Compact Mobile Header)
   ==================================================*/
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6">
+    <Container className="py-[var(--np-space-6)] lg:py-[var(--np-space-10)]">
       {/*==============================================
        COMPACT HEADER (Back + Title + Stepper)
       ==============================================*/}
-      <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
+      <header className="mb-[var(--np-space-6)] flex flex-col gap-[var(--np-space-4)] border-b border-[var(--np-color-border)] pb-[var(--np-space-4)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-[var(--np-space-3)]">
+          <IconButton
+            label="Kembali ke daftar produk"
             onClick={() => navigate("/admin/products")}
-            className="rounded-full p-2 hover:bg-slate-100 transition"
           >
-            <ArrowLeft size={20} className="text-slate-700" />
-          </button>
-          <h1 className="text-lg font-bold text-slate-800 tracking-tight">
-            {isEditMode ? "Edit Produk" : "Tambah Produk"}
-          </h1>
+            <ArrowLeft size={18} aria-hidden="true" />
+          </IconButton>
+          <div>
+            <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
+              Manajemen produk
+            </p>
+            <h1 className="text-[var(--np-text-h2)] font-semibold tracking-tight text-[var(--np-color-text-primary)]">
+              {isEditMode ? "Edit produk" : "Tambah produk"}
+            </h1>
+          </div>
         </div>
-        <div className="flex gap-2">
+
+        <div className="flex gap-[var(--np-space-2)]" aria-label="Progress form">
           {[1, 2, 3, 4].map((step) => (
-            <div
+            <Badge
               key={step}
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold transition ${currentStep === step ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-500"}`}
+              variant={currentStep === step ? "primary" : "neutral"}
+              className="w-8 justify-center rounded-full px-0"
             >
               {step}
-            </div>
+            </Badge>
           ))}
         </div>
-      </div>
+      </header>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:p-8">
-        <form
-          onSubmit={handleSubmit}
-          className="grid grid-cols-1 gap-8 lg:grid-cols-2"
-        >
+      <Card
+        as="form"
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 gap-[var(--np-space-8)] lg:grid-cols-2"
+      >
           {/* LEFT COLUMN */}
           <div className="space-y-6">
             {/* STEP 1: BASIC INFO */}
             <div className={currentStep === 1 ? "block" : "hidden"}>
-              <h3 className="text-lg font-bold text-slate-800 mb-6">
-                Info Dasar
-              </h3>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Nama Produk
-                </label>
-                <input
-                  name="name"
-                  type="text"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Slug
-                </label>
-                <input
-                  type="text"
-                  value={generatedSlug}
-                  readOnly
-                  className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-500 cursor-not-allowed"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Ruangan
-                </label>
-                <select
-                  name="room"
-                  value={formData.room}
-                  onChange={handleRoomChange}
-                  required
-                  className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-emerald-600"
-                >
-                  <option value="">Pilih ruangan</option>
-                  {rooms.map((r) => (
-                    <option key={r.id} value={r.slug}>
-                      {r.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Kategori
-                </label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  disabled={!formData.room}
-                  required
-                  className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none disabled:bg-slate-100 focus:border-emerald-600"
-                >
-                  <option value="">Pilih kategori</option>
-                  {formData.room &&
-                    roomCategories[formData.room]?.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Status Produk
-                </label>
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
-                  className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-emerald-600"
-                >
-                  <option value="published">Published</option>
-                  <option value="draft">Draft</option>
-                  <option value="hidden">Hidden</option>
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Badge Produk
-                </label>
-                <select
-                  name="badge"
-                  value={formData.badge}
-                  onChange={handleChange}
-                  className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-emerald-600"
-                >
-                  <option value="">Tanpa Badge</option>
-                  <option value="Best Seller">Best Seller</option>
-                  <option value="Premium">Premium</option>
-                  <option value="Paling Worth It">Paling Worth It</option>
-                  <option value="Limited">Limited</option>
-                  <option value="New">New</option>
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Tags
-                </label>
-                <input
-                  name="tags"
-                  type="text"
-                  value={formData.tags}
-                  onChange={handleChange}
-                  placeholder="minimalis, kayu, bedroom"
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                />
-                <p className="mt-2 text-xs text-slate-500">
-                  Pisahkan setiap tag dengan koma (,).
+              <div className="mb-[var(--np-space-6)]">
+                <Badge variant="primary">Langkah 1 dari 4</Badge>
+                <h2 className="mt-[var(--np-space-2)] text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
+                  Info dasar
+                </h2>
+                <p className="mt-[var(--np-space-2)] text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+                  Isi identitas produk dan penempatannya di katalog Ngepas.
                 </p>
+              </div>
+
+              <div className="space-y-[var(--np-space-5)]">
+                <FormField label="Nama produk" htmlFor="product-name" required>
+                  <Input
+                    id="product-name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Contoh: Rak Bumbu Dapur"
+                    required
+                  />
+                </FormField>
+
+                <FormField
+                  label="Slug"
+                  htmlFor="product-slug"
+                  hint="Slug dibuat otomatis dari nama produk."
+                >
+                  <Input
+                    id="product-slug"
+                    name="slug"
+                    type="text"
+                    value={generatedSlug}
+                    readOnly
+                    className="cursor-not-allowed bg-[var(--np-color-surface-muted)]"
+                  />
+                </FormField>
+
+                <FormField label="Ruangan" htmlFor="product-room" required>
+                  <SelectField
+                    id="product-room"
+                    name="room"
+                    value={formData.room}
+                    onChange={handleRoomChange}
+                    options={roomOptions}
+                    size="md"
+                    required
+                  />
+                </FormField>
+
+                <FormField label="Kategori" htmlFor="product-category" required>
+                  <SelectField
+                    id="product-category"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    options={categoryOptions}
+                    size="md"
+                    disabled={!formData.room}
+                    required
+                  />
+                </FormField>
+
+                <FormField label="Status produk" htmlFor="product-status">
+                  <SelectField
+                    id="product-status"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    options={statusOptions}
+                    size="md"
+                  />
+                </FormField>
+
+                <FormField label="Badge produk" htmlFor="product-badge">
+                  <SelectField
+                    id="product-badge"
+                    name="badge"
+                    value={formData.badge}
+                    onChange={handleChange}
+                    options={badgeOptions}
+                    size="md"
+                  />
+                </FormField>
+
+                <FormField
+                  label="Tags"
+                  htmlFor="product-tags"
+                  hint="Pisahkan setiap tag dengan koma (,). Persistence tags masih menjadi gap backend existing."
+                >
+                  <Input
+                    id="product-tags"
+                    name="tags"
+                    type="text"
+                    value={formData.tags}
+                    onChange={handleChange}
+                    placeholder="minimalis, kayu, bedroom"
+                  />
+                </FormField>
               </div>
             </div>
 
@@ -642,44 +678,34 @@ function ProductForm() {
           <div className="hidden lg:block"></div>
 
           {/* NAVIGATION BUTTONS */}
-          <div className="col-span-1 lg:col-span-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end mt-6 border-t border-slate-100 pt-6">
+          <div className="col-span-1 flex flex-col-reverse gap-[var(--np-space-3)] border-t border-[var(--np-color-border)] pt-[var(--np-space-5)] sm:col-span-2 sm:flex-row sm:justify-end">
             {currentStep > 1 && (
-              <button
-                type="button"
-                onClick={prevStep}
-                className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-100"
-              >
+              <Button type="button" variant="secondary" onClick={prevStep}>
                 Kembali
-              </button>
+              </Button>
             )}
+
             {currentStep < 4 ? (
-              <button
-                type="button"
-                onClick={nextStep}
-                className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 font-semibold text-white transition hover:bg-emerald-700"
-              >
+              <Button type="button" onClick={nextStep}>
                 Lanjut
-              </button>
+              </Button>
             ) : (
-              <button
-                type="submit"
-                className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 font-semibold text-white transition hover:bg-emerald-700"
-              >
-                <Save size={18} />
-                {isEditMode ? "Simpan Perubahan" : "Simpan Produk"}
-              </button>
+              <Button type="submit">
+                <Save size={18} aria-hidden="true" />
+                {isEditMode ? "Simpan perubahan" : "Simpan produk"}
+              </Button>
             )}
-            <button
+
+            <Button
               type="button"
+              variant="secondary"
               onClick={() => navigate("/admin/products")}
-              className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-100"
             >
               Batal
-            </button>
+            </Button>
           </div>
-        </form>
-      </div>
-    </div>
+      </Card>
+    </Container>
   );
 }
 
