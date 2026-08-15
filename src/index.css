@@ -2,12 +2,39 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+@import "./styles/tokens.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: "Geist Variable", sans-serif;
+  --font-heading: var(--np-font-sans);
+  --font-sans: var(--np-font-sans);
+  --spacing-np-1: var(--np-space-1);
+  --spacing-np-2: var(--np-space-2);
+  --spacing-np-3: var(--np-space-3);
+  --spacing-np-4: var(--np-space-4);
+  --spacing-np-5: var(--np-space-5);
+  --spacing-np-6: var(--np-space-6);
+  --spacing-np-8: var(--np-space-8);
+  --spacing-np-10: var(--np-space-10);
+  --spacing-np-12: var(--np-space-12);
+  --spacing-np-16: var(--np-space-16);
+  --spacing-np-20: var(--np-space-20);
+  --spacing-np-24: var(--np-space-24);
+  --color-np-green-100: var(--np-color-green-100);
+  --color-np-green-700: var(--np-color-green-700);
+  --color-np-green-800: var(--np-color-green-800);
+  --color-np-yellow-500: var(--np-color-yellow-500);
+  --color-np-ink: var(--np-color-ink);
+  --color-np-muted: var(--np-color-muted);
+  --color-np-border: var(--np-color-border);
+  --color-np-canvas: var(--np-color-canvas);
+  --color-np-white: var(--np-color-white);
+  --radius-np-sm: var(--np-radius-sm);
+  --radius-np-md: var(--np-radius-md);
+  --radius-np-lg: var(--np-radius-lg);
+  --radius-np-xl: var(--np-radius-xl);
+  --radius-np-pill: var(--np-radius-pill);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,11 +73,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  /* Warna kunci Version A */
---ngepas-green: #16a34a;        /* green-600 */
---ngepas-green-dark: #15803d;   /* green-700 */
---ngepas-green-soft: #dcfce7;   /* green-100 */
---ngepas-bg: #f8fafc;           /* slate-50 / sangat airy */
+  /* Backward-compatible aliases; new components should use --np-* tokens. */
+  --ngepas-green: var(--np-color-green-600);
+  --ngepas-green-dark: var(--np-color-green-700);
+  --ngepas-green-soft: var(--np-color-green-100);
+  --ngepas-bg: var(--np-color-canvas);
 }
 
 :root {
@@ -77,7 +104,7 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: var(--np-radius-md);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);

@@ -1,0 +1,126 @@
+/*
+ * Ngepas Design Tokens v1.0
+ * Source of truth: src/docs/docs/uiux-system-v1.1.md
+ * Rule: components consume these tokens; do not invent one-off values.
+ */
+
+:root {
+  /* Typography */
+  --np-font-sans: "Geist Variable", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --np-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --np-text-display: 2.75rem;
+  --np-text-h1: 2.25rem;
+  --np-text-h2: 1.5rem;
+  --np-text-h3: 1.125rem;
+  --np-text-body: 1rem;
+  --np-text-small: 0.875rem;
+  --np-text-caption: 0.75rem;
+  --np-leading-display: 1.08;
+  --np-leading-heading: 1.18;
+  --np-leading-body: 1.5;
+  --np-leading-tight: 1.25;
+  --np-weight-regular: 400;
+  --np-weight-medium: 500;
+  --np-weight-semibold: 600;
+  --np-weight-bold: 700;
+
+  /* Spacing: 4px base scale */
+  --np-space-0: 0;
+  --np-space-px: 1px;
+  --np-space-1: 0.25rem;
+  --np-space-2: 0.5rem;
+  --np-space-3: 0.75rem;
+  --np-space-4: 1rem;
+  --np-space-5: 1.25rem;
+  --np-space-6: 1.5rem;
+  --np-space-8: 2rem;
+  --np-space-10: 2.5rem;
+  --np-space-12: 3rem;
+  --np-space-16: 4rem;
+  --np-space-20: 5rem;
+  --np-space-24: 6rem;
+
+  /* Brand palette: green is primary; yellow is a restrained accent. */
+  --np-color-green-900: #063c2a;
+  --np-color-green-800: #075b3d;
+  --np-color-green-700: #0f6b45;
+  --np-color-green-600: #16804f;
+  --np-color-green-500: #22a06b;
+  --np-color-green-400: #50ba86;
+  --np-color-green-300: #98dbb5;
+  --np-color-green-100: #e6f5ec;
+  --np-color-yellow-600: #e6a900;
+  --np-color-yellow-500: #f2b705;
+  --np-color-yellow-400: #f6c542;
+  --np-color-yellow-100: #fff6d6;
+
+  /* Neutral palette: use for text, surfaces, borders, and quiet UI. */
+  --np-color-ink: #17212b;
+  --np-color-ink-soft: #334155;
+  --np-color-muted: #64748b;
+  --np-color-subtle: #94a3b8;
+  --np-color-border-strong: #cbd5e1;
+  --np-color-border: #e2e8e5;
+  --np-color-surface-muted: #f3f7f5;
+  --np-color-canvas: #fbfcfb;
+  --np-color-white: #ffffff;
+  --np-color-danger: #b42318;
+  --np-color-danger-soft: #fef3f2;
+  --np-color-success: var(--np-color-green-700);
+  --np-color-focus: var(--np-color-green-500);
+
+  /* Radius: restrained geometry, never more than 24px for normal surfaces. */
+  --np-radius-none: 0;
+  --np-radius-xs: 0.25rem;
+  --np-radius-sm: 0.5rem;
+  --np-radius-md: 0.75rem;
+  --np-radius-lg: 1rem;
+  --np-radius-xl: 1.25rem;
+  --np-radius-2xl: 1.5rem;
+  --np-radius-pill: 999px;
+
+  /* Elevation: prefer borders; use shadow only to separate layers. */
+  --np-shadow-none: 0 0 #0000;
+  --np-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+  --np-shadow-md: 0 4px 12px rgb(15 23 42 / 0.08);
+  --np-shadow-lg: 0 12px 30px rgb(15 23 42 / 0.1);
+  --np-shadow-focus: 0 0 0 3px rgb(34 160 107 / 0.18);
+
+  /* Layout and component contracts. */
+  --np-container-max: 75rem;
+  --np-gutter-mobile: 1rem;
+  --np-gutter-tablet: 1.5rem;
+  --np-gutter-desktop: 2rem;
+  --np-header-mobile-height: 7.25rem;
+  --np-header-desktop-height: 4.5rem;
+  --np-bottom-nav-height: 4rem;
+  --np-control-height-sm: 2rem;
+  --np-control-height-md: 2.5rem;
+  --np-control-height-lg: 3rem;
+  --np-card-min-width: 10rem;
+  --np-touch-target: 2.75rem;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --np-header-mobile-height: 4.5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --np-gutter-desktop: 1.5rem;
+  }
+}
+
+/* Semantic aliases for components that should not depend on palette names. */
+:root {
+  --np-color-action-primary: var(--np-color-green-700);
+  --np-color-action-primary-hover: var(--np-color-green-800);
+  --np-color-action-primary-contrast: var(--np-color-white);
+  --np-color-action-accent: var(--np-color-yellow-500);
+  --np-color-text-primary: var(--np-color-ink);
+  --np-color-text-secondary: var(--np-color-muted);
+  --np-color-surface: var(--np-color-white);
+  --np-color-surface-accent: var(--np-color-green-100);
+}
