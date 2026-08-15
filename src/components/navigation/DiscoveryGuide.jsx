@@ -9,7 +9,7 @@
 ==================================================*/
 
 import { Check, ChevronDown, ChevronUp, Compass, ListChecks, Scale, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /*==================================================
  DATA
@@ -26,19 +26,37 @@ const guideSteps = [
  COMPONENT
 ==================================================*/
 
-function DiscoveryGuide({ activeStep = "start" }) {
+function DiscoveryGuide({ activeStep = "start", onStepChange, onStart, searchOpen = false }) {
   const [expanded, setExpanded] = useState(false);
   const activeIndex = Math.max(guideSteps.findIndex((step) => step.key === activeStep), 0);
   const activeGuideStep = guideSteps[activeIndex];
   const ActiveIcon = activeGuideStep.icon;
 
-  const handleStepSelect = (targetId) => {
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  useEffect(() => {
+    if (!expanded) return undefined;
+
+    const handleScroll = () => setExpanded(false);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [expanded]);
+
+  const handleStepSelect = (step) => {
+    onStepChange?.(step.key);
+    if (step.key === "start" && onStart) {
+      onStart();
+    } else {
+      document.getElementById(step.targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     setExpanded(false);
   };
 
   return (
-    <div className="fixed inset-x-4 bottom-3 z-30 lg:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+    <div
+      aria-hidden={searchOpen}
+      inert={searchOpen}
+      className={`fixed inset-x-4 bottom-3 z-30 transition-[transform,opacity] duration-np-normal ease-np-standard motion-reduce:transition-none lg:hidden ${searchOpen ? "pointer-events-none translate-y-3 opacity-0" : "translate-y-0 opacity-100"}`}
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div className="mx-auto max-w-md overflow-hidden rounded-np-pill border border-[var(--np-color-border)] bg-[var(--np-color-white)]/95 shadow-[var(--np-shadow-lg)] backdrop-blur">
         <button
           type="button"
@@ -59,7 +77,7 @@ function DiscoveryGuide({ activeStep = "start" }) {
             </span>
           </span>
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--np-color-canvas)] text-[var(--np-color-ink)]">
-            {expanded ? <ChevronDown size={17} aria-hidden="true" /> : <ChevronUp size={17} aria-hidden="true" />}
+            {expanded ? <ChevronUp size={17} aria-hidden="true" /> : <ChevronDown size={17} aria-hidden="true" />}
           </span>
         </button>
 
@@ -79,7 +97,7 @@ function DiscoveryGuide({ activeStep = "start" }) {
                   <button
                     key={key}
                     type="button"
-                    onClick={() => handleStepSelect(targetId)}
+                    onClick={() => handleStepSelect({ key, targetId })}
                     aria-current={isActive ? "step" : undefined}
                     className="relative z-10 flex min-w-0 flex-col items-center gap-1 rounded-np-sm px-1 py-0.5 text-center transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)]"
                   >

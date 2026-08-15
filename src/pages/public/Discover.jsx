@@ -8,7 +8,7 @@
  IMPORTS
 ==================================================*/
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -248,6 +248,8 @@ function Discover() {
   const [submittedQuery, setSubmittedQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [activeGuideStep, setActiveGuideStep] = useState("start");
 
   const catalog = useMemo(() => {
     const source = products.length ? products : demoProducts;
@@ -268,14 +270,35 @@ function Discover() {
   const featuredProducts = filteredProducts.filter((product) => product.featured).slice(0, 6);
   const visibleProducts = featuredProducts.length ? featuredProducts : filteredProducts.slice(0, 6);
 
+  useEffect(() => {
+    const updateGuideStep = () => {
+      const viewportMarker = window.scrollY + window.innerHeight * 0.35;
+      const categoryTop = document.getElementById("kategori-populer")?.offsetTop ?? Number.POSITIVE_INFINITY;
+      const resultsTop = document.getElementById("hasil-produk")?.offsetTop ?? Number.POSITIVE_INFINITY;
+      const nextStep = viewportMarker >= resultsTop ? "understand" : viewportMarker >= categoryTop ? "explore" : "start";
+      setActiveGuideStep((currentStep) => (currentStep === "decide" ? currentStep : nextStep));
+    };
+
+    updateGuideStep();
+    window.addEventListener("scroll", updateGuideStep, { passive: true });
+    return () => window.removeEventListener("scroll", updateGuideStep);
+  }, []);
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setActiveGuideStep("explore");
+  };
+
   const submitSearch = () => {
     setSubmittedQuery(query);
     setShowFilters(false);
+    setActiveGuideStep("understand");
     document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const openFilters = () => {
     setShowFilters(true);
+    setActiveGuideStep("understand");
     document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -285,12 +308,26 @@ function Discover() {
 
   return (
     <div className="min-h-screen bg-white pb-32 text-slate-900 lg:pb-0">
-      <DiscoverHeader query={query} onQueryChange={setQuery} onSubmit={submitSearch} onFilter={openFilters} />
-      <DiscoverHero onSearch={() => { document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" }); }} />
-      <CategoryStrip categories={categories} selectedCategory={selectedCategory} onSelect={setSelectedCategory} />
+      <DiscoverHeader
+        query={query}
+        onQueryChange={setQuery}
+        onSubmit={submitSearch}
+        onFilter={openFilters}
+        searchOpen={searchOpen}
+        onSearchOpen={() => {
+          setSearchOpen(true);
+          setActiveGuideStep("start");
+        }}
+        onSearchClose={() => setSearchOpen(false)}
+      />
+      <DiscoverHero onSearch={() => {
+        setActiveGuideStep("understand");
+        document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" });
+      }} />
+      <CategoryStrip categories={categories} selectedCategory={selectedCategory} onSelect={handleCategorySelect} />
       <section id="hasil-produk" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-6 sm:px-6 sm:py-10">
         <SectionHeading eyebrow="Kurasi Ngepas" title="Pilihan Ngepas Untukmu" description="Produk pilihan berdasarkan manfaat, rating, dan informasi yang tersedia." action={<button type="button" onClick={() => setShowFilters((open) => !open)} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:border-emerald-200 hover:text-emerald-800"><SlidersHorizontal size={15} /> Filter</button>} />
-        <div className="mb-5 flex gap-2 overflow-x-auto pb-1"><button type="button" onClick={() => setSelectedCategory("")} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold ${!selectedCategory ? "bg-emerald-700 text-white" : "bg-slate-100 text-slate-600"}`}>Pilihan Ngepas</button>{["Terbaru", "Promo", "Elektronik", "Rumah"].map((tab) => <button key={tab} type="button" onClick={() => setSelectedCategory(tab === "Rumah" ? tab : "")} className="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">{tab}</button>)}</div>
+        <div className="mb-5 flex gap-2 overflow-x-auto pb-1"><button type="button" onClick={() => { setSelectedCategory(""); setActiveGuideStep("explore"); }} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold ${!selectedCategory ? "bg-emerald-700 text-white" : "bg-slate-100 text-slate-600"}`}>Pilihan Ngepas</button>{["Terbaru", "Promo", "Elektronik", "Rumah"].map((tab) => <button key={tab} type="button" onClick={() => { setSelectedCategory(tab === "Rumah" ? tab : ""); setActiveGuideStep("understand"); }} className="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">{tab}</button>)}</div>
         <FilterPanel
           open={showFilters}
           category={selectedCategory}
@@ -324,7 +361,15 @@ function Discover() {
           </nav>
         </div>
       </footer>
-      <DiscoveryGuide activeStep="start" />
+      <DiscoveryGuide
+        activeStep={activeGuideStep}
+        searchOpen={searchOpen}
+        onStepChange={setActiveGuideStep}
+        onStart={() => {
+          setSearchOpen(true);
+          setActiveGuideStep("start");
+        }}
+      />
     </div>
   );
 }

@@ -43,13 +43,24 @@ const headerCategories = [
  COMPONENT
 ==================================================*/
 
-function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
+function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter, searchOpen: controlledSearchOpen, onSearchOpen, onSearchClose }) {
   const menuButtonRef = useRef(null);
+  const searchButtonRef = useRef(null);
   const searchInputRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [internalSearchOpen, setInternalSearchOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const searchOpen = controlledSearchOpen ?? internalSearchOpen;
+  const openSearch = () => {
+    onSearchOpen?.();
+    if (controlledSearchOpen === undefined) setInternalSearchOpen(true);
+  };
+  const closeSearch = () => {
+    onSearchClose?.();
+    if (controlledSearchOpen === undefined) setInternalSearchOpen(false);
+    window.requestAnimationFrame(() => searchButtonRef.current?.focus());
+  };
 
   useEffect(() => {
     if (!searchOpen) return undefined;
@@ -57,7 +68,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
     const focusSearch = () => searchInputRef.current?.focus();
     const frameId = window.requestAnimationFrame(focusSearch);
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") setSearchOpen(false);
+      if (event.key === "Escape") closeSearch();
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -70,6 +81,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit();
+    closeSearch();
   };
 
   return (
@@ -82,7 +94,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
           aria-expanded={menuOpen}
           aria-controls="mobile-nav-drawer"
           onClick={() => setMenuOpen((open) => !open)}
-          className="order-1 rounded-np-md p-2 text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] lg:hidden"
+          className={`${searchOpen ? "hidden" : "order-1"} rounded-np-md p-2 text-[var(--np-color-ink)] transition-[transform,opacity] duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none lg:hidden`}
         >
           <Menu size={21} aria-hidden="true" />
         </button>
@@ -90,7 +102,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
         <Link
           to="/"
           aria-label="Ngepas"
-          className={`relative order-2 flex h-10 shrink-0 items-center justify-center text-xl font-extrabold tracking-tight text-[var(--np-color-green-700)] transition-[width,transform] duration-np-normal ease-np-standard motion-reduce:transition-none lg:order-none lg:mx-0 lg:h-auto lg:w-auto lg:text-2xl ${searchOpen ? "mx-0 w-10" : "mx-auto w-auto"}`}
+          className={`relative flex h-10 shrink-0 items-center justify-center text-xl font-extrabold tracking-tight text-[var(--np-color-green-700)] transition-[width,transform] duration-np-normal ease-np-standard motion-reduce:transition-none lg:order-none lg:mx-0 lg:h-auto lg:w-auto lg:text-2xl ${searchOpen ? "order-1 mx-0 w-10" : "order-2 mx-auto w-auto"}`}
         >
           <span className={`transition-[transform,opacity] duration-np-normal ease-np-standard motion-reduce:transition-none ${searchOpen ? "scale-[var(--np-motion-scale-pressed)] opacity-0 lg:scale-100 lg:opacity-100" : "scale-100 opacity-100"}`}>
             Ngepas<span className="text-amber-400">.</span>
@@ -109,14 +121,15 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
           <Link className="rounded-lg px-2.5 py-2 text-sm text-slate-600 transition hover:bg-slate-50 hover:text-emerald-800" to="/#why-ngepas">Why Ngepas</Link>
         </nav>
 
-        <div className="order-3 ml-auto flex items-center lg:order-none lg:ml-0 lg:min-w-0 lg:flex-1">
-          <div className="relative h-10 w-10 lg:hidden">
+        <div className={`${searchOpen ? "order-2 ml-0 flex-1" : "order-3 ml-auto"} flex min-w-0 items-center transition-[width,transform] duration-np-normal ease-np-standard motion-reduce:transition-none lg:order-none lg:ml-0 lg:flex-1`}>
+          <div className={`relative h-10 transition-[width] duration-np-normal ease-np-standard motion-reduce:transition-none lg:hidden ${searchOpen ? "w-full" : "w-10"}`}>
             <button
+              ref={searchButtonRef}
               type="button"
               aria-label="Buka pencarian"
               aria-expanded={searchOpen}
               aria-controls="mobile-discover-search"
-              onClick={() => setSearchOpen(true)}
+              onClick={openSearch}
               className={`absolute inset-0 rounded-np-md p-2 text-[var(--np-color-ink)] transition-[transform,opacity,background-color] duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none ${searchOpen ? "pointer-events-none scale-[var(--np-motion-scale-pressed)] opacity-0" : "scale-100 opacity-100"}`}
             >
               <Search size={21} aria-hidden="true" />
@@ -124,7 +137,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
             <form
               id="mobile-discover-search"
               onSubmit={handleSubmit}
-              className={`absolute right-0 top-0 flex h-10 w-[min(64vw,18rem)] origin-right items-center rounded-np-md border border-[var(--np-color-border)] bg-[var(--np-color-white)] shadow-[var(--np-shadow-sm)] transition-[transform,opacity] duration-np-normal ease-np-standard motion-reduce:transition-none ${searchOpen ? "translate-x-0 scale-100 opacity-100" : "pointer-events-none translate-x-2 scale-[var(--np-motion-scale-pressed)] opacity-0"}`}
+              className={`absolute right-0 top-0 flex h-10 w-full origin-right items-center rounded-np-md border border-[var(--np-color-border)] bg-[var(--np-color-white)] shadow-[var(--np-shadow-sm)] transition-[transform,opacity] duration-np-normal ease-np-standard motion-reduce:transition-none ${searchOpen ? "translate-x-0 scale-100 opacity-100" : "pointer-events-none translate-x-2 scale-[var(--np-motion-scale-pressed)] opacity-0"}`}
             >
               <Search className="pointer-events-none ml-3 shrink-0 text-[var(--np-color-muted)]" size={17} aria-hidden="true" />
               <input
@@ -139,7 +152,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
               <button
                 type="button"
                 aria-label="Tutup pencarian"
-                onClick={() => setSearchOpen(false)}
+                onClick={closeSearch}
                 className="mr-1 rounded-np-md p-2 text-[var(--np-color-muted)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] hover:text-[var(--np-color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
               >
                 <X size={18} aria-hidden="true" />
@@ -169,7 +182,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
           </form>
         </div>
 
-        <div className="order-3 ml-auto flex items-center gap-1 lg:order-none">
+        <div className={`${searchOpen ? "hidden lg:flex" : "order-4 ml-auto flex"} items-center gap-1 lg:order-none`}>
           <Link to="/#hasil-produk" className="hidden rounded-xl px-2.5 py-1.5 text-center text-[11px] font-semibold text-slate-700 transition hover:bg-slate-50 lg:block">
             <span className="block text-base leading-none">⚖</span>
             Bandingkan
