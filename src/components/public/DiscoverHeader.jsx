@@ -20,10 +20,10 @@ import {
   Search,
   SlidersHorizontal,
   Smartphone,
-  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import MobileNavDrawer from "../navigation/MobileNavDrawer";
 
 /*==================================================
  DATA
@@ -43,6 +43,7 @@ const headerCategories = [
 ==================================================*/
 
 function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
+  const menuButtonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -56,13 +57,15 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
     <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 sm:px-6 lg:flex-nowrap lg:gap-5 lg:py-3">
         <button
+          ref={menuButtonRef}
           type="button"
           aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
           aria-expanded={menuOpen}
+          aria-controls="mobile-nav-drawer"
           onClick={() => setMenuOpen((open) => !open)}
-          className="order-1 rounded-xl p-2 text-slate-700 transition hover:bg-slate-50 lg:hidden"
+          className="order-1 rounded-np-md p-2 text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] lg:hidden"
         >
-          {menuOpen ? <X size={21} /> : <Menu size={21} />}
+          <Menu size={21} aria-hidden="true" />
         </button>
 
         <Link to="/" className="order-2 mx-auto shrink-0 text-xl font-extrabold tracking-tight text-emerald-800 lg:order-none lg:mx-0 lg:text-2xl">
@@ -163,16 +166,11 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
         </div>
       )}
 
-      {menuOpen && (
-        <div className="border-t border-slate-100 bg-white px-4 py-3 lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1">
-            <Link to="/" className="rounded-xl px-3 py-2.5 text-sm font-semibold text-emerald-800">Discover</Link>
-            <Link to="/category" className="rounded-xl px-3 py-2.5 text-sm text-slate-600">Kategori</Link>
-            <Link to="/#hasil-produk" className="rounded-xl px-3 py-2.5 text-sm text-slate-600">Bandingkan pilihan</Link>
-            <Link to="/#why-ngepas" className="rounded-xl px-3 py-2.5 text-sm text-slate-600">Why Ngepas</Link>
-          </div>
-        </div>
-      )}
+      <MobileNavDrawer
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        triggerRef={menuButtonRef}
+      />
     </header>
   );
 }
