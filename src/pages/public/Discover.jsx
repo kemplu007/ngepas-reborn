@@ -121,7 +121,7 @@ function CategoryStrip({ categories, selectedCategory, onSelect }) {
     : Object.keys(categoryIconMap);
   return (
     <section id="kategori-populer" className="mx-auto scroll-mt-24 max-w-7xl px-4 py-5 sm:px-6 sm:py-8">
-      <SectionHeading title="Kategori Populer" description="Jalan cepat menuju pilihan yang paling relevan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+      <SectionHeading title="Kategori Populer" description="Jalan cepat menuju pilihan yang paling relevan." action={<Link to="/category" className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-bold text-emerald-700 transition-colors duration-np-fast ease-np-standard hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] focus-visible:ring-offset-2">Selengkapnya <ChevronRight size={15} /></Link>} />
       <div className="flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-4 sm:overflow-visible lg:grid-cols-8">
         {names.map((name) => {
           const Icon = getCategoryIcon(name);
@@ -149,7 +149,7 @@ function TrustStrip() {
 function TrendingSection({ products, favorites, onFavorite }) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
-      <SectionHeading eyebrow="Sedang dicari" title="Trending Minggu Ini" description="Pilihan yang sedang banyak dilihat dan dibandingkan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+      <SectionHeading eyebrow="Sedang dicari" title="Trending Minggu Ini" description="Pilihan yang sedang banyak dilihat dan dibandingkan." action={<Link to="/#hasil-produk" className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-bold text-emerald-700 transition-colors duration-np-fast ease-np-standard hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] focus-visible:ring-offset-2">Selengkapnya <ChevronRight size={15} /></Link>} />
       <div className="flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-4 sm:overflow-visible">
         {products.slice(0, 4).map((product) => <ProductCard key={product.slug} product={product} compact favorite={favorites.includes(product.slug)} onFavorite={onFavorite} />)}
       </div>
@@ -160,7 +160,7 @@ function TrendingSection({ products, favorites, onFavorite }) {
 function ArticlesSection() {
   return (
     <section id="artikel-tips" className="mx-auto scroll-mt-24 max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
-      <SectionHeading eyebrow="Biar makin yakin" title="Artikel & Tips" description="Panduan singkat sebelum kamu menentukan pilihan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+      <SectionHeading eyebrow="Biar makin yakin" title="Artikel & Tips" description="Panduan singkat sebelum kamu menentukan pilihan." action={<a href="#artikel-tips" className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-bold text-emerald-700 transition-colors duration-np-fast ease-np-standard hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] focus-visible:ring-offset-2">Selengkapnya <ChevronRight size={15} /></a>} />
       <div className="grid gap-4 sm:grid-cols-3">
         {editorialCards.map((article) => (
           <article key={article.title} className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">

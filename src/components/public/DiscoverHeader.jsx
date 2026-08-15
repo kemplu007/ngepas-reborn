@@ -20,9 +20,10 @@ import {
   Search,
   SlidersHorizontal,
   Smartphone,
+  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MobileNavDrawer from "../navigation/MobileNavDrawer";
 
 /*==================================================
@@ -44,9 +45,27 @@ const headerCategories = [
 
 function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
   const menuButtonRef = useRef(null);
+  const searchInputRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+
+  useEffect(() => {
+    if (!searchOpen) return undefined;
+
+    const focusSearch = () => searchInputRef.current?.focus();
+    const frameId = window.requestAnimationFrame(focusSearch);
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setSearchOpen(false);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [searchOpen]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -68,8 +87,20 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
           <Menu size={21} aria-hidden="true" />
         </button>
 
-        <Link to="/" className="order-2 mx-auto shrink-0 text-xl font-extrabold tracking-tight text-emerald-800 lg:order-none lg:mx-0 lg:text-2xl">
-          Ngepas<span className="text-amber-400">.</span>
+        <Link
+          to="/"
+          aria-label="Ngepas"
+          className={`relative order-2 flex h-10 shrink-0 items-center justify-center text-xl font-extrabold tracking-tight text-[var(--np-color-green-700)] transition-[width,transform] duration-np-normal ease-np-standard motion-reduce:transition-none lg:order-none lg:mx-0 lg:h-auto lg:w-auto lg:text-2xl ${searchOpen ? "mx-0 w-10" : "mx-auto w-auto"}`}
+        >
+          <span className={`transition-[transform,opacity] duration-np-normal ease-np-standard motion-reduce:transition-none ${searchOpen ? "scale-[var(--np-motion-scale-pressed)] opacity-0 lg:scale-100 lg:opacity-100" : "scale-100 opacity-100"}`}>
+            Ngepas<span className="text-amber-400">.</span>
+          </span>
+          <img
+            src="/favicon.svg"
+            alt=""
+            aria-hidden="true"
+            className={`absolute h-7 w-7 object-contain transition-[transform,opacity] duration-np-normal ease-np-standard motion-reduce:transition-none lg:hidden ${searchOpen ? "scale-100 opacity-100" : "pointer-events-none scale-[var(--np-motion-scale-pressed)] opacity-0"}`}
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
@@ -78,27 +109,65 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
           <Link className="rounded-lg px-2.5 py-2 text-sm text-slate-600 transition hover:bg-slate-50 hover:text-emerald-800" to="/#why-ngepas">Why Ngepas</Link>
         </nav>
 
-        <form onSubmit={handleSubmit} className="order-4 basis-full lg:order-none lg:min-w-0 lg:flex-1">
-          <div className="relative mx-auto max-w-2xl">
-            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <input
-              id="discover-search"
-              value={query}
-              onChange={(event) => onQueryChange(event.target.value)}
-              placeholder="Cari produk terbaik, kategori, atau merek..."
-              aria-label="Cari produk terbaik, kategori, atau merek"
-              className="h-10 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-11 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50"
-            />
+        <div className="order-3 ml-auto flex items-center lg:order-none lg:ml-0 lg:min-w-0 lg:flex-1">
+          <div className="relative h-10 w-10 lg:hidden">
             <button
               type="button"
-              aria-label="Buka filter"
-              onClick={onFilter}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-slate-500 transition hover:bg-emerald-50 hover:text-emerald-700"
+              aria-label="Buka pencarian"
+              aria-expanded={searchOpen}
+              aria-controls="mobile-discover-search"
+              onClick={() => setSearchOpen(true)}
+              className={`absolute inset-0 rounded-np-md p-2 text-[var(--np-color-ink)] transition-[transform,opacity,background-color] duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none ${searchOpen ? "pointer-events-none scale-[var(--np-motion-scale-pressed)] opacity-0" : "scale-100 opacity-100"}`}
             >
-              <SlidersHorizontal size={17} />
+              <Search size={21} aria-hidden="true" />
             </button>
+            <form
+              id="mobile-discover-search"
+              onSubmit={handleSubmit}
+              className={`absolute right-0 top-0 flex h-10 w-[min(64vw,18rem)] origin-right items-center rounded-np-md border border-[var(--np-color-border)] bg-[var(--np-color-white)] shadow-[var(--np-shadow-sm)] transition-[transform,opacity] duration-np-normal ease-np-standard motion-reduce:transition-none ${searchOpen ? "translate-x-0 scale-100 opacity-100" : "pointer-events-none translate-x-2 scale-[var(--np-motion-scale-pressed)] opacity-0"}`}
+            >
+              <Search className="pointer-events-none ml-3 shrink-0 text-[var(--np-color-muted)]" size={17} aria-hidden="true" />
+              <input
+                ref={searchInputRef}
+                id="discover-search"
+                value={query}
+                onChange={(event) => onQueryChange(event.target.value)}
+                placeholder="Cari produk..."
+                aria-label="Cari produk terbaik, kategori, atau merek"
+                className="h-full min-w-0 flex-1 bg-transparent px-2 text-sm text-[var(--np-color-ink)] outline-none placeholder:text-[var(--np-color-muted)]"
+              />
+              <button
+                type="button"
+                aria-label="Tutup pencarian"
+                onClick={() => setSearchOpen(false)}
+                className="mr-1 rounded-np-md p-2 text-[var(--np-color-muted)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] hover:text-[var(--np-color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
+              >
+                <X size={18} aria-hidden="true" />
+              </button>
+            </form>
           </div>
-        </form>
+          <form onSubmit={handleSubmit} className="hidden w-full lg:block">
+            <div className="relative mx-auto max-w-2xl">
+              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--np-color-muted)]" size={18} aria-hidden="true" />
+              <input
+                id="discover-search-desktop"
+                value={query}
+                onChange={(event) => onQueryChange(event.target.value)}
+                placeholder="Cari produk terbaik, kategori, atau merek..."
+                aria-label="Cari produk terbaik, kategori, atau merek"
+                className="h-10 w-full rounded-np-md border border-[var(--np-color-border)] bg-[var(--np-color-white)] pl-10 pr-11 text-sm text-[var(--np-color-ink)] outline-none transition-[border-color,box-shadow] duration-np-fast ease-np-standard placeholder:text-[var(--np-color-muted)] focus:border-[var(--np-color-green-700)] focus:ring-4 focus:ring-[var(--np-color-green-100)] motion-reduce:transition-none"
+              />
+              <button
+                type="button"
+                aria-label="Buka filter"
+                onClick={onFilter}
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-np-md p-1.5 text-[var(--np-color-muted)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-green-100)] hover:text-[var(--np-color-green-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
+              >
+                <SlidersHorizontal size={17} aria-hidden="true" />
+              </button>
+            </div>
+          </form>
+        </div>
 
         <div className="order-3 ml-auto flex items-center gap-1 lg:order-none">
           <Link to="/#hasil-produk" className="hidden rounded-xl px-2.5 py-1.5 text-center text-[11px] font-semibold text-slate-700 transition hover:bg-slate-50 lg:block">
