@@ -47,3 +47,15 @@ Mockup Why Ngepas memakai judul dan deskripsi singkat, daftar keunggulan berbasi
 ## Batas Wireframe Discover v1
 
 Screen Discover v1 mengikuti urutan: Header → Hero/Value Proposition → Kategori Populer → Pilihan Ngepas → Trending Minggu Ini → Artikel & Tips → Cara Kerja Ngepas → Why Ngepas → Trust/closing. Panduan Ngepas bukan screen baru; ia adalah overlay/navigation aid yang dipetakan terpisah setelah struktur halaman disetujui.
+
+## Re-audit Hero resmi
+
+Mockup Hero resmi memperlihatkan mobile sebagai satu kolom: identity header tipis, headline pendek sekitar tiga baris, tiga bullet benefit yang rapat, CTA utama full-width/menonjol, CTA sekunder outline, kemudian visual produk elektronik dan strip marketplace. Desktop menggunakan header satu baris dengan wordmark kiri, search tengah, actions kanan; body Hero dua kolom dengan copy kiri dan visual produk kanan. Hero bukan card dengan gradient dekoratif berat: struktur utamanya adalah whitespace, copy, CTA, visual, lalu info marketplace. Hierarchy fokus: headline → benefit → CTA → visual.
+
+Sumber: `src/docs/assets/uiux-v1.1/reference/1000702670.jpg`.
+
+## Re-audit Header resmi
+
+Header mobile resmi terdiri dari satu identity row dengan hamburger di kiri, wordmark Ngepas di tengah, notifikasi dan akun di kanan; search bar adalah row kedua yang dominan dan memiliki filter/quick access di ujung kanan. Search tidak mengganti identitas header dan tidak melakukan morphing logo. Preview state Search Focus hanya mengubah isi search field dan menampilkan tombol batal kecil, sedangkan row identitas tetap utuh. Desktop memakai satu row: wordmark kiri, search center, lalu Bandingkan, Notifikasi, dan Akun kanan.
+
+Sumber: `src/docs/assets/uiux-v1.1/reference/1000702671.jpg`.
