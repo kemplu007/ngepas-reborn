@@ -76,9 +76,17 @@ const discoverCampaign = {
     </>
   ),
   description: "Pilihan lebih ringkas berdasarkan manfaat, kualitas, rating, dan harga.",
-  ctaLabel: "Mulai Cari",
+  benefits: [
+    "Dibandingkan dari banyak marketplace",
+    "Alasan rekomendasi dibuat jelas",
+    "Kamu tetap checkout di marketplace",
+  ],
+  ctaLabel: "Mulai Cari Sekarang",
+  secondaryCtaLabel: "Cara Kerja Ngepas",
+  secondaryCtaHref: "#cara-kerja",
   image: lampImage,
   imageLabel: "Pilihan yang lebih Ngepas",
+  marketplaceLabel: "Ngepas membantu memilih, bukan tempat checkout.",
 };
 
 function toSlug(value = "") {
@@ -286,7 +294,11 @@ function Discover() {
   return (
     <div className="min-h-screen bg-white pb-32 text-slate-900 lg:pb-0">
       <DiscoverHeader query={query} onQueryChange={setQuery} onSubmit={submitSearch} onFilter={openFilters} />
-      <DiscoverHero onSearch={() => { document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" }); }} />
+      <DiscoverHero onSearch={() => {
+        const searchInput = document.getElementById("discover-search");
+        searchInput?.focus();
+        searchInput?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }} />
       <CategoryStrip categories={categories} selectedCategory={selectedCategory} onSelect={setSelectedCategory} />
       <section id="hasil-produk" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-6 sm:px-6 sm:py-10">
         <SectionHeading eyebrow="Kurasi Ngepas" title="Pilihan Ngepas Untukmu" description="Produk pilihan berdasarkan manfaat, rating, dan informasi yang tersedia." action={<button type="button" onClick={() => setShowFilters((open) => !open)} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:border-emerald-200 hover:text-emerald-800"><SlidersHorizontal size={15} /> Filter</button>} />
