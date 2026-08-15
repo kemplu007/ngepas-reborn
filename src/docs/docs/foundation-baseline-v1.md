@@ -1,8 +1,8 @@
 # Ngepas Frontend Foundation Baseline v1
 
-**Status:** Review baseline
+**Status:** Integrated to `main` — 2026-08-16
 
-**Branch:** `feat/ngepas-fe-foundation-baseline-v1`
+**Branch:** `main` (promotion merge setelah review branch terpisah)
 
 **Scope:** Reusable frontend foundation untuk public dan admin. Patch ini tidak mengubah backend, database, JWT, service contract, atau business logic.
 
@@ -24,6 +24,8 @@
 | `FormField` | `src/components/ui/FormField.jsx` | Baru | Label, required marker, hint, error |
 | `Card` | `src/components/ui/Card.jsx` | Baru | Surface default, muted, elevated; ref forwarding |
 | `Dialog` | `src/components/ui/Dialog.jsx` | Baru | Overlay, Escape, click-outside, focus return, body lock, semantic dialog |
+| `SelectField` | `src/components/ui/SelectField.jsx` | Authority | Select berbasis `options` array, label, helper/error, required, invalid, size, focus, motion |
+| `CheckboxField` | `src/components/ui/CheckboxField.jsx` | Baseline | Checkbox dengan label, hint, checked, disabled, focus, semantic tokens |
 | `common/Button` | `src/components/common/Button.jsx` | Compatibility | Delegasi sementara ke `ui/Button` |
 | `ConfirmDialog` | `src/components/common/ConfirmDialog.jsx` | Migrated wrapper | API konfirmasi delete tetap, visual dan lifecycle memakai foundation |
 
@@ -32,6 +34,8 @@
 `src/pages/admin/Login.jsx` menjadi proof-of-system pertama. Auth flow tetap sama: `useAuth().login()`, loading state, error state, redirect state, dan `navigate(..., { replace: true })` tidak diubah. Yang berubah hanya komposisi visual agar memakai `Input`, `FormField`, dan `ui/Button`.
 
 `ConfirmDialog` menjadi proof-of-system overlay. `open`, `title`, `message`, `confirmText`, `cancelText`, `onConfirm`, dan `onCancel` tetap kompatibel dengan caller admin yang sudah ada.
+
+`CategoryForm` dan `CategoryPage` menjadi proof-of-system lintas admin/public untuk kontrak `SelectField` berbasis `options` array. CategoryForm mempertahankan ukuran field `md`, sedangkan CategoryPage memakai kontrak yang sama pada sorting; payload, filter state, query params, dan route tetap dipertahankan.
 
 ## Contract tokens
 
@@ -50,13 +54,13 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 
 ## Urutan migrasi berikutnya
 
-1. Tambahkan `SelectField` dan `TextareaField` setelah kontrak `Input` terbukti pada Login.
-2. Migrasikan `CategoryForm` sebagai specimen form admin kecil.
-3. Migrasikan `ProductForm` secara bertahap, tanpa mengubah payload atau handler.
-4. Migrasikan `Products`, `Categories`, dan `ProductTable` ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-5. Audit `ProductCard`, `CategoryCard`, `ProductDetail`, dan `CategoryPage` untuk menghapus resep visual legacy setelah caller baru tervalidasi.
+1. `SelectField` dan `CheckboxField` sudah menjadi primitive lintas public/admin dengan kontrak tunggal.
+2. `CategoryForm` dan `CategoryPage` sudah dipromosikan sebagai proof-of-system setelah review branch terpisah.
+3. Migrasikan `ProductDetail` public secara bertahap, tanpa mengubah route atau data contract.
+4. Migrasikan `ProductForm` secara bertahap, tanpa mengubah payload atau handler.
+5. Migrasikan `Products`, `Categories`, dan `ProductTable` ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
 6. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 
-Baseline v1 dapat diajukan untuk review jika `git diff --check` dan `npx vite build` lulus, tidak ada perubahan pada auth/API/database, seluruh primitive memakai token, proof-of-system dapat dirender, Dialog memiliki lifecycle accessibility, dan branch review tetap terpisah dari `main`.
+Baseline v1 dan dua migration slice dapat dipromosikan jika `git diff --check` dan `npx vite build` lulus, tidak ada perubahan pada auth/API/database, seluruh primitive memakai token, proof-of-system dapat dirender, Dialog memiliki lifecycle accessibility, dan setiap perubahan awalnya dikerjakan pada branch terpisah sebelum merge ke `main`. Integrasi gabungan terakhir lulus pada 1843 modules.

@@ -14,7 +14,7 @@ Dokumen lain = detail. File ini = nyawa project.
 
 Status        : LIVE
 
-Last verified : 2026-08-15
+Last verified : 2026-08-16
 
 Stack         : React + Vite + Tailwind (FE)
 
@@ -410,16 +410,26 @@ Auth end-to-end stabil (jangan rebuild)
 
 Deploy tunggal stabil (1 FE, 1 BE)
 
-Siap lanjut fitur produk / polish, bukan auth ulang
+FE Foundation Baseline v1 terintegrasi ke `main`
+
+`CategoryPage` public dan `CategoryForm` admin sudah memakai foundation reusable
+
+`SelectField` memiliki satu authority dengan kontrak `options` array
+
+Integrasi gabungan terakhir: `git diff --check` + `npx vite build` lulus (1843 modules)
+
+Siap lanjut `ProductDetail` public secara slice kecil, bukan auth ulang atau rewrite backend
 
 
 
 NEXT (urut, jangan loncat)
 
 
-Polish UI /admin/login (masih bare HTML)
+Review visual mobile CategoryPage dan CategoryForm di production
 
-GET /products/:slug
+ProductDetail public dengan foundation reusable
+
+GET /products/:slug bila slice ProductDetail membutuhkan kontrak backend tersebut
 
 Admin form: wajibkan field kurasi (reason, whyWeRecommend, considerations)
 

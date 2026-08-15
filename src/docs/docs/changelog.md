@@ -37,6 +37,17 @@ VALIDATION: `git diff --check` + `npx vite build` PASSED (1842 modules)
 STATUS: CATEGORY PAGE FOUNDATION MIGRATION REVIEW
 
 ==================================================
+INTEGRATION CHECKPOINT
+==================================================
+
+✓ CategoryPage dan CategoryForm sudah dipromosikan ke `main` setelah review branch terpisah
+✓ Konflik `SelectField` diselesaikan dengan satu authority options-array untuk public dan admin
+✓ `category-form-preview-audit.md` dipertahankan sebagai catatan review route protected dan browser verification
+✓ Merge validation: `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+STATUS: FOUNDATION SLICES INTEGRATED — PRODUCTION PUSH PENDING
+
+==================================================
 
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
