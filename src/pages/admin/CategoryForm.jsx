@@ -87,6 +87,16 @@ function CategoryForm() {
 
   const createSlug = (text) => text.toLowerCase().trim().replace(/\s+/g, "-");
 
+  /* Room Options */
+
+  const roomOptions = [
+    { value: "", label: "Pilih ruangan" },
+    ...rooms.map((room) => ({
+      value: room.slug,
+      label: room.name,
+    })),
+  ];
+
   /*==================================================
    HANDLERS
   ==================================================*/
@@ -191,16 +201,10 @@ function CategoryForm() {
             name="room"
             value={form.room}
             onChange={handleChange}
+            options={roomOptions}
+            size="md"
             required
-          >
-            <option value="">Pilih ruangan</option>
-
-            {rooms.map((room) => (
-              <option key={room.id} value={room.slug}>
-                {room.name}
-              </option>
-            ))}
-          </SelectField>
+          />
         </FormField>
 
         <FormField

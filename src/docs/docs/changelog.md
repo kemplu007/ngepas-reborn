@@ -19,6 +19,7 @@ FRONTEND FOUNDATION
 ✓ Dialog memiliki Escape, click-outside, focus return, body lock, semantic labeling, dan reduced-motion-compatible surface motion
 ✓ `SelectField` dan `CheckboxField` ditambahkan sebagai primitive form reusable lintas public/admin
 ✓ `CategoryForm` dimigrasikan ke `Container`, `Card`, `Input`, `FormField`, `SelectField`, `CheckboxField`, dan `ui/Button` tanpa mengubah payload, service, auth, atau redirect
+✓ `SelectField` menggunakan satu kontrak reusable berbasis `options` array; CategoryForm mempertahankan kepadatan field admin melalui `size="md"`
 
 VALIDATION: `git diff --check` + `npx vite build` PASSED (1841 modules)
 
