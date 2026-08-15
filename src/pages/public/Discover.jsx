@@ -41,6 +41,8 @@ import ProductCard from "../../components/discover/ProductCard";
 import FilterPanel from "../../components/discover/FilterPanel";
 import BottomNavigation from "../../components/navigation/BottomNavigation";
 import CampaignBanner from "../../components/discover/CampaignBanner";
+import CategoryCard from "../../components/discover/CategoryCard";
+import { categoryIconMap, getCategoryIcon } from "../../config/iconMap";
 
 import lampImage from "../../assets/products/lampu-tidur.jpg";
 import shelfImage from "../../assets/products/rak-dinding.jpg";
@@ -56,17 +58,6 @@ const demoProducts = [
   { id: "demo-2", slug: "rak-dinding-kayu", name: "Rak Dinding Kayu Serbaguna", category: "Rumah", image: shelfImage, price: 189000, rating: 4.7, badge: "Teruji", reason: "Membantu menyimpan barang tanpa membuat ruang terasa penuh.", featured: true, whyWeRecommend: ["Hemat ruang", "Mudah dipasang", "Desain netral"], features: ["Kayu solid", "Beban hingga 10 kg", "Finishing matte"], bestFor: ["Ruang tamu", "Kamar"] },
   { id: "demo-3", slug: "rak-bumbu-dapur", name: "Rak Bumbu Dapur 3 Tingkat", category: "Dapur", image: spiceImage, price: 99000, rating: 4.6, badge: "Harga Ngepas", reason: "Pilihan praktis untuk dapur kecil yang butuh lebih rapi.", featured: true, whyWeRecommend: ["Memakai ruang vertikal", "Tiga tingkat penyimpanan", "Mudah dibersihkan"], features: ["Besi powder coat", "Anti-slip", "3 tingkat"], bestFor: ["Dapur kecil", "Apartemen"] },
   { id: "demo-4", slug: "tanaman-hias-daun", name: "Tanaman Hias Daun Indoor", category: "Dekorasi", image: plantImage, price: 79000, rating: 4.5, badge: "Terbaru", reason: "Aksen hijau sederhana untuk membuat sudut ruang terasa hidup.", featured: true, whyWeRecommend: ["Cocok untuk indoor", "Perawatan mudah", "Membuat ruang lebih segar"], features: ["Pot keramik", "Tinggi 35 cm", "Cahaya tidak langsung"], bestFor: ["Meja kerja", "Ruang tamu"] },
-];
-
-const categoryIcons = [
-  { label: "Elektronik", icon: "▣" },
-  { label: "Komputer", icon: "▤" },
-  { label: "Rumah", icon: "⌂" },
-  { label: "Otomotif", icon: "▱" },
-  { label: "Dapur", icon: "♨" },
-  { label: "Fashion", icon: "◇" },
-  { label: "Kesehatan", icon: "♡" },
-  { label: "Lainnya", icon: "⋯" },
 ];
 
 const editorialCards = [
@@ -120,19 +111,24 @@ function DiscoverHero({ onSearch }) {
 }
 
 function CategoryStrip({ categories, selectedCategory, onSelect }) {
-  const names = categories.length ? categories.slice(0, 8).map((category) => category.name || category.title) : categoryIcons.map((item) => item.label);
+  const names = categories.length
+    ? categories.slice(0, 8).map((category) => category.name || category.title)
+    : Object.keys(categoryIconMap);
   return (
     <section className="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-8">
       <SectionHeading title="Kategori Populer" description="Jalan cepat menuju pilihan yang paling relevan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
       <div className="flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-4 sm:overflow-visible lg:grid-cols-8">
-        {names.map((name, index) => {
-          const icon = categoryIcons[index % categoryIcons.length].icon;
+        {names.map((name) => {
+          const Icon = getCategoryIcon(name);
           const active = selectedCategory === name;
           return (
-            <button key={name} type="button" onClick={() => onSelect(active ? "" : name)} className={`min-w-[92px] rounded-2xl border px-3 py-4 text-center transition sm:min-w-0 ${active ? "border-emerald-500 bg-emerald-50 text-emerald-800 shadow-sm" : "border-slate-100 bg-white text-slate-600 hover:border-emerald-200 hover:text-emerald-800"}`}>
-              <span className="mx-auto flex h-9 w-9 items-center justify-center rounded-xl bg-slate-50 text-xl text-slate-700">{icon}</span>
-              <span className="mt-2 block truncate text-xs font-bold">{name}</span>
-            </button>
+            <CategoryCard
+              key={name}
+              name={name}
+              active={active}
+              onSelect={() => onSelect(active ? "" : name)}
+              icon={<Icon size={20} strokeWidth={1.8} />}
+            />
           );
         })}
       </div>
