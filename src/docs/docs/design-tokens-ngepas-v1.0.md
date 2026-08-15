@@ -105,7 +105,27 @@ Control interaktif harus mudah disentuh dari HP. Tinggi standar control adalah 4
 | `--np-touch-target` | 44px | Area klik minimum icon/button |
 | `--np-card-min-width` | 160px | Card pada horizontal rail mobile |
 
-## 7. Breakpoint
+## 7. Motion
+
+Motion Ngepas harus terasa cepat, tenang, dan membantu user memahami perubahan state. Motion bukan dekorasi dan tidak boleh mengubah layout secara tiba-tiba. Komponen interaktif memakai `transform` dan `opacity` jika membutuhkan animasi; perubahan ukuran, margin, atau posisi layout tidak dianimasikan kecuali ada alasan UX yang terdokumentasi.
+
+| Token | Nilai | Pemakaian |
+|---|---:|---|
+| `--np-motion-duration-fast` | 140ms | Hover, focus, press, toggle ringan |
+| `--np-motion-duration-normal` | 240ms | Panel filter, dropdown, transisi surface |
+| `--np-motion-duration-slow` | 420ms | Emphasis atau entrance yang jarang |
+| `--np-motion-ease-standard` | `cubic-bezier(0.23, 1, 0.32, 1)` | Feedback interaktif dan masuk/keluar standar |
+| `--np-motion-ease-emphasized` | `cubic-bezier(0.2, 0.8, 0.2, 1)` | Panel atau emphasis yang butuh perhatian |
+| `--np-motion-scale-pressed` | `0.97` | Press feedback button/icon button |
+| `--np-motion-interactive` | fast + standard | Kontrak shorthand untuk kontrol interaktif |
+| `--np-motion-panel` | normal + emphasized | Kontrak shorthand untuk panel lokal |
+| `--np-motion-emphasis` | slow + emphasized | Kontrak shorthand untuk emphasis terbatas |
+
+Kontrak komponen: Button dan IconButton memberi feedback press singkat; ProductCard boleh memberi perubahan shadow/surface yang ringan; Favorite memberi toggle yang cepat; FilterPanel memakai kombinasi opacity dan translate kecil; CampaignBanner tidak memakai animasi otomatis yang mengganggu pembacaan atau CTA. Keyboard focus tetap terlihat dan tidak boleh bergantung pada animasi.
+
+Preferensi `prefers-reduced-motion: reduce` wajib dihormati. Dalam mode ini durasi token diturunkan menjadi hampir instan dan transisi/animasi non-esensial dipangkas, tetapi perubahan state, focus ring, label, dan affordance tetap tersedia.
+
+## 8. Breakpoint
 
 | Breakpoint | Kontrak |
 |---|---|
@@ -115,7 +135,7 @@ Control interaktif harus mudah disentuh dari HP. Tinggi standar control adalah 4
 
 Breakpoint tidak dipakai untuk mengecilkan desktop secara mentah. Mobile harus menentukan urutan informasi dan target sentuh terlebih dahulu.
 
-## 8. Mapping komponen inti
+## 9. Mapping komponen inti
 
 | Komponen | Spacing | Typography | Radius | Shadow |
 |---|---|---|---|---|
@@ -129,12 +149,12 @@ Breakpoint tidak dipakai untuk mengecilkan desktop secara mentah. Mobile harus m
 | Bottom navigation | `space-2` | caption | none | md/top divider |
 | Modal/dropdown | `space-4` | h3/body | lg | md |
 
-## 9. Aturan untuk agent dan developer
+## 10. Aturan untuk agent dan developer
 
 Sebelum membuat komponen baru, cari token yang sudah ada. Jika membutuhkan nilai baru, gunakan kelipatan 4px dan tambahkan ke `tokens.css` hanya setelah alasan UX dicatat. Jangan memasukkan warna hex langsung ke JSX/TSX. Jangan membuat shadow baru di level komponen jika `--np-shadow-*` sudah cukup.
 
 Komponen tidak boleh mengatur ukuran berdasarkan isi yang tidak terkontrol. Judul card perlu line clamp, gambar perlu aspect ratio yang sama, tombol harus punya tinggi tetap, dan grid harus punya gap konsisten. Inilah aturan teknis yang mencegah tampilan “mlenuk-mlenuk”.
 
-## 10. Scope implementasi
+## 11. Scope implementasi
 
 Commit awal ini hanya memasang **foundation tokens** dan dokumentasinya. Belum ada refactor massal pada seluruh halaman. Refactor komponen dilakukan bertahap setelah token disetujui, dimulai dari header, search, product card, button, dan section container.

@@ -1,3 +1,9 @@
+/*==================================================
+NGEPAS REBORN
+File   : index.css
+Module : Global Stylesheet
+==================================================*/
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -35,6 +41,11 @@
   --radius-np-lg: var(--np-radius-lg);
   --radius-np-xl: var(--np-radius-xl);
   --radius-np-pill: var(--np-radius-pill);
+  --ease-np-standard: var(--np-motion-ease-standard);
+  --ease-np-emphasized: var(--np-motion-ease-emphasized);
+  --duration-np-fast: var(--np-motion-duration-fast);
+  --duration-np-normal: var(--np-motion-duration-normal);
+  --duration-np-slow: var(--np-motion-duration-slow);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

@@ -237,6 +237,18 @@ Contoh
 VITE_API_URL
 
 ==================================================
+MOTION & MICRO-INTERACTION
+==================================================
+
+Motion wajib memakai token `--np-motion-*` atau alias Tailwind `duration-np-*` dan `ease-np-*`.
+
+Gunakan transform dan opacity untuk feedback visual. Jangan membuat duration, easing, scale, atau shadow baru langsung di komponen.
+
+Button dan IconButton wajib memiliki press feedback, focus ring, dan state disabled/loading bila relevan. Motion tidak boleh menghilangkan informasi, mengganggu CTA, atau mengubah layout secara tiba-tiba.
+
+Semua motion non-esensial wajib tetap aman saat `prefers-reduced-motion: reduce`. State dan affordance tetap harus terlihat walaupun durasi menjadi hampir instan.
+
+==================================================
 DOCUMENTATION
 ==================================================
 

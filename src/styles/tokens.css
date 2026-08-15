@@ -1,8 +1,8 @@
-/*
- * Ngepas Design Tokens v1.0
- * Source of truth: src/docs/docs/uiux-system-v1.1.md
- * Rule: components consume these tokens; do not invent one-off values.
- */
+/*==================================================
+NGEPAS REBORN
+File   : tokens.css
+Module : Design System Foundation
+==================================================*/
 
 :root {
   /* Typography */
@@ -89,6 +89,22 @@
   --np-shadow-lg: 0 12px 30px rgb(15 23 42 / 0.1);
   --np-shadow-focus: 0 0 0 3px rgb(34 160 107 / 0.18);
 
+  /* Motion: restrained, responsive, and interruptible UI feedback. */
+  --np-motion-duration-fast: 140ms;
+  --np-motion-duration-normal: 240ms;
+  --np-motion-duration-slow: 420ms;
+  --np-motion-ease-standard: cubic-bezier(0.23, 1, 0.32, 1);
+  --np-motion-ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --np-motion-ease-linear: linear;
+  --np-motion-scale-pressed: 0.97;
+  --np-motion-distance-sm: var(--np-space-1);
+  --np-motion-distance-md: var(--np-space-2);
+
+  /* Semantic motion contracts for reusable components. */
+  --np-motion-interactive: var(--np-motion-duration-fast) var(--np-motion-ease-standard);
+  --np-motion-panel: var(--np-motion-duration-normal) var(--np-motion-ease-emphasized);
+  --np-motion-emphasis: var(--np-motion-duration-slow) var(--np-motion-ease-emphasized);
+
   /* Layout and component contracts. */
   --np-container-max: 75rem;
   --np-layout-container: var(--np-container-max);
@@ -103,6 +119,24 @@
   --np-control-height-lg: 3rem;
   --np-card-min-width: 10rem;
   --np-touch-target: 2.75rem;
+}
+
+/* Reduced motion keeps state changes immediate without removing feedback semantics. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --np-motion-duration-fast: 1ms;
+    --np-motion-duration-normal: 1ms;
+    --np-motion-duration-slow: 1ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
 }
 
 @media (min-width: 48rem) {
