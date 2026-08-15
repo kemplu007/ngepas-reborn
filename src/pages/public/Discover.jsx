@@ -29,7 +29,6 @@ import {
   SlidersHorizontal,
   Star,
   Tag,
-  Truck,
 } from "lucide-react";
 
 import { useCategories } from "../../context/CategoryContext";
@@ -38,6 +37,7 @@ import { useFavoriteContext } from "../../context/FavoritesContext";
 import DiscoverHeader from "../../components/public/DiscoverHeader";
 import SectionHeading from "../../components/ui/SectionHeading";
 import ProductCard from "../../components/discover/ProductCard";
+import TrustStrip from "../../components/discover/TrustStrip";
 import FilterPanel from "../../components/discover/FilterPanel";
 import CampaignBanner from "../../components/discover/CampaignBanner";
 import CategoryCard from "../../components/discover/CategoryCard";
@@ -144,10 +144,6 @@ function CategoryStrip({ categories, selectedCategory, onSelect }) {
       <div className="mt-4 flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm text-slate-600"><BadgeCheck size={19} className="text-emerald-600" /> Pilih kategori untuk melihat rekomendasi yang lebih relevan.</div>
     </section>
   );
-}
-
-function TrustStrip() {
-  return <div className="mt-5 grid gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:grid-cols-3"><div className="flex items-center gap-3 text-xs text-slate-600"><ShieldCheck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Kurasi transparan</strong>Alasan rekomendasi jelas.</span></div><div className="flex items-center gap-3 text-xs text-slate-600"><Truck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Bantu hemat waktu</strong>Pilihan lebih ringkas.</span></div><div className="flex items-center gap-3 text-xs text-slate-600"><BadgeCheck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Bukan checkout</strong>Kamu tetap belanja di marketplace.</span></div></div>;
 }
 
 function TrendingSection({ products, favorites, onFavorite }) {
