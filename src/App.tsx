@@ -20,6 +20,7 @@ import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
 import Home from './pages/public/Home';
 import ProductDetail from './pages/public/ProductDetail';
+import DiscoverPrototype from './pages/public/DiscoverPrototype';
 import CategoryPage from './pages/public/CategoryPage';
 import Dashboard from './pages/admin/Dashboard';
 import Products from './pages/admin/Products';
@@ -51,6 +52,10 @@ function App() {
 
           <Route path="/category/:slug" element={<CategoryPage />} />
         </Route>
+
+        {/* UI/UX v1.1 prototype route; memakai header prototype sendiri */}
+        <Route path="/prototype/discover" element={<DiscoverPrototype />} />
+        <Route path="/prototype/discover/:slug" element={<DiscoverPrototype />} />
 
         {/*============================================
     ADMIN AUTH ROUTES
