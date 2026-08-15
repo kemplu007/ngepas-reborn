@@ -10,6 +10,7 @@
 
 import { ArrowRight, House, LayoutGrid, Scale, X } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 
 /*==================================================
@@ -60,7 +61,7 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
     };
   }, [onClose, open, triggerRef]);
 
-  return (
+  return createPortal(
     <div
       id="mobile-nav-drawer"
       aria-hidden={!open}
@@ -81,7 +82,7 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
         role="dialog"
         aria-modal="true"
         aria-label="Menu navigasi mobile"
-        className={`relative flex h-full w-[min(86vw,360px)] flex-col border-r border-[var(--np-color-border)] bg-[var(--np-color-white)] px-4 pb-6 pt-4 shadow-[var(--np-shadow-lg)] transition-transform duration-np-normal ease-np-emphasized ${open ? "translate-x-0" : "-translate-x-full"}`}
+        className={`relative flex h-full max-h-[100dvh] w-[min(86vw,360px)] flex-col overflow-y-auto overscroll-contain border-r border-[var(--np-color-border)] bg-[var(--np-color-white)] px-4 pb-6 pt-4 shadow-[var(--np-shadow-lg)] transition-transform duration-np-normal ease-np-emphasized ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex items-center justify-between border-b border-[var(--np-color-border)] pb-4">
           <div>
@@ -123,7 +124,8 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
           <p>Belum ada akun publik. Kamu tetap bisa mulai dari pencarian dan pilihan kurasi.</p>
         </div>
       </aside>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

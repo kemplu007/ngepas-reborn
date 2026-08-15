@@ -25,3 +25,13 @@ Drawer menggunakan transform dan opacity untuk motion. Overlay menutup drawer ta
 ## Build note
 
 `npx vite build` berhasil. `npm run build` masih menjalankan pemeriksaan TypeScript baseline yang gagal pada 18 import JSX/JS lama di area admin, context, service, dan public pages; error tersebut bukan berasal dari file drawer baru.
+
+## Containment bugfix
+
+The drawer was updated to render through a React portal into `document.body`. Preview inspection confirmed `#mobile-nav-drawer` has `BODY` as its direct parent while closed, with `fixed inset-0 z-50` and `pointer-events-none`. This removes the previous header stacking-context constraint and allows the overlay to cover the full viewport when opened.
+
+The drawer surface now uses a bounded mobile width, `max-h-[100dvh]`, `overflow-y-auto`, and `overscroll-contain` so long menu content remains inside the panel instead of spilling into the page.
+
+## Outside-click simulation
+
+A controlled browser simulation clicked the hamburger trigger and then the overlay close button. The drawer returned to `aria-hidden="true"`, `document.body.style.overflow` returned to an empty value, and the drawer remained portaled directly under `BODY`.
