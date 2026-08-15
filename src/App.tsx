@@ -18,8 +18,8 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 /* Components */
 import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
-import Home from './pages/public/Home';
 import ProductDetail from './pages/public/ProductDetail';
+import Discover from './pages/public/Discover';
 import CategoryPage from './pages/public/CategoryPage';
 import Dashboard from './pages/admin/Dashboard';
 import Products from './pages/admin/Products';
@@ -43,14 +43,17 @@ function App() {
         ============================================*/}
 
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-
           <Route path="/product/:slug" element={<ProductDetail />} />
 
           <Route path="/category" element={<CategoryPage />} />
 
           <Route path="/category/:slug" element={<CategoryPage />} />
         </Route>
+
+        {/* Public Discover v1.1 — halaman utama permanen */}
+        <Route path="/" element={<Discover />} />
+        <Route path="/discover" element={<Discover />} />
+        <Route path="/discover/:slug" element={<Discover />} />
 
         {/*============================================
     ADMIN AUTH ROUTES
