@@ -1,48 +1,110 @@
 /*==================================================
  NGEPAS REBORN
  File    : CampaignBanner.jsx
- Module  : Reusable Campaign Banner
+ Module  : Reusable Hero / Value Proposition
 ==================================================*/
 
-import { ArrowRight, Sparkles } from "lucide-react";
+/*==================================================
+ IMPORTS
+==================================================*/
+
+import { ArrowRight, Check, CirclePlay } from "lucide-react";
+import Button from "../ui/Button";
+
+/*==================================================
+ COMPONENT
+==================================================*/
 
 function CampaignBanner({ campaign, onAction, className = "" }) {
   if (!campaign) return null;
 
   return (
-    <section className={`mx-auto max-w-7xl px-4 pb-5 pt-5 sm:px-6 sm:pb-8 sm:pt-8 ${className}`} aria-labelledby={`${campaign.id}-title`}>
-      <div className="relative isolate h-[clamp(238px,62vw,300px)] overflow-hidden rounded-[var(--np-radius-xl)] border border-emerald-100 bg-emerald-50 shadow-[var(--np-shadow-sm)] sm:h-[clamp(260px,30vw,360px)]">
-        <img src={campaign.image} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-right mix-blend-multiply opacity-90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-55% to-white/10 sm:from-white sm:via-white/90 sm:via-48% sm:to-transparent" aria-hidden="true" />
-        <div className="absolute -right-14 -top-16 h-40 w-40 rounded-full bg-amber-300/30 blur-3xl" aria-hidden="true" />
-        <div className="absolute bottom-0 left-1/3 h-28 w-28 rounded-full bg-emerald-200/30 blur-3xl" aria-hidden="true" />
-
-        <div className="relative z-10 flex h-full max-w-[74%] flex-col justify-center px-5 py-4 sm:max-w-[58%] sm:px-10 sm:py-8 lg:px-14">
+    <section
+      className={`mx-auto max-w-[var(--np-container-max)] px-[var(--np-gutter-mobile)] pb-[var(--np-space-6)] pt-[var(--np-space-3)] sm:px-[var(--np-gutter-tablet)] sm:pb-[var(--np-space-10)] sm:pt-[var(--np-space-6)] lg:px-[var(--np-gutter-desktop)] ${className}`}
+      aria-labelledby={`${campaign.id}-title`}
+    >
+      <div className="overflow-hidden rounded-[var(--np-radius-md)] border border-[var(--np-color-border)] bg-[var(--np-color-surface-muted)]">
+        {/*============================================
+          HERO COPY
+        ============================================*/}
+        <div className="px-4 pb-0 pt-4 sm:px-7 sm:pt-7 lg:px-9 lg:pt-9">
           {campaign.eyebrow && (
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-100 bg-white/90 px-2.5 py-1 text-[10px] font-bold text-emerald-800 shadow-sm sm:px-3 sm:py-1.5 sm:text-xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-400 sm:h-2 sm:w-2" />
+            <p className="text-xs font-bold tracking-wide text-[var(--np-color-green-700)] sm:text-sm">
               {campaign.eyebrow}
-            </span>
+            </p>
           )}
-          <h1 id={`${campaign.id}-title`} className="mt-2 max-w-[17rem] text-[clamp(1.4rem,5.2vw,2.8rem)] font-extrabold leading-[1.05] tracking-tight text-slate-950 sm:mt-4 sm:max-w-[27rem]">
+
+          <h1
+            id={`${campaign.id}-title`}
+            className="mt-2 max-w-[24ch] text-[var(--np-text-h2)] font-extrabold leading-[var(--np-leading-heading)] tracking-tight text-[var(--np-color-ink)] sm:max-w-xl sm:text-[var(--np-text-h1)] lg:text-[var(--np-text-display)]"
+          >
             {campaign.title}
           </h1>
-          {campaign.description && <p className="mt-2 line-clamp-2 max-w-[19rem] text-xs leading-5 text-slate-600 sm:mt-4 sm:text-sm sm:leading-6">{campaign.description}</p>}
-          <div className="mt-3 flex flex-wrap gap-2 sm:mt-5">
-            <button type="button" onClick={onAction} className="inline-flex min-h-10 items-center justify-center gap-2 rounded-[var(--np-radius-md)] bg-emerald-700 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 sm:min-h-11 sm:px-4 sm:text-sm">
-              {campaign.ctaLabel || "Mulai Cari"}
-              <ArrowRight size={15} aria-hidden="true" />
-            </button>
+
+          {campaign.description && (
+            <p className="mt-2 max-w-[34rem] text-[var(--np-text-small)] leading-[var(--np-leading-body)] text-[var(--np-color-muted)] sm:mt-3 sm:text-[var(--np-text-body)]">
+              {campaign.description}
+            </p>
+          )}
+
+          {campaign.benefits?.length ? (
+            <ul className="mt-3 grid gap-1.5 text-[var(--np-text-small)] font-medium leading-[var(--np-leading-body)] text-[var(--np-color-ink)] sm:mt-4 sm:max-w-xl sm:grid-cols-3 sm:gap-4">
+              {campaign.benefits.map((benefit) => (
+                <li key={benefit} className="flex items-start gap-2">
+                  <Check size={18} className="mt-0.5 shrink-0 text-[var(--np-color-green-700)]" aria-hidden="true" />
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
+          <div className="mt-4 flex flex-col items-stretch gap-1.5 sm:mt-5 sm:flex-row sm:items-center sm:gap-3">
+            <Button type="button" size="md" onClick={onAction} className="w-full sm:w-auto">
+              {campaign.ctaLabel || "Mulai Cari Sekarang"}
+              <ArrowRight size={17} aria-hidden="true" />
+            </Button>
+
+            {campaign.secondaryCtaLabel && (
+              <a
+                href={campaign.secondaryCtaHref || "#cara-kerja"}
+                className="inline-flex min-h-[var(--np-touch-target)] items-center justify-center gap-2 px-2 text-sm font-semibold text-[var(--np-color-green-700)] transition-[transform,background-color] duration-np-fast ease-np-standard hover:bg-[var(--np-color-white)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] focus-visible:ring-offset-2 active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
+              >
+                <CirclePlay size={17} aria-hidden="true" />
+                {campaign.secondaryCtaLabel}
+              </a>
+            )}
           </div>
         </div>
 
-        <div className="pointer-events-none absolute bottom-3 right-3 z-[1] inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/90 px-2.5 py-1.5 text-[9px] font-bold text-emerald-800 shadow-sm backdrop-blur sm:bottom-5 sm:right-5 sm:px-3 sm:py-2 sm:text-[10px]" aria-hidden="true">
-          <Sparkles size={12} className="text-amber-500" aria-hidden="true" />
-          {campaign.imageLabel || "Pilihan Ngepas"}
+        {/*============================================
+          HERO VISUAL
+        ============================================*/}
+        <div className="relative mt-4 aspect-[2.35] overflow-hidden border-t border-[var(--np-color-border)] bg-[var(--np-color-surface-muted)] sm:mt-7 sm:aspect-[2.15] lg:mt-9 lg:aspect-[2.6]">
+          <img
+            src={campaign.image}
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover object-center"
+          />
+          {campaign.imageLabel && (
+            <span className="absolute bottom-3 left-3 rounded-[var(--np-radius-pill)] bg-[var(--np-color-white)]/95 px-3 py-1.5 text-xs font-bold text-[var(--np-color-green-700)] shadow-[var(--np-shadow-sm)] sm:bottom-5 sm:left-5">
+              {campaign.imageLabel}
+            </span>
+          )}
         </div>
+
+        {campaign.marketplaceLabel && (
+          <p className="border-t border-[var(--np-color-border)] px-4 py-2 text-[var(--np-text-caption)] leading-[var(--np-leading-body)] text-[var(--np-color-muted)] sm:px-7 sm:py-2.5">
+            {campaign.marketplaceLabel}
+          </p>
+        )}
       </div>
     </section>
   );
 }
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default CampaignBanner;

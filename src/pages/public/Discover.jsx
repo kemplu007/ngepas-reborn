@@ -29,7 +29,6 @@ import {
   SlidersHorizontal,
   Star,
   Tag,
-  Truck,
 } from "lucide-react";
 
 import { useCategories } from "../../context/CategoryContext";
@@ -38,12 +37,13 @@ import { useFavoriteContext } from "../../context/FavoritesContext";
 import DiscoverHeader from "../../components/public/DiscoverHeader";
 import SectionHeading from "../../components/ui/SectionHeading";
 import ProductCard from "../../components/discover/ProductCard";
+import TrustStrip from "../../components/discover/TrustStrip";
 import FilterPanel from "../../components/discover/FilterPanel";
-import BottomNavigation from "../../components/navigation/BottomNavigation";
 import CampaignBanner from "../../components/discover/CampaignBanner";
 import CategoryCard from "../../components/discover/CategoryCard";
 import { categoryIconMap, getCategoryIcon } from "../../config/iconMap";
 
+import heroImage from "../../assets/images/hero-bg.png";
 import lampImage from "../../assets/products/lampu-tidur.jpg";
 import shelfImage from "../../assets/products/rak-dinding.jpg";
 import spiceImage from "../../assets/products/rak-bumbu.jpg";
@@ -76,9 +76,13 @@ const discoverCampaign = {
     </>
   ),
   description: "Pilihan lebih ringkas berdasarkan manfaat, kualitas, rating, dan harga.",
-  ctaLabel: "Mulai Cari",
-  image: lampImage,
+  benefits: ["Manfaat lebih jelas", "Rating dan kualitas terbaca", "Harga lebih mudah dibandingkan"],
+  ctaLabel: "Mulai Cari Sekarang",
+  secondaryCtaLabel: "Cara Kerja Ngepas",
+  secondaryCtaHref: "#cara-kerja",
+  image: heroImage,
   imageLabel: "Pilihan yang lebih Ngepas",
+  marketplaceLabel: "Ngepas membantu memilih. Checkout tetap dilakukan di marketplace.",
 };
 
 function toSlug(value = "") {
@@ -120,8 +124,8 @@ function CategoryStrip({ categories, selectedCategory, onSelect }) {
     ? categories.slice(0, 8).map((category) => category.name || category.title)
     : Object.keys(categoryIconMap);
   return (
-    <section className="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-8">
-      <SectionHeading title="Kategori Populer" description="Jalan cepat menuju pilihan yang paling relevan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+    <section id="kategori-populer" className="mx-auto scroll-mt-24 max-w-[var(--np-container-max)] px-[var(--np-gutter-mobile)] py-[var(--np-space-8)] sm:px-[var(--np-gutter-tablet)] sm:py-[var(--np-space-12)] lg:px-[var(--np-gutter-desktop)]">
+      <SectionHeading title="Kategori Populer" description="Jalan cepat menuju pilihan yang paling relevan." action={<Link to="/category" className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-bold text-emerald-700 transition-colors duration-np-fast ease-np-standard hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] focus-visible:ring-offset-2">Selengkapnya <ChevronRight size={15} /></Link>} />
       <div className="flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-4 sm:overflow-visible lg:grid-cols-8">
         {names.map((name) => {
           const Icon = getCategoryIcon(name);
@@ -142,14 +146,10 @@ function CategoryStrip({ categories, selectedCategory, onSelect }) {
   );
 }
 
-function TrustStrip() {
-  return <div className="mt-5 grid gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:grid-cols-3"><div className="flex items-center gap-3 text-xs text-slate-600"><ShieldCheck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Kurasi transparan</strong>Alasan rekomendasi jelas.</span></div><div className="flex items-center gap-3 text-xs text-slate-600"><Truck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Bantu hemat waktu</strong>Pilihan lebih ringkas.</span></div><div className="flex items-center gap-3 text-xs text-slate-600"><BadgeCheck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Bukan checkout</strong>Kamu tetap belanja di marketplace.</span></div></div>;
-}
-
 function TrendingSection({ products, favorites, onFavorite }) {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
-      <SectionHeading eyebrow="Sedang dicari" title="Trending Minggu Ini" description="Pilihan yang sedang banyak dilihat dan dibandingkan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+    <section className="mx-auto max-w-[var(--np-container-max)] px-[var(--np-gutter-mobile)] py-[var(--np-space-8)] sm:px-[var(--np-gutter-tablet)] sm:py-[var(--np-space-12)] lg:px-[var(--np-gutter-desktop)]">
+      <SectionHeading eyebrow="Sedang dicari" title="Trending Minggu Ini" description="Pilihan yang sedang banyak dilihat dan dibandingkan." action={<Link to="/#hasil-produk" className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-bold text-emerald-700 transition-colors duration-np-fast ease-np-standard hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] focus-visible:ring-offset-2">Selengkapnya <ChevronRight size={15} /></Link>} />
       <div className="flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-4 sm:overflow-visible">
         {products.slice(0, 4).map((product) => <ProductCard key={product.slug} product={product} compact favorite={favorites.includes(product.slug)} onFavorite={onFavorite} />)}
       </div>
@@ -159,8 +159,8 @@ function TrendingSection({ products, favorites, onFavorite }) {
 
 function ArticlesSection() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
-      <SectionHeading eyebrow="Biar makin yakin" title="Artikel & Tips" description="Panduan singkat sebelum kamu menentukan pilihan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+    <section id="artikel-tips" className="mx-auto scroll-mt-24 max-w-[var(--np-container-max)] px-[var(--np-gutter-mobile)] py-[var(--np-space-8)] sm:px-[var(--np-gutter-tablet)] sm:py-[var(--np-space-12)] lg:px-[var(--np-gutter-desktop)]">
+      <SectionHeading eyebrow="Biar makin yakin" title="Artikel & Tips" description="Panduan singkat sebelum kamu menentukan pilihan." action={<a href="#artikel-tips" className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-bold text-emerald-700 transition-colors duration-np-fast ease-np-standard hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] focus-visible:ring-offset-2">Selengkapnya <ChevronRight size={15} /></a>} />
       <div className="grid gap-4 sm:grid-cols-3">
         {editorialCards.map((article) => (
           <article key={article.title} className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
@@ -284,11 +284,16 @@ function Discover() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-[var(--np-color-white)] text-[var(--np-color-ink)]">
       <DiscoverHeader query={query} onQueryChange={setQuery} onSubmit={submitSearch} onFilter={openFilters} />
-      <DiscoverHero onSearch={() => { document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" }); }} />
+      <DiscoverHero onSearch={() => {
+        const searchId = window.matchMedia("(min-width: 1024px)").matches ? "discover-search-desktop" : "discover-search";
+        const searchInput = document.getElementById(searchId);
+        searchInput?.focus();
+        searchInput?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }} />
       <CategoryStrip categories={categories} selectedCategory={selectedCategory} onSelect={setSelectedCategory} />
-      <section id="hasil-produk" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-6 sm:px-6 sm:py-10">
+      <section id="hasil-produk" className="mx-auto max-w-[var(--np-container-max)] scroll-mt-24 px-[var(--np-gutter-mobile)] py-[var(--np-space-8)] sm:px-[var(--np-gutter-tablet)] sm:py-[var(--np-space-12)] lg:px-[var(--np-gutter-desktop)]">
         <SectionHeading eyebrow="Kurasi Ngepas" title="Pilihan Ngepas Untukmu" description="Produk pilihan berdasarkan manfaat, rating, dan informasi yang tersedia." action={<button type="button" onClick={() => setShowFilters((open) => !open)} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:border-emerald-200 hover:text-emerald-800"><SlidersHorizontal size={15} /> Filter</button>} />
         <div className="mb-5 flex gap-2 overflow-x-auto pb-1"><button type="button" onClick={() => setSelectedCategory("")} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold ${!selectedCategory ? "bg-emerald-700 text-white" : "bg-slate-100 text-slate-600"}`}>Pilihan Ngepas</button>{["Terbaru", "Promo", "Elektronik", "Rumah"].map((tab) => <button key={tab} type="button" onClick={() => setSelectedCategory(tab === "Rumah" ? tab : "")} className="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">{tab}</button>)}</div>
         <FilterPanel
@@ -324,11 +329,6 @@ function Discover() {
           </nav>
         </div>
       </footer>
-      <BottomNavigation
-        active="home"
-        onSearch={() => document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" })}
-        onAccount={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      />
     </div>
   );
 }

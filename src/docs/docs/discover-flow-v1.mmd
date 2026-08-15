@@ -1,0 +1,21 @@
+flowchart TD
+    A[Discover Home] --> B[Header + Search Row]
+    B --> C[Hero / Value Proposition]
+    C -->|Mulai Cari Sekarang| D[Search Focus]
+    C -->|Cara Kerja Ngepas| E[Cara Kerja Ngepas]
+    B --> F[Kategori Populer]
+    F -->|Pilih kategori| G[Pilihan Ngepas relevan]
+    G --> H[Product Detail]
+    B --> I[Pilihan Ngepas]
+    I --> H
+    I --> J[Trending Minggu Ini]
+    J --> H
+    A --> K[Artikel & Tips]
+    K --> L[Ringkasan Artikel]
+    A --> M[Why Ngepas]
+    M --> N[Trust / Closing]
+    H --> O[Marketplace tujuan]
+    P[Panduan Ngepas] -.-> D
+    P -.-> F
+    P -.-> G
+    P -.-> H

@@ -10,169 +10,181 @@
 
 import {
   Bell,
-  Baby,
   CircleUserRound,
-  Dumbbell,
-  Ellipsis,
-  House,
   Menu,
-  Monitor,
   Search,
+  Scale,
   SlidersHorizontal,
-  Smartphone,
-  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import MobileNavDrawer from "../navigation/MobileNavDrawer";
 
 /*==================================================
- DATA
+ SEARCH FIELD
 ==================================================*/
 
-const headerCategories = [
-  { label: "Elektronik", icon: Smartphone },
-  { label: "Komputer", icon: Monitor },
-  { label: "Rumah", icon: House },
-  { label: "Olahraga", icon: Dumbbell },
-  { label: "Ibu & Anak", icon: Baby },
-  { label: "Lainnya", icon: Ellipsis },
-];
+function DiscoverSearch({ id, query, onQueryChange, onSubmit, onFilter, mobile = false }) {
+  return (
+    <form onSubmit={onSubmit} className="w-full">
+      <div className="relative">
+        <Search
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--np-color-muted)]"
+          size={mobile ? 19 : 18}
+          aria-hidden="true"
+        />
+        <input
+          id={id}
+          value={query}
+          onChange={(event) => onQueryChange(event.target.value)}
+          placeholder={mobile ? "Cari produk..." : "Cari produk, kategori, atau merek..."}
+          aria-label="Cari produk terbaik, kategori, atau merek"
+          className="h-[var(--np-control-height-lg)] w-full rounded-[var(--np-radius-md)] border border-[var(--np-color-border)] bg-[var(--np-color-white)] pl-10 pr-11 text-sm text-[var(--np-color-ink)] outline-none transition-[border-color,box-shadow] duration-np-fast ease-np-standard placeholder:text-[var(--np-color-muted)] focus:border-[var(--np-color-green-700)] focus:ring-4 focus:ring-[var(--np-color-green-100)] motion-reduce:transition-none"
+        />
+        <button
+          type="button"
+          aria-label="Buka filter"
+          onClick={onFilter}
+          className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-[var(--np-radius-sm)] p-2 text-[var(--np-color-muted)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] hover:text-[var(--np-color-green-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
+        >
+          <SlidersHorizontal size={17} aria-hidden="true" />
+        </button>
+      </div>
+    </form>
+  );
+}
 
 /*==================================================
  COMPONENT
 ==================================================*/
 
 function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
+  const menuButtonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSearchSubmit = (event) => {
     event.preventDefault();
     onSubmit();
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 sm:px-6 lg:flex-nowrap lg:gap-5 lg:py-3">
-        <button
-          type="button"
-          aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-          className="order-1 rounded-xl p-2 text-slate-700 transition hover:bg-slate-50 lg:hidden"
-        >
-          {menuOpen ? <X size={21} /> : <Menu size={21} />}
-        </button>
+    <header className="sticky top-0 z-40 border-b border-[var(--np-color-border)] bg-[var(--np-color-white)]">
+      <div className="mx-auto max-w-[var(--np-container-max)] px-[var(--np-gutter-mobile)] sm:px-[var(--np-gutter-tablet)] lg:px-[var(--np-gutter-desktop)]">
+        {/*============================================
+          MOBILE IDENTITY ROW
+        ============================================*/}
+        <div className="grid h-14 grid-cols-[var(--np-touch-target)_1fr_var(--np-touch-target)] items-center gap-2 lg:hidden">
+          <button
+            ref={menuButtonRef}
+            type="button"
+            aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav-drawer"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="flex h-[var(--np-touch-target)] w-[var(--np-touch-target)] items-center justify-center rounded-[var(--np-radius-sm)] text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
+          >
+            <Menu size={22} aria-hidden="true" />
+          </button>
 
-        <Link to="/" className="order-2 mx-auto shrink-0 text-xl font-extrabold tracking-tight text-emerald-800 lg:order-none lg:mx-0 lg:text-2xl">
-          Ngepas<span className="text-amber-400">.</span>
-        </Link>
-
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
-          <Link className="rounded-lg px-2.5 py-2 text-sm font-semibold text-emerald-800" to="/">Discover</Link>
-          <Link className="rounded-lg px-2.5 py-2 text-sm text-slate-600 transition hover:bg-slate-50 hover:text-emerald-800" to="/category">Kategori</Link>
-          <Link className="rounded-lg px-2.5 py-2 text-sm text-slate-600 transition hover:bg-slate-50 hover:text-emerald-800" to="/#why-ngepas">Why Ngepas</Link>
-        </nav>
-
-        <form onSubmit={handleSubmit} className="order-4 basis-full lg:order-none lg:min-w-0 lg:flex-1">
-          <div className="relative mx-auto max-w-2xl">
-            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <input
-              value={query}
-              onChange={(event) => onQueryChange(event.target.value)}
-              placeholder="Cari produk terbaik, kategori, atau merek..."
-              aria-label="Cari produk terbaik, kategori, atau merek"
-              className="h-10 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-11 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50"
-            />
-            <button
-              type="button"
-              aria-label="Buka filter"
-              onClick={onFilter}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-slate-500 transition hover:bg-emerald-50 hover:text-emerald-700"
-            >
-              <SlidersHorizontal size={17} />
-            </button>
-          </div>
-        </form>
-
-        <div className="order-3 ml-auto flex items-center gap-1 lg:order-none">
-          <Link to="/#hasil-produk" className="hidden rounded-xl px-2.5 py-1.5 text-center text-[11px] font-semibold text-slate-700 transition hover:bg-slate-50 lg:block">
-            <span className="block text-base leading-none">⚖</span>
-            Bandingkan
+          <Link
+            to="/"
+            aria-label="Ngepas"
+            className="justify-self-center text-[1.35rem] font-extrabold tracking-tight text-[var(--np-color-green-700)]"
+          >
+            Ngepas<span className="text-[var(--np-color-yellow-500)]">.</span>
           </Link>
-          <div className="relative hidden lg:block">
+
+          <div className="relative justify-self-end">
             <button
               type="button"
               aria-label="Buka notifikasi"
               aria-expanded={notificationOpen}
               onClick={() => setNotificationOpen((open) => !open)}
-              className="relative rounded-xl p-2.5 text-slate-700 transition hover:bg-slate-50"
+              className="relative flex h-[var(--np-touch-target)] w-[var(--np-touch-target)] items-center justify-center rounded-[var(--np-radius-sm)] text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
             >
-              <Bell size={20} />
-              <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-amber-400" />
+              <Bell size={21} aria-hidden="true" />
+              <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--np-color-yellow-500)]" aria-label="Notifikasi baru" />
             </button>
-            {notificationOpen && (
-              <div className="absolute right-0 top-12 w-64 rounded-2xl border border-slate-100 bg-white p-4 shadow-xl">
-                <p className="text-sm font-bold text-slate-900">Notifikasi</p>
-                <p className="mt-2 text-xs leading-relaxed text-slate-500">Update kurasi dan informasi produk akan muncul di sini.</p>
-              </div>
-            )}
           </div>
-          <div className="relative hidden lg:block">
+        </div>
+
+        {/*============================================
+          MOBILE SEARCH ROW
+        ============================================*/}
+        <div className="border-t border-[var(--np-color-border)] py-2 lg:hidden">
+          <DiscoverSearch
+            id="discover-search"
+            query={query}
+            onQueryChange={onQueryChange}
+            onSubmit={handleSearchSubmit}
+            onFilter={onFilter}
+            mobile
+          />
+        </div>
+
+        {/*============================================
+          DESKTOP IDENTITY AND SEARCH ROW
+        ============================================*/}
+        <div className="hidden h-[var(--np-header-desktop-height)] items-center gap-6 lg:flex">
+          <Link to="/" aria-label="Ngepas" className="shrink-0 text-2xl font-extrabold tracking-tight text-[var(--np-color-green-700)]">
+            Ngepas<span className="text-[var(--np-color-yellow-500)]">.</span>
+          </Link>
+
+          <nav className="flex items-center gap-1" aria-label="Navigasi utama">
+            <Link to="/" className="rounded-[var(--np-radius-sm)] px-3 py-2 text-sm font-semibold text-[var(--np-color-green-700)]">Discover</Link>
+            <Link to="/category" className="rounded-[var(--np-radius-sm)] px-3 py-2 text-sm font-medium text-[var(--np-color-muted)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] hover:text-[var(--np-color-green-700)]">Kategori</Link>
+            <Link to="/#why-ngepas" className="rounded-[var(--np-radius-sm)] px-3 py-2 text-sm font-medium text-[var(--np-color-muted)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] hover:text-[var(--np-color-green-700)]">Why Ngepas</Link>
+          </nav>
+
+          <div className="min-w-0 flex-1">
+            <DiscoverSearch
+              id="discover-search-desktop"
+              query={query}
+              onQueryChange={onQueryChange}
+              onSubmit={handleSearchSubmit}
+              onFilter={onFilter}
+            />
+          </div>
+
+          <div className="relative flex items-center gap-1">
+            <Link to="/#hasil-produk" aria-label="Bandingkan pilihan" className="rounded-[var(--np-radius-sm)] p-2.5 text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none">
+              <Scale size={22} aria-hidden="true" />
+            </Link>
             <button
               type="button"
               aria-label="Buka akun"
               aria-expanded={accountOpen}
               onClick={() => setAccountOpen((open) => !open)}
-              className="rounded-xl p-2.5 text-slate-700 transition hover:bg-slate-50"
+              className="rounded-[var(--np-radius-sm)] p-2.5 text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)] motion-reduce:transition-none"
             >
-              <CircleUserRound size={21} />
+              <CircleUserRound size={22} aria-hidden="true" />
             </button>
             {accountOpen && (
-              <div className="absolute right-0 top-12 w-48 rounded-2xl border border-slate-100 bg-white p-3 shadow-xl">
-                <p className="px-2 py-2 text-sm font-bold text-slate-900">Akun saya</p>
-                <p className="px-2 pb-2 text-xs text-slate-500">Fitur akun publik akan hadir pada fase berikutnya.</p>
+              <div className="absolute right-0 top-12 z-50 w-48 rounded-[var(--np-radius-md)] border border-[var(--np-color-border)] bg-[var(--np-color-white)] p-3 shadow-[var(--np-shadow-md)]">
+                <p className="px-2 py-2 text-sm font-bold text-[var(--np-color-ink)]">Akun</p>
+                <p className="px-2 pb-2 text-xs leading-relaxed text-[var(--np-color-muted)]">Akun publik belum menjadi bagian dari scope Ngepas v1.</p>
               </div>
             )}
           </div>
-          <button type="button" aria-label="Buka notifikasi" aria-expanded={notificationOpen} className="relative rounded-xl p-2 text-slate-700 lg:hidden" onClick={() => setNotificationOpen((open) => !open)}>
-            <Bell size={20} />
-            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-amber-400" />
-          </button>
         </div>
-      </div>
-
-      <div className="hidden border-t border-slate-50 lg:block">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-6 py-2" aria-label="Kategori cepat">
-          {headerCategories.map(({ label, icon: Icon }) => (
-            <Link key={label} to={`/category?name=${encodeURIComponent(label)}`} className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-emerald-50 hover:text-emerald-800">
-              <Icon size={15} strokeWidth={1.7} />
-              <span className="truncate">{label}</span>
-            </Link>
-          ))}
-        </nav>
       </div>
 
       {notificationOpen && (
-        <div className="border-t border-slate-100 bg-white px-4 py-3 lg:hidden">
-          <div className="mx-auto max-w-7xl rounded-2xl bg-emerald-50/70 p-4">
-            <p className="text-sm font-bold text-slate-900">Notifikasi</p>
-            <p className="mt-1 text-xs leading-relaxed text-slate-500">Update kurasi dan informasi produk akan muncul di sini.</p>
+        <div className="border-t border-[var(--np-color-border)] bg-[var(--np-color-white)] px-[var(--np-gutter-mobile)] py-3 lg:hidden">
+          <div className="mx-auto max-w-[var(--np-container-max)] rounded-[var(--np-radius-md)] bg-[var(--np-color-surface-muted)] p-4">
+            <p className="text-sm font-bold text-[var(--np-color-ink)]">Notifikasi</p>
+            <p className="mt-1 text-xs leading-relaxed text-[var(--np-color-muted)]">Update kurasi dan informasi produk akan muncul di sini.</p>
           </div>
         </div>
       )}
 
-      {menuOpen && (
-        <div className="border-t border-slate-100 bg-white px-4 py-3 lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1">
-            <Link to="/" className="rounded-xl px-3 py-2.5 text-sm font-semibold text-emerald-800">Discover</Link>
-            <Link to="/category" className="rounded-xl px-3 py-2.5 text-sm text-slate-600">Kategori</Link>
-            <Link to="/#hasil-produk" className="rounded-xl px-3 py-2.5 text-sm text-slate-600">Bandingkan pilihan</Link>
-            <Link to="/#why-ngepas" className="rounded-xl px-3 py-2.5 text-sm text-slate-600">Why Ngepas</Link>
-          </div>
-        </div>
-      )}
+      <MobileNavDrawer
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        triggerRef={menuButtonRef}
+      />
     </header>
   );
 }

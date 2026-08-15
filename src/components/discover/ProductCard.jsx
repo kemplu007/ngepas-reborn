@@ -20,9 +20,9 @@ function ProductCard({
 
   return (
     <article
-      className={`group min-w-[var(--np-card-min-width)] overflow-hidden rounded-np-lg border border-[var(--np-color-border)] bg-[var(--np-color-white)] shadow-[var(--np-shadow-sm)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[var(--np-shadow-md)] ${compact ? "sm:min-w-[11.875rem]" : "sm:min-w-0"}`}
+      className={`group min-w-[var(--np-card-min-width)] overflow-hidden rounded-np-sm border border-[var(--np-color-border)] bg-[var(--np-color-white)] shadow-[var(--np-shadow-none)] transition-[border-color,box-shadow,transform] duration-np-fast ease-np-standard hover:-translate-y-0.5 hover:border-[var(--np-color-green-200)] hover:shadow-[var(--np-shadow-sm)] ${compact ? "sm:min-w-[11.875rem]" : "sm:min-w-0"}`}
     >
-      <div className="relative aspect-[1.12] overflow-hidden bg-[var(--np-color-surface-muted)]">
+      <div className="relative aspect-[1.28] overflow-hidden bg-[var(--np-color-surface-muted)]">
         <img
           src={product.image}
           alt={product.name}
@@ -45,7 +45,7 @@ function ProductCard({
           </IconButton>
         )}
       </div>
-      <div className="space-y-2 p-[var(--np-space-4)]">
+      <div className="space-y-2 p-[var(--np-space-3)] sm:p-[var(--np-space-4)]">
         <p className="text-[var(--np-text-caption)] font-medium text-[var(--np-color-subtle)]">
           {product.category}
         </p>
@@ -63,9 +63,9 @@ function ProductCard({
         </p>
         <Link
           to={productHref}
-          className="mt-2 flex min-h-[var(--np-control-height-md)] items-center justify-center gap-1 rounded-np-md bg-[var(--np-color-green-700)] px-[var(--np-space-3)] text-[var(--np-text-caption)] font-semibold text-white transition hover:bg-[var(--np-color-green-800)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-500)] focus-visible:ring-offset-2"
+          className="mt-2 flex min-h-[var(--np-control-height-md)] items-center justify-between gap-2 rounded-np-xs bg-[var(--np-color-green-700)] px-[var(--np-space-3)] text-[var(--np-text-caption)] font-semibold text-white transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-green-800)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-500)] focus-visible:ring-offset-2 motion-reduce:transition-none"
         >
-          Lihat Detail <ArrowRight size={14} aria-hidden="true" />
+          <span className="whitespace-nowrap">Lihat detail</span><ArrowRight size={14} aria-hidden="true" />
         </Link>
       </div>
     </article>
