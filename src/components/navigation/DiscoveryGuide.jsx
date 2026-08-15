@@ -38,8 +38,8 @@ function DiscoveryGuide({ activeStep = "start" }) {
   };
 
   return (
-    <div className="fixed inset-x-4 bottom-3 z-30 lg:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-      <div className="mx-auto max-w-md overflow-hidden rounded-np-pill border border-[var(--np-color-border)] bg-[var(--np-color-white)]/95 shadow-[var(--np-shadow-lg)] backdrop-blur">
+    <div className="fixed bottom-3 left-1/2 z-30 w-[min(calc(100vw-2rem),20rem)] -translate-x-1/2 lg:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+      <div className="overflow-hidden rounded-np-pill border border-[var(--np-color-border)] bg-[var(--np-color-white)]/95 shadow-[var(--np-shadow-lg)] backdrop-blur">
         <button
           type="button"
           aria-expanded={expanded}
@@ -59,7 +59,7 @@ function DiscoveryGuide({ activeStep = "start" }) {
             </span>
           </span>
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--np-color-canvas)] text-[var(--np-color-ink)]">
-            {expanded ? <ChevronDown size={17} aria-hidden="true" /> : <ChevronUp size={17} aria-hidden="true" />}
+            {expanded ? <ChevronUp size={17} aria-hidden="true" /> : <ChevronDown size={17} aria-hidden="true" />}
           </span>
         </button>
 
