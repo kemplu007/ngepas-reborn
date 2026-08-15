@@ -37,6 +37,8 @@
 
 `CategoryForm` dan `CategoryPage` menjadi proof-of-system lintas admin/public untuk kontrak `SelectField` berbasis `options` array. CategoryForm mempertahankan ukuran field `md`, sedangkan CategoryPage memakai kontrak yang sama pada sorting; payload, filter state, query params, dan route tetap dipertahankan.
 
+`ProductDetail` public sedang dimigrasikan pada branch `feat/public-product-detail-foundation-v1`. Slice ini memusatkan komposisi ke `Section`, `Card`, `Badge`, `Button`, `SectionHeading`, dan Discover `ProductCard`; gallery state, `useProducts`, `useParams`, related-product filter, route `/product/:slug`, serta affiliate link tetap dipertahankan. Tidak ada endpoint slug baru, compare backend, favorite state baru, auth, atau perubahan data contract pada slice ini.
+
 ## Contract tokens
 
 Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visual baru tidak boleh dibuat dengan hex, spacing acak, radius acak, duration hardcoded, atau raw semantic color. Motion interaktif memakai token `duration-np-fast`/`duration-np-normal` dan harus aman terhadap `prefers-reduced-motion` melalui utility global.
