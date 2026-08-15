@@ -39,7 +39,6 @@ import DiscoverHeader from "../../components/public/DiscoverHeader";
 import SectionHeading from "../../components/ui/SectionHeading";
 import ProductCard from "../../components/discover/ProductCard";
 import FilterPanel from "../../components/discover/FilterPanel";
-import DiscoveryGuide from "../../components/navigation/DiscoveryGuide";
 import CampaignBanner from "../../components/discover/CampaignBanner";
 import CategoryCard from "../../components/discover/CategoryCard";
 import { categoryIconMap, getCategoryIcon } from "../../config/iconMap";
@@ -292,7 +291,7 @@ function Discover() {
   }
 
   return (
-    <div className="min-h-screen bg-white pb-32 text-slate-900 lg:pb-0">
+    <div className="min-h-screen bg-white text-slate-900">
       <DiscoverHeader query={query} onQueryChange={setQuery} onSubmit={submitSearch} onFilter={openFilters} />
       <DiscoverHero onSearch={() => {
         const searchInput = document.getElementById("discover-search");
@@ -336,7 +335,6 @@ function Discover() {
           </nav>
         </div>
       </footer>
-      <DiscoveryGuide activeStep="start" />
     </div>
   );
 }
