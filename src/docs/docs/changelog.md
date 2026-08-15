@@ -17,8 +17,10 @@ FRONTEND FOUNDATION
 ✓ `/admin/login` menjadi proof-of-system pertama untuk `Input`, `FormField`, dan `ui/Button`
 ✓ `ConfirmDialog` memakai `Dialog` dan `ui/Button` tanpa mengubah callback delete atau auth flow
 ✓ Dialog memiliki Escape, click-outside, focus return, body lock, semantic labeling, dan reduced-motion-compatible surface motion
+✓ `SelectField` dan `CheckboxField` ditambahkan sebagai primitive form reusable lintas public/admin
+✓ `CategoryForm` dimigrasikan ke `Container`, `Card`, `Input`, `FormField`, `SelectField`, `CheckboxField`, dan `ui/Button` tanpa mengubah payload, service, auth, atau redirect
 
-VALIDATION: `git diff --check` + `npx vite build` PASSED (1838 modules)
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1841 modules)
 
 STATUS: FE FOUNDATION BASELINE REVIEW
 

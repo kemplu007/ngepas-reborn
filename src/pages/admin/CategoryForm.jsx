@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 
 /* Router */
 import { useNavigate, useParams } from "react-router-dom";
+
 /* Data */
 import rooms from "../../data/rooms";
 
@@ -22,6 +23,15 @@ import { useCategories } from "../../context/CategoryContext";
 /* Toast */
 import { useToast } from "../../context/ToastContext";
 
+/* UI Foundation */
+import Button from "../../components/ui/Button";
+import Card from "../../components/ui/Card";
+import CheckboxField from "../../components/ui/CheckboxField";
+import Container from "../../components/ui/Container";
+import FormField from "../../components/ui/FormField";
+import Input from "../../components/ui/Input";
+import SelectField from "../../components/ui/SelectField";
+
 /*==================================================
  COMPONENT
 ==================================================*/
@@ -29,7 +39,7 @@ import { useToast } from "../../context/ToastContext";
 function CategoryForm() {
   /*==================================================
    HOOKS
-==================================================*/
+  ==================================================*/
 
   const navigate = useNavigate();
 
@@ -39,7 +49,7 @@ function CategoryForm() {
 
   /*==================================================
    STATE
-==================================================*/
+  ==================================================*/
 
   const [form, setForm] = useState({
     name: "",
@@ -50,8 +60,8 @@ function CategoryForm() {
   });
 
   /*==================================================
- EDIT MODE
-==================================================*/
+   EDIT MODE
+  ==================================================*/
 
   useEffect(() => {
     if (!id || !categories) return;
@@ -68,9 +78,10 @@ function CategoryForm() {
       });
     }
   }, [id, categories]);
+
   /*==================================================
    HELPERS
-==================================================*/
+  ==================================================*/
 
   /* Auto Slug */
 
@@ -78,7 +89,7 @@ function CategoryForm() {
 
   /*==================================================
    HANDLERS
-==================================================*/
+  ==================================================*/
 
   /* Handle Change */
 
@@ -105,6 +116,7 @@ function CategoryForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       if (id) {
         await editCategory(id, form);
@@ -113,6 +125,7 @@ function CategoryForm() {
         await addCategory(form);
         toast("Kategori baru berhasil ditambahkan", "success");
       }
+
       navigate("/admin/categories");
     } catch (err) {
       toast(err.message || "Gagal menyimpan kategori", "error");
@@ -121,110 +134,116 @@ function CategoryForm() {
 
   /*==================================================
    RENDER
-==================================================*/
+  ==================================================*/
 
   return (
-    <section className="p-6">
+    <Container className="py-[var(--np-space-8)] lg:py-[var(--np-space-12)]">
       {/* Header */}
 
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">
+      <header className="mb-[var(--np-space-6)] max-w-[var(--np-layout-container)]">
+        <p className="mb-[var(--np-space-2)] text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
+          Manajemen kategori
+        </p>
+
+        <h1 className="text-[var(--np-text-h2)] font-semibold text-[var(--np-color-text-primary)]">
           {id ? "Edit Kategori" : "Tambah Kategori"}
         </h1>
 
-        <p className="text-gray-500 mt-2">
+        <p className="mt-[var(--np-space-2)] text-[var(--np-text-body)] text-[var(--np-color-text-secondary)]">
           Tambahkan kategori baru ke dalam sistem Ngepas.
         </p>
-      </div>
+      </header>
 
       {/* Form */}
 
-      <form onSubmit={handleSubmit} className="space-y-5 max-w-xl">
-        {/* Name */}
+      <Card as="form" onSubmit={handleSubmit} className="max-w-[var(--np-layout-container)] space-y-[var(--np-space-5)]">
+        <FormField label="Nama kategori" htmlFor="category-name" required>
+          <Input
+            id="category-name"
+            type="text"
+            name="name"
+            placeholder="Contoh: Kamar Tidur"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+        </FormField>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Nama Kategori"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-3"
-          required
-        />
-
-        {/* Slug */}
-
-        <input
-          type="text"
-          name="slug"
-          placeholder="Slug"
-          value={form.slug}
-          readOnly
-          className="w-full border rounded-lg p-3 bg-gray-100"
-        />
-
-        {/* Room */}
-
-        <select
-          name="room"
-          value={form.room}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-3"
-          required
+        <FormField
+          label="Slug"
+          htmlFor="category-slug"
+          hint="Slug dibuat otomatis dari nama kategori."
         >
-          <option value="">Pilih Ruangan</option>
+          <Input
+            id="category-slug"
+            type="text"
+            name="slug"
+            placeholder="kamar-tidur"
+            value={form.slug}
+            readOnly
+            className="cursor-not-allowed bg-[var(--np-color-surface-muted)]"
+          />
+        </FormField>
 
-          {rooms.map((room) => (
-            <option key={room.id} value={room.slug}>
-              {room.name}
-            </option>
-          ))}
-        </select>
+        <FormField label="Ruangan" htmlFor="category-room" required>
+          <SelectField
+            id="category-room"
+            name="room"
+            value={form.room}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Pilih ruangan</option>
 
-        {/* Icon */}
+            {rooms.map((room) => (
+              <option key={room.id} value={room.slug}>
+                {room.name}
+              </option>
+            ))}
+          </SelectField>
+        </FormField>
 
-        <input
-          type="text"
-          name="icon"
-          placeholder="Icon (contoh: bed)"
-          value={form.icon}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-3"
-        />
-
-        {/* Status */}
-
-        <label className="flex items-center gap-3">
-          <input
-            type="checkbox"
-            name="status"
-            checked={form.status}
+        <FormField
+          label="Icon"
+          htmlFor="category-icon"
+          hint="Gunakan nama icon yang sudah terdaftar di icon registry."
+        >
+          <Input
+            id="category-icon"
+            type="text"
+            name="icon"
+            placeholder="Contoh: bed"
+            value={form.icon}
             onChange={handleChange}
           />
+        </FormField>
 
-          <span>Aktif</span>
-        </label>
+        <CheckboxField
+          id="category-status"
+          name="status"
+          label="Kategori aktif"
+          hint="Kategori aktif dapat muncul pada area yang mengonsumsi data kategori."
+          checked={form.status}
+          onChange={handleChange}
+        />
 
         {/* Actions */}
 
-        <div className="flex items-center gap-3 pt-4">
-          <button
+        <div className="flex flex-col-reverse gap-[var(--np-space-3)] border-t border-[var(--np-color-border)] pt-[var(--np-space-5)] sm:flex-row sm:justify-end">
+          <Button
             type="button"
+            variant="secondary"
             onClick={() => navigate("/admin/categories")}
-            className="px-5 py-3 border rounded-lg hover:bg-gray-100"
           >
             Batal
-          </button>
+          </Button>
 
-          <button
-            type="submit"
-            className="px-5 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700"
-          >
+          <Button type="submit">
             {id ? "Update" : "Simpan"}
-          </button>
+          </Button>
         </div>
-      </form>
-    </section>
+      </Card>
+    </Container>
   );
 }
 
