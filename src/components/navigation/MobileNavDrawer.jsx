@@ -84,7 +84,7 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
         role="dialog"
         aria-modal="true"
         aria-label="Menu navigasi mobile"
-        className={`np-motion-surface relative flex h-full max-h-[100dvh] w-[min(80vw,320px)] flex-col overflow-y-auto overscroll-contain border-r border-[var(--np-color-border)] bg-[var(--np-color-white)] px-3 pb-5 pt-3 shadow-[var(--np-shadow-lg)] ${open ? "translate-x-0" : "-translate-x-full"}`}
+        className={`np-motion-surface relative flex h-full max-h-[100dvh] w-[min(58vw,280px)] flex-col overflow-y-auto overscroll-contain border-r border-[var(--np-color-border)] bg-[var(--np-color-white)] px-3 pb-5 pt-3 shadow-[var(--np-shadow-lg)] ${open ? "translate-x-0" : "-translate-x-full"}`}
         data-motion-state={open ? "open" : "closed"}
       >
         <div className="flex items-center justify-between border-b border-[var(--np-color-border)] pb-3">
