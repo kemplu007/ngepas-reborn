@@ -4,6 +4,10 @@
  Module  : UI Foundation
 ==================================================*/
 
+/*==================================================
+ VARIANT CONTRACT
+==================================================*/
+
 const variantClasses = {
   primary:
     "bg-[var(--np-color-green-100)] text-[var(--np-color-green-700)]",
@@ -11,8 +15,13 @@ const variantClasses = {
     "bg-[var(--np-color-yellow-100)] text-[var(--np-color-yellow-700)]",
   neutral:
     "bg-[var(--np-color-neutral-100)] text-[var(--np-color-muted)]",
-  danger: "bg-red-50 text-red-700",
+  danger:
+    "bg-[var(--np-color-danger-soft)] text-[var(--np-color-danger)]",
 };
+
+/*==================================================
+ COMPONENT
+==================================================*/
 
 function Badge({ children, variant = "primary", className = "" }) {
   return (
@@ -23,5 +32,9 @@ function Badge({ children, variant = "primary", className = "" }) {
     </span>
   );
 }
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default Badge;

@@ -3,6 +3,27 @@
 # CHANGELOG
 # ==================================================
 
+## Unreleased — FE Foundation Baseline v1
+
+Release Date: 2026-08-16
+
+==================================================
+FRONTEND FOUNDATION
+==================================================
+
+✓ `src/components/ui/Button.jsx` dikunci sebagai authority visual tunggal; `common/Button.jsx` menjadi compatibility wrapper
+✓ `Container`, `IconButton`, dan `Badge` diselaraskan ke semantic tokens dan motion tokens
+✓ `Input`, `FormField`, `Card`, dan `Dialog` ditambahkan sebagai primitive reusable lintas public/admin
+✓ `/admin/login` menjadi proof-of-system pertama untuk `Input`, `FormField`, dan `ui/Button`
+✓ `ConfirmDialog` memakai `Dialog` dan `ui/Button` tanpa mengubah callback delete atau auth flow
+✓ Dialog memiliki Escape, click-outside, focus return, body lock, semantic labeling, dan reduced-motion-compatible surface motion
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1838 modules)
+
+STATUS: FE FOUNDATION BASELINE REVIEW
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
