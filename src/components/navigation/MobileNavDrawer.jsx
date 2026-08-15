@@ -8,7 +8,7 @@
  IMPORTS
 ==================================================*/
 
-import { ArrowRight, House, LayoutGrid, Scale, X } from "lucide-react";
+import { BookOpen, House, Info, LayoutGrid, Lightbulb, ListChecks, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
@@ -18,10 +18,11 @@ import { Link } from "react-router-dom";
 ==================================================*/
 
 const navigationItems = [
-  { key: "home", label: "Discover", description: "Temukan pilihan yang lebih pas", icon: House, href: "/" },
+  { key: "discover", label: "Discover", description: "Kembali ke pilihan kurasi utama", icon: House, href: "/" },
   { key: "category", label: "Kategori", description: "Jelajahi kebutuhan berdasarkan kategori", icon: LayoutGrid, href: "/category" },
-  { key: "compare", label: "Bandingkan pilihan", description: "Lihat produk yang sedang kamu pertimbangkan", icon: Scale, href: "/#hasil-produk" },
-  { key: "why", label: "Why Ngepas", description: "Kenali cara Ngepas membantu keputusanmu", icon: ArrowRight, href: "/#why-ngepas" },
+  { key: "how-it-works", label: "Cara Kerja Ngepas", description: "Lihat langkah dari kebutuhan ke pilihan", icon: ListChecks, href: "/#cara-kerja" },
+  { key: "why", label: "Why Ngepas", description: "Kenali prinsip kurasi dan kepercayaan kami", icon: Lightbulb, href: "/#why-ngepas" },
+  { key: "articles", label: "Artikel & Tips", description: "Baca panduan sebelum menentukan pilihan", icon: BookOpen, href: "/#artikel-tips" },
 ];
 
 /*==================================================
@@ -121,7 +122,7 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
         </nav>
 
         <div className="border-t border-[var(--np-color-border)] pt-4 text-xs leading-relaxed text-[var(--np-color-muted)]">
-          <p>Belum ada akun publik. Kamu tetap bisa mulai dari pencarian dan pilihan kurasi.</p>
+          <p><Info size={14} className="mr-1 inline-block align-[-2px] text-[var(--np-color-green-700)]" /> Semua menu di sini mengarah ke fitur dan informasi yang sudah tersedia.</p>
         </div>
       </aside>
     </div>,

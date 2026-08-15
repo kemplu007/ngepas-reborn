@@ -82,6 +82,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
           <div className="relative mx-auto max-w-2xl">
             <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input
+              id="discover-search"
               value={query}
               onChange={(event) => onQueryChange(event.target.value)}
               placeholder="Cari produk terbaik, kategori, atau merek..."

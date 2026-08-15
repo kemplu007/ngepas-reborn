@@ -39,7 +39,7 @@ import DiscoverHeader from "../../components/public/DiscoverHeader";
 import SectionHeading from "../../components/ui/SectionHeading";
 import ProductCard from "../../components/discover/ProductCard";
 import FilterPanel from "../../components/discover/FilterPanel";
-import BottomNavigation from "../../components/navigation/BottomNavigation";
+import DiscoveryGuide from "../../components/navigation/DiscoveryGuide";
 import CampaignBanner from "../../components/discover/CampaignBanner";
 import CategoryCard from "../../components/discover/CategoryCard";
 import { categoryIconMap, getCategoryIcon } from "../../config/iconMap";
@@ -120,7 +120,7 @@ function CategoryStrip({ categories, selectedCategory, onSelect }) {
     ? categories.slice(0, 8).map((category) => category.name || category.title)
     : Object.keys(categoryIconMap);
   return (
-    <section className="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-8">
+    <section id="kategori-populer" className="mx-auto scroll-mt-24 max-w-7xl px-4 py-5 sm:px-6 sm:py-8">
       <SectionHeading title="Kategori Populer" description="Jalan cepat menuju pilihan yang paling relevan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
       <div className="flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-4 sm:overflow-visible lg:grid-cols-8">
         {names.map((name) => {
@@ -159,7 +159,7 @@ function TrendingSection({ products, favorites, onFavorite }) {
 
 function ArticlesSection() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
+    <section id="artikel-tips" className="mx-auto scroll-mt-24 max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
       <SectionHeading eyebrow="Biar makin yakin" title="Artikel & Tips" description="Panduan singkat sebelum kamu menentukan pilihan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
       <div className="grid gap-4 sm:grid-cols-3">
         {editorialCards.map((article) => (
@@ -284,7 +284,7 @@ function Discover() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-white pb-32 text-slate-900 lg:pb-0">
       <DiscoverHeader query={query} onQueryChange={setQuery} onSubmit={submitSearch} onFilter={openFilters} />
       <DiscoverHero onSearch={() => { document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" }); }} />
       <CategoryStrip categories={categories} selectedCategory={selectedCategory} onSelect={setSelectedCategory} />
@@ -324,11 +324,7 @@ function Discover() {
           </nav>
         </div>
       </footer>
-      <BottomNavigation
-        active="home"
-        onSearch={() => document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" })}
-        onAccount={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      />
+      <DiscoveryGuide activeStep="start" />
     </div>
   );
 }
