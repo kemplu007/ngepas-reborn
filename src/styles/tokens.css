@@ -48,7 +48,9 @@
   --np-color-green-500: #22a06b;
   --np-color-green-400: #50ba86;
   --np-color-green-300: #98dbb5;
+  --np-color-green-200: #c5ecd4;
   --np-color-green-100: #e6f5ec;
+  --np-color-yellow-700: #b77900;
   --np-color-yellow-600: #e6a900;
   --np-color-yellow-500: #f2b705;
   --np-color-yellow-400: #f6c542;
@@ -59,6 +61,7 @@
   --np-color-ink-soft: #334155;
   --np-color-muted: #64748b;
   --np-color-subtle: #94a3b8;
+  --np-color-neutral-100: #f1f5f9;
   --np-color-border-strong: #cbd5e1;
   --np-color-border: #e2e8e5;
   --np-color-surface-muted: #f3f7f5;
@@ -88,6 +91,7 @@
 
   /* Layout and component contracts. */
   --np-container-max: 75rem;
+  --np-layout-container: var(--np-container-max);
   --np-gutter-mobile: 1rem;
   --np-gutter-tablet: 1.5rem;
   --np-gutter-desktop: 2rem;

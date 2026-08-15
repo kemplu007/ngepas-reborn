@@ -37,6 +37,10 @@ import { useCategories } from "../../context/CategoryContext";
 import { useProducts } from "../../context/ProductContext";
 import { useFavoriteContext } from "../../context/FavoritesContext";
 import DiscoverHeader from "../../components/public/DiscoverHeader";
+import SectionHeading from "../../components/ui/SectionHeading";
+import ProductCard from "../../components/discover/ProductCard";
+import FilterPanel from "../../components/discover/FilterPanel";
+import BottomNavigation from "../../components/navigation/BottomNavigation";
 
 import lampImage from "../../assets/products/lampu-tidur.jpg";
 import shelfImage from "../../assets/products/rak-dinding.jpg";
@@ -100,19 +104,6 @@ function normalizeProduct(product) {
 /*==================================================
  SMALL COMPONENTS
 ==================================================*/
-
-function SectionHeading({ eyebrow, title, description, action }) {
-  return (
-    <div className="mb-5 flex items-end justify-between gap-4">
-      <div>
-        {eyebrow && <p className="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">{eyebrow}</p>}
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-950 sm:text-2xl">{title}</h2>
-        {description && <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-500">{description}</p>}
-      </div>
-      {action}
-    </div>
-  );
-}
 
 function DiscoverHero({ onSearch }) {
   return (
@@ -186,28 +177,6 @@ function CategoryStrip({ categories, selectedCategory, onSelect }) {
       </div>
       <div className="mt-4 flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm text-slate-600"><BadgeCheck size={19} className="text-emerald-600" /> Pilih kategori untuk melihat rekomendasi yang lebih relevan.</div>
     </section>
-  );
-}
-
-function ProductCard({ product, favorite, onFavorite, compact = false }) {
-  return (
-    <article className={`group min-w-[226px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:min-w-0 ${compact ? "sm:min-w-[190px]" : ""}`}>
-      <div className="relative aspect-[1.12] overflow-hidden bg-slate-50">
-        <img src={product.image} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-        <span className="absolute left-2.5 top-2.5 rounded-md bg-emerald-700 px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-white">{product.badge}</span>
-        <button type="button" aria-label={favorite ? "Hapus dari favorite" : "Simpan ke favorite"} onClick={() => onFavorite(product.slug)} className="absolute right-2.5 top-2.5 rounded-full bg-white/90 p-2 text-slate-600 shadow-sm transition hover:text-rose-500">
-          <Heart size={15} className={favorite ? "fill-rose-500 text-rose-500" : ""} />
-        </button>
-      </div>
-      <div className="space-y-2 p-3.5">
-        <p className="text-[10px] font-semibold text-slate-400">{product.category}</p>
-        <h3 className="line-clamp-2 min-h-10 text-[13px] font-bold leading-5 text-slate-900">{product.name}</h3>
-        <div className="flex items-center gap-1 text-[11px] text-slate-500"><Star size={13} className="fill-amber-400 text-amber-400" /> <span className="font-semibold text-slate-700">{product.rating}</span> <span>({product.reviewCount})</span></div>
-        <p className="text-base font-extrabold text-slate-950">{formatPrice(product.price)}</p>
-        <p className="flex items-center gap-1 text-[10px] font-medium text-slate-400"><Tag size={11} /> {product.marketplace}</p>
-        <Link to={`/discover/${product.slug}`} className="mt-2 flex items-center justify-center gap-1 rounded-xl bg-emerald-700 px-3 py-2 text-xs font-bold text-white transition hover:bg-emerald-800">Lihat Detail <ArrowRight size={14} /></Link>
-      </div>
-    </article>
   );
 }
 
@@ -360,7 +329,17 @@ function Discover() {
       <section id="hasil-produk" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-6 sm:px-6 sm:py-10">
         <SectionHeading eyebrow="Kurasi Ngepas" title="Pilihan Ngepas Untukmu" description="Produk pilihan berdasarkan manfaat, rating, dan informasi yang tersedia." action={<button type="button" onClick={() => setShowFilters((open) => !open)} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:border-emerald-200 hover:text-emerald-800"><SlidersHorizontal size={15} /> Filter</button>} />
         <div className="mb-5 flex gap-2 overflow-x-auto pb-1"><button type="button" onClick={() => setSelectedCategory("")} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold ${!selectedCategory ? "bg-emerald-700 text-white" : "bg-slate-100 text-slate-600"}`}>Pilihan Ngepas</button>{["Terbaru", "Promo", "Elektronik", "Rumah"].map((tab) => <button key={tab} type="button" onClick={() => setSelectedCategory(tab === "Rumah" ? tab : "")} className="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">{tab}</button>)}</div>
-        {showFilters && <div className="mb-5 grid gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4 sm:grid-cols-3"><label className="text-xs font-bold text-slate-700">Kategori<select value={selectedCategory} onChange={(event) => setSelectedCategory(event.target.value)} className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-normal outline-none focus:border-emerald-500"><option value="">Semua kategori</option>{Array.from(new Set(catalog.map((product) => product.category))).map((category) => <option key={category} value={category}>{category}</option>)}</select></label><label className="text-xs font-bold text-slate-700">Rating minimum<select className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-normal outline-none focus:border-emerald-500"><option>Semua rating</option><option>4 ke atas</option><option>4.5 ke atas</option></select></label><button type="button" onClick={() => { setSelectedCategory(""); setSubmittedQuery(""); setQuery(""); }} className="self-end rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:border-emerald-200">Reset filter</button></div>}
+        <FilterPanel
+          open={showFilters}
+          category={selectedCategory}
+          categories={Array.from(new Set(catalog.map((product) => product.category)))}
+          onCategoryChange={setSelectedCategory}
+          onReset={() => {
+            setSelectedCategory("");
+            setSubmittedQuery("");
+            setQuery("");
+          }}
+        />
         {productsLoading && <div className="mb-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-500">Menyiapkan pilihan dari katalog...</div>}
         {submittedQuery && <div className="mb-4 flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm"><span>Hasil untuk <strong>“{submittedQuery}”</strong></span><button type="button" onClick={() => { setSubmittedQuery(""); setQuery(""); }} className="font-bold text-emerald-700">Hapus</button></div>}
         {visibleProducts.length ? <div className="flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4">{visibleProducts.map((product) => <ProductCard key={product.slug} product={product} favorite={favorites.includes(product.slug)} onFavorite={toggleFavorite} />)}</div> : <div className="rounded-2xl border border-dashed border-slate-200 p-10 text-center"><Search className="mx-auto text-slate-300" size={30} /><p className="mt-3 font-bold text-slate-800">Belum ada produk yang cocok</p><p className="mt-1 text-sm text-slate-500">Coba kata kunci atau kategori lain.</p></div>}
@@ -383,7 +362,11 @@ function Discover() {
           </nav>
         </div>
       </footer>
-      <div className="fixed bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1 rounded-2xl border border-slate-200 bg-white/95 p-1.5 shadow-xl backdrop-blur lg:hidden"><Link to="/" className="flex min-w-14 flex-col items-center gap-1 rounded-xl bg-emerald-50 px-2 py-1.5 text-[10px] font-bold text-emerald-800"><Home size={16} />Home</Link><button type="button" onClick={() => document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" })} className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><Search size={16} />Cari</button><Link to="/category" className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><LayoutGrid size={16} />Kategori</Link><Link to="/#hasil-produk" className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><Scale size={16} />Compare</Link><button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><CircleUserRound size={16} />Akun</button></div>
+      <BottomNavigation
+        active="home"
+        onSearch={() => document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" })}
+        onAccount={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      />
     </div>
   );
 }
