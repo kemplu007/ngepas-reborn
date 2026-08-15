@@ -69,7 +69,12 @@ const editorialCards = [
 const discoverCampaign = {
   id: "discover-value",
   eyebrow: "Kurasi yang membantu keputusan",
-  title: "Cari barang bagus itu susah. Biar Ngepas yang pilihin.",
+  title: (
+    <>
+      Cari barang bagus itu susah. Biar{" "}
+      <span className="text-[var(--np-color-green-700)]">Ngepas</span> yang pilihin.
+    </>
+  ),
   description: "Pilihan lebih ringkas berdasarkan manfaat, kualitas, rating, dan harga.",
   ctaLabel: "Mulai Cari",
   image: lampImage,
