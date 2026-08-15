@@ -55,3 +55,9 @@ Compare menerima dua atau tiga produk dan menampilkan chip produk terpilih, tabe
 Kesimpulan: vertical slice visual dapat direview, dengan satu blocker lingkungan yang diketahui: backend lokal belum aktif saat preview.
 
 ---
+
+## Production verification — 2026-08-15
+
+Setelah PR #2 di-merge ke `main`, Vercel membuat deployment production READY dari commit merge `25a68bd84b39a7d2d49cc05c1ce04a3d917798f8`. Domain `https://ngepas-reborn.vercel.app/` merender title `Ngepas — Kurasi yang membantu keputusan`, homepage Discover v1.1, empat product card, footer disclosure affiliate, dan link internal `/discover/:slug`.
+
+Route `https://ngepas-reborn.vercel.app/discover/lampu-tidur-minimalis` berhasil dibuka dari card homepage. Product Detail menampilkan badge Pilihan Ngepas, rating, harga, pembaruan harga, alasan pemilihan, spesifikasi, cocok untuk, catatan affiliate, dan CTA Bandingkan Marketplace. Backend dan auth admin tidak diubah.

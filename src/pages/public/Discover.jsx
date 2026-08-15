@@ -14,14 +14,22 @@ import {
   ArrowLeft,
   ArrowRight,
   BadgeCheck,
+  BookOpen,
   Check,
   ChevronRight,
+  CircleUserRound,
+  Clock3,
   Heart,
+  Home,
+  LayoutGrid,
   Lightbulb,
   Search,
+  Scale,
   ShieldCheck,
   SlidersHorizontal,
+  Sparkles,
   Star,
+  Tag,
   Truck,
 } from "lucide-react";
 
@@ -57,6 +65,12 @@ const categoryIcons = [
   { label: "Lainnya", icon: "⋯" },
 ];
 
+const editorialCards = [
+  { title: "Cara Memilih Barang yang Aman dan Ngepas", meta: "5 min read", image: shelfImage },
+  { title: "Tips Hemat Belanja Online di Marketplace", meta: "4 min read", image: plantImage },
+  { title: "Perbedaan Garansi Resmi dan Garansi Toko", meta: "4 min read", image: spiceImage },
+];
+
 function toSlug(value = "") {
   return value.toString().toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
@@ -78,6 +92,8 @@ function normalizeProduct(product) {
     whyWeRecommend: product.whyWeRecommend || [product.reason || "Dipilih berdasarkan manfaat dan kebutuhan pengguna."],
     features: product.features || ["Informasi produk jelas", "Mudah digunakan"],
     bestFor: product.bestFor || ["Penggunaan sehari-hari"],
+    reviewCount: product.reviewCount || product.reviewsCount || "—",
+    marketplace: product.marketplace || "Data katalog",
   };
 }
 
@@ -130,19 +146,19 @@ function DiscoverHero({ onSearch }) {
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="relative mx-auto aspect-square max-w-[320px] rounded-[32px] bg-white/70 p-5 shadow-[0_24px_70px_rgba(6,78,59,0.12)] ring-1 ring-white sm:max-w-[380px]">
-              <div className="absolute left-7 top-10 h-10 w-10 rounded-full bg-amber-400" />
-              <div className="absolute bottom-8 right-4 h-24 w-24 rounded-full bg-emerald-100" />
-              <div className="relative flex h-full items-center justify-center rounded-[24px] border border-emerald-100 bg-gradient-to-b from-white to-emerald-50">
-                <div className="grid w-[72%] grid-cols-2 gap-3 rounded-2xl border border-slate-100 bg-white p-3 shadow-lg">
-                  <div className="flex aspect-square items-center justify-center rounded-xl bg-slate-100 text-5xl">⌂</div>
-                  <div className="flex aspect-square items-center justify-center rounded-xl bg-emerald-50 text-5xl">✦</div>
-                  <div className="col-span-2 rounded-xl bg-emerald-700 px-3 py-3 text-center text-xs font-bold text-white">Pilihan yang lebih Ngepas</div>
+            <div className="absolute -right-4 top-8 h-24 w-24 rounded-full bg-amber-300/50 blur-2xl" />
+            <div className="absolute bottom-10 left-0 h-32 w-32 rounded-full bg-emerald-100/80 blur-2xl" />
+            <div className="relative mx-auto max-w-[360px] overflow-hidden rounded-[28px] border border-white bg-white/80 p-3 shadow-[0_24px_70px_rgba(6,78,59,0.14)]">
+              <div className="relative overflow-hidden rounded-[22px] bg-emerald-50">
+                <img src={lampImage} alt="Contoh produk pilihan Ngepas" className="aspect-square w-full object-cover mix-blend-multiply" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between rounded-xl border border-white/80 bg-white/90 px-3 py-2 shadow-sm backdrop-blur">
+                  <span className="text-[11px] font-bold text-emerald-800">Pilihan yang lebih Ngepas</span>
+                  <Sparkles size={15} className="text-amber-500" />
                 </div>
               </div>
             </div>
-            <div className="mx-auto mt-4 flex max-w-[380px] items-center justify-center gap-4 rounded-2xl border border-slate-100 bg-white px-4 py-3 text-xs font-semibold text-slate-600 shadow-sm">
-              <span className="text-base">🛍</span> Dibandingkan dari 5+ marketplace
+            <div className="mx-auto mt-4 flex max-w-[360px] items-center justify-center gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 text-xs font-semibold text-slate-600 shadow-sm">
+              <Scale size={16} className="text-emerald-700" /> Dibandingkan dari 5+ marketplace
             </div>
           </div>
         </div>
@@ -173,22 +189,23 @@ function CategoryStrip({ categories, selectedCategory, onSelect }) {
   );
 }
 
-function ProductCard({ product, favorite, onFavorite }) {
+function ProductCard({ product, favorite, onFavorite, compact = false }) {
   return (
-    <article className="group min-w-[230px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:min-w-0">
-      <div className="relative aspect-[1.15] overflow-hidden bg-slate-50">
+    <article className={`group min-w-[226px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:min-w-0 ${compact ? "sm:min-w-[190px]" : ""}`}>
+      <div className="relative aspect-[1.12] overflow-hidden bg-slate-50">
         <img src={product.image} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-        <span className="absolute left-3 top-3 rounded-md bg-emerald-700 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">{product.badge}</span>
-        <button type="button" aria-label={favorite ? "Hapus dari favorite" : "Simpan ke favorite"} onClick={() => onFavorite(product.slug)} className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-slate-600 shadow-sm transition hover:text-rose-500">
-          <Heart size={16} className={favorite ? "fill-rose-500 text-rose-500" : ""} />
+        <span className="absolute left-2.5 top-2.5 rounded-md bg-emerald-700 px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-white">{product.badge}</span>
+        <button type="button" aria-label={favorite ? "Hapus dari favorite" : "Simpan ke favorite"} onClick={() => onFavorite(product.slug)} className="absolute right-2.5 top-2.5 rounded-full bg-white/90 p-2 text-slate-600 shadow-sm transition hover:text-rose-500">
+          <Heart size={15} className={favorite ? "fill-rose-500 text-rose-500" : ""} />
         </button>
       </div>
-      <div className="space-y-2 p-4">
-        <p className="text-[11px] font-semibold text-slate-400">{product.category}</p>
-        <h3 className="line-clamp-2 min-h-10 text-sm font-bold leading-5 text-slate-900">{product.name}</h3>
-        <div className="flex items-center gap-1 text-xs text-slate-500"><Star size={14} className="fill-amber-400 text-amber-400" /> <span className="font-semibold text-slate-700">{product.rating}</span> <span>· Teruji</span></div>
-        <p className="text-base font-extrabold text-emerald-700">{formatPrice(product.price)}</p>
-        <Link to={`/discover/${product.slug}`} className="mt-2 flex items-center justify-center gap-1 rounded-xl border border-emerald-200 px-3 py-2 text-xs font-bold text-emerald-800 transition hover:bg-emerald-50">Lihat Detail <ArrowRight size={14} /></Link>
+      <div className="space-y-2 p-3.5">
+        <p className="text-[10px] font-semibold text-slate-400">{product.category}</p>
+        <h3 className="line-clamp-2 min-h-10 text-[13px] font-bold leading-5 text-slate-900">{product.name}</h3>
+        <div className="flex items-center gap-1 text-[11px] text-slate-500"><Star size={13} className="fill-amber-400 text-amber-400" /> <span className="font-semibold text-slate-700">{product.rating}</span> <span>({product.reviewCount})</span></div>
+        <p className="text-base font-extrabold text-slate-950">{formatPrice(product.price)}</p>
+        <p className="flex items-center gap-1 text-[10px] font-medium text-slate-400"><Tag size={11} /> {product.marketplace}</p>
+        <Link to={`/discover/${product.slug}`} className="mt-2 flex items-center justify-center gap-1 rounded-xl bg-emerald-700 px-3 py-2 text-xs font-bold text-white transition hover:bg-emerald-800">Lihat Detail <ArrowRight size={14} /></Link>
       </div>
     </article>
   );
@@ -196,6 +213,72 @@ function ProductCard({ product, favorite, onFavorite }) {
 
 function TrustStrip() {
   return <div className="mt-5 grid gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:grid-cols-3"><div className="flex items-center gap-3 text-xs text-slate-600"><ShieldCheck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Kurasi transparan</strong>Alasan rekomendasi jelas.</span></div><div className="flex items-center gap-3 text-xs text-slate-600"><Truck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Bantu hemat waktu</strong>Pilihan lebih ringkas.</span></div><div className="flex items-center gap-3 text-xs text-slate-600"><BadgeCheck size={20} className="text-emerald-700" /><span><strong className="block text-slate-800">Bukan checkout</strong>Kamu tetap belanja di marketplace.</span></div></div>;
+}
+
+function TrendingSection({ products, favorites, onFavorite }) {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
+      <SectionHeading eyebrow="Sedang dicari" title="Trending Minggu Ini" description="Pilihan yang sedang banyak dilihat dan dibandingkan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+      <div className="flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-4 sm:overflow-visible">
+        {products.slice(0, 4).map((product) => <ProductCard key={product.slug} product={product} compact favorite={favorites.includes(product.slug)} onFavorite={onFavorite} />)}
+      </div>
+    </section>
+  );
+}
+
+function ArticlesSection() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
+      <SectionHeading eyebrow="Biar makin yakin" title="Artikel & Tips" description="Panduan singkat sebelum kamu menentukan pilihan." action={<button type="button" className="hidden items-center gap-1 text-sm font-bold text-emerald-700 sm:flex">Lihat semua <ChevronRight size={16} /></button>} />
+      <div className="grid gap-4 sm:grid-cols-3">
+        {editorialCards.map((article) => (
+          <article key={article.title} className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <img src={article.image} alt="" className="aspect-[1.45] w-full object-cover" />
+            <div className="p-4">
+              <div className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-400"><BookOpen size={12} /> {article.meta}</div>
+              <h3 className="mt-2 line-clamp-2 text-sm font-bold leading-5 text-slate-900">{article.title}</h3>
+              <button type="button" className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-emerald-700">Baca ringkas <ArrowRight size={13} /></button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HowItWorksSection() {
+  const steps = [
+    { number: "01", title: "Cari kebutuhanmu", text: "Mulai dari kategori atau kata kunci yang paling dekat." },
+    { number: "02", title: "Pahami alasannya", text: "Lihat manfaat, rating, spesifikasi, dan pertimbangan." },
+    { number: "03", title: "Checkout di marketplace", text: "Ngepas membantu memilih; transaksi tetap di toko tujuan." },
+  ];
+  return (
+    <section id="cara-kerja" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-7 sm:px-6 sm:py-10">
+      <div className="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-5 sm:p-7">
+        <SectionHeading eyebrow="Sederhana dan jelas" title="Cara Kerja Ngepas" description="Bantu kamu bergerak dari kebutuhan ke pilihan dengan lebih tenang." />
+        <div className="grid gap-3 sm:grid-cols-3">
+          {steps.map((step) => <div key={step.number} className="rounded-xl border border-white bg-white/80 p-4"><span className="text-2xl font-extrabold text-emerald-700">{step.number}</span><h3 className="mt-2 text-sm font-bold text-slate-900">{step.title}</h3><p className="mt-1 text-xs leading-relaxed text-slate-500">{step.text}</p></div>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyNgepasSection() {
+  const values = [
+    { icon: Scale, title: "Dibandingkan", text: "Pilihan disaring dari banyak toko." },
+    { icon: Tag, title: "Harga terbaik", text: "Informasi harga ditampilkan apa adanya." },
+    { icon: ShieldCheck, title: "Aman & terpercaya", text: "Alasan rekomendasi dibuat jelas." },
+    { icon: Clock3, title: "Update setiap hari", text: "Data mengikuti informasi yang tersedia." },
+  ];
+  return (
+    <section id="why-ngepas" className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-16 pt-7 sm:px-6 sm:pt-10">
+      <SectionHeading eyebrow="Kepercayaan" title="Why Ngepas?" description="Kami membuat pilihan lebih ringkas, jelas, dan tidak terasa seperti didorong untuk membeli." />
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {values.map(({ icon: Icon, title, text }) => <div key={title} className="rounded-2xl border border-slate-100 bg-white p-4 text-center sm:p-5"><div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-700"><Icon size={19} /></div><h3 className="mt-3 text-xs font-bold text-slate-900 sm:text-sm">{title}</h3><p className="mt-1 text-[11px] leading-relaxed text-slate-500">{text}</p></div>)}
+      </div>
+    </section>
+  );
 }
 
 function DiscoverDetail({ product, favorite, onFavorite }) {
@@ -283,8 +366,10 @@ function Discover() {
         {visibleProducts.length ? <div className="flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4">{visibleProducts.map((product) => <ProductCard key={product.slug} product={product} favorite={favorites.includes(product.slug)} onFavorite={toggleFavorite} />)}</div> : <div className="rounded-2xl border border-dashed border-slate-200 p-10 text-center"><Search className="mx-auto text-slate-300" size={30} /><p className="mt-3 font-bold text-slate-800">Belum ada produk yang cocok</p><p className="mt-1 text-sm text-slate-500">Coba kata kunci atau kategori lain.</p></div>}
         <TrustStrip />
       </section>
-      <section id="cara-kerja" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12"><div className="rounded-[28px] bg-slate-950 px-5 py-8 text-white sm:px-10"><p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-300">Cara Kerja Ngepas</p><div className="mt-5 grid gap-5 sm:grid-cols-3"><div><span className="text-3xl font-extrabold text-emerald-300">01</span><h2 className="mt-2 font-bold">Cari kebutuhanmu</h2><p className="mt-1 text-sm leading-relaxed text-slate-300">Mulai dari kategori atau kata kunci yang paling dekat.</p></div><div><span className="text-3xl font-extrabold text-emerald-300">02</span><h2 className="mt-2 font-bold">Pahami alasannya</h2><p className="mt-1 text-sm leading-relaxed text-slate-300">Lihat manfaat, rating, spesifikasi, dan pertimbangan.</p></div><div><span className="text-3xl font-extrabold text-emerald-300">03</span><h2 className="mt-2 font-bold">Checkout di marketplace</h2><p className="mt-1 text-sm leading-relaxed text-slate-300">Ngepas membantu memilih; transaksi tetap di toko tujuan.</p></div></div></div></section>
-      <section id="why-ngepas" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6"><SectionHeading eyebrow="Kepercayaan" title="Why Ngepas" description="Kami membuat pilihan lebih ringkas, jelas, dan tidak terasa seperti didorong untuk membeli." /><div className="grid gap-3 sm:grid-cols-3"><div className="rounded-2xl border border-slate-100 p-5"><ShieldCheck className="text-emerald-700" /><h3 className="mt-4 font-bold">Jelas alasannya</h3><p className="mt-2 text-sm leading-relaxed text-slate-500">Setiap rekomendasi perlu punya konteks, bukan hanya label terbaik.</p></div><div className="rounded-2xl border border-slate-100 p-5"><Lightbulb className="text-emerald-700" /><h3 className="mt-4 font-bold">Fokus ke kebutuhan</h3><p className="mt-2 text-sm leading-relaxed text-slate-500">User dibantu memahami cocok untuk siapa dan kapan.</p></div><div className="rounded-2xl border border-slate-100 p-5"><BadgeCheck className="text-emerald-700" /><h3 className="mt-4 font-bold">Transparan soal affiliate</h3><p className="mt-2 text-sm leading-relaxed text-slate-500">Checkout terjadi di marketplace, bukan di Ngepas.</p></div></div></section>
+      <TrendingSection products={catalog} favorites={favorites} onFavorite={toggleFavorite} />
+      <ArticlesSection />
+      <HowItWorksSection />
+      <WhyNgepasSection />
       <footer className="border-t border-slate-100 bg-slate-50/70 px-4 py-8 sm:px-6 sm:py-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -298,7 +383,7 @@ function Discover() {
           </nav>
         </div>
       </footer>
-      <div className="fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1 rounded-full border border-slate-200 bg-white/95 p-1 shadow-xl backdrop-blur lg:hidden"><Link to="/" className="rounded-full bg-emerald-50 px-3 py-2 text-[10px] font-bold text-emerald-800">Home</Link><button type="button" onClick={() => document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" })} className="rounded-full px-3 py-2 text-[10px] font-bold text-slate-600">Cari</button><Link to="/category" className="rounded-full px-3 py-2 text-[10px] font-bold text-slate-600">Kategori</Link><Link to="/#hasil-produk" className="rounded-full px-3 py-2 text-[10px] font-bold text-slate-600">Pilihan</Link></div>
+      <div className="fixed bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1 rounded-2xl border border-slate-200 bg-white/95 p-1.5 shadow-xl backdrop-blur lg:hidden"><Link to="/" className="flex min-w-14 flex-col items-center gap-1 rounded-xl bg-emerald-50 px-2 py-1.5 text-[10px] font-bold text-emerald-800"><Home size={16} />Home</Link><button type="button" onClick={() => document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" })} className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><Search size={16} />Cari</button><Link to="/category" className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><LayoutGrid size={16} />Kategori</Link><Link to="/#hasil-produk" className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><Scale size={16} />Compare</Link><button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex min-w-14 flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-bold text-slate-600"><CircleUserRound size={16} />Akun</button></div>
     </div>
   );
 }
