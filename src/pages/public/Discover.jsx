@@ -36,7 +36,7 @@ import spiceImage from "../../assets/products/rak-bumbu.jpg";
 import plantImage from "../../assets/products/tanaman.jpg";
 
 /*==================================================
- PROTOTYPE DATA
+ DISCOVER DATA
 ==================================================*/
 
 const demoProducts = [
@@ -285,6 +285,19 @@ function Discover() {
       </section>
       <section id="cara-kerja" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12"><div className="rounded-[28px] bg-slate-950 px-5 py-8 text-white sm:px-10"><p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-300">Cara Kerja Ngepas</p><div className="mt-5 grid gap-5 sm:grid-cols-3"><div><span className="text-3xl font-extrabold text-emerald-300">01</span><h2 className="mt-2 font-bold">Cari kebutuhanmu</h2><p className="mt-1 text-sm leading-relaxed text-slate-300">Mulai dari kategori atau kata kunci yang paling dekat.</p></div><div><span className="text-3xl font-extrabold text-emerald-300">02</span><h2 className="mt-2 font-bold">Pahami alasannya</h2><p className="mt-1 text-sm leading-relaxed text-slate-300">Lihat manfaat, rating, spesifikasi, dan pertimbangan.</p></div><div><span className="text-3xl font-extrabold text-emerald-300">03</span><h2 className="mt-2 font-bold">Checkout di marketplace</h2><p className="mt-1 text-sm leading-relaxed text-slate-300">Ngepas membantu memilih; transaksi tetap di toko tujuan.</p></div></div></div></section>
       <section id="why-ngepas" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6"><SectionHeading eyebrow="Kepercayaan" title="Why Ngepas" description="Kami membuat pilihan lebih ringkas, jelas, dan tidak terasa seperti didorong untuk membeli." /><div className="grid gap-3 sm:grid-cols-3"><div className="rounded-2xl border border-slate-100 p-5"><ShieldCheck className="text-emerald-700" /><h3 className="mt-4 font-bold">Jelas alasannya</h3><p className="mt-2 text-sm leading-relaxed text-slate-500">Setiap rekomendasi perlu punya konteks, bukan hanya label terbaik.</p></div><div className="rounded-2xl border border-slate-100 p-5"><Lightbulb className="text-emerald-700" /><h3 className="mt-4 font-bold">Fokus ke kebutuhan</h3><p className="mt-2 text-sm leading-relaxed text-slate-500">User dibantu memahami cocok untuk siapa dan kapan.</p></div><div className="rounded-2xl border border-slate-100 p-5"><BadgeCheck className="text-emerald-700" /><h3 className="mt-4 font-bold">Transparan soal affiliate</h3><p className="mt-2 text-sm leading-relaxed text-slate-500">Checkout terjadi di marketplace, bukan di Ngepas.</p></div></div></section>
+      <footer className="border-t border-slate-100 bg-slate-50/70 px-4 py-8 sm:px-6 sm:py-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <Link to="/" className="text-xl font-extrabold tracking-tight text-emerald-800">Ngepas<span className="text-amber-400">.</span></Link>
+            <p className="mt-2 max-w-sm text-xs leading-relaxed text-slate-500">Platform kurasi yang membantu kamu memilih. Ngepas bukan toko dan checkout tetap terjadi di marketplace.</p>
+          </div>
+          <nav className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-slate-500" aria-label="Navigasi footer">
+            <Link to="/" className="transition hover:text-emerald-700">Discover</Link>
+            <Link to="/category" className="transition hover:text-emerald-700">Kategori</Link>
+            <Link to="/#why-ngepas" className="transition hover:text-emerald-700">Why Ngepas</Link>
+          </nav>
+        </div>
+      </footer>
       <div className="fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1 rounded-full border border-slate-200 bg-white/95 p-1 shadow-xl backdrop-blur lg:hidden"><Link to="/" className="rounded-full bg-emerald-50 px-3 py-2 text-[10px] font-bold text-emerald-800">Home</Link><button type="button" onClick={() => document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth" })} className="rounded-full px-3 py-2 text-[10px] font-bold text-slate-600">Cari</button><Link to="/category" className="rounded-full px-3 py-2 text-[10px] font-bold text-slate-600">Kategori</Link><Link to="/#hasil-produk" className="rounded-full px-3 py-2 text-[10px] font-bold text-slate-600">Pilihan</Link></div>
     </div>
   );

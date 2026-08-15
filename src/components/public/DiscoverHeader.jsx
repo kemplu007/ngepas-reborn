@@ -76,6 +76,7 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
             <button
               type="button"
               aria-label="Buka notifikasi"
+              aria-expanded={notificationOpen}
               onClick={() => setNotificationOpen((open) => !open)}
               className="relative rounded-xl p-2.5 text-slate-700 transition hover:bg-slate-50"
             >
@@ -107,11 +108,20 @@ function DiscoverHeader({ query, onQueryChange, onSubmit, onFilter }) {
           </div>
         </div>
 
-        <button type="button" aria-label="Buka notifikasi" className="relative rounded-xl p-2 text-slate-700 lg:hidden" onClick={() => setNotificationOpen((open) => !open)}>
+        <button type="button" aria-label="Buka notifikasi" aria-expanded={notificationOpen} className="relative rounded-xl p-2 text-slate-700 lg:hidden" onClick={() => setNotificationOpen((open) => !open)}>
           <Bell size={20} />
           <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-amber-400" />
         </button>
       </div>
+
+      {notificationOpen && (
+        <div className="border-t border-slate-100 bg-white px-4 py-3 lg:hidden">
+          <div className="mx-auto max-w-7xl rounded-2xl bg-emerald-50/70 p-4">
+            <p className="text-sm font-bold text-slate-900">Notifikasi</p>
+            <p className="mt-1 text-xs leading-relaxed text-slate-500">Update kurasi dan informasi produk akan muncul di sini.</p>
+          </div>
+        </div>
+      )}
 
       {menuOpen && (
         <div className="border-t border-slate-100 bg-white px-4 py-3 lg:hidden">
