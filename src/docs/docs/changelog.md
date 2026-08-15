@@ -45,7 +45,22 @@ INTEGRATION CHECKPOINT
 ✓ `category-form-preview-audit.md` dipertahankan sebagai catatan review route protected dan browser verification
 ✓ Merge validation: `git diff --check` + `npx vite build` PASSED (1843 modules)
 
-STATUS: FOUNDATION SLICES INTEGRATED — PRODUCTION PUSH PENDING
+STATUS: FOUNDATION SLICES INTEGRATED — PRODUCTION PUSH COMPLETED
+
+==================================================
+
+## PRODUCT DETAIL FOUNDATION SLICE
+
+✓ `ProductDetail.jsx` memakai `Section`, `Card`, `Badge`, `Button`, `SectionHeading`, dan Discover `ProductCard`
+✓ Raw surface, badge, CTA, dan legacy related-product card diganti dengan foundation/token composition
+✓ Gallery thumbnail mempertahankan selection state dan ditambah accessible pressed state
+✓ Loading, error, dan not-found state memakai surface foundation tanpa mengubah route atau data contract
+✓ Affiliate link, target external, `useProducts`, `useParams`, related-product filter, serta route `/product/:slug` dipertahankan
+✓ Tidak ada perubahan pada auth JWT, service/context/API contract, backend, database, compare endpoint, atau favorite state baru
+
+VALIDATION: `git diff --check` + JSX parser + `npx vite build` PASSED (1842 modules)
+
+STATUS: PRODUCT DETAIL FOUNDATION SLICE READY FOR REVIEW ON `feat/public-product-detail-foundation-v1`
 
 ==================================================
 
