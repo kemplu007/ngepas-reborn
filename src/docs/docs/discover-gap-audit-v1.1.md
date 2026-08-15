@@ -38,3 +38,21 @@ Dari hasil search `lampu`, klik `Lihat Detail` berhasil membuka `/discover/lampu
 ## Hasil regression filter
 
 Homepage alignment berhasil kembali dari Product Detail. Tombol Filter di header membuka panel filter lokal yang menampilkan pilihan kategori, rating minimum, dan Reset filter. Tidak ada endpoint baru yang dipanggil untuk interaksi ini.
+
+
+## CampaignBanner Incremental Audit
+
+Branch: `feat/ngepas-design-tokens-v1`
+
+CampaignBanner tahap pertama sudah menggantikan hero Discover yang terlalu tinggi dengan frame responsive compact. Kontrak visualnya memakai tinggi `clamp(220px, 52vw, 300px)` pada mobile dan `clamp(260px, 30vw, 360px)` pada layar lebih besar, dengan image layer di sisi kanan, teks dan CTA di sisi kiri, serta label image yang dapat diganti melalui data campaign.
+
+Preview homepage berhasil dirender setelah integrasi. Struktur headline, deskripsi singkat, CTA `Mulai Cari`, image product, dan label campaign terlihat dalam satu frame. Search, filter, kategori, Product Card, dan route Product Detail tetap tersedia pada halaman yang sama.
+
+Catatan review lanjutan: mobile perlu diperiksa khusus untuk memastikan headline panjang tidak meluber pada frame paling sempit dan bottom navigation tidak menutupi CTA. Tidak ada backend atau business logic katalog yang diubah.
+
+
+## CampaignBanner Overlay Patch Audit
+
+Patch overlay mengubah image menjadi layer penuh di belakang banner, menambahkan gradient safe area dari kiri, membatasi headline dan deskripsi, serta memindahkan label campaign ke posisi absolut yang aman di kanan bawah. Tinggi mobile dinaikkan secukupnya ke `clamp(238px, 62vw, 300px)` agar badge, copy, dan CTA mempunyai ruang bernapas tanpa mengembalikan hero menjadi full-screen.
+
+Preview reload berhasil merender headline, description, CTA, image layer, dan label campaign dalam satu frame. Build Vite dan diff check tetap bersih. Pemeriksaan mobile dari perangkat pengguna tetap menjadi acceptance check terakhir karena viewport browser sandbox berbeda dari screenshot HP.
