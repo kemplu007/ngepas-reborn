@@ -3,6 +3,24 @@
 # CHANGELOG
 # ==================================================
 
+## v1.5.0 — Discover Filter Surface + Global Panel Motion
+
+Release Date: 2026-08-15
+
+==================================================
+FRONTEND POLISH
+==================================================
+
+✓ FilterPanel mengikuti pola mockup Search & Filter: surface putih, hierarki bernomor, border tipis, dan kontrol native yang tetap accessible
+✓ FilterPanel tetap presentational; callback dan state business tidak berubah
+✓ MobileNavDrawer dirampingkan ke `min(80vw, 320px)` dengan padding mobile yang lebih compact
+✓ Utility `.np-motion-surface` reusable untuk panel dan drawer dengan transform/opacity, token motion, dan reduced-motion support
+✓ Overlay dan drawer menggunakan state `data-motion-state` agar transisi muncul/hilang konsisten
+
+STATUS: DISCOVER MOBILE POLISH REVIEW
+
+==================================================
+
 ## v1.4.0 — FE JWT Login + Logout
 
 Release Date: 2026-08-14

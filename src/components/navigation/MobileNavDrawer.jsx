@@ -75,7 +75,8 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
         aria-label="Tutup menu"
         tabIndex={open ? 0 : -1}
         onClick={onClose}
-        className={`absolute inset-0 bg-[var(--np-color-ink)]/20 transition-opacity duration-np-normal ease-np-standard ${open ? "opacity-100" : "opacity-0"}`}
+        className={`np-motion-surface absolute inset-0 bg-[var(--np-color-ink)]/20 ${open ? "opacity-100" : "opacity-0"}`}
+        data-motion-state={open ? "open" : "closed"}
       />
 
       {/* Drawer surface stays calm after entering and remains keyboard reachable. */}
@@ -83,9 +84,10 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
         role="dialog"
         aria-modal="true"
         aria-label="Menu navigasi mobile"
-        className={`relative flex h-full max-h-[100dvh] w-[min(86vw,360px)] flex-col overflow-y-auto overscroll-contain border-r border-[var(--np-color-border)] bg-[var(--np-color-white)] px-4 pb-6 pt-4 shadow-[var(--np-shadow-lg)] transition-transform duration-np-normal ease-np-emphasized ${open ? "translate-x-0" : "-translate-x-full"}`}
+        className={`np-motion-surface relative flex h-full max-h-[100dvh] w-[min(80vw,320px)] flex-col overflow-y-auto overscroll-contain border-r border-[var(--np-color-border)] bg-[var(--np-color-white)] px-3 pb-5 pt-3 shadow-[var(--np-shadow-lg)] ${open ? "translate-x-0" : "-translate-x-full"}`}
+        data-motion-state={open ? "open" : "closed"}
       >
-        <div className="flex items-center justify-between border-b border-[var(--np-color-border)] pb-4">
+        <div className="flex items-center justify-between border-b border-[var(--np-color-border)] pb-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--np-color-green-700)]">Menu Ngepas</p>
             <p className="mt-1 text-sm text-[var(--np-color-muted)]">Bantu keputusan belanja dengan lebih tenang.</p>
@@ -96,21 +98,21 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
             aria-label="Tutup menu"
             tabIndex={open ? 0 : -1}
             onClick={onClose}
-            className="min-h-[var(--np-touch-target)] min-w-[var(--np-touch-target)] rounded-np-md p-2 text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)]"
+            className="min-h-[var(--np-touch-target)] min-w-[var(--np-touch-target)] rounded-np-sm p-2 text-[var(--np-color-ink)] transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-canvas)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)]"
           >
             <X size={20} aria-hidden="true" />
           </button>
         </div>
 
-        <nav className="flex flex-1 flex-col gap-2 py-5" aria-label="Menu navigasi mobile">
+        <nav className="flex flex-1 flex-col gap-1 py-4" aria-label="Menu navigasi mobile">
           {navigationItems.map(({ key, label, description, icon: Icon, href }) => (
             <Link
               key={key}
               to={href}
               onClick={onClose}
-              className="group flex min-h-[var(--np-touch-target)] items-center gap-3 rounded-np-lg px-3 py-3 text-[var(--np-color-ink)] transition-[transform,background-color,color] duration-np-fast ease-np-standard hover:bg-[var(--np-color-green-100)] hover:text-[var(--np-color-green-800)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)]"
+              className="group flex min-h-[var(--np-touch-target)] items-center gap-2 rounded-np-md px-2 py-2.5 text-[var(--np-color-ink)] transition-[transform,background-color,color] duration-np-fast ease-np-standard hover:bg-[var(--np-color-green-100)] hover:text-[var(--np-color-green-800)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-700)] active:scale-[var(--np-motion-scale-pressed)]"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-np-md bg-[var(--np-color-canvas)] text-[var(--np-color-green-700)] transition-colors duration-np-fast ease-np-standard group-hover:bg-[var(--np-color-white)]">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-np-sm bg-[var(--np-color-canvas)] text-[var(--np-color-green-700)] transition-colors duration-np-fast ease-np-standard group-hover:bg-[var(--np-color-white)]">
                 <Icon size={19} strokeWidth={1.8} aria-hidden="true" />
               </span>
               <span className="min-w-0">
@@ -121,7 +123,7 @@ function MobileNavDrawer({ open = false, onClose, triggerRef }) {
           ))}
         </nav>
 
-        <div className="border-t border-[var(--np-color-border)] pt-4 text-xs leading-relaxed text-[var(--np-color-muted)]">
+        <div className="border-t border-[var(--np-color-border)] pt-3 text-xs leading-relaxed text-[var(--np-color-muted)]">
           <p><Info size={14} className="mr-1 inline-block align-[-2px] text-[var(--np-color-green-700)]" /> Semua menu di sini mengarah ke fitur dan informasi yang sudah tersedia.</p>
         </div>
       </aside>

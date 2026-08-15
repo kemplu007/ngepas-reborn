@@ -160,6 +160,32 @@ Module : Global Stylesheet
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/*==================================================
+ GLOBAL MOTION UTILITIES
+==================================================*/
+
+/* Shared panel motion keeps entrances calm and interruptible across the app. */
+.np-motion-surface {
+  transition-property: opacity, transform;
+  transition-duration: var(--np-motion-duration-slow);
+  transition-timing-function: var(--np-motion-ease-emphasized);
+  will-change: opacity, transform;
+}
+
+.np-motion-surface[data-motion-state="closed"] {
+  opacity: 0;
+}
+
+.np-motion-surface[data-motion-state="open"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np-motion-surface {
+    will-change: auto;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
