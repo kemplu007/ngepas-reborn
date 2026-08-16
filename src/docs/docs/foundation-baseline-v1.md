@@ -39,6 +39,10 @@
 
 `ProductDetail` public sudah dipromosikan ke `main` melalui branch `feat/public-product-detail-foundation-v1` dan merge commit `e3adb58`. Slice ini memusatkan komposisi ke `Section`, `Card`, `Badge`, `Button`, `SectionHeading`, dan Discover `ProductCard`; gallery state, `useProducts`, `useParams`, related-product filter, route `/product/:slug`, serta affiliate link tetap dipertahankan. Tidak ada endpoint slug baru, compare backend, favorite state baru, auth, atau perubahan data contract pada slice ini. Production route `/product/rak-bumbu-dapur` berhasil dimuat setelah deployment.
 
+`ProductForm` admin memiliki foundation shell dan Step 1 pada branch `feat/admin-product-form-foundation-v1`, commit `9de7efe`. Slice ini mengganti shell raw dengan `Container`, `Card`, `IconButton`, `Badge`, dan `ui/Button`, serta mengganti field Step 1 dengan `Input`, `FormField`, dan `SelectField` options-array. State, handler, payload, service, context, auth, route, dan backend tidak diubah. Audit juga mencatat bahwa `tags`, `gallery`, dan `status` adalah gap persistence existing pada controller/model/schema dan tidak diperluas pada slice foundation ini.
+
+`ProductForm` Step 2 Harga & Stok dimigrasikan pada branch yang sama sebagai patch lanjutan. Field `price`, `originalPrice`, `rating`, `sold`, `stock`, dan `affiliateLink` sekarang memakai `FormField` serta `Input`; ringkasan diskon otomatis memakai `Card` muted dan semantic tokens. Nama field, handler `handleChange`, kalkulasi diskon, payload, validasi native, service, context, auth, route, dan backend tetap dipertahankan. Tidak ada field varian produk yang ditambahkan.
+
 ## Contract tokens
 
 Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visual baru tidak boleh dibuat dengan hex, spacing acak, radius acak, duration hardcoded, atau raw semantic color. Motion interaktif memakai token `duration-np-fast`/`duration-np-normal` dan harus aman terhadap `prefers-reduced-motion` melalui utility global.
@@ -59,9 +63,10 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 1. `SelectField` dan `CheckboxField` sudah menjadi primitive lintas public/admin dengan kontrak tunggal.
 2. `CategoryForm` dan `CategoryPage` sudah dipromosikan sebagai proof-of-system setelah review branch terpisah.
 3. `ProductDetail` public sudah dipromosikan dan diverifikasi di production tanpa mengubah route atau data contract.
-4. Migrasikan `ProductForm` secara bertahap, tanpa mengubah payload atau handler.
-5. Migrasikan `Products`, `Categories`, dan `ProductTable` ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-6. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+4. Migrasikan sisa Step 3–4 `ProductForm` secara bertahap, tanpa mengubah payload atau handler. Step 2 Harga & Stok sudah menggunakan foundation reusable pada branch review.
+5. Evaluasi terpisah apakah gap persistence `tags`, `gallery`, dan `status` memerlukan backend/schema slice dengan acceptance criteria dan approval eksplisit.
+6. Migrasikan `Products`, `Categories`, dan `ProductTable` ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+7. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 
