@@ -5,7 +5,7 @@
 ==================================================*/
 
 import { useEffect, useState } from "react";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Plus, Save, X } from "lucide-react";
 
 import rooms from "../../data/rooms";
 import roomCategories from "../../data/roomCategories";
@@ -519,87 +519,132 @@ function ProductForm() {
 
             {/* STEP 3: GALLERY */}
             <div className={currentStep === 3 ? "block" : "hidden"}>
-              <h3 className="text-lg font-bold text-slate-800 mb-6">Gambar</h3>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  URL Gambar Utama
-                </label>
-                <input
-                  name="image"
-                  type="text"
-                  value={formData.image}
-                  onChange={handleChange}
-                  placeholder="url atau text"
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                />
-                {formData.image && (
-                  <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
-                    {imageError ? (
-                      <div className="flex aspect-video items-center justify-center bg-slate-100 text-sm text-slate-500">
-                        Preview tidak tersedia
-                      </div>
-                    ) : (
-                      <img
-                        src={formData.image}
-                        alt="Preview produk"
-                        onError={() => setImageError(true)}
-                        className="aspect-video w-full object-cover"
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mt-4">
-                <h2 className="mb-4 text-lg font-bold text-slate-800">
-                  Product Gallery
-                </h2>
-                <div className="flex flex-col sm:flex-row gap-2 mb-4">
-                  <input
-                    type="text"
-                    value={newGalleryUrl}
-                    onChange={(e) => setNewGalleryUrl(e.target.value)}
-                    placeholder="https://example.com/image.jpg"
-                    className="flex-1 rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-emerald-600"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddGallery}
-                    className="shrink-0 rounded-xl bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700 transition"
+              <div className="space-y-[var(--np-space-6)]">
+                <div>
+                  <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.16em] text-[var(--np-color-action-primary)]">
+                    Step 3
+                  </p>
+                  <h3 className="mt-2 text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
+                    Gambar dan preview produk
+                  </h3>
+                  <p className="mt-2 text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+                    Gunakan URL gambar utama untuk preview produk, lalu tambahkan gambar pendukung ke gallery.
+                  </p>
+                </div>
+
+                <Card variant="muted" className="space-y-[var(--np-space-5)]">
+                  <FormField
+                    label="URL gambar utama"
+                    htmlFor="product-image"
+                    hint="Gunakan URL gambar publik yang dapat dimuat oleh browser."
                   >
-                    + Add
-                  </button>
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                  {gallery.length > 0 ? (
-                    gallery.map((url, idx) => (
-                      <div
-                        key={idx}
-                        className="group relative aspect-square overflow-hidden rounded-lg border border-slate-200 bg-slate-50"
-                      >
+                    <Input
+                      id="product-image"
+                      name="image"
+                      type="url"
+                      value={formData.image}
+                      onChange={handleChange}
+                      placeholder="https://example.com/product.jpg"
+                    />
+                  </FormField>
+
+                  {formData.image && (
+                    <Card variant="default" className="overflow-hidden p-0">
+                      {imageError ? (
+                        <div className="flex aspect-video items-center justify-center bg-[var(--np-color-surface-muted)] px-[var(--np-space-4)] text-center text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+                          Preview tidak tersedia
+                        </div>
+                      ) : (
                         <img
-                          src={url}
-                          alt={`Gallery ${idx + 1}`}
-                          className="h-full w-full object-cover"
-                          onError={(e) => {
-                            e.target.src =
-                              "https://placehold.co/150x150?text=Error";
-                          }}
+                          src={formData.image}
+                          alt="Preview produk"
+                          onError={() => setImageError(true)}
+                          className="aspect-video w-full object-cover"
                         />
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveGallery(url)}
-                          className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white opacity-0 transition group-hover:opacity-100"
-                        >
-                          <span className="block h-3 w-3">✕</span>
-                        </button>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="col-span-3 text-center text-sm text-slate-400 py-4">
-                      No images added yet.
-                    </p>
+                      )}
+                    </Card>
                   )}
-                </div>
+                </Card>
+
+                <Card variant="default" className="space-y-[var(--np-space-5)]">
+                  <div className="flex flex-col gap-[var(--np-space-2)] sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <h4 className="text-[var(--np-text-h4)] font-semibold text-[var(--np-color-text-primary)]">
+                        Product gallery
+                      </h4>
+                      <p className="mt-1 text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+                        Tambahkan gambar pendukung untuk memperjelas rekomendasi.
+                      </p>
+                    </div>
+                    <Badge variant="neutral">
+                      {gallery.length} gambar
+                    </Badge>
+                  </div>
+
+                  <div className="flex flex-col gap-[var(--np-space-3)] sm:flex-row sm:items-end">
+                    <div className="min-w-0 flex-1">
+                      <FormField
+                        label="URL gambar gallery"
+                        htmlFor="product-gallery-url"
+                      >
+                        <Input
+                          id="product-gallery-url"
+                          name="galleryUrl"
+                          type="url"
+                          value={newGalleryUrl}
+                          onChange={(event) => setNewGalleryUrl(event.target.value)}
+                          placeholder="https://example.com/detail.jpg"
+                        />
+                      </FormField>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="md"
+                      onClick={handleAddGallery}
+                      className="shrink-0"
+                    >
+                      <Plus size={16} aria-hidden="true" />
+                      Tambah gambar
+                    </Button>
+                  </div>
+
+                  {gallery.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-[var(--np-space-3)] sm:grid-cols-3">
+                      {gallery.map((url, idx) => (
+                        <div
+                          key={url}
+                          className="group relative aspect-square overflow-hidden rounded-np-md border border-[var(--np-color-border)] bg-[var(--np-color-surface-muted)]"
+                        >
+                          <img
+                            src={url}
+                            alt={`Gallery ${idx + 1}`}
+                            className="h-full w-full object-cover"
+                            onError={(event) => {
+                              event.currentTarget.src =
+                                "https://placehold.co/150x150?text=Error";
+                            }}
+                          />
+                          <IconButton
+                            type="button"
+                            label={`Hapus gambar gallery ${idx + 1}`}
+                            variant="soft"
+                            onClick={() => handleRemoveGallery(url)}
+                            className="absolute right-[var(--np-space-2)] top-[var(--np-space-2)] text-[var(--np-color-danger)] opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                          >
+                            <X size={16} aria-hidden="true" />
+                          </IconButton>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <Card variant="muted" className="px-[var(--np-space-4)] py-[var(--np-space-6)] text-center">
+                      <p className="text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+                        Belum ada gambar gallery.
+                      </p>
+                    </Card>
+                  )}
+                </Card>
               </div>
             </div>
 
