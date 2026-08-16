@@ -22,6 +22,7 @@ import FormField from "../../components/ui/FormField";
 import IconButton from "../../components/ui/IconButton";
 import Input from "../../components/ui/Input";
 import SelectField from "../../components/ui/SelectField";
+import TextareaField from "../../components/ui/TextareaField";
 
 /*==================================================
  INITIAL STATE
@@ -650,90 +651,84 @@ function ProductForm() {
 
             {/* STEP 4: DETAIL */}
             <div className={currentStep === 4 ? "block" : "hidden"}>
-              <h3 className="text-lg font-bold text-slate-800 mb-6">Detail</h3>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Deskripsi Produk
-                </label>
-                <textarea
-                  name="description"
-                  rows={6}
-                  value={formData.description}
-                  onChange={handleChange}
-                  placeholder="Jelaskan produk secara singkat..."
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none resize-y focus:border-emerald-600"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Keunggulan Produk
-                </label>
-                <textarea
-                  name="features"
-                  rows={5}
-                  value={formData.features}
-                  onChange={handleChange}
-                  placeholder="Material premium\nMudah dibersihkan"
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none resize-y focus:border-emerald-600"
-                />
-                <p className="mt-2 text-xs text-slate-500">
-                  Satu keunggulan setiap baris.
-                </p>
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Spesifikasi Produk
-                </label>
-                <textarea
-                  name="specifications"
-                  rows={6}
-                  value={formData.specifications}
-                  onChange={handleChange}
-                  placeholder="Material: Kayu Pinus\nWarna: Natural"
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none resize-y focus:border-emerald-600"
-                />
-                <p className="mt-2 text-xs text-slate-500">
-                  Format: Nama: Nilai
-                </p>
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Kenapa Kami Merekomendasikan
-                </label>
-                <textarea
-                  name="whyWeRecommend"
-                  rows={5}
-                  value={formData.whyWeRecommend}
-                  onChange={handleChange}
-                  placeholder="Harga sesuai kualitas"
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none resize-y focus:border-emerald-600"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Cocok Untuk
-                </label>
-                <textarea
-                  name="bestFor"
-                  rows={5}
-                  value={formData.bestFor}
-                  onChange={handleChange}
-                  placeholder="Apartemen\nRumah Minimalis"
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none resize-y focus:border-emerald-600"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Hal yang Perlu Diperhatikan
-                </label>
-                <textarea
-                  name="considerations"
-                  rows={5}
-                  value={formData.considerations}
-                  onChange={handleChange}
-                  placeholder="Tidak tahan air\nPerlu dirakit sendiri"
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none resize-y focus:border-emerald-600"
-                />
+              <div className="space-y-[var(--np-space-6)]">
+                <div>
+                  <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.16em] text-[var(--np-color-action-primary)]">
+                    Step 4
+                  </p>
+                  <h3 className="mt-2 text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
+                    Detail dan kurasi
+                  </h3>
+                  <p className="mt-2 text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+                    Lengkapi konteks produk agar rekomendasi Ngepas mudah dipahami dan dipercaya.
+                  </p>
+                </div>
+
+                <Card variant="muted" className="space-y-[var(--np-space-5)]">
+                  <TextareaField
+                    id="product-description"
+                    name="description"
+                    label="Deskripsi Produk"
+                    value={formData.description}
+                    onChange={handleChange}
+                    rows={6}
+                    placeholder="Jelaskan produk secara singkat..."
+                  />
+
+                  <TextareaField
+                    id="product-features"
+                    name="features"
+                    label="Keunggulan Produk"
+                    hint="Satu keunggulan setiap baris."
+                    value={formData.features}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder={'Material premium\nMudah dibersihkan'}
+                  />
+
+                  <TextareaField
+                    id="product-specifications"
+                    name="specifications"
+                    label="Spesifikasi Produk"
+                    hint="Format: Nama: Nilai"
+                    value={formData.specifications}
+                    onChange={handleChange}
+                    rows={6}
+                    placeholder={'Material: Kayu Pinus\nWarna: Natural'}
+                  />
+                </Card>
+
+                <Card variant="default" className="space-y-[var(--np-space-5)]">
+                  <TextareaField
+                    id="product-why-we-recommend"
+                    name="whyWeRecommend"
+                    label="Kenapa Kami Merekomendasikan"
+                    value={formData.whyWeRecommend}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder="Harga sesuai kualitas"
+                  />
+
+                  <TextareaField
+                    id="product-best-for"
+                    name="bestFor"
+                    label="Cocok Untuk"
+                    value={formData.bestFor}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder={'Apartemen\nRumah Minimalis'}
+                  />
+
+                  <TextareaField
+                    id="product-considerations"
+                    name="considerations"
+                    label="Hal yang Perlu Diperhatikan"
+                    value={formData.considerations}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder={'Tidak tahan air\nPerlu dirakit sendiri'}
+                  />
+                </Card>
               </div>
             </div>
           </div>

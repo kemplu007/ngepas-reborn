@@ -25,6 +25,7 @@
 | `Card` | `src/components/ui/Card.jsx` | Baru | Surface default, muted, elevated; ref forwarding |
 | `Dialog` | `src/components/ui/Dialog.jsx` | Baru | Overlay, Escape, click-outside, focus return, body lock, semantic dialog |
 | `SelectField` | `src/components/ui/SelectField.jsx` | Authority | Select berbasis `options` array, label, helper/error, required, invalid, size, focus, motion |
+| `TextareaField` | `src/components/ui/TextareaField.jsx` | Baru | Textarea dengan label, hint/error, required, invalid, size, focus, reduced motion |
 | `CheckboxField` | `src/components/ui/CheckboxField.jsx` | Baseline | Checkbox dengan label, hint, checked, disabled, focus, semantic tokens |
 | `common/Button` | `src/components/common/Button.jsx` | Compatibility | Delegasi sementara ke `ui/Button` |
 | `ConfirmDialog` | `src/components/common/ConfirmDialog.jsx` | Migrated wrapper | API konfirmasi delete tetap, visual dan lifecycle memakai foundation |
@@ -44,6 +45,8 @@
 `ProductForm` Step 2 Harga & Stok dimigrasikan pada branch yang sama sebagai patch lanjutan. Field `price`, `originalPrice`, `rating`, `sold`, `stock`, dan `affiliateLink` sekarang memakai `FormField` serta `Input`; ringkasan diskon otomatis memakai `Card` muted dan semantic tokens. Nama field, handler `handleChange`, kalkulasi diskon, payload, validasi native, service, context, auth, route, dan backend tetap dipertahankan. Tidak ada field varian produk yang ditambahkan.
 
 `ProductForm` Step 3 Gallery dan preview produk dimigrasikan pada branch `feat/admin-product-form-gallery-v1`. URL gambar utama memakai `FormField` dan `Input`, preview memakai `Card`, gallery memakai `Card`, `Badge`, `Button`, dan `IconButton`, sementara state `image`, `gallery`, `newGalleryUrl`, `handleAddGallery`, `handleRemoveGallery`, fallback image, dan payload tetap dipertahankan. Tidak ada upload service, gallery schema, backend persistence, atau varian produk yang ditambahkan pada slice ini.
+
+`ProductForm` Step 4 Details dimigrasikan pada branch `feat/admin-product-form-details-v1`. Primitive baru `TextareaField` dipakai untuk `description`, `features`, `specifications`, `whyWeRecommend`, `bestFor`, dan `considerations`; nama field, value binding, `handleChange`, rows, placeholder, payload, service, auth, route, dan backend tetap dipertahankan. Varian produk dan upload service tetap diperlakukan sebagai gap contract terpisah karena belum memiliki state, payload, schema, endpoint, dan acceptance criteria aktif.
 
 ## Contract tokens
 
@@ -65,10 +68,11 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 1. `SelectField` dan `CheckboxField` sudah menjadi primitive lintas public/admin dengan kontrak tunggal.
 2. `CategoryForm` dan `CategoryPage` sudah dipromosikan sebagai proof-of-system setelah review branch terpisah.
 3. `ProductDetail` public sudah dipromosikan dan diverifikasi di production tanpa mengubah route atau data contract.
-4. Migrasikan sisa Step 4 `ProductForm` secara bertahap, tanpa mengubah payload atau handler. Step 2 Harga & Stok dan Step 3 Gallery sudah menggunakan foundation reusable pada branch review.
+4. Step 4 `ProductForm` Details memakai `TextareaField` pada branch terpisah tanpa mengubah payload atau handler. Step 2 Harga & Stok, Step 3 Gallery, dan Step 4 Details sudah menggunakan foundation reusable pada branch review.
 5. Evaluasi terpisah apakah gap persistence `tags`, `gallery`, dan `status` memerlukan backend/schema slice dengan acceptance criteria dan approval eksplisit.
-6. Migrasikan `Products`, `Categories`, dan `ProductTable` ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-7. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+6. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
+7. Migrasikan `Products`, `Categories`, dan `ProductTable` ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+8. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 

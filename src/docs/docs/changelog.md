@@ -115,6 +115,19 @@ STATUS: PRODUCT FORM FOUNDATION STEP 3 READY FOR REVIEW ON `feat/admin-product-f
 
 ==================================================
 
+## PRODUCT FORM FOUNDATION SLICE — STEP 4 DETAILS
+
+✓ Primitive baru `TextareaField.jsx` dibuat sebagai foundation untuk label, hint/error, required, invalid, size, focus, token, dan reduced motion
+✓ Field `description`, `features`, `specifications`, `whyWeRecommend`, `bestFor`, dan `considerations` memakai `TextareaField` dalam komposisi `Card`
+✓ Name field, value binding, `handleChange`, rows, placeholder, payload, service, auth, route, dan backend dipertahankan
+✓ Varian produk dan upload service tidak diimplementasikan karena belum memiliki state, payload, schema, endpoint, dan acceptance criteria aktif
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+STATUS: PRODUCT FORM FOUNDATION STEP 4 DETAILS READY FOR REVIEW ON `feat/admin-product-form-details-v1`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
