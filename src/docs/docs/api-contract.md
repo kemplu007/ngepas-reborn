@@ -122,6 +122,8 @@ Product
 ]
 }
 
+Product response selalu mengembalikan `tags` sebagai array string yang sudah dinormalisasi. Row legacy tanpa nilai tags dibaca sebagai `[]`.
+
 ---
 
 POST
@@ -156,6 +158,7 @@ specifications,
 whyWeRecommend,
 bestFor,
 considerations,
+tags,
 status
 }
 
@@ -168,6 +171,8 @@ data: Product
 }
 
 Product.status wajib bernilai `published` atau `draft`. Nilai default untuk produk baru dan row legacy adalah `published`. Pada PUT, jika `status` tidak dikirim, backend mempertahankan status tersimpan sebelumnya.
+
+Product.tags menerima array string, dinormalisasi dengan trim, penghapusan item kosong, dan deduplikasi case-insensitive dengan mempertahankan ejaan item pertama. Maksimal 12 tag per produk dan maksimal 40 karakter per tag. Nilai default row legacy adalah `[]`. Tags hanya dipersistenkan pada PR-2; belum digunakan untuk search, filter, SEO, atau visibility publik.
 
 ---
 
@@ -185,7 +190,7 @@ Parameter
 
 Body
 
-Sama seperti POST. Field `status` mengikuti enum `published` atau `draft`; backend mempertahankan status lama bila field tidak dikirim.
+Sama seperti POST. Field `status` mengikuti enum `published` atau `draft`; backend mempertahankan status lama bila field tidak dikirim. Field `tags` mengikuti aturan normalisasi dan batas yang sama; bila tidak dikirim, backend mempertahankan tags tersimpan sebelumnya.
 
 Response
 

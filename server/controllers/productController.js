@@ -55,6 +55,7 @@ function addProduct(req, res, next) {
       bestFor,
       considerations,
       status,
+      tags,
     } = req.body;
 
     const cleanProduct = sanitizeProduct(req.body);
@@ -88,6 +89,7 @@ function addProduct(req, res, next) {
       bestFor: bestFor ?? [],
       considerations: considerations ?? [],
       status: cleanProduct.status || "published",
+      tags: cleanProduct.tags ?? [],
     });
 
     const newProduct = productModel.getProductById(result.lastInsertRowid);
@@ -162,6 +164,7 @@ function updateProduct(req, res, next) {
       bestFor,
       considerations,
       status,
+      tags,
     } = req.body;
 
     const cleanProduct = sanitizeProduct(req.body);
@@ -195,6 +198,7 @@ function updateProduct(req, res, next) {
       bestFor: bestFor ?? [],
       considerations: considerations ?? [],
       status: cleanProduct.status || existingProduct.status || "published",
+      tags: cleanProduct.tags ?? parseProduct(existingProduct).tags,
     });
 
     const updatedProduct = productModel.getProductById(productId);

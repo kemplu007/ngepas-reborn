@@ -1,8 +1,21 @@
 /*==================================================
  NGEPAS REBORN
- File   : parser.js
+ File   : productParser.js
  Module : Product Parser
 ==================================================*/
+
+function parseJson(value, fallback) {
+  try {
+    return JSON.parse(value || JSON.stringify(fallback));
+  } catch {
+    return fallback;
+  }
+}
+
+function parseArray(value) {
+  const parsed = parseJson(value, []);
+  return Array.isArray(parsed) ? parsed : [];
+}
 
 function parseProduct(product) {
   const status = ["published", "draft"].includes(product.status)
@@ -12,12 +25,17 @@ function parseProduct(product) {
   return {
     ...product,
     status,
-    features: JSON.parse(product.features || "[]"),
-    specifications: JSON.parse(product.specifications || "{}"),
-    whyWeRecommend: JSON.parse(product.whyWeRecommend || "[]"),
-    bestFor: JSON.parse(product.bestFor || "[]"),
-    considerations: JSON.parse(product.considerations || "[]"),
+    tags: parseArray(product.tags),
+    features: parseArray(product.features),
+    specifications: parseJson(product.specifications, {}),
+    whyWeRecommend: parseArray(product.whyWeRecommend),
+    bestFor: parseArray(product.bestFor),
+    considerations: parseArray(product.considerations),
   };
 }
 
 module.exports = parseProduct;
+
+/*==================================================
+ END OF FILE
+==================================================*/
