@@ -66,11 +66,15 @@ const handleLinkClick = () => {
               onClick={handleLinkClick}
               className={({ isActive }) =>
                 `
-                  flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition
+                  flex items-center gap-3 rounded-[var(--np-radius-sm)] px-4 py-3 text-sm font-medium
+                  transition-[background-color,color,box-shadow] duration-np-fast ease-np-standard
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-focus)]
+                  focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--np-color-green-900)]
+                  motion-reduce:transition-none
                   ${
                     isActive
-                      ? "bg-emerald-800 text-white"
-                      : "text-emerald-100 hover:bg-emerald-800/50"
+                      ? "bg-[var(--np-color-green-800)] text-[var(--np-color-white)]"
+                      : "text-[var(--np-color-green-100)] hover:bg-[var(--np-color-green-800)]/50"
                   }
                 `
               }
