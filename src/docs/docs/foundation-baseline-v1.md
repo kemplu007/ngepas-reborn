@@ -4,7 +4,7 @@
 
 **Branch:** `main` (promotion merge setelah review branch terpisah)
 
-**Scope:** Reusable frontend foundation untuk public dan admin. Patch ini tidak mengubah backend, database, JWT, service contract, atau business logic.
+**Scope:** Reusable frontend foundation untuk public dan admin. Baseline visual tetap tidak mengubah auth JWT atau business logic. PR-1 Product Status Persistence dicatat sebagai contract slice backend terpisah yang sudah dipromosikan, bukan sebagai authority visual baru.
 
 ## Prinsip authority
 
@@ -48,6 +48,8 @@
 
 `ProductForm` Step 4 Details dimigrasikan pada branch `feat/admin-product-form-details-v1` dan dipromosikan ke `main` melalui merge commit `4c46bd0`. Primitive baru `TextareaField` dipakai untuk `description`, `features`, `specifications`, `whyWeRecommend`, `bestFor`, dan `considerations`; nama field, value binding, `handleChange`, rows, placeholder, payload, service, auth, route, dan backend tetap dipertahankan. Validasi gabungan `git diff --check` dan `npx vite build` lulus pada 1843 modules. Varian produk dan upload service tetap diperlakukan sebagai gap contract terpisah karena belum memiliki state, payload, schema, endpoint, dan acceptance criteria aktif.
 
+`Product Status Persistence` PR-1 sudah dipromosikan ke `main` melalui merge commit `377e22d` setelah approval eksplisit. Migration `products.status` bersifat idempotent dengan enum `published`/`draft`, default `published` untuk row lama dan produk baru, serta update yang mempertahankan status lama bila status tidak dikirim. Validator, sanitizer, parser, model, controller, initializer, dan seed lokal sudah selaras. Slice ini tidak menyentuh auth JWT dan belum mengubah visibility endpoint publik; tags, gallery, upload service, product_offers, dan search tetap berada di slice terpisah.
+
 ## Contract tokens
 
 Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visual baru tidak boleh dibuat dengan hex, spacing acak, radius acak, duration hardcoded, atau raw semantic color. Motion interaktif memakai token `duration-np-fast`/`duration-np-normal` dan harus aman terhadap `prefers-reduced-motion` melalui utility global.
@@ -71,11 +73,12 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 4. Step 2 Harga & Stok, Step 3 Gallery, dan Step 4 Details sudah dipromosikan ke `main` melalui merge commit terpisah; Step 4 memakai `TextareaField` tanpa mengubah payload atau handler.
 5. `ProductTable` dan halaman `Products` admin sudah dipromosikan ke `main` melalui merge commit `0c27b67`; tabel memakai `CheckboxField`, `Badge`, dan `IconButton`, halaman memakai `Button`, `SearchInput`, dan `SelectField`, tanpa mengubah state, filter, bulk delete, route, atau contract.
 6. Active item pada `Sidebar` admin sudah dipromosikan melalui merge commit `bb41b73`; outline default dihilangkan, keyboard focus tetap memakai focus ring token, dan navigation behavior dipertahankan.
-7. Evaluasi terpisah apakah gap persistence `tags`, `gallery`, dan `status` memerlukan backend/schema slice dengan acceptance criteria dan approval eksplisit.
-8. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
-9. `Categories` admin listing sudah dipromosikan ke `main` melalui merge commit `0a11f39`; listing memakai `Button`, `Badge`, dan `IconButton`, tanpa mengubah CRUD, route, service, auth, atau backend.
-10. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-11. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+7. `Categories` admin listing sudah dipromosikan ke `main` melalui merge commit `0a11f39`; listing memakai `Button`, `Badge`, dan `IconButton`, tanpa mengubah CRUD, route, service, auth, atau backend.
+8. PR-1 Product Status Persistence sudah dipromosikan ke `main` melalui merge commit `377e22d`; lakukan FE read-back verification sebagai PR-1.5 sebelum melanjutkan tags atau gallery persistence.
+9. Jangan mengimplementasikan tags atau gallery sebelum PR-2/PR-3 mendapat acceptance criteria dan approval eksplisit.
+10. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
+11. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+12. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 
