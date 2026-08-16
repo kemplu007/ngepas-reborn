@@ -161,6 +161,21 @@ STATUS: ADMIN SIDEBAR ACTIVE OUTLINE FIX PROMOTED TO `main` VIA MERGE COMMIT `bb
 
 ==================================================
 
+## ADMIN CATEGORIES LISTING FOUNDATION
+
+✓ Halaman Categories admin memakai `Button` untuk CTA tambah kategori
+✓ Listing table memakai surface, border, shadow, spacing, typography, dan hover token foundation
+✓ Status Aktif/Nonaktif memakai `Badge` reusable
+✓ Action edit/hapus memakai `IconButton` dengan label aksesibilitas dan destination edit nyata
+✓ Loading/error state memakai surface dan semantic color token
+✓ CategoryContext, categoryService, ConfirmDialog, toast, CRUD behavior, route, auth JWT, dan backend tetap dipertahankan
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules); preview berhasil memuat 6 kategori nyata
+
+STATUS: ADMIN CATEGORIES LISTING FOUNDATION PROMOTED TO `main` VIA MERGE COMMIT `0a11f39`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
