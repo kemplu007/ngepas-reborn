@@ -20,6 +20,11 @@ import { Plus, Pencil, Trash2 } from "lucide-react";
 /* Context */
 import { useCategories } from "../../context/CategoryContext";
 
+/* Foundation */
+import Badge from "../../components/ui/Badge";
+import Button from "../../components/ui/Button";
+import IconButton from "../../components/ui/IconButton";
+
 /* Components */
 import ConfirmDialog from "../../components/common/ConfirmDialog";
 
@@ -49,12 +54,16 @@ function Categories() {
    HANDLERS
   ==================================================*/
 
+  const handleCreate = () => {
+    navigate("/admin/categories/new");
+  };
+
   const handleEdit = (id) => {
     navigate(`/admin/categories/${id}/edit`);
   };
 
   const handleDelete = (id) => {
-    const category = categories.find((c) => c.id === id);
+    const category = categories.find((item) => item.id === id);
     setConfirmDialog({
       open: true,
       title: "Hapus Kategori",
@@ -72,110 +81,116 @@ function Categories() {
   };
 
   /*==================================================
-   RENDER
+   RENDER STATES
   ==================================================*/
 
   if (loading) {
     return (
-      <div className="p-6">
-        <p className="text-slate-500">Memuat kategori...</p>
-      </div>
+      <section className="rounded-[var(--np-radius-lg)] border border-[var(--np-color-border)] bg-[var(--np-color-surface)] p-6 shadow-[var(--np-shadow-sm)]">
+        <p className="text-[var(--np-color-text-secondary)]">Memuat kategori...</p>
+      </section>
     );
   }
 
   if (error) {
-    return <div className="p-6 text-red-500">{error}</div>;
+    return (
+      <section className="rounded-[var(--np-radius-lg)] border border-[var(--np-color-danger)] bg-[var(--np-color-danger-soft)] p-6 text-[var(--np-color-danger)]">
+        {error}
+      </section>
+    );
   }
 
   return (
-    <section className="p-6">
+    <section className="space-y-6">
       {/*==================================================
        HEADER
       ==================================================*/}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Categories</h1>
-          <p className="text-gray-500 mt-1">
+          <p className="mb-2 text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.12em] text-[var(--np-color-success)]">
+            Admin catalog
+          </p>
+          <h1 className="text-[var(--np-text-h1)] font-bold leading-[var(--np-leading-heading)] text-[var(--np-color-text-primary)]">
+            Categories
+          </h1>
+          <p className="mt-2 text-[var(--np-color-text-secondary)]">
             Kelola seluruh kategori produk Ngepas.
           </p>
         </div>
 
-        <Link
-          to="/admin/categories/new"
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition"
-        >
-          <Plus size={18} />
+        <Button type="button" variant="primary" size="md" onClick={handleCreate}>
+          <Plus size={18} aria-hidden="true" />
           Tambah Kategori
-        </Link>
+        </Button>
       </div>
 
       {/*==================================================
        TABLE
       ==================================================*/}
-      <div className="overflow-x-auto bg-white rounded-xl shadow">
-        <table className="w-full text-left">
-          <thead className="bg-gray-100">
+      <div className="overflow-x-auto rounded-[var(--np-radius-lg)] border border-[var(--np-color-border)] bg-[var(--np-color-surface)] shadow-[var(--np-shadow-sm)]">
+        <table className="w-full min-w-[720px] text-left text-[var(--np-text-small)]">
+          <thead className="border-b border-[var(--np-color-border)] bg-[var(--np-color-surface-muted)] text-[var(--np-color-text-secondary)]">
             <tr>
-              <th className="px-4 py-3">Nama</th>
-              <th className="px-4 py-3">Slug</th>
-              <th className="px-4 py-3">Room</th>
-              <th className="px-4 py-3">Icon</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3 text-center">Aksi</th>
+              <th className="px-4 py-3 font-medium">Nama</th>
+              <th className="px-4 py-3 font-medium">Slug</th>
+              <th className="px-4 py-3 font-medium">Room</th>
+              <th className="px-4 py-3 font-medium">Icon</th>
+              <th className="px-4 py-3 font-medium">Status</th>
+              <th className="px-4 py-3 text-right font-medium">Aksi</th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="divide-y divide-[var(--np-color-border)]">
             {categories.length > 0 ? (
               categories.map((category) => (
-                <tr key={category.id} className="border-t hover:bg-slate-50/50 transition">
-                  <td className="px-4 py-3 font-medium text-slate-800">
+                <tr
+                  key={category.id}
+                  className="transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-surface-muted)]"
+                >
+                  <td className="px-4 py-3 font-semibold text-[var(--np-color-text-primary)]">
                     {category.name}
                   </td>
-                  <td className="px-4 py-3 text-slate-500 font-mono text-xs">
+                  <td className="px-4 py-3 font-mono text-[var(--np-text-caption)] text-[var(--np-color-muted)]">
                     {category.slug}
                   </td>
-                  <td className="px-4 py-3 capitalize text-slate-600">
+                  <td className="px-4 py-3 capitalize text-[var(--np-color-text-secondary)]">
                     {category.room}
                   </td>
-                  <td className="px-4 py-3 text-lg">{category.icon || "—"}</td>
-                  <td className="px-4 py-3">
-                    {category.status ? (
-                      <span className="inline-flex items-center gap-1 text-green-600 font-medium text-sm">
-                        <span className="h-2 w-2 rounded-full bg-green-500" />
-                        Aktif
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-red-500 font-medium text-sm">
-                        <span className="h-2 w-2 rounded-full bg-red-500" />
-                        Nonaktif
-                      </span>
-                    )}
+                  <td className="px-4 py-3 text-[var(--np-text-h3)]" aria-label={category.icon ? `Icon ${category.icon}` : "Tidak ada icon"}>
+                    {category.icon || "—"}
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex justify-center gap-2">
-                      <button
-                        onClick={() => handleEdit(category.id)}
-                        className="p-2 rounded-lg border hover:bg-gray-100 transition"
+                    <Badge variant={category.status ? "primary" : "danger"}>
+                      {category.status ? "Aktif" : "Nonaktif"}
+                    </Badge>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center justify-end gap-1">
+                      <Link
+                        to={`/admin/categories/${category.id}/edit`}
+                        className="inline-flex"
+                        aria-label={`Edit ${category.name}`}
+                        tabIndex={-1}
                       >
-                        <Pencil size={18} />
-                      </button>
-                      <button
+                        <IconButton label={`Edit ${category.name}`}>
+                          <Pencil size={16} aria-hidden="true" />
+                        </IconButton>
+                      </Link>
+                      <IconButton
+                        label={`Hapus ${category.name}`}
+                        variant="ghost"
+                        className="hover:bg-[var(--np-color-danger-soft)] hover:text-[var(--np-color-danger)]"
                         onClick={() => handleDelete(category.id)}
-                        className="p-2 rounded-lg border hover:bg-red-100 text-red-600 transition"
                       >
-                        <Trash2 size={18} />
-                      </button>
+                        <Trash2 size={16} aria-hidden="true" />
+                      </IconButton>
                     </div>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td
-                  colSpan={6}
-                  className="px-4 py-8 text-center text-gray-500"
-                >
+                <td colSpan={6} className="px-4 py-8 text-center text-[var(--np-color-text-secondary)]">
                   Belum ada kategori.
                 </td>
               </tr>
@@ -199,5 +214,9 @@ function Categories() {
     </section>
   );
 }
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default Categories;
