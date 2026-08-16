@@ -70,10 +70,11 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 3. `ProductDetail` public sudah dipromosikan dan diverifikasi di production tanpa mengubah route atau data contract.
 4. Step 2 Harga & Stok, Step 3 Gallery, dan Step 4 Details sudah dipromosikan ke `main` melalui merge commit terpisah; Step 4 memakai `TextareaField` tanpa mengubah payload atau handler.
 5. `ProductTable` dan halaman `Products` admin sudah dipromosikan ke `main` melalui merge commit `0c27b67`; tabel memakai `CheckboxField`, `Badge`, dan `IconButton`, halaman memakai `Button`, `SearchInput`, dan `SelectField`, tanpa mengubah state, filter, bulk delete, route, atau contract.
-6. Evaluasi terpisah apakah gap persistence `tags`, `gallery`, dan `status` memerlukan backend/schema slice dengan acceptance criteria dan approval eksplisit.
-7. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
-8. Migrasikan halaman `Categories` admin dan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-9. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+6. Active item pada `Sidebar` admin sudah dipromosikan melalui merge commit `bb41b73`; outline default dihilangkan, keyboard focus tetap memakai focus ring token, dan navigation behavior dipertahankan.
+7. Evaluasi terpisah apakah gap persistence `tags`, `gallery`, dan `status` memerlukan backend/schema slice dengan acceptance criteria dan approval eksplisit.
+8. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
+9. Migrasikan halaman `Categories` admin dan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+10. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 

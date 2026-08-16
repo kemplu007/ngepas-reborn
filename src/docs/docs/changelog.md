@@ -148,6 +148,19 @@ STATUS: PRODUCT TABLE FOUNDATION SLICE PROMOTED TO `main` VIA MERGE COMMIT `0c27
 
 ==================================================
 
+## ADMIN SIDEBAR ACTIVE OUTLINE FIX
+
+✓ Active `NavLink` tidak lagi memakai outline default yang dapat terlihat sebagai double outline saat fokus
+✓ Keyboard focus tetap terlihat melalui focus ring hijau berbasis token dengan offset terhadap surface Sidebar
+✓ Radius, transition duration, easing, dan reduced-motion behavior mengikuti token foundation
+✓ Tidak ada perubahan pada route, menu, logout, auth JWT, layout, atau navigation behavior
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+STATUS: ADMIN SIDEBAR ACTIVE OUTLINE FIX PROMOTED TO `main` VIA MERGE COMMIT `bb41b73`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
