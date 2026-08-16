@@ -408,93 +408,112 @@ function ProductForm() {
               </div>
             </div>
 
-            {/* STEP 2: PRICING */}
+            {/* STEP 2: PRICING AND STOCK */}
             <div className={currentStep === 2 ? "block" : "hidden"}>
-              <h3 className="text-lg font-bold text-slate-800 mb-6">
-                Harga & Stok
-              </h3>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label className="text-sm font-semibold text-slate-700">
-                    Harga
-                  </label>
-                  <input
-                    name="price"
-                    type="number"
-                    min="0"
-                    value={formData.price}
-                    onChange={handleChange}
-                    placeholder="89000"
-                    required
-                    className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-semibold text-slate-700">
-                    Harga Asli
-                  </label>
-                  <input
-                    name="originalPrice"
-                    type="number"
-                    min="0"
-                    value={formData.originalPrice}
-                    onChange={handleChange}
-                    placeholder="109000"
-                    className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                  />
-                </div>
-              </div>
-              <div className="mt-3 rounded-xl bg-emerald-50 px-4 py-3 mb-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-emerald-700">
-                  Diskon Otomatis
-                </p>
-                <p className="mt-1 text-2xl font-bold text-emerald-600">
-                  {calculatedDiscount}%
+              <div className="mb-[var(--np-space-6)]">
+                <Badge variant="primary">Langkah 2 dari 4</Badge>
+                <h2 className="mt-[var(--np-space-2)] text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
+                  Harga dan stok
+                </h2>
+                <p className="mt-[var(--np-space-2)] text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+                  Atur harga, metrik katalog, stok, dan tautan affiliate produk.
                 </p>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <input
-                  name="rating"
-                  type="number"
-                  min="0"
-                  max="5"
-                  step="0.1"
-                  value={formData.rating}
-                  onChange={handleChange}
-                  placeholder="Rating"
-                  className="rounded-xl border border-slate-300 px-4 py-3"
-                />
-                <input
-                  name="sold"
-                  type="number"
-                  min="0"
-                  value={formData.sold}
-                  onChange={handleChange}
-                  placeholder="Terjual"
-                  className="rounded-xl border border-slate-300 px-4 py-3"
-                />
-                <input
-                  name="stock"
-                  type="number"
-                  min="0"
-                  value={formData.stock}
-                  onChange={handleChange}
-                  placeholder="Stok"
-                  className="rounded-xl border border-slate-300 px-4 py-3"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-slate-700">
-                  Affiliate Link
-                </label>
-                <input
-                  name="affiliateLink"
-                  type="url"
-                  value={formData.affiliateLink}
-                  onChange={handleChange}
-                  placeholder="https://..."
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                />
+
+              <div className="space-y-[var(--np-space-5)]">
+                <div className="grid gap-[var(--np-space-5)] sm:grid-cols-2">
+                  <FormField label="Harga" htmlFor="product-price" required>
+                    <Input
+                      id="product-price"
+                      name="price"
+                      type="number"
+                      min="0"
+                      value={formData.price}
+                      onChange={handleChange}
+                      placeholder="89000"
+                      required
+                    />
+                  </FormField>
+
+                  <FormField label="Harga asli" htmlFor="product-original-price">
+                    <Input
+                      id="product-original-price"
+                      name="originalPrice"
+                      type="number"
+                      min="0"
+                      value={formData.originalPrice}
+                      onChange={handleChange}
+                      placeholder="109000"
+                    />
+                  </FormField>
+                </div>
+
+                <Card
+                  variant="muted"
+                  className="border-[var(--np-color-action-primary)]/20 bg-[var(--np-color-action-primary-soft)]"
+                >
+                  <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
+                    Diskon otomatis
+                  </p>
+                  <p className="mt-[var(--np-space-1)] text-[var(--np-text-h2)] font-semibold text-[var(--np-color-action-primary)]">
+                    {calculatedDiscount}%
+                  </p>
+                </Card>
+
+                <div className="grid gap-[var(--np-space-5)] sm:grid-cols-3">
+                  <FormField label="Rating" htmlFor="product-rating" hint="Skala 0 sampai 5.">
+                    <Input
+                      id="product-rating"
+                      name="rating"
+                      type="number"
+                      min="0"
+                      max="5"
+                      step="0.1"
+                      value={formData.rating}
+                      onChange={handleChange}
+                      placeholder="4.8"
+                    />
+                  </FormField>
+
+                  <FormField label="Terjual" htmlFor="product-sold">
+                    <Input
+                      id="product-sold"
+                      name="sold"
+                      type="number"
+                      min="0"
+                      value={formData.sold}
+                      onChange={handleChange}
+                      placeholder="120"
+                    />
+                  </FormField>
+
+                  <FormField label="Stok" htmlFor="product-stock">
+                    <Input
+                      id="product-stock"
+                      name="stock"
+                      type="number"
+                      min="0"
+                      value={formData.stock}
+                      onChange={handleChange}
+                      placeholder="25"
+                    />
+                  </FormField>
+                </div>
+
+                <FormField
+                  label="Affiliate link"
+                  htmlFor="product-affiliate-link"
+                  hint="Gunakan URL marketplace yang menjadi sumber rekomendasi produk."
+                >
+                  <Input
+                    id="product-affiliate-link"
+                    name="affiliateLink"
+                    type="url"
+                    value={formData.affiliateLink}
+                    onChange={handleChange}
+                    placeholder="https://..."
+                  />
+                </FormField>
               </div>
             </div>
 

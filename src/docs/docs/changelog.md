@@ -88,6 +88,19 @@ STATUS: PRODUCT FORM FOUNDATION STEP 1 READY FOR REVIEW ON `feat/admin-product-f
 
 ==================================================
 
+## PRODUCT FORM FOUNDATION SLICE — STEP 2 HARGA & STOK
+
+✓ Field `price`, `originalPrice`, `rating`, `sold`, `stock`, dan `affiliateLink` memakai `FormField` dan `Input`
+✓ Ringkasan diskon otomatis memakai `Card` muted dan semantic foundation tokens
+✓ Name field, value binding, `handleChange`, kalkulasi diskon, native validation, dan payload dipertahankan
+✓ Tidak ada field varian produk, endpoint baru, perubahan backend/schema, auth, route, atau service contract
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1842 modules)
+
+STATUS: PRODUCT FORM FOUNDATION STEP 2 READY FOR REVIEW ON `feat/admin-product-form-foundation-v1`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
