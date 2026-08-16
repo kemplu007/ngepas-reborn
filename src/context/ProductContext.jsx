@@ -58,9 +58,11 @@ export function ProductProvider({ children }) {
       const newProduct = await createProduct(product);
 
       setProducts((prev) => [...prev, newProduct]);
+      return newProduct;
     } catch (err) {
       console.error(err);
       setError(err.message);
+      throw err;
     }
   };
 
@@ -85,9 +87,11 @@ export function ProductProvider({ children }) {
       const product = await editProduct(id, updated);
 
       setProducts((prev) => prev.map((p) => (p.id === id ? product : p)));
+      return product;
     } catch (err) {
       console.error(err);
       setError(err.message);
+      throw err;
     }
   };
 

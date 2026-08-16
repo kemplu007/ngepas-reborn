@@ -115,7 +115,6 @@ function ProductForm() {
   const statusOptions = [
     { value: "published", label: "Published" },
     { value: "draft", label: "Draft" },
-    { value: "hidden", label: "Hidden" },
   ];
 
   const badgeOptions = [
@@ -201,7 +200,7 @@ function ProductForm() {
   /*==================================================
    SUBMIT
   ==================================================*/
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
@@ -247,16 +246,20 @@ function ProductForm() {
         .filter(Boolean),
     };
 
-    if (isEditMode && editingProduct) {
-      updateProduct(editingProduct.id, payload);
-      toast("Produk berhasil diperbarui", "success");
-    } else {
-      addProduct(payload);
-      toast("Produk baru berhasil ditambahkan", "success");
-      setFormData(initialFormData);
-      setGallery([]);
+    try {
+      if (isEditMode && editingProduct) {
+        await updateProduct(editingProduct.id, payload);
+        toast("Produk berhasil diperbarui", "success");
+      } else {
+        await addProduct(payload);
+        toast("Produk baru berhasil ditambahkan", "success");
+        setFormData(initialFormData);
+        setGallery([]);
+      }
+      navigate("/admin/products");
+    } catch (err) {
+      toast(err.message || "Produk gagal disimpan", "error");
     }
-    navigate("/admin/products");
   };
 
   /*==================================================
