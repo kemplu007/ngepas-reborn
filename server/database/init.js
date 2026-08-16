@@ -5,6 +5,7 @@
 ==================================================*/
 
 const db = require("./db");
+const migrateProductStatus = require("./productStatusMigration");
 
 /*==================================================
  PRODUCTS TABLE
@@ -45,6 +46,8 @@ CREATE TABLE IF NOT EXISTS products (
     considerations TEXT
 );
 `);
+
+migrateProductStatus(db);
 
 /*==================================================
  CATEGORIES TABLE

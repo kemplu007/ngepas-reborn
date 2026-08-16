@@ -54,6 +54,7 @@ function addProduct(req, res, next) {
       whyWeRecommend,
       bestFor,
       considerations,
+      status,
     } = req.body;
 
     const cleanProduct = sanitizeProduct(req.body);
@@ -86,6 +87,7 @@ function addProduct(req, res, next) {
       whyWeRecommend: whyWeRecommend ?? [],
       bestFor: bestFor ?? [],
       considerations: considerations ?? [],
+      status: cleanProduct.status || "published",
     });
 
     const newProduct = productModel.getProductById(result.lastInsertRowid);
@@ -159,6 +161,7 @@ function updateProduct(req, res, next) {
       whyWeRecommend,
       bestFor,
       considerations,
+      status,
     } = req.body;
 
     const cleanProduct = sanitizeProduct(req.body);
@@ -191,6 +194,7 @@ function updateProduct(req, res, next) {
       whyWeRecommend: whyWeRecommend ?? [],
       bestFor: bestFor ?? [],
       considerations: considerations ?? [],
+      status: cleanProduct.status || existingProduct.status || "published",
     });
 
     const updatedProduct = productModel.getProductById(productId);

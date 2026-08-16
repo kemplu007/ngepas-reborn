@@ -13,6 +13,7 @@ function sanitizeProduct(product) {
     image: product.image?.trim(),
     affiliateLink: product.affiliateLink?.trim(),
     description: product.description?.trim(),
+    status: product.status?.trim().toLowerCase(),
   };
 }
 

@@ -7,6 +7,9 @@
 const bcrypt = require("bcryptjs");
 
 const db = require("./database/db");
+const migrateProductStatus = require("./database/productStatusMigration");
+
+migrateProductStatus(db);
 
 /*==================================================
  ADMIN CONFIG
@@ -316,6 +319,7 @@ const insertProduct = db.prepare(`
     featured,
     stock,
     affiliateLink,
+    status,
     description,
     features,
     specifications,
@@ -325,7 +329,7 @@ const insertProduct = db.prepare(`
   )
   VALUES (
     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
   )
 `);
 
@@ -380,6 +384,7 @@ for (const product of products) {
     product.featured,
     product.stock,
     product.affiliateLink,
+    product.status ?? "published",
     product.description,
     JSON.stringify(product.features),
     JSON.stringify(product.specifications),
