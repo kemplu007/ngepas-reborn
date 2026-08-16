@@ -101,6 +101,20 @@ STATUS: PRODUCT FORM FOUNDATION STEP 2 READY FOR REVIEW ON `feat/admin-product-f
 
 ==================================================
 
+## PRODUCT FORM FOUNDATION SLICE — STEP 3 GALLERY & PREVIEW
+
+✓ URL gambar utama memakai `FormField` dan `Input` dengan type URL serta helper text
+✓ Preview gambar utama memakai `Card` muted/default dan mempertahankan `imageError` fallback
+✓ Gallery memakai `Card`, `Badge`, `Button`, dan `IconButton` dengan label hapus aksesibel
+✓ State `image`, `gallery`, `newGalleryUrl`, handler tambah/hapus, fallback image, dan payload dipertahankan
+✓ Tidak ada upload service, gallery schema, backend persistence, varian produk, atau perubahan auth/route/service contract
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1842 modules)
+
+STATUS: PRODUCT FORM FOUNDATION STEP 3 READY FOR REVIEW ON `feat/admin-product-form-gallery-v1`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
