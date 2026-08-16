@@ -131,6 +131,23 @@ STATUS: PRODUCT FORM FOUNDATION STEP 4 DETAILS PROMOTED TO `main` VIA MERGE COMM
 
 ==================================================
 
+## PRODUCT TABLE FOUNDATION SLICE
+
+✓ `ProductTable.jsx` memakai `CheckboxField`, `Badge`, dan `IconButton`; harga memakai format rupiah; stok dan status memakai badge semantic (primary saat stok ada, danger saat habis, neutral untuk draft)
+✓ Edit memakai `Link` wrapper dengan `IconButton` berlabel aksesibel; hapus memakai `IconButton` ghost dengan hover danger
+✓ `Products.jsx` memakai `Button`, `SearchInput`, dan `SelectField` dengan label resmi untuk filter kategori
+✓ State filter, bulk delete, `ConfirmDialog`, `useProducts`, `useToast`, route, payload, auth JWT, service, dan backend dipertahankan tanpa perubahan
+✓ Review visual di dev server dengan data produksi: tabel merender produk nyata, filter kategori berfungsi, dan search/filter foundation tampil sesuai kiblat
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+✓ Branch `feat/admin-product-table-foundation-v1` dipromosikan ke `main` setelah approval eksplisit
+✓ Tidak ada perubahan pada auth JWT, service/context/API contract, backend, database, atau varian produk dan upload service
+
+STATUS: PRODUCT TABLE FOUNDATION SLICE PROMOTED TO `main` VIA MERGE COMMIT `0c27b67`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
