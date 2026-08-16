@@ -46,7 +46,7 @@
 
 `ProductForm` Step 3 Gallery dan preview produk dimigrasikan pada branch `feat/admin-product-form-gallery-v1`. URL gambar utama memakai `FormField` dan `Input`, preview memakai `Card`, gallery memakai `Card`, `Badge`, `Button`, dan `IconButton`, sementara state `image`, `gallery`, `newGalleryUrl`, `handleAddGallery`, `handleRemoveGallery`, fallback image, dan payload tetap dipertahankan. Tidak ada upload service, gallery schema, backend persistence, atau varian produk yang ditambahkan pada slice ini.
 
-`ProductForm` Step 4 Details dimigrasikan pada branch `feat/admin-product-form-details-v1`. Primitive baru `TextareaField` dipakai untuk `description`, `features`, `specifications`, `whyWeRecommend`, `bestFor`, dan `considerations`; nama field, value binding, `handleChange`, rows, placeholder, payload, service, auth, route, dan backend tetap dipertahankan. Varian produk dan upload service tetap diperlakukan sebagai gap contract terpisah karena belum memiliki state, payload, schema, endpoint, dan acceptance criteria aktif.
+`ProductForm` Step 4 Details dimigrasikan pada branch `feat/admin-product-form-details-v1` dan dipromosikan ke `main` melalui merge commit `4c46bd0`. Primitive baru `TextareaField` dipakai untuk `description`, `features`, `specifications`, `whyWeRecommend`, `bestFor`, dan `considerations`; nama field, value binding, `handleChange`, rows, placeholder, payload, service, auth, route, dan backend tetap dipertahankan. Validasi gabungan `git diff --check` dan `npx vite build` lulus pada 1843 modules. Varian produk dan upload service tetap diperlakukan sebagai gap contract terpisah karena belum memiliki state, payload, schema, endpoint, dan acceptance criteria aktif.
 
 ## Contract tokens
 
@@ -68,7 +68,7 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 1. `SelectField` dan `CheckboxField` sudah menjadi primitive lintas public/admin dengan kontrak tunggal.
 2. `CategoryForm` dan `CategoryPage` sudah dipromosikan sebagai proof-of-system setelah review branch terpisah.
 3. `ProductDetail` public sudah dipromosikan dan diverifikasi di production tanpa mengubah route atau data contract.
-4. Step 4 `ProductForm` Details memakai `TextareaField` pada branch terpisah tanpa mengubah payload atau handler. Step 2 Harga & Stok, Step 3 Gallery, dan Step 4 Details sudah menggunakan foundation reusable pada branch review.
+4. Step 2 Harga & Stok, Step 3 Gallery, dan Step 4 Details sudah dipromosikan ke `main` melalui merge commit terpisah; Step 4 memakai `TextareaField` tanpa mengubah payload atau handler.
 5. Evaluasi terpisah apakah gap persistence `tags`, `gallery`, dan `status` memerlukan backend/schema slice dengan acceptance criteria dan approval eksplisit.
 6. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
 7. Migrasikan `Products`, `Categories`, dan `ProductTable` ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.

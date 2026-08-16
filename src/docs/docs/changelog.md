@@ -124,7 +124,10 @@ STATUS: PRODUCT FORM FOUNDATION STEP 3 READY FOR REVIEW ON `feat/admin-product-f
 
 VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules)
 
-STATUS: PRODUCT FORM FOUNDATION STEP 4 DETAILS READY FOR REVIEW ON `feat/admin-product-form-details-v1`
+✓ Branch `feat/admin-product-form-details-v1` dipromosikan ke `main` setelah approval eksplisit
+✓ Scope tetap terbatas pada Details dan primitive `TextareaField`; varian produk serta upload service tidak masuk
+
+STATUS: PRODUCT FORM FOUNDATION STEP 4 DETAILS PROMOTED TO `main` VIA MERGE COMMIT `4c46bd0`
 
 ==================================================
 
