@@ -73,8 +73,9 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 6. Active item pada `Sidebar` admin sudah dipromosikan melalui merge commit `bb41b73`; outline default dihilangkan, keyboard focus tetap memakai focus ring token, dan navigation behavior dipertahankan.
 7. Evaluasi terpisah apakah gap persistence `tags`, `gallery`, dan `status` memerlukan backend/schema slice dengan acceptance criteria dan approval eksplisit.
 8. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
-9. Migrasikan halaman `Categories` admin dan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-10. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+9. `Categories` admin listing sudah dipromosikan ke `main` melalui merge commit `0a11f39`; listing memakai `Button`, `Badge`, dan `IconButton`, tanpa mengubah CRUD, route, service, auth, atau backend.
+10. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+11. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 
