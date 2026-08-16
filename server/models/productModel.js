@@ -46,6 +46,7 @@ function createProduct(product) {
       featured,
       stock,
       affiliateLink,
+      status,
       description,
       features,
       specifications,
@@ -53,7 +54,7 @@ function createProduct(product) {
       bestFor,
       considerations
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `,
     )
     .run(
@@ -72,6 +73,7 @@ function createProduct(product) {
       product.featured,
       product.stock,
       product.affiliateLink,
+      product.status,
       product.description,
       JSON.stringify(product.features),
       JSON.stringify(product.specifications),
@@ -108,6 +110,7 @@ function updateProduct(id, product) {
       featured = ?,
       stock = ?,
       affiliateLink = ?,
+      status = ?,
       description = ?,
       features = ?,
       specifications = ?,
@@ -133,6 +136,7 @@ function updateProduct(id, product) {
       product.featured,
       product.stock,
       product.affiliateLink,
+      product.status,
       product.description,
       JSON.stringify(product.features),
       JSON.stringify(product.specifications),
@@ -181,3 +185,7 @@ module.exports = {
   updateProduct,
   deleteProduct,
 };
+
+/*==================================================
+ END OF FILE
+==================================================*/

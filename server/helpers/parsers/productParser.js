@@ -5,8 +5,13 @@
 ==================================================*/
 
 function parseProduct(product) {
+  const status = ["published", "draft"].includes(product.status)
+    ? product.status
+    : "published";
+
   return {
     ...product,
+    status,
     features: JSON.parse(product.features || "[]"),
     specifications: JSON.parse(product.specifications || "{}"),
     whyWeRecommend: JSON.parse(product.whyWeRecommend || "[]"),
