@@ -176,6 +176,23 @@ STATUS: ADMIN CATEGORIES LISTING FOUNDATION PROMOTED TO `main` VIA MERGE COMMIT 
 
 ==================================================
 
+## PRODUCT STATUS PERSISTENCE — PR-1
+
+✓ Migration idempotent menambahkan `products.status` dengan enum kontrak `published` atau `draft`
+✓ Row lama dan produk baru memakai default `published`; update mempertahankan status lama ketika field tidak dikirim
+✓ Validator, sanitizer, parser, model, controller, initializer, dan seed lokal diperbarui tanpa menyentuh auth JWT
+✓ Product response sekarang membawa nilai status yang sudah dipersistenkan; PR-1 belum mengubah visibility endpoint publik
+✓ Scope guard tetap aktif: tags, gallery, upload service, product_offers, search, dan public visibility filtering tidak masuk slice ini
+
+VALIDATION: `git diff --check` + backend syntax check + `npx vite build` PASSED (1843 modules)
+
+✓ Branch `feat/product-status-persistence-v1` dipromosikan ke `main` setelah approval eksplisit
+✓ Merge commit promotion: `377e22d`
+
+STATUS: PRODUCT STATUS PERSISTENCE PR-1 PROMOTED TO `main`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15

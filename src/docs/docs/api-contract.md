@@ -155,7 +155,8 @@ features,
 specifications,
 whyWeRecommend,
 bestFor,
-considerations
+considerations,
+status
 }
 
 Response
@@ -165,6 +166,8 @@ success,
 message,
 data: Product
 }
+
+Product.status wajib bernilai `published` atau `draft`. Nilai default untuk produk baru dan row legacy adalah `published`. Pada PUT, jika `status` tidak dikirim, backend mempertahankan status tersimpan sebelumnya.
 
 ---
 
@@ -182,7 +185,7 @@ Parameter
 
 Body
 
-Sama seperti POST.
+Sama seperti POST. Field `status` mengikuti enum `published` atau `draft`; backend mempertahankan status lama bila field tidak dikirim.
 
 Response
 
