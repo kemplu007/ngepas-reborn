@@ -24,6 +24,11 @@ import { useProducts } from "../../context/ProductContext";
 import ProductTable from "../../components/admin/ProductTable";
 import ConfirmDialog from "../../components/common/ConfirmDialog";
 
+/* Foundation */
+import Button from "../../components/ui/Button";
+import SearchInput from "../../components/ui/SearchInput";
+import SelectField from "../../components/ui/SelectField";
+
 /* Toast */
 import { useToast } from "../../context/ToastContext";
 
@@ -143,15 +148,18 @@ function Products() {
       ==================================================*/}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm font-semibold text-emerald-600">Management</p>
-          <h1 className="mt-1 text-3xl font-bold text-slate-900">Produk</h1>
+          <p className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-action-primary)]">
+            Management
+          </p>
+          <h1 className="mt-1 text-[var(--np-text-h1)] font-bold text-[var(--np-color-text-primary)]">
+            Produk
+          </h1>
         </div>
-        <Link
-          to="/admin/products/new"
-          className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 font-semibold text-white transition hover:bg-emerald-700"
-        >
-          <Plus size={18} />
-          Tambah Produk
+        <Link to="/admin/products/new">
+          <Button variant="primary">
+            <Plus size={18} />
+            Tambah Produk
+          </Button>
         </Link>
       </div>
 
@@ -159,18 +167,19 @@ function Products() {
        BULK ACTIONS BAR
       ==================================================*/}
       {selectedIds.length > 0 && (
-        <div className="flex items-center justify-between rounded-xl border border-red-200 bg-red-50 px-4 py-3">
-          <p className="text-sm font-medium text-red-700">
+        <div className="flex items-center justify-between rounded-np-md border border-[var(--np-color-danger-soft)] bg-[var(--np-color-danger-soft)] px-4 py-3">
+          <p className="text-[var(--np-text-small)] font-medium text-[var(--np-color-danger)]">
             {selectedIds.length} produk terpilih
           </p>
-          <button
-            type="button"
+          <Button
+            variant="danger"
+            size="sm"
+            className="flex items-center gap-2"
             onClick={handleBulkDelete}
-            className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700"
           >
             <Trash2 size={16} />
             Hapus Terpilih
-          </button>
+          </Button>
         </div>
       )}
 
@@ -178,24 +187,27 @@ function Products() {
        FILTERS
       ==================================================*/}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Cari nama atau kategori produk..."
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-emerald-500 sm:w-72"
-        />
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-emerald-500 sm:w-40"
-        >
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+        <div className="w-full sm:w-72">
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            onClear={() => setSearch("")}
+            placeholder="Cari nama atau kategori produk..."
+          />
+        </div>
+        <div className="w-full sm:w-40">
+          <SelectField
+            id="product-category-filter"
+            name="product-category-filter"
+            label="Kategori"
+            value={selectedCategory}
+            onChange={(event) => setSelectedCategory(event.target.value)}
+            options={categories.map((cat) => ({
+              value: cat,
+              label: cat,
+            }))}
+          />
+        </div>
       </div>
 
       {/*==================================================
@@ -211,11 +223,13 @@ function Products() {
           allSelected={allFilteredSelected}
         />
       ) : (
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
-          <p className="text-lg font-semibold text-slate-700">
+        <div className="rounded-np-xl border border-dashed border-[var(--np-color-border)] bg-[var(--np-color-surface)] p-10 text-center">
+          <p className="text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-secondary)]">
             Produk tidak ditemukan
           </p>
-          <p className="mt-2 text-slate-500">Coba gunakan kata kunci lain.</p>
+          <p className="mt-2 text-[var(--np-color-subtle)]">
+            Coba gunakan kata kunci lain.
+          </p>
         </div>
       )}
 
@@ -232,5 +246,9 @@ function Products() {
     </section>
   );
 }
+
+/*==================================================
+ EXPORT
+==================================================*/
 
 export default Products;
