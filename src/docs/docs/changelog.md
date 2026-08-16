@@ -203,7 +203,25 @@ STATUS: PRODUCT STATUS PERSISTENCE PR-1 PROMOTED TO `main`
 
 VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules)
 
-STATUS: PRODUCT STATUS READ-BACK PR-1.5 READY FOR REVIEW ON `feat/product-status-readback-v1`
+✓ Branch `feat/product-status-readback-v1` dipromosikan ke `main` setelah approval eksplisit
+✓ Merge commit promotion: `170a1c1`
+
+STATUS: PRODUCT STATUS READ-BACK PR-1.5 PROMOTED TO `main`
+
+==================================================
+
+## PRODUCT TAGS PERSISTENCE — PR-2
+
+✓ Migration idempotent menambahkan `products.tags` dengan default `[]` untuk row legacy
+✓ Tags dinormalisasi dengan trim, penghapusan item kosong, deduplikasi case-insensitive, dan ejaan item pertama dipertahankan
+✓ Validator memberlakukan maksimal 12 tag per produk dan maksimal 40 karakter per tag
+✓ Controller, model, parser, dan seed lokal sudah meneruskan tags sebagai JSON array tanpa mengubah route atau auth
+✓ ProductForm dan ProductContext yang sudah dipromosikan sebelumnya langsung meneruskan serta membaca kembali tags melalui alur resmi
+✓ Tags hanya dipersistenkan; search, filter, SEO, public visibility, upload, gallery, dan product_offers tetap di luar scope
+
+VALIDATION: migration/parser/model round-trip smoke test + backend syntax check + `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+STATUS: PRODUCT TAGS PERSISTENCE PR-2 READY FOR REVIEW ON `feat/product-tags-persistence-v1`
 
 ==================================================
 
