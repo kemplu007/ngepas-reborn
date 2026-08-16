@@ -193,6 +193,20 @@ STATUS: PRODUCT STATUS PERSISTENCE PR-1 PROMOTED TO `main`
 
 ==================================================
 
+## PRODUCT STATUS READ-BACK VERIFICATION — PR-1.5
+
+✓ ProductForm menunggu response create/update dari backend sebelum menampilkan toast sukses atau melakukan navigasi kembali ke daftar
+✓ ProductContext mengembalikan row persisted dari service dan meneruskan error agar kegagalan status invalid tidak menjadi sukses palsu
+✓ Opsi status FE diselaraskan dengan enum contract `published`/`draft`; opsi `hidden` dihapus
+✓ ProductTable tetap memakai `product.status` dari ProductContext tanpa hardcoded fallback lokal
+✓ Tidak ada perubahan pada auth JWT, endpoint, schema, tags, gallery, upload service, product_offers, search, atau visibility publik
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+STATUS: PRODUCT STATUS READ-BACK PR-1.5 READY FOR REVIEW ON `feat/product-status-readback-v1`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15

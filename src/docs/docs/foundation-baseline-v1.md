@@ -50,6 +50,8 @@
 
 `Product Status Persistence` PR-1 sudah dipromosikan ke `main` melalui merge commit `377e22d` setelah approval eksplisit. Migration `products.status` bersifat idempotent dengan enum `published`/`draft`, default `published` untuk row lama dan produk baru, serta update yang mempertahankan status lama bila status tidak dikirim. Validator, sanitizer, parser, model, controller, initializer, dan seed lokal sudah selaras. Slice ini tidak menyentuh auth JWT dan belum mengubah visibility endpoint publik; tags, gallery, upload service, product_offers, dan search tetap berada di slice terpisah.
 
+`Product Status Read-back Verification` PR-1.5 diimplementasikan pada branch `feat/product-status-readback-v1`. ProductForm sekarang menunggu response create/update persisted sebelum navigasi, ProductContext mengembalikan row hasil service serta meneruskan error, dan opsi FE diselaraskan ke enum `published`/`draft`. ProductTable tetap membaca `product.status` dari context tanpa fallback hardcoded. Slice ini belum dipromosikan ke `main` dan tidak mengubah auth, endpoint, schema, atau visibility publik.
+
 ## Contract tokens
 
 Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visual baru tidak boleh dibuat dengan hex, spacing acak, radius acak, duration hardcoded, atau raw semantic color. Motion interaktif memakai token `duration-np-fast`/`duration-np-normal` dan harus aman terhadap `prefers-reduced-motion` melalui utility global.
@@ -74,7 +76,7 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 5. `ProductTable` dan halaman `Products` admin sudah dipromosikan ke `main` melalui merge commit `0c27b67`; tabel memakai `CheckboxField`, `Badge`, dan `IconButton`, halaman memakai `Button`, `SearchInput`, dan `SelectField`, tanpa mengubah state, filter, bulk delete, route, atau contract.
 6. Active item pada `Sidebar` admin sudah dipromosikan melalui merge commit `bb41b73`; outline default dihilangkan, keyboard focus tetap memakai focus ring token, dan navigation behavior dipertahankan.
 7. `Categories` admin listing sudah dipromosikan ke `main` melalui merge commit `0a11f39`; listing memakai `Button`, `Badge`, dan `IconButton`, tanpa mengubah CRUD, route, service, auth, atau backend.
-8. PR-1 Product Status Persistence sudah dipromosikan ke `main` melalui merge commit `377e22d`; lakukan FE read-back verification sebagai PR-1.5 sebelum melanjutkan tags atau gallery persistence.
+8. PR-1 Product Status Persistence sudah dipromosikan ke `main` melalui merge commit `377e22d`; PR-1.5 FE read-back verification sudah dibuat pada branch `feat/product-status-readback-v1` dan menunggu review/approval sebelum promotion.
 9. Jangan mengimplementasikan tags atau gallery sebelum PR-2/PR-3 mendapat acceptance criteria dan approval eksplisit.
 10. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
 11. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
