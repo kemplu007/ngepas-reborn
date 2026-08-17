@@ -1,109 +1,94 @@
-# Admin Media Upload — Decision Brief A4 v1
+# A4 — Media Zero-Cost Runway & Future Upload Decision Brief v1
 
-> **Status:** Decision brief — belum disetujui untuk implementasi  
-> **Tanggal:** 17 Agustus 2026  
-> **Pemilik keputusan:** Founder Ngepas  
-> **Prasyarat:** `admin-media-upload-contract-v1.md` telah dipromosikan melalui PR #15.  
-> **Bukan implementasi:** Dokumen ini tidak mengubah aplikasi, API, database, storage, secret, domain, dependensi, maupun production data.
+> **Status:** Decision brief — jalur nol biaya direkomendasikan untuk direview.
+> **Tanggal:** 17 Agustus 2026
+> **Pemilik keputusan:** Founder Ngepas
+> **Prasyarat:** Kontrak media A3 sudah dipromosikan melalui PR #15.
+> **Bukan implementasi:** Dokumen ini tidak membuat akun, billing, storage, secret, domain, endpoint, dependency, migration, atau perubahan production.
 
-## 1. Tujuan keputusan
+## 1. Keputusan inti
 
-Kontrak media A3 sudah mengunci **cara kerja aman** untuk upload produk: admin terautentikasi mengirim berkas ke backend, backend memvalidasi dan mentransformasi aset, lalu object storage menyimpan output WebP. A4 baru boleh dimulai setelah keputusan operasional berikut memiliki pemilik yang jelas: **provider storage, kepemilikan akun, domain asset, kelas biaya, kebijakan recovery, dan mekanisme cleanup**.
+Ngepas **tidak perlu masuk ke layanan berbayar untuk mulai produktif**. Product form sudah mendukung `image` dan sampai delapan URL `gallery` HTTPS melalui kontrak JSON yang live. Artinya admin dapat mengisi produk hari ini tanpa upload server, tanpa WebP pipeline, tanpa bucket, dan tanpa perubahan kode.
 
-Ngepas saat ini masih mempertahankan `image` dan `gallery` sebagai URL eksternal. Karena itu, A4 tidak boleh memigrasikan URL lama, tidak boleh menyimpan media di Railway Volume, Vercel, atau repository, serta tidak boleh menambah multipart endpoint sebelum brief ini disetujui.
+> Tidak mungkin memperoleh sekaligus **upload terintegrasi satu klik**, **transformasi WebP server-side**, **storage milik sendiri yang tahan lama**, dan **tanpa akun/provider maupun biaya**. Jalur nol biaya yang jujur adalah memakai kemampuan URL yang sudah live terlebih dahulu, lalu menunda integrasi upload sampai kebutuhan operasional serta nilai bisnisnya terbukti.
 
-## 2. Rekomendasi awal yang dapat direview
+Keputusan A4 yang direvisi adalah: **tahan implementasi upload native dan billing**. Gunakan jalur URL existing sebagai workflow produktif awal. Provider gratis hanya menjadi pilihan pendukung bila admin membutuhkan tempat upload gambar yang lebih rapi; ia tidak boleh disambungkan ke Ngepas sebelum founder memilihnya secara sadar.
 
-Untuk tahap Ngepas saat ini—solo developer, traffic awal belum tervalidasi, dan kebutuhan inti adalah upload admin yang sederhana—rekomendasi awal adalah **Cloudflare R2 dengan satu bucket privat, custom domain production yang dikelola pada akun yang sama, dan jalur upload tetap melalui backend**. Ini bukan keputusan otomatis: rekomendasi hanya dapat berlaku bila akun pemilik, domain, dan kebijakan biaya dikonfirmasi founder.
+## 2. Jalur operasi sekarang: tanpa billing dan tanpa coding
 
-R2 memiliki pricing publik yang sederhana untuk storage dan operasi, termasuk tier gratis bulanan serta egress tanpa biaya. Namun, custom domain R2 harus berada pada zone Cloudflare pada akun yang sama; URL `r2.dev` hanya untuk non-production dan tidak boleh dijadikan alamat asset produksi.[^r2-pricing][^r2-public] Keterbatasan kompatibilitas S3 juga harus tetap dianggap sebagai risiko integrasi, bukan diasumsikan identik dengan Amazon S3.[^r2-s3]
+| Langkah admin dari HP | Alur yang dipakai | Perubahan pada Ngepas | Biaya wajib |
+|---|---|---|---|
+| 1. Siapkan gambar | Gunakan gambar milik sendiri, materi resmi brand/seller yang memang diizinkan, atau URL asset yang hak penggunaannya jelas. Simpan original di perangkat founder/admin. | Tidak ada | Tidak ada |
+| 2. Masukkan produk | Isi detail, harga, dan link affiliate di ProductForm seperti biasa. | Tidak ada | Tidak ada |
+| 3. Tempel URL gambar | Tempel URL HTTPS ke gambar utama atau Gallery URL Assistant. A2 sudah menolak URL invalid/duplikat dan membatasi maksimal delapan gambar. | Tidak ada | Tidak ada |
+| 4. Terbitkan dan cek | Buka Product Detail publik untuk memastikan seluruh gambar tampil sebelum produk dibagikan. | Tidak ada | Tidak ada |
 
-## 3. Opsi provider yang dinilai
+Jalur ini tidak menjadikan hotlink dari marketplace sebagai fondasi jangka panjang. URL gambar dapat berubah atau aksesnya dapat ditutup oleh pemilik host. Untuk produk yang penting, pilih aset yang memang dikendalikan atau diizinkan pemiliknya; bila ragu, gunakan gambar hasil foto sendiri atau materi resmi yang hak penggunaannya jelas.
 
-| Opsi | Kesesuaian dengan A3 | Kelebihan operasional | Konsekuensi / batas | Sikap pada A4 |
+## 3. Pilihan host gambar gratis bila workflow URL saja belum nyaman
+
+Admin masih dapat menggunakan host media gratis **secara manual**: upload gambar melalui dashboard provider dari HP, ambil URL HTTPS hasilnya, lalu tempel ke form Ngepas. Tidak ada API key, billing, maupun integrasi kode yang diperlukan pada tahap ini.
+
+| Opsi | Paket gratis resmi | Kelebihan bagi Ngepas awal | Batas yang harus diterima | Sikap |
 |---|---|---|---|---|
-| **Cloudflare R2** | S3-compatible dan dapat menyajikan asset melalui custom domain | Model biaya storage/operasi mudah diprediksi untuk asset awal; egress R2 tidak dikenai biaya; caching dan kontrol akses tersedia di jalur custom domain | Domain asset harus dikelola dalam akun Cloudflare yang sama; `r2.dev` tidak layak untuk produksi; tidak semua fitur S3 tersedia | **Direkomendasikan bersyarat** |
-| **Backblaze B2** | Menyediakan S3-compatible API dan pre-signed URL upload/download | Storage berbiaya rendah; S3 compatibility membantu bila SDK abstraksi diperlukan | Beberapa fitur S3 tidak penuh, termasuk object ACL, IAM roles, tagging, website configuration, dan browser POST pre-signed | Alternatif bila R2/domain tidak dapat disatukan |
-| **Amazon S3** | Referensi API S3 paling lengkap; pre-signed URL matang | Opsi paling fleksibel untuk skala dan IAM yang kompleks | Billing dan konfigurasi lebih luas; menambah beban operasional yang belum dibutuhkan pada A4 | Tunda sampai kebutuhan skala/enterprise terbukti |
+| **Tetap URL existing** | Tidak perlu provider baru | Paling cepat; cocok untuk menguji pengisian produk sekarang juga; sepenuhnya kompatibel dengan produk live. | Admin perlu memiliki URL gambar yang stabil dan berizin. | **Default sekarang** |
+| **Cloudinary Free** | `Free forever`, tanpa kartu kredit; 25 credit bulanan. Fitur termasuk upload, transformasi, CDN delivery, auto-backup, dan revision tracking.[1] | Dapat menjadi lemari gambar gratis milik founder tanpa coding Ngepas; upload dari dashboard dan paste URL. | Credit dibagi untuk storage, bandwidth, dan transformasi; kuota bukan tanpa batas; custom domain tidak termasuk pada Free. | **Pilihan gratis pertama jika butuh upload manual** |
+| **ImageKit Forever Free** | $0/bulan; 3 GB storage, 20 GB bandwidth/bulan, 2 users, serta CDN HTTPS/optimasi. Custom domain tidak termasuk.[2] | Kuota storage/bandwidth terlihat jelas dan cukup untuk eksperimen katalog kecil. | Ada batas tetap; URL provider tidak boleh dianggap sebagai domain brand permanen. | Alternatif jika batas Cloudinary kurang cocok |
+| **Supabase Free** | $0/bulan, 1 GB file storage dan 5 GB egress; project gratis dipause setelah satu minggu tidak aktif dan tidak memiliki automatic backup.[3] | Tidak ada keunggulan penting dibanding jalur di atas untuk kebutuhan media Ngepas saat ini. | Menambah database/platform yang tidak dibutuhkan; pause dan recovery tidak cocok untuk media publik. | **Tidak dipilih** |
 
-| Fakta biaya publik per 17 Agustus 2026 | R2 | B2 | S3 |
-|---|---:|---:|---|
-| Storage awal | US$0,015/GB-bulan; 10 GB-bulan gratis | mulai US$6,95/TB-bulan; 10 GB gratis | tergantung region dan storage class |
-| Transfer keluar | tidak dikenai biaya oleh R2 | gratis sampai tiga kali rata-rata storage bulanan | tergantung region, tujuan, dan layanan |
-| Catatan | Masih terdapat charge per operasi | Fitur API S3 tidak seluruhnya setara | Model charge terdiri dari beberapa dimensi |
+## 4. Rekomendasi runway nol biaya
 
-Angka di atas bukan perkiraan tagihan Ngepas maupun janji biaya. Founder tetap harus membaca halaman pricing provider sebelum mengaktifkan billing, karena penggunaan aktual, wilayah, cache, dan request dapat mengubah biaya.[^r2-pricing][^b2-pricing][^s3-pricing]
+### Tahap Z0 — Isi konten sekarang
 
-## 4. Keputusan yang wajib dipilih founder
+Gunakan **Gallery URL Assistant A2** dan URL HTTPS dari aset yang berhak dipakai. Tahap ini sudah memungkinkan istri/admin mengisi produk tanpa menunggu pengembangan A4. Tidak ada akun baru dan tidak ada biaya wajib.
 
-| ID | Keputusan | Pilihan yang aman | Rekomendasi awal | Dampak jika tidak dipilih |
-|---|---|---|---|---|
-| D1 | Provider dan akun pemilik | R2 / B2 / S3; akun owner yang dapat diakses founder, bukan akun pribadi kontributor | R2 pada akun owner | Tidak boleh membuat bucket atau secret |
-| D2 | Region / locality data | Region/default provider yang dicatat eksplisit | R2 `auto` hanya bila R2 dipilih | Tidak boleh menulis konfigurasi provider |
-| D3 | Domain asset produksi | Subdomain khusus, misalnya `media.<domain-Ngepas>`; domain harus benar-benar dimiliki dan dikelola founder | Custom domain; tidak memakai URL development | Asset production tidak boleh dipublikasikan |
-| D4 | Batas biaya dan alert | Limit bulanan serta pemilik notifikasi billing | Starter cap yang dipilih founder sebelum billing aktif | Tidak boleh mengaktifkan layanan berbayar |
-| D5 | Recovery objective | Lokasi backup metadata dan prosedur restore yang diuji | Restore drill sebelum production media | Tidak boleh menjalankan migration atau menghapus asset |
-| D6 | Cleanup | Manual terkontrol dahulu, atau job terjadwal yang memiliki owner dan log | Manual dulu; scheduler hanya setelah ada contract job | Tidak boleh menghapus orphan otomatis |
-| D7 | Jalur A4 | Backend-mediated upload + Sharp, atau menunda A4 | Backend-mediated sesuai A3 | Tidak boleh membuat pre-signed direct upload di luar A3 |
+### Tahap Z1 — Upload manual gratis bila diperlukan
 
-## 5. Batas rekomendasi implementasi A4
+Jika mengumpulkan URL gambar terasa merepotkan, founder dapat membuka **satu akun Cloudinary Free** atas nama founder. Admin mengunggah file dari HP di dashboard Cloudinary, menyalin URL delivery, lalu menempelkannya ke Ngepas. Tahap ini tetap tidak membutuhkan billing, kartu kredit, secret, atau perubahan Ngepas menurut halaman pricing resmi Cloudinary.[1]
 
-### 5.1 Jalur upload yang dipertahankan
+ImageKit Forever Free adalah alternatif jika founder lebih menyukai batas 3 GB storage dan 20 GB bandwidth yang eksplisit.[2] Founder memilih **satu**, bukan keduanya, untuk menghindari aset terpencar. Bila belum ingin membuat akun mana pun, tetap berada di Z0; itu keputusan yang valid.
 
-Pilihan A4 yang kompatibel dengan A3 adalah **browser → backend Express dengan JWT admin → validasi signature/MIME/dimensi → Sharp → object storage**. Upload langsung dari browser ke storage melalui pre-signed URL **tidak termasuk A4 v1**, meskipun banyak provider mendukungnya. URL pre-signed bersifat bearer token, sehingga memerlukan kontrak authorization, expiry, checksum, dan observability tersendiri.[^s3-presigned]
+### Tahap Z2 — Baru pertimbangkan A4 native upload
 
-### 5.2 Domain dan akses publik
+Implementasi upload, Sharp/WebP, bucket, metadata media, dan endpoint baru hanya boleh dibuka setelah milestone berikut tercapai. Semuanya dapat dicek manual; tidak ada analytics atau sistem baru yang perlu dibuat sekarang.
 
-Bucket harus tetap privat pada jalur tulis. Hanya output WebP `ready` yang boleh disajikan lewat domain asset production setelah D3 selesai. Tidak ada listing bucket, URL development, atau credential provider di frontend. Bila custom domain belum tersedia, A4 ditunda; tidak ada fallback ke `r2.dev`, Railway Volume, Vercel filesystem, atau repository.
+| Milestone produktif yang diusulkan | Bukti sederhana | Mengapa menjadi gate |
+|---|---|---|
+| Operasi konten berjalan | Admin mampu menerbitkan sedikitnya **20 produk lengkap** tanpa bantuan developer. | Membuktikan workflow admin benar-benar dipakai, bukan sekadar fitur yang terlihat bagus. |
+| Ritme konten stabil | Ada pengisian/penyegaran produk selama **empat minggu berturut-turut**. | Membedakan kebutuhan nyata dari kebutuhan sesaat. |
+| Nilai bisnis muncul | Ada minimal satu sinyal monetisasi yang dapat dilihat founder, misalnya click/komisi affiliate pada dashboard partner atau permintaan pengguna yang nyata. | Biaya baru dipertimbangkan setelah Ngepas menunjukkan nilai, bukan sebelumnya. |
+| Kuota gratis menjadi hambatan | Host gratis menyentuh sekitar **70%** kuota selama dua bulan berturut-turut, atau admin kehilangan waktu berulang karena workflow paste URL. | Memastikan native upload menyelesaikan masalah aktual, bukan spekulasi teknis. |
 
-### 5.3 Backup dan recovery
+Angka tersebut adalah **proposal operasional**, bukan syarat produk yang kaku. Founder boleh menaikkan, menurunkan, atau menghapus milestone sesuai kondisi rumah tangga. Sampai milestone disetujui, kata keputusan yang berlaku adalah **tahan A4**.
 
-Tidak ada asumsi backup otomatis untuk database maupun media pada kondisi repository saat ini. Sebelum migration, A4 harus memiliki runbook yang menuliskan lokasi backup metadata, export cadangan URL produk yang ada, pemilik recovery, langkah restore, bukti uji restore, dan batas kehilangan data yang founder terima. Tanpa bukti recovery ini, migration dan cleanup produksi tidak boleh dijalankan.
+## 5. Yang secara tegas tidak dilakukan sekarang
 
-### 5.4 Cleanup
-
-Pada rilis A4 pertama, cleanup otomatis **ditunda**. Admin atau owner melakukan cleanup manual dengan daftar `staged`/orphan yang dapat diaudit. Job otomatis baru dapat diusulkan setelah ada runner yang persistent atau scheduler yang disetujui, log eksekusi, retry yang terbatas, dan guard yang mencegah penghapusan asset berelasi aktif.
-
-## 6. Kriteria mulai A4
-
-Semua kondisi berikut harus bernilai **ya** sebelum satu baris implementasi upload dibuat.
-
-| Gate | Bukti minimum |
+| Dilarang dalam runway nol biaya | Alasan |
 |---|---|
-| Provider dipilih | Jawaban D1–D2 dicatat di issue/PR dan akun dimiliki founder |
-| Domain asset siap | Jawaban D3, ownership domain, dan jalur DNS terdokumentasi |
-| Biaya disetujui | Jawaban D4 termasuk owner alert billing |
-| Recovery dapat dilakukan | Runbook dan bukti restore drill minimal untuk metadata/test object |
-| Cleanup aman | Jawaban D6 dengan owner, log, dan rollback; atau manual mode dipilih |
-| Kontrak A3 tetap utuh | Tidak ada perubahan diam-diam pada JWT, JSON contract existing, gallery URL lama, atau public flow |
-| Scope A4 disetujui | PR proposal A4 menyebut endpoint, migration, dependencies, UI, tests, rollback, dan production verification secara eksplisit |
+| Menambah endpoint multipart, Sharp, SDK storage, database table media, atau migration | Semua itu adalah A4 native upload dan harus menunggu gate produktif. |
+| Membuat bucket, akun berbayar, kartu billing, secret, custom domain, atau DNS asset | Itu mengunci biaya dan kepemilikan operasional sebelum ada alasan bisnis. |
+| Menyimpan gambar di repository, folder static Vercel, Railway Volume, atau base64 database | Bukan storage media production yang aman dan bertentangan dengan batas deployment/operasional proyek. |
+| Menghapus URL gallery lama atau melakukan migrasi massal | Produk live harus tetap kompatibel; migrasi hanya dibahas setelah A4 benar-benar disetujui. |
+| Menjanjikan WebP otomatis sekarang | WebP otomatis membutuhkan jalur upload/server yang sengaja ditunda. |
 
-## 7. Jawaban minimum yang diperlukan dari founder
+## 6. Keputusan founder yang diperlukan sekarang
 
-Founder dapat membalas dengan format berikut tanpa perlu memahami kode.
+Tidak ada keputusan biaya yang diperlukan. Founder cukup memilih salah satu jalur di bawah agar backlog jelas.
 
 ```text
-D1 provider: R2 / B2 / S3 / tunda
-D1 akun owner: milik saya / belum ada
-D3 domain asset: <subdomain yang dipilih> / belum punya domain
-D4 biaya bulanan maksimum: <angka + mata uang> / tunda billing
-D5 recovery: manual backup + restore drill / belum siap
-D6 cleanup: manual dulu / scheduler nanti
-D7 jalur A4: backend-mediated / tunda
+Jalur media sekarang: Z0 URL existing / Z1 Cloudinary Free / Z1 ImageKit Free
+Milestone produktif: setuju proposal / revisi menjadi <tuliskan revisi>
+A4 native upload: tahan sampai milestone / diskusikan ulang ketika siap
 ```
 
-Apabila ada jawaban `tunda`, A4 tidak dimulai dan kemampuan galeri URL dari A2 tetap menjadi workflow admin yang didukung.
+Jika memilih **Z0 URL existing**, tidak ada yang perlu dikonfigurasi. Jika memilih Z1, pembuatan akun tetap dilakukan oleh founder pada waktunya sendiri; Ngepas tidak perlu diubah untuk memakai URL hasil upload manual.
 
-## 8. Catatan audit
+## 7. Bila suatu hari A4 dibuka kembali
 
-Dokumen ini membedakan dua hal yang sering tercampur: **provider bisa mendukung kemampuan teknis** dan **Ngepas sudah siap mengoperasikannya**. Dukungan S3-compatible atau pre-signed URL bukan alasan untuk mem-bypass A3. Keputusan A4 hanya akan dilanjutkan sebagai slice baru ketika semua gate di atas disetujui dan dapat diuji.
+Decision brief lama mengenai R2/B2/S3, domain asset, recovery, cleanup, Sharp, dan backend-mediated upload tetap menjadi referensi teknis. Ia baru aktif kembali setelah founder menyatakan milestone produktif terpenuhi dan memberikan approval biaya terpisah. Saat itu, provider tidak dipilih otomatis; kita buat slice proposal baru dengan biaya yang jelas, akun milik founder, recovery procedure yang dapat diuji, serta preview/branch review sebelum runtime berubah.
 
 ## Referensi
 
-[^r2-pricing]: Cloudflare, [R2 pricing](https://developers.cloudflare.com/r2/pricing/), diakses 17 Agustus 2026.
-[^r2-public]: Cloudflare, [Public buckets](https://developers.cloudflare.com/r2/buckets/public-buckets/), diakses 17 Agustus 2026.
-[^r2-s3]: Cloudflare, [S3 API compatibility](https://developers.cloudflare.com/r2/api/s3/api/), diakses 17 Agustus 2026.
-[^b2-pricing]: Backblaze, [B2 Cloud Storage pricing](https://www.backblaze.com/cloud-storage/pricing), diakses 17 Agustus 2026.
-[^b2-s3]: Backblaze, [S3-Compatible API](https://www.backblaze.com/docs/cloud-storage-s3-compatible-api), diakses 17 Agustus 2026.
-[^s3-pricing]: AWS, [Amazon S3 pricing](https://aws.amazon.com/s3/pricing/), diakses 17 Agustus 2026.
-[^s3-presigned]: AWS, [Download and upload objects with presigned URLs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html), diakses 17 Agustus 2026.
+[1]: https://cloudinary.com/pricing "Cloudinary Pricing"
+[2]: https://imagekit.io/plans/ "ImageKit Plans"
+[3]: https://supabase.com/pricing "Supabase Pricing"
