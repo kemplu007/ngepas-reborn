@@ -2,6 +2,8 @@
  NGEPAS REBORN
  File    : ProductTable.jsx
  Module  : Admin Components — Product Table + Bulk Selection
+ Intent  : Status tetap mudah dipindai pada daftar mobile tanpa
+           mengubah data, aksi, atau perilaku tabel.
 ==================================================*/
 
 /*==================================================
@@ -101,9 +103,18 @@ function ProductTable({
                       <p className="truncate font-semibold text-[var(--np-color-text-primary)]">
                         {product.name}
                       </p>
-                      <p className="truncate text-[var(--np-text-caption)] text-[var(--np-color-subtle)] md:hidden">
-                        {product.category} • {product.price}
-                      </p>
+                      <div className="mt-[var(--np-space-1)] flex flex-wrap items-center gap-[var(--np-space-2)] lg:hidden">
+                        <Badge
+                          variant={
+                            product.status === "published" ? "primary" : "neutral"
+                          }
+                        >
+                          {product.status === "published" ? "Published" : "Draft"}
+                        </Badge>
+                        <p className="truncate text-[var(--np-text-caption)] text-[var(--np-color-subtle)] md:hidden">
+                          {product.category} • {product.price}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </td>
