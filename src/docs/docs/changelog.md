@@ -9,6 +9,22 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## PRODUCT DETAIL DECISION RHYTHM — SLICE 3
+
+✓ `ProductDetail.jsx` memperjelas orientasi gallery, ringkasan harga format Rupiah, serta pengungkapan diskon tanpa mengubah data produk
+✓ Badge rating, terjual, dan stok hanya dirender bila nilai nyata tersedia; panel alasan kurasi juga kondisional agar tidak membuat klaim atau placeholder rekaan
+✓ CTA affiliate mobile berada setelah hierarchy keputusan dan sticky pada threshold baca yang aman; desktop mempertahankan action statis dalam komposisi dua kolom
+✓ Tidak ada perubahan pada `useProducts`, route `/product/:slug`, callback/link affiliate, Context, service, API, backend, database, schema, checkout, offer, atau auth JWT
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules); mobile 375×812 tanpa horizontal overflow; desktop 1280×720 mempertahankan komposisi dua kolom
+
+✓ Branch `polish/product-detail-decision-rhythm-v1` dipromosikan ke `main` setelah approval eksplisit melalui PR #6
+✓ Merge commit promotion: `94fd8c1`
+
+STATUS: PRODUCT DETAIL DECISION RHYTHM SLICE 3 PROMOTED TO `main`
+
+==================================================
+
 ## DISCOVER HERO RHYTHM — SLICE 2
 
 ✓ `CampaignBanner.jsx` mempertahankan mobile one-column flow dan memakai komposisi copy-kiri/visual-kanan pada desktop
