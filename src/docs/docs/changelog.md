@@ -8,6 +8,23 @@
 Release Date: 2026-08-16
 
 ==================================================
+
+## DISCOVER HERO RHYTHM — SLICE 2
+
+✓ `CampaignBanner.jsx` mempertahankan mobile one-column flow dan memakai komposisi copy-kiri/visual-kanan pada desktop
+✓ Hierarki CTA diringankan: action utama tetap Button hijau, sedangkan action sekunder menjadi quiet outline tanpa mengganti copy atau destination
+✓ Manfaat ditata sebagai scan path vertikal desktop; asset visual dan disclosure marketplace dipertahankan tanpa data atau logo rekaan
+✓ Tidak ada perubahan pada `discoverCampaign`, `onAction`, `secondaryCtaHref`, asset, alt, section ID, route, search/filter logic, API, backend, database, auth JWT, Railway, atau deployment
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules); mobile 375 px tanpa overflow; desktop 1280 px memakai komposisi dua kolom
+
+✓ Branch `polish/discover-hero-rhythm-v1` dipromosikan ke `main` setelah approval eksplisit
+✓ Merge commit promotion: `fb65112`
+
+STATUS: DISCOVER HERO RHYTHM SLICE 2 PROMOTED TO `main`
+
+==================================================
+
 FRONTEND FOUNDATION
 ==================================================
 

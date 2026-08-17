@@ -1,6 +1,6 @@
 # Discover Hero Rhythm — Slice 2
 
-**Status:** Approved for implementation on branch `polish/discover-hero-rhythm-v1`; belum siap promotion.  
+**Status:** Promoted to `main` via merge commit `fb65112` after founder approval.
 **Scope:** Komposisi visual `CampaignBanner` saja. Tidak mengubah copy, callback, route, data campaign, search/filter logic, asset, atau backend.
 
 > **Tujuan:** Memendekkan ritme vertikal Hero pada mobile dan membuat desktop kembali ke pola dua kolom referensi tim, agar user mencapai kategori lebih cepat tanpa kehilangan nilai utama Ngepas.
@@ -46,7 +46,7 @@
 
 ## Promotion checkpoint
 
-Menunggu review founder. Promotion tidak boleh dilakukan sebelum approval eksplisit, meskipun build dan review visual sudah lulus.
+Slice 2 dipromosikan melalui merge commit `fb65112` setelah approval eksplisit. Promotion ini tidak menyentuh data campaign, route, API, backend, database, auth JWT, Railway, atau konfigurasi deployment.
 
 ## Referensi internal
 
