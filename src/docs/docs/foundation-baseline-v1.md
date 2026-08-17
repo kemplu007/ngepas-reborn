@@ -56,6 +56,8 @@
 
 `Gallery URL Assistant` Slice A2 dipromosikan ke `main` melalui PR #13 dan merge commit `4adaba4`. `ProductForm.jsx` kini mengubah counter gallery menjadi `n/8 gambar`, menampilkan slot tersisa, dan memberikan feedback lokal untuk nilai kosong, URL yang tidak memakai protokol `http/https`, URL duplikat, serta batas delapan gambar yang sudah menjadi kontrak persistence. URL valid tetap memakai state `gallery` dan handler tambah/hapus existing sehingga urutan editorial dipertahankan. Tidak ada perubahan pada JWT, payload, validator, route, Context, service, API, backend, database, schema, persistence, upload, storage, WebP, maupun endpoint media. Validasi mencakup `git diff --check`, `npx vite build`, uji desktop URL invalid/valid/duplikat tanpa submit, serta viewport mobile 390 px tanpa overflow horizontal.
 
+`Admin Media Upload Contract` Slice A3 dipromosikan ke `main` melalui PR #15 dan merge commit `11f3df8`. Dokumen ini mengunci proposal kelas object storage, jalur upload Browser → backend Express → Sharp → object storage, kompatibilitas URL `image`/`gallery`, metadata media, link produk, lifecycle, validasi file, error taxonomy, observability, cleanup, recovery, dan acceptance criteria A4. A3 tidak menambah dependency, endpoint multipart, schema, migration, storage provider, secret, scheduler, upload UI, API runtime, ataupun perubahan JWT. Sharp hanya menjadi kandidat transformasi WebP yang wajib dipin, diperiksa advisori, dan diuji ketika A4 benar-benar disetujui. A4 tetap diblokir sampai founder memilih provider/region/domain asset, ownership biaya/quota, rotasi credential, recovery point, serta mekanisme cleanup eksplisit.
+
 `Product Status Persistence` PR-1 sudah dipromosikan ke `main` melalui merge commit `377e22d` setelah approval eksplisit. Migration `products.status` bersifat idempotent dengan enum `published`/`draft`, default `published` untuk row lama dan produk baru, serta update yang mempertahankan status lama bila status tidak dikirim. Validator, sanitizer, parser, model, controller, initializer, dan seed lokal sudah selaras. Slice ini tidak menyentuh auth JWT dan belum mengubah visibility endpoint publik; tags, gallery, upload service, product_offers, dan search tetap berada di slice terpisah.
 
 `Product Status Read-back Verification` PR-1.5 diimplementasikan pada branch `feat/product-status-readback-v1` dan dipromosikan ke `main` melalui merge commit `170a1c1`. ProductForm sekarang menunggu response create/update persisted sebelum navigasi, ProductContext mengembalikan row hasil service serta meneruskan error, dan opsi FE diselaraskan ke enum `published`/`draft`. ProductTable tetap membaca `product.status` dari context tanpa fallback hardcoded. Slice ini tidak mengubah auth, endpoint, schema, atau visibility publik.
@@ -92,10 +94,11 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 9. PR-2 Product Tags Persistence sudah dipromosikan ke `main` melalui merge commit `c81fa03`.
 10. PR-3 Gallery URL Persistence sudah dipromosikan ke `main` melalui merge commit `1088246`; migration production tetap memerlukan runbook/recovery procedure terpisah dan tidak dijalankan pada promotion kode.
 11. Slice A1 Product Completeness Cues sudah dipromosikan melalui merge commit `4a23c6b`; Slice A2 Gallery URL Assistant sudah dipromosikan melalui merge commit `4adaba4` sebagai UX layer pada kontrak gallery URL yang ada.
-12. Selanjutnya selesaikan A3 Media Upload Contract sebagai dokumen keputusan dan runbook; jangan membuat upload, storage, WebP, endpoint media, atau migration production sebelum kontrak tersebut disetujui.
-13. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
-14. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-15. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+12. Slice A3 Admin Media Upload Contract sudah dipromosikan melalui merge commit `11f3df8`; dokumen ini adalah authority keputusan untuk A4, bukan implementasi upload.
+13. Sebelum A4 dimulai, founder wajib memutuskan provider/region/domain asset, ownership biaya/quota, credential rotation, recovery point, dan mekanisme cleanup. Jangan menambah upload, storage, WebP, endpoint media, dependency, schema, atau migration sebelum seluruh gate ini eksplisit.
+14. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
+15. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+16. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 

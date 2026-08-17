@@ -9,6 +9,22 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## ADMIN MEDIA UPLOAD CONTRACT — SLICE A3
+
+✓ Kontrak keputusan media menetapkan target object storage kelas S3, jalur Browser → backend Express → transformasi → storage, dan kompatibilitas penuh untuk field URL `image` serta `gallery` yang sudah live
+✓ Usulan A4 mendefinisikan metadata `media_assets`, relasi `product_media_links`, state lifecycle, validasi file berlapis, error taxonomy, observability, cleanup guard, recovery runbook, dan acceptance criteria tanpa mengubah runtime
+✓ Sharp dicatat sebagai kandidat transformasi WebP saja; instalasi dependency, provider storage, endpoint multipart, schema, migration, secret, scheduler, maupun code upload tidak masuk A3
+✓ Implementasi A4 diblokir hingga provider/region/domain asset, ownership biaya, quota, credential rotation, recovery point, dan mekanisme cleanup disetujui secara eksplisit
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED; review kontrak merujuk Product Persistence Contract, API contract, model/controller produk, initializer SQLite, renderer public, OWASP File Upload Cheat Sheet, dan sumber resmi Sharp
+
+✓ Branch `docs/admin-media-upload-contract-v1` dipromosikan ke `main` setelah approval eksplisit melalui PR #15
+✓ Merge commit promotion: `11f3df8`
+
+STATUS: ADMIN MEDIA UPLOAD CONTRACT SLICE A3 PROMOTED TO `main` — A4 REMAINS DECISION-GATED
+
+==================================================
+
 ## GALLERY URL ASSISTANT — SLICE A2
 
 ✓ `ProductForm.jsx` kini memberi counter `n/8 gambar`, hint slot tersisa, dan feedback lokal ketika URL gallery kosong, tidak memakai `http/https`, duplikat, atau telah mencapai batas kontrak
