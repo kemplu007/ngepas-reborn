@@ -54,6 +54,8 @@
 
 `Product Completeness Cues` Slice A1 dipromosikan ke `main` melalui PR #11 dan merge commit `4a23c6b`. `ProductForm.jsx` kini memberi ringkasan visual `0–4 siap` yang merefleksikan nilai nama, harga, link affiliate, dan gambar utama yang telah tersedia, sedangkan `ProductTable.jsx` memakai `Badge` foundation untuk menampilkan Published/Draft secara konsisten pada metadata daftar mobile. Perubahan tetap visual-only: tidak ada state baru, handler, payload, validator, route, Context, service, API, backend, database, schema, persistence, upload, storage, WebP, campaign, artikel, maupun auth JWT yang diubah. Validasi mencakup `git diff --check`, `npx vite build`, respons ringkasan tanpa submit, dan console preview tanpa error atau warning.
 
+`Gallery URL Assistant` Slice A2 dipromosikan ke `main` melalui PR #13 dan merge commit `4adaba4`. `ProductForm.jsx` kini mengubah counter gallery menjadi `n/8 gambar`, menampilkan slot tersisa, dan memberikan feedback lokal untuk nilai kosong, URL yang tidak memakai protokol `http/https`, URL duplikat, serta batas delapan gambar yang sudah menjadi kontrak persistence. URL valid tetap memakai state `gallery` dan handler tambah/hapus existing sehingga urutan editorial dipertahankan. Tidak ada perubahan pada JWT, payload, validator, route, Context, service, API, backend, database, schema, persistence, upload, storage, WebP, maupun endpoint media. Validasi mencakup `git diff --check`, `npx vite build`, uji desktop URL invalid/valid/duplikat tanpa submit, serta viewport mobile 390 px tanpa overflow horizontal.
+
 `Product Status Persistence` PR-1 sudah dipromosikan ke `main` melalui merge commit `377e22d` setelah approval eksplisit. Migration `products.status` bersifat idempotent dengan enum `published`/`draft`, default `published` untuk row lama dan produk baru, serta update yang mempertahankan status lama bila status tidak dikirim. Validator, sanitizer, parser, model, controller, initializer, dan seed lokal sudah selaras. Slice ini tidak menyentuh auth JWT dan belum mengubah visibility endpoint publik; tags, gallery, upload service, product_offers, dan search tetap berada di slice terpisah.
 
 `Product Status Read-back Verification` PR-1.5 diimplementasikan pada branch `feat/product-status-readback-v1` dan dipromosikan ke `main` melalui merge commit `170a1c1`. ProductForm sekarang menunggu response create/update persisted sebelum navigasi, ProductContext mengembalikan row hasil service serta meneruskan error, dan opsi FE diselaraskan ke enum `published`/`draft`. ProductTable tetap membaca `product.status` dari context tanpa fallback hardcoded. Slice ini tidak mengubah auth, endpoint, schema, atau visibility publik.
@@ -89,10 +91,11 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 8. PR-1 Product Status Persistence sudah dipromosikan ke `main` melalui merge commit `377e22d`; PR-1.5 FE read-back verification sudah dipromosikan ke `main` melalui merge commit `170a1c1`.
 9. PR-2 Product Tags Persistence sudah dipromosikan ke `main` melalui merge commit `c81fa03`.
 10. PR-3 Gallery URL Persistence sudah dipromosikan ke `main` melalui merge commit `1088246`; migration production tetap memerlukan runbook/recovery procedure terpisah dan tidak dijalankan pada promotion kode.
-11. Slice A1 Product Completeness Cues sudah dipromosikan melalui merge commit `4a23c6b`; lanjutkan ke A2 Gallery URL assistant sebagai UX layer pada kontrak gallery URL yang sudah ada, tanpa upload atau media endpoint.
-12. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
-13. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-14. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+11. Slice A1 Product Completeness Cues sudah dipromosikan melalui merge commit `4a23c6b`; Slice A2 Gallery URL Assistant sudah dipromosikan melalui merge commit `4adaba4` sebagai UX layer pada kontrak gallery URL yang ada.
+12. Selanjutnya selesaikan A3 Media Upload Contract sebagai dokumen keputusan dan runbook; jangan membuat upload, storage, WebP, endpoint media, atau migration production sebelum kontrak tersebut disetujui.
+13. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
+14. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+15. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 

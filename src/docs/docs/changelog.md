@@ -9,6 +9,21 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## GALLERY URL ASSISTANT — SLICE A2
+
+✓ `ProductForm.jsx` kini memberi counter `n/8 gambar`, hint slot tersisa, dan feedback lokal ketika URL gallery kosong, tidak memakai `http/https`, duplikat, atau telah mencapai batas kontrak
+✓ URL valid ditambahkan memakai state gallery dan handler form existing; urutan editorial serta aksi hapus existing dipertahankan
+✓ Tidak ada perubahan pada payload, validator, route, service, Context, API, backend, database, schema, persistence, auth JWT, upload, storage, WebP, ataupun endpoint media
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED; uji desktop menolak protokol tidak valid/duplikat dan menerima URL HTTPS tanpa submit; mobile 390 px tanpa horizontal overflow
+
+✓ Branch `feat/admin-gallery-url-assistant-v1` dipromosikan ke `main` setelah approval eksplisit melalui PR #13
+✓ Merge commit promotion: `4adaba4`
+
+STATUS: GALLERY URL ASSISTANT SLICE A2 PROMOTED TO `main`
+
+==================================================
+
 ## PRODUCT COMPLETENESS CUES — SLICE A1
 
 ✓ `ProductForm.jsx` sekarang menampilkan ringkasan kelengkapan visual `0–4 siap` untuk nama produk, harga, link affiliate, dan gambar utama agar admin mengetahui prioritas field sebelum menyimpan
