@@ -52,6 +52,8 @@
 
 `Admin Product Form Mobile Rhythm` Slice 4 dipromosikan ke `main` melalui PR #8 dan merge commit `6b56897`. Slice ini merapikan hierarchy indikator langkah, lebar baca, spacing token, dan action rhythm pada `ProductForm.jsx` agar pengelolaan produk lebih nyaman dilakukan dari layar kecil. Tidak ada perubahan state, handler, validasi, payload, route, Context, service, upload service, persistence, API, backend, database, schema, atau auth JWT. Validasi mencakup `git diff --check`, `npx vite build` pada 1843 modules, pemeriksaan Step 1–3 desktop pada preview lokal terautentikasi, serta pemeriksaan Step 1 dan urutan semantik pada mobile tanpa submit atau mutasi produk.
 
+`Product Completeness Cues` Slice A1 dipromosikan ke `main` melalui PR #11 dan merge commit `4a23c6b`. `ProductForm.jsx` kini memberi ringkasan visual `0–4 siap` yang merefleksikan nilai nama, harga, link affiliate, dan gambar utama yang telah tersedia, sedangkan `ProductTable.jsx` memakai `Badge` foundation untuk menampilkan Published/Draft secara konsisten pada metadata daftar mobile. Perubahan tetap visual-only: tidak ada state baru, handler, payload, validator, route, Context, service, API, backend, database, schema, persistence, upload, storage, WebP, campaign, artikel, maupun auth JWT yang diubah. Validasi mencakup `git diff --check`, `npx vite build`, respons ringkasan tanpa submit, dan console preview tanpa error atau warning.
+
 `Product Status Persistence` PR-1 sudah dipromosikan ke `main` melalui merge commit `377e22d` setelah approval eksplisit. Migration `products.status` bersifat idempotent dengan enum `published`/`draft`, default `published` untuk row lama dan produk baru, serta update yang mempertahankan status lama bila status tidak dikirim. Validator, sanitizer, parser, model, controller, initializer, dan seed lokal sudah selaras. Slice ini tidak menyentuh auth JWT dan belum mengubah visibility endpoint publik; tags, gallery, upload service, product_offers, dan search tetap berada di slice terpisah.
 
 `Product Status Read-back Verification` PR-1.5 diimplementasikan pada branch `feat/product-status-readback-v1` dan dipromosikan ke `main` melalui merge commit `170a1c1`. ProductForm sekarang menunggu response create/update persisted sebelum navigasi, ProductContext mengembalikan row hasil service serta meneruskan error, dan opsi FE diselaraskan ke enum `published`/`draft`. ProductTable tetap membaca `product.status` dari context tanpa fallback hardcoded. Slice ini tidak mengubah auth, endpoint, schema, atau visibility publik.
@@ -87,9 +89,10 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 8. PR-1 Product Status Persistence sudah dipromosikan ke `main` melalui merge commit `377e22d`; PR-1.5 FE read-back verification sudah dipromosikan ke `main` melalui merge commit `170a1c1`.
 9. PR-2 Product Tags Persistence sudah dipromosikan ke `main` melalui merge commit `c81fa03`.
 10. PR-3 Gallery URL Persistence sudah dipromosikan ke `main` melalui merge commit `1088246`; migration production tetap memerlukan runbook/recovery procedure terpisah dan tidak dijalankan pada promotion kode.
-11. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
-12. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
-13. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
+11. Slice A1 Product Completeness Cues sudah dipromosikan melalui merge commit `4a23c6b`; lanjutkan ke A2 Gallery URL assistant sebagai UX layer pada kontrak gallery URL yang sudah ada, tanpa upload atau media endpoint.
+12. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
+13. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
+14. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
 
 ## Definition of Done baseline
 
