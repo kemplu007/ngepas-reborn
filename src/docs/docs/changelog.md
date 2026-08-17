@@ -9,6 +9,22 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## ADMIN PUBLISHING RUNBOOK — F0 ZERO-COST OPERATIONS
+
+✓ `admin-publishing-runbook-v1.md` kini menjadi SOP penerbitan katalog mobile-first bagi pengelola konten nonteknis: persiapan data, alur enam langkah, status Draft/Published, cue kesiapan `4/4`, Gallery URL Assistant, checklist kontrol kualitas, dan scorecard manual mingguan
+✓ Runbook hanya memakai kemampuan yang sudah ada: field produk serta URL HTTPS `image`/`gallery` existing; gambar, alasan rekomendasi, harga, dan tautan affiliate tetap wajib diperiksa secara jujur sebelum publish
+✓ Tidak ada upload native, transformasi WebP, provider storage, billing, secret, endpoint, dependency, schema, migration, scheduler, API runtime, perubahan auth JWT, atau data produksi yang ditambahkan
+✓ Guardrail Zero-Cost Media Runway tetap aktif; evaluasi A4 native upload + WebP baru boleh dibuka setelah sekitar 20 produk lengkap, ritme konten empat minggu, dan hambatan operasional nyata dapat dibuktikan
+
+VALIDATION: `git diff --check` PASSED; PR dokumentasi F0 hanya mengubah `src/docs/docs/admin-publishing-runbook-v1.md`; Vercel Preview Comments SUCCESS
+
+✓ Branch `docs/admin-publishing-runbook-v1` dipromosikan ke `main` setelah approval eksplisit melalui PR #19
+✓ Merge commit promotion: `088d1dd`
+
+STATUS: F0 ADMIN PUBLISHING RUNBOOK PROMOTED TO `main` — ZERO-COST OPERATIONS READY FOR CONTENT ONBOARDING
+
+==================================================
+
 ## ZERO-COST MEDIA RUNWAY — A4 DECISION GATE
 
 ✓ Founder menyetujui jalur Z0 sebagai default: admin memakai field URL `image` dan `gallery` existing untuk konten produk, tanpa native upload, akun storage aplikasi, billing, secret, endpoint, schema, migration, scheduler, atau perubahan runtime
