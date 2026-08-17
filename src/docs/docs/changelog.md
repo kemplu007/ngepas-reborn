@@ -9,6 +9,22 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## PRODUCT DETAIL CURATED-DATA POLISH — KEM-13
+
+✓ `ProductDetail.jsx` memperjelas scan path panel Panduan keputusan supaya alasan pemilihan, kecocokan, dan pertimbangan lebih mudah dipindai sebelum CTA marketplace
+✓ Panel tetap memakai hanya `whyWeRecommend`, `bestFor`, dan `considerations` yang sudah diisi manusia; subbagian dan panel utama tetap hilang saat datanya kosong tanpa skor, review sintetis, label “terbaik”, kelangkaan palsu, atau placeholder promosi
+✓ Lookup melalui `useProducts`, route `/product/:slug`, gallery, price/meta, sticky CTA mobile, CTA desktop static, href/target/rel affiliate, fallback CTA, detail, dan produk terkait dipertahankan
+✓ Tidak ada perubahan Context, service, payload, API, backend, database, schema, persistence, auth JWT, upload, WebP, storage, billing, secret, scheduler, endpoint media, dependency, atau data produksi
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED; `/product/rak-bumbu-dapur` diperiksa read-only terhadap API Railway pada mobile 375×812 dan desktop 1280×720 tanpa horizontal overflow. Warning duplicate key `/category` pada navigasi existing dicatat sebagai baseline di luar scope KEM-13.
+
+✓ Branch `polish/product-detail-curated-data-v1` dipromosikan ke `main` melalui PR #25 setelah approval eksplisit founder
+✓ Merge commit promotion: `44e31d6`
+
+STATUS: KEM-13 PRODUCT DETAIL CURATED-DATA POLISH PROMOTED TO `main` — CURATION HIERARCHY IS CLEARER WITHOUT A NEW DATA CONTRACT
+
+==================================================
+
 ## AI HANDOFF STANDARD — CROSS-SESSION OPERATIONS
 
 ✓ `ai-handoff-standard-v1.md` menetapkan envelope wajib untuk konteks lintas sesi/AI: source of truth, branch/worktree state, scope contract, evidence validasi, guardrail, tracker, dan next decision

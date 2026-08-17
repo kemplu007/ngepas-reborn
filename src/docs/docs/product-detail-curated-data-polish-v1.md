@@ -1,7 +1,8 @@
 # KEM-13 — Product Detail Curated-Data Polish v1
 
-**Status:** Review branch — belum siap promotion
-**Branch:** `polish/product-detail-curated-data-v1` dari `origin/main` commit `fba9dd1`
+**Status:** Promoted — implementasi masuk `main`; catatan promosi berada pada branch dokumentasi terpisah
+**Implementation branch:** `polish/product-detail-curated-data-v1` dari `origin/main` commit `fba9dd1`
+**Promotion:** PR #25 merged ke `main` melalui merge commit `44e31d6`
 **Owner surface:** `src/pages/public/ProductDetail.jsx`
 
 ## Problem statement
@@ -48,7 +49,14 @@ Console hanya mencatat error React baseline yang sudah diketahui: duplicate key 
 
 ## Promotion boundary
 
-Branch ini hanya disiapkan untuk review. Implementasi tidak boleh di-merge ke `main` tanpa approval promosi eksplisit founder. Jika branch dipromosikan, changelog, foundation baseline, Linear, dan Notion disinkronkan melalui checkpoint audit yang sesuai.
+Implementasi telah dipromosikan setelah approval founder eksplisit. Changelog, foundation baseline, Linear, dan Notion harus membawa merge commit serta scope guard yang sama; dokumentasi promosi tetap menjadi lapisan audit terpisah dan tidak mengubah aplikasi.
+
+## Final promotion evidence
+
+- PR: `https://github.com/kemplu007/ngepas-reborn/pull/25`
+- Merge commit: `44e31d6`
+- Branch implementation: sudah merged; remote branch telah dihapus setelah promosi
+- Scope tetap visual-only; seluruh guardrail pada Scope contract tetap berlaku
 
 ## Referensi internal
 
