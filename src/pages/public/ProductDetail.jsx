@@ -95,7 +95,7 @@ function ProductDetail() {
    PRODUCT CONTEXT
   ==================================================*/
 
-  const { products, loading, error } = useProducts();
+  const { products, getProductBySlug } = useProducts();
 
   /*==================================================
    GET URL PARAMETER
@@ -104,10 +104,44 @@ function ProductDetail() {
   const { slug } = useParams();
 
   /*==================================================
-   FIND PRODUCT
+   PRODUCT DETAIL STATE
   ==================================================*/
 
-  const product = products.find((item) => item.slug === slug);
+  const [product, setProduct] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(true);
+  const [detailError, setDetailError] = useState(null);
+
+  useEffect(() => {
+    let isCurrentRequest = true;
+
+    const loadProduct = async () => {
+      try {
+        setDetailLoading(true);
+        setDetailError(null);
+
+        const data = await getProductBySlug(slug);
+
+        if (isCurrentRequest) {
+          setProduct(data);
+        }
+      } catch (err) {
+        if (isCurrentRequest) {
+          setProduct(null);
+          setDetailError(err.message);
+        }
+      } finally {
+        if (isCurrentRequest) {
+          setDetailLoading(false);
+        }
+      }
+    };
+
+    loadProduct();
+
+    return () => {
+      isCurrentRequest = false;
+    };
+  }, [getProductBySlug, slug]);
 
   /*==================================================
    GALLERY STATE
@@ -141,7 +175,7 @@ function ProductDetail() {
    PRODUCT STATES
   ==================================================*/
 
-  if (loading) {
+  if (detailLoading) {
     return (
       <Section surface="muted" className="min-h-[60vh]">
         <Card variant="elevated" className="mx-auto max-w-md text-center">
@@ -153,7 +187,7 @@ function ProductDetail() {
     );
   }
 
-  if (error) {
+  if (detailError && detailError !== "Produk tidak ditemukan") {
     return (
       <Section surface="muted" className="min-h-[60vh]">
         <Card
@@ -169,7 +203,7 @@ function ProductDetail() {
             Produk belum dapat dimuat
           </h1>
           <p className="text-[var(--np-text-small)] text-[var(--np-color-muted)]">
-            {error}
+            {detailError}
           </p>
           <Link to="/" className={backLinkClass}>
             <ArrowLeft size={16} aria-hidden="true" />
@@ -180,7 +214,7 @@ function ProductDetail() {
     );
   }
 
-  if (!product) {
+  if (!product || detailError === "Produk tidak ditemukan") {
     return (
       <Section surface="muted" className="min-h-[60vh]">
         <Card

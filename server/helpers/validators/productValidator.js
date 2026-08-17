@@ -67,12 +67,21 @@ function validateProduct(product) {
   return null;
 }
 
+function validateProductSlug(slug) {
+  if (typeof slug !== "string" || slug.length === 0) {
+    return "Slug produk tidak valid.";
+  }
+
+  return null;
+}
+
 module.exports = validateProduct;
 module.exports.PRODUCT_STATUSES = PRODUCT_STATUSES;
 module.exports.PRODUCT_TAG_LIMIT = PRODUCT_TAG_LIMIT;
 module.exports.PRODUCT_TAG_LENGTH_LIMIT = PRODUCT_TAG_LENGTH_LIMIT;
 module.exports.PRODUCT_GALLERY_LIMIT = PRODUCT_GALLERY_LIMIT;
 module.exports.isValidGalleryUrl = isValidGalleryUrl;
+module.exports.validateProductSlug = validateProductSlug;
 
 /*==================================================
  END OF FILE

@@ -2,7 +2,7 @@
 
 # NGEPAS REBORN
 
-# API CONTRACT v1.0
+# API CONTRACT v1.1
 
 # ==================================================
 
@@ -123,6 +123,36 @@ Product
 }
 
 Product response selalu mengembalikan `tags` dan `gallery` sebagai array string yang sudah dinormalisasi. Row legacy tanpa nilai tags atau gallery dibaca sebagai `[]`.
+
+---
+
+GET
+/api/products/:slug
+--------------------------------------------------
+
+Deskripsi
+
+Mengambil satu produk berdasarkan slug melalui lookup exact. Endpoint mempertahankan kebijakan visibility publik yang sama dengan `GET /api/products`; filter `published`/`draft` belum menjadi bagian kontrak ini.
+
+Parameter
+
+:slug
+
+Response sukses
+
+{
+success,
+message,
+data: Product
+}
+
+Error
+
+400: slug kosong atau tidak valid.
+
+404: Produk tidak ditemukan.
+
+`Product` memakai bentuk normalisasi yang sama dengan response `GET /api/products`, termasuk default `status`, `tags`, `gallery`, dan seluruh field kurasi.
 
 ---
 

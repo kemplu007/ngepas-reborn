@@ -9,6 +9,8 @@ const parseProduct = require("../helpers/parsers/productParser");
 const sanitizeProduct = require("../helpers/sanitizers/productSanitizer");
 const validateProduct = require("../helpers/validators/productValidator");
 const { success, error } = require("../utils/response");
+const { sanitizeProductSlug } = sanitizeProduct;
+const { validateProductSlug } = validateProduct;
 
 /*==================================================
 GET PRODUCTS
@@ -21,6 +23,31 @@ function getProducts(req, res, next) {
     const parsedProducts = products.map(parseProduct);
 
     return success(res, parsedProducts, "Berhasil mengambil data produk");
+  } catch (error) {
+    next(error);
+  }
+}
+
+/*==================================================
+ GET PRODUCT BY SLUG
+==================================================*/
+
+function getProductBySlug(req, res, next) {
+  try {
+    const slug = sanitizeProductSlug(req.params.slug);
+    const validationError = validateProductSlug(slug);
+
+    if (validationError) {
+      return error(res, validationError, 400);
+    }
+
+    const product = productModel.getProductBySlug(slug);
+
+    if (!product) {
+      return error(res, "Produk tidak ditemukan", 404);
+    }
+
+    return success(res, parseProduct(product), "Berhasil mengambil data produk");
   } catch (error) {
     next(error);
   }
@@ -223,6 +250,7 @@ function updateProduct(req, res, next) {
 
 module.exports = {
   getProducts,
+  getProductBySlug,
   addProduct,
   deleteProduct,
   updateProduct,

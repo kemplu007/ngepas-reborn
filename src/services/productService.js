@@ -15,6 +15,14 @@ export async function getProducts() {
 }
 
 /*==================================================
+ GET PRODUCT BY SLUG
+==================================================*/
+
+export async function getProductBySlug(slug) {
+  return apiRequest(`/products/${encodeURIComponent(slug)}`);
+}
+
+/*==================================================
  ADD PRODUCT
 ==================================================*/
 

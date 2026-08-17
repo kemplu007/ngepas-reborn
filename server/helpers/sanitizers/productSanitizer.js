@@ -41,9 +41,14 @@ function sanitizeProduct(product) {
   };
 }
 
+function sanitizeProductSlug(slug) {
+  return typeof slug === "string" ? slug.trim() : slug;
+}
+
 module.exports = sanitizeProduct;
 module.exports.normalizeTags = normalizeTags;
 module.exports.normalizeGallery = normalizeGallery;
+module.exports.sanitizeProductSlug = sanitizeProductSlug;
 
 /*==================================================
  END OF FILE
