@@ -23,6 +23,23 @@ function getAllProducts() {
 }
 
 /*==================================================
+ GET PRODUCT BY SLUG
+==================================================*/
+
+function getProductBySlug(slug) {
+  return db
+    .prepare(
+      `
+    SELECT *
+    FROM products
+    WHERE slug = ?
+    LIMIT 1
+  `,
+    )
+    .get(slug);
+}
+
+/*==================================================
  CREATE PRODUCT
 ==================================================*/
 
@@ -188,6 +205,7 @@ function getProductById(id) {
 
 module.exports = {
   getAllProducts,
+  getProductBySlug,
   getProductById,
   createProduct,
   updateProduct,

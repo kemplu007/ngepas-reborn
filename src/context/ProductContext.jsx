@@ -4,10 +4,11 @@
  Module  : Context
 ==================================================*/
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 import {
   getProducts,
+  getProductBySlug as fetchProductBySlug,
   addProduct as createProduct,
   updateProduct as editProduct,
   deleteProduct as removeProduct,
@@ -50,6 +51,19 @@ export function ProductProvider({ children }) {
   useEffect(() => {
     refreshProducts();
   }, []);
+
+  /*==================================================
+   GET PRODUCT BY SLUG
+  ==================================================*/
+  const getProductBySlug = useCallback(async (slug) => {
+    try {
+      return await fetchProductBySlug(slug);
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }, []);
+
   /*==================================================
    ADD PRODUCT
   ==================================================*/
@@ -102,6 +116,7 @@ export function ProductProvider({ children }) {
         loading,
         error,
         refreshProducts,
+        getProductBySlug,
         addProduct,
         deleteProduct,
         updateProduct,
