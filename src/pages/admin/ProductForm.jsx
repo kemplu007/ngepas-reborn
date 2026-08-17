@@ -25,6 +25,13 @@ import SelectField from "../../components/ui/SelectField";
 import TextareaField from "../../components/ui/TextareaField";
 
 /*==================================================
+ DESIGN INTENT
+ Admin form should read as one focused mobile-first
+ work surface: explicit step context, restrained width,
+ and full-width touch actions without changing form flow.
+==================================================*/
+
+/*==================================================
  INITIAL STATE
 ==================================================*/
 const initialFormData = {
@@ -288,12 +295,15 @@ function ProductForm() {
           </div>
         </div>
 
-        <div className="flex gap-[var(--np-space-2)]" aria-label="Progress form">
+        <div
+          className="flex w-fit gap-[var(--np-space-2)]"
+          aria-label="Progress form"
+        >
           {[1, 2, 3, 4].map((step) => (
             <Badge
               key={step}
               variant={currentStep === step ? "primary" : "neutral"}
-              className="w-8 justify-center rounded-full px-0"
+              className="w-8 justify-center rounded-np-sm px-0"
             >
               {step}
             </Badge>
@@ -304,14 +314,16 @@ function ProductForm() {
       <Card
         as="form"
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 gap-[var(--np-space-8)] lg:grid-cols-2"
+        className="mx-auto w-full max-w-4xl gap-[var(--np-space-8)] p-[var(--np-space-4)] sm:p-[var(--np-space-6)]"
       >
           {/* LEFT COLUMN */}
-          <div className="space-y-6">
+          <div className="min-w-0 space-y-[var(--np-space-6)]">
             {/* STEP 1: BASIC INFO */}
             <div className={currentStep === 1 ? "block" : "hidden"}>
               <div className="mb-[var(--np-space-6)]">
-                <Badge variant="primary">Langkah 1 dari 4</Badge>
+                <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.16em] text-[var(--np-color-action-primary)]">
+                  Langkah 1 dari 4
+                </p>
                 <h2 className="mt-[var(--np-space-2)] text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
                   Info dasar
                 </h2>
@@ -415,7 +427,9 @@ function ProductForm() {
             {/* STEP 2: PRICING AND STOCK */}
             <div className={currentStep === 2 ? "block" : "hidden"}>
               <div className="mb-[var(--np-space-6)]">
-                <Badge variant="primary">Langkah 2 dari 4</Badge>
+                <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.16em] text-[var(--np-color-action-primary)]">
+                  Langkah 2 dari 4
+                </p>
                 <h2 className="mt-[var(--np-space-2)] text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
                   Harga dan stok
                 </h2>
@@ -526,7 +540,7 @@ function ProductForm() {
               <div className="space-y-[var(--np-space-6)]">
                 <div>
                   <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.16em] text-[var(--np-color-action-primary)]">
-                    Step 3
+                    Langkah 3 dari 4
                   </p>
                   <h3 className="mt-2 text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
                     Gambar dan preview produk
@@ -657,7 +671,7 @@ function ProductForm() {
               <div className="space-y-[var(--np-space-6)]">
                 <div>
                   <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.16em] text-[var(--np-color-action-primary)]">
-                    Step 4
+                    Langkah 4 dari 4
                   </p>
                   <h3 className="mt-2 text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
                     Detail dan kurasi
@@ -736,23 +750,25 @@ function ProductForm() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN */}
-          <div className="hidden lg:block"></div>
-
           {/* NAVIGATION BUTTONS */}
-          <div className="col-span-1 flex flex-col-reverse gap-[var(--np-space-3)] border-t border-[var(--np-color-border)] pt-[var(--np-space-5)] sm:col-span-2 sm:flex-row sm:justify-end">
+          <div className="flex flex-col-reverse items-stretch gap-[var(--np-space-3)] border-t border-[var(--np-color-border)] pt-[var(--np-space-5)] sm:flex-row sm:items-center sm:justify-end">
             {currentStep > 1 && (
-              <Button type="button" variant="secondary" onClick={prevStep}>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={prevStep}
+                className="w-full sm:w-auto"
+              >
                 Kembali
               </Button>
             )}
 
             {currentStep < 4 ? (
-              <Button type="button" onClick={nextStep}>
+              <Button type="button" onClick={nextStep} className="w-full sm:w-auto">
                 Lanjut
               </Button>
             ) : (
-              <Button type="submit">
+              <Button type="submit" className="w-full sm:w-auto">
                 <Save size={18} aria-hidden="true" />
                 {isEditMode ? "Simpan perubahan" : "Simpan produk"}
               </Button>
@@ -762,6 +778,7 @@ function ProductForm() {
               type="button"
               variant="secondary"
               onClick={() => navigate("/admin/products")}
+              className="w-full sm:w-auto"
             >
               Batal
             </Button>
