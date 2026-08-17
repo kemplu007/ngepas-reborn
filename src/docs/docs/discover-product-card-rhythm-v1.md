@@ -1,7 +1,7 @@
 # Discover Product Card Rhythm v1
 
 **Branch:** `polish/discover-product-card-rhythm-v1`  
-**Status:** Implemented locally; pending final validation and founder review.  
+**Status:** Promoted to `main` via merge commit `ee5d889` after founder approval.
 **Scope:** Visual-only `ProductCard.jsx` patch. Tidak ada route, callback favorite, data source, context, API, backend, atau autentikasi yang diubah.
 
 ## Perubahan visual
@@ -26,5 +26,9 @@
 ## Guardrail
 
 Tidak ada data testimoni, review count, rating, atau marketplace yang dibuat untuk mendukung tampilan. Validasi akhir tetap mencakup `git diff --check`, `npx vite build`, review browser mobile-desktop, serta approval founder sebelum promotion.
+
+## Promotion checkpoint
+
+Slice 1 dipromosikan melalui merge commit `ee5d889` setelah approval eksplisit. Promotion ini tidak menyentuh backend, API, auth JWT, database, Railway, maupun konfigurasi deployment.
 
 — Manus AI

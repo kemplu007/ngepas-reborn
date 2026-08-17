@@ -246,6 +246,23 @@ STATUS: PRODUCT GALLERY URL PERSISTENCE PR-3 PROMOTED TO `main`
 
 ==================================================
 
+## DISCOVER PRODUCT CARD RHYTHM — SLICE 1
+
+✓ `ProductCard.jsx` merapikan hierarchy badge, kategori, nama, rating, harga, dan CTA tanpa mengubah props, route detail, favorite flow, API, backend, atau data produk
+✓ Harga numerik dirender sebagai format Rupiah; placeholder `— review` dan `Data katalog` tidak lagi muncul bila data nyata tidak tersedia
+✓ CTA detail tetap memiliki destination, target sentuh, dan focus ring yang sama, dengan bobot visual yang lebih tenang terhadap harga dan badge kurasi
+✓ Browser review membuktikan tidak ada document overflow pada 375 px; empat card desktop tampil seimbang pada 1280 px
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+✓ Branch `polish/discover-product-card-rhythm-v1` dipromosikan ke `main` setelah approval eksplisit
+✓ Merge commit promotion: `ee5d889`
+✓ Tidak ada perubahan backend, auth JWT, database, API, Railway, atau konfigurasi deployment
+
+STATUS: DISCOVER PRODUCT CARD RHYTHM SLICE 1 PROMOTED TO `main`
+
+==================================================
+
 ## v1.5.0 — Discover Filter Surface + Global Panel Motion
 
 Release Date: 2026-08-15
