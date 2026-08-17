@@ -22,7 +22,10 @@ VALIDATION: `git diff --check` PASSED; `npx vite build` PASSED; pemeriksaan visu
 ✓ Kontrak dokumen: `src/docs/docs/kem16-curated-decision-label-contract-v1.md`
 ✓ Branch: `feat/curated-decision-label-v1` (basis `7333dc4`, belum ada PR terbuka)
 
-STATUS: KEM-16 REVIEW READY — MENUNGGU APPROVAL FOUNDER SEBELUM DIPROMOSIKAN KE `main`
+✓ Branch `feat/curated-decision-label-v1` dipromosikan ke `main` melalui PR #29 setelah approval eksplisit founder
+✓ Merge commit promotion: `a2dbc36`
+
+STATUS: KEM-16 CURATED DECISION LABEL PROMOTED TO `main` — QUALITATIVE LABEL WITHOUT PSEUDO-PRECISION
 
 ==================================================
 
@@ -39,7 +42,10 @@ VALIDATION: `git diff --check` PASSED; `npx vite build` PASSED; pemeriksaan visu
 ✓ Kontrak dokumen: `src/docs/docs/kem16-curated-decision-label-contract-v1.md`
 ✓ Branch: `feat/curated-decision-label-v1`
 
-STATUS: KEM-16 REVIEW READY — MENUNGGU APPROVAL FOUNDER SEBELUM DIPROMOSIKAN KE `main`
+✓ Branch `feat/curated-decision-label-v1` dipromosikan ke `main` melalui PR #29 setelah approval eksplisit founder
+✓ Merge commit promotion: `a2dbc36`
+
+STATUS: KEM-16 CURATED DECISION LABEL PROMOTED TO `main` — QUALITATIVE LABEL WITHOUT PSEUDO-PRECISION
 
 ==================================================
 
@@ -56,7 +62,10 @@ VALIDATION: harness read-only 7 assertion PASSED (fungsi murni tanpa database pr
 ✓ Kontrak dokumen: `src/docs/docs/kem17-curated-fields-enforcement-contract-v1.md`
 ✓ Branch: `feat/curated-fields-enforcement-v1`
 
-STATUS: KEM-17 REVIEW READY — MENUNGGU APPROVAL FOUNDER SEBELUM DIPROMOSIKAN KE `main`
+✓ Branch `feat/curated-fields-enforcement-v1` dipromosikan ke `main` melalui PR #30 setelah approval eksplisit founder
+✓ Merge commit promotion: `b51d7c6`
+
+STATUS: KEM-17 CURATED FIELDS ENFORCEMENT PROMOTED TO `main` — PUBLISHED PRODUCTS REQUIRE HUMAN CURATION
 
 ==================================================
 
