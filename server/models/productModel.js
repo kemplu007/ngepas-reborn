@@ -48,6 +48,7 @@ function createProduct(product) {
       affiliateLink,
       status,
       tags,
+      gallery,
       description,
       features,
       specifications,
@@ -55,7 +56,7 @@ function createProduct(product) {
       bestFor,
       considerations
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `,
     )
     .run(
@@ -76,6 +77,7 @@ function createProduct(product) {
       product.affiliateLink,
       product.status,
       JSON.stringify(product.tags || []),
+      JSON.stringify(product.gallery || []),
       product.description,
       JSON.stringify(product.features),
       JSON.stringify(product.specifications),
@@ -114,6 +116,7 @@ function updateProduct(id, product) {
       affiliateLink = ?,
       status = ?,
       tags = ?,
+      gallery = ?,
       description = ?,
       features = ?,
       specifications = ?,
@@ -141,6 +144,7 @@ function updateProduct(id, product) {
       product.affiliateLink,
       product.status,
       JSON.stringify(product.tags || []),
+      JSON.stringify(product.gallery || []),
       product.description,
       JSON.stringify(product.features),
       JSON.stringify(product.specifications),

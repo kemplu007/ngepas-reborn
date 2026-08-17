@@ -221,7 +221,24 @@ STATUS: PRODUCT STATUS READ-BACK PR-1.5 PROMOTED TO `main`
 
 VALIDATION: migration/parser/model round-trip smoke test + backend syntax check + `git diff --check` + `npx vite build` PASSED (1843 modules)
 
-STATUS: PRODUCT TAGS PERSISTENCE PR-2 READY FOR REVIEW ON `feat/product-tags-persistence-v1`
+✓ Branch `feat/product-tags-persistence-v1` dipromosikan ke `main` melalui merge commit `c81fa03`
+
+STATUS: PRODUCT TAGS PERSISTENCE PR-2 PROMOTED TO `main`
+
+==================================================
+
+## PRODUCT GALLERY URL PERSISTENCE — PR-3
+
+✓ Migration idempotent menambahkan `products.gallery` dengan default `[]` dan menormalkan nilai legacy kosong menjadi `[]`
+✓ Gallery menerima array maksimal 8 URL absolut `http://` atau `https://`; sanitizer hanya melakukan trim dan mempertahankan urutan editorial
+✓ Controller, model, parser, initializer, dan seed lokal meneruskan gallery sebagai JSON array tanpa mengubah route, auth JWT, atau response helper
+✓ POST tanpa gallery menyimpan `[]`; PUT tanpa gallery mempertahankan nilai gallery yang tersimpan; response GET/POST/PUT selalu memberi array bersih
+✓ `image` tetap gambar utama; tidak ada upload, object storage, WebP, multipart, endpoint media, search, public visibility, atau `product_offers`
+✓ ProductForm dan ProductDetail tidak membutuhkan patch karena payload dan read-back gallery sudah tersedia sebelum PR-3
+
+VALIDATION: migration/model/parser/validator/controller smoke test + backend syntax check + `git diff --check` + `npx vite build` PASSED (1843 modules)
+
+STATUS: PRODUCT GALLERY URL PERSISTENCE PR-3 READY FOR REVIEW ON `feat/product-gallery-persistence-v1`
 
 ==================================================
 

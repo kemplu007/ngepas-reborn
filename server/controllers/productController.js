@@ -56,6 +56,7 @@ function addProduct(req, res, next) {
       considerations,
       status,
       tags,
+      gallery,
     } = req.body;
 
     const cleanProduct = sanitizeProduct(req.body);
@@ -90,6 +91,7 @@ function addProduct(req, res, next) {
       considerations: considerations ?? [],
       status: cleanProduct.status || "published",
       tags: cleanProduct.tags ?? [],
+      gallery: cleanProduct.gallery ?? [],
     });
 
     const newProduct = productModel.getProductById(result.lastInsertRowid);
@@ -165,6 +167,7 @@ function updateProduct(req, res, next) {
       considerations,
       status,
       tags,
+      gallery,
     } = req.body;
 
     const cleanProduct = sanitizeProduct(req.body);
@@ -199,6 +202,7 @@ function updateProduct(req, res, next) {
       considerations: considerations ?? [],
       status: cleanProduct.status || existingProduct.status || "published",
       tags: cleanProduct.tags ?? parseProduct(existingProduct).tags,
+      gallery: cleanProduct.gallery ?? parseProduct(existingProduct).gallery,
     });
 
     const updatedProduct = productModel.getProductById(productId);
