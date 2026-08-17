@@ -9,6 +9,19 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## AI HANDOFF STANDARD — CROSS-SESSION OPERATIONS
+
+✓ `ai-handoff-standard-v1.md` menetapkan envelope wajib untuk konteks lintas sesi/AI: source of truth, branch/worktree state, scope contract, evidence validasi, guardrail, tracker, dan next decision
+✓ State vocabulary Proposed / Review ready / Promoted / Documented / Blocked menggantikan status percakapan yang ambigu; Linear `In Progress` tidak boleh dipakai sebagai tempat parkir tanpa bukti dan next action
+✓ Standar ini mengunci branch hygiene: branch hanya dihapus setelah bukti merged, tidak ada PR terbuka, tidak dipakai worktree, serta artefak untracked telah dilindungi
+✓ Tidak ada perubahan aplikasi, auth JWT, route, API, backend, database, schema, persistence, media, billing, atau data produksi
+
+VALIDATION: `git diff --check` PASSED; dokumen merujuk Core, UI/UX system, coding standard, foundation baseline, changelog, serta checkpoint Linear/Notion existing
+
+STATUS: AI HANDOFF STANDARD ESTABLISHED — FUTURE SLICES REQUIRE EVIDENCE-BASED HANDOFF AND TRACKER CHECKPOINTS
+
+==================================================
+
 ## PRODUCTION PERSISTENCE VERIFICATION — POST-REVIEW EVIDENCE
 
 ✓ Live `GET /api/products` pada Railway produksi sudah mengembalikan field persistence penuh: `status` (published/draft), `tags`, `gallery`, serta field kurasi `whyWeRecommend`, `bestFor`, dan `considerations` yang dipakai Panduan keputusan F1

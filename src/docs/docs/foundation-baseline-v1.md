@@ -10,6 +10,8 @@
 
 `src/components/ui` adalah rumah utama untuk primitive visual lintas halaman. Halaman mengatur komposisi dan state. Component mengatur presentasi, accessibility, dan interaksi lokal. Context dan Service tetap menjadi pemilik data serta business logic.
 
+`ai-handoff-standard-v1.md` adalah authority operasional lintas sesi untuk menyerahkan bukti branch, scope, validasi, guardrail, tracker, dan keputusan berikutnya. Ia mewajibkan Core-first dan tidak menciptakan authority visual atau data contract baru.
+
 `src/components/common` hanya boleh berisi wrapper lintas fitur atau compatibility layer. `common/Button.jsx` dipertahankan sementara sebagai wrapper ke `ui/Button.jsx` agar migrasi tidak memutus caller lama. Ia bukan authority visual kedua.
 
 ## Penghuni baseline v1
