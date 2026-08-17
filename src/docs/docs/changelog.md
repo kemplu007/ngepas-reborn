@@ -9,6 +9,21 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## ADMIN PRODUCT FORM MOBILE RHYTHM — SLICE 4
+
+✓ `ProductForm.jsx` memperjelas hierarchy langkah, lebar baca, spacing berbasis token, dan ritme action form untuk layar mobile tanpa mengubah alur kerja admin
+✓ Indicator langkah, heading, dan action row tetap memakai primitive foundation yang ada; tidak ada primitive visual baru atau pola navigasi baru yang ditambahkan
+✓ State, handler, payload, route, service, Context, upload service, persistence, API, backend, database, schema, dan auth JWT dipertahankan
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules); Step 1–3 desktop diperiksa pada preview lokal terautentikasi; mobile Step 1 serta urutan semantik diperiksa tanpa membuat, mengubah, atau menghapus produk
+
+✓ Branch `polish/admin-product-form-mobile-rhythm-v1` dipromosikan ke `main` setelah approval eksplisit melalui PR #8
+✓ Merge commit promotion: `6b56897`
+
+STATUS: ADMIN PRODUCT FORM MOBILE RHYTHM SLICE 4 PROMOTED TO `main`
+
+==================================================
+
 ## PRODUCT DETAIL DECISION RHYTHM — SLICE 3
 
 ✓ `ProductDetail.jsx` memperjelas orientasi gallery, ringkasan harga format Rupiah, serta pengungkapan diskon tanpa mengubah data produk
