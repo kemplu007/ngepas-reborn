@@ -9,6 +9,22 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## PRODUCT COMPLETENESS CUES — SLICE A1
+
+✓ `ProductForm.jsx` sekarang menampilkan ringkasan kelengkapan visual `0–4 siap` untuk nama produk, harga, link affiliate, dan gambar utama agar admin mengetahui prioritas field sebelum menyimpan
+✓ `ProductTable.jsx` memakai `Badge` foundation yang sama untuk memperlihatkan status Published/Draft di metadata daftar mobile saat kolom status desktop disembunyikan
+✓ Cue dihitung dari state form dan data produk yang sudah ada; state, handler, payload, validator, route, service, Context, API, backend, database, schema, persistence, dan auth JWT dipertahankan
+✓ Tidak ada field, endpoint, upload, storage, WebP, campaign, artikel, atau perubahan flow simpan yang ditambahkan
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED; ringkasan merespons input nama tanpa submit dan console preview tidak mencatat error atau warning
+
+✓ Branch `feat/admin-product-completeness-cues-v1` dipromosikan ke `main` setelah approval eksplisit melalui PR #11
+✓ Merge commit promotion: `4a23c6b`
+
+STATUS: PRODUCT COMPLETENESS CUES SLICE A1 PROMOTED TO `main`
+
+==================================================
+
 ## ADMIN PRODUCT FORM MOBILE RHYTHM — SLICE 4
 
 ✓ `ProductForm.jsx` memperjelas hierarchy langkah, lebar baca, spacing berbasis token, dan ritme action form untuk layar mobile tanpa mengubah alur kerja admin
