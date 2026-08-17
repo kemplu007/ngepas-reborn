@@ -34,9 +34,9 @@ import SectionHeading from "../../components/ui/SectionHeading";
 
 /*==================================================
  LOCAL STYLE CONTRACTS
- Slice 3 Design Reminder: gallery and decision signals
- lead; curation proof supports; affiliate action stays
- obvious but never impersonates internal checkout.
+ F1 Design Reminder: existing curation answers why,
+ who it fits, and what to consider before the affiliate
+ action; empty or duplicated editorial panels never render.
 ==================================================*/
 
 const primaryLinkClass =
@@ -238,6 +238,14 @@ function ProductDetail() {
   const hasSold = hasValue(sold);
   const hasStock = hasValue(stock);
   const hasDecisionMeta = hasRating || hasSold || hasStock;
+  const hasWhyWeRecommend = whyWeRecommend.length > 0;
+  const hasBestFor = bestFor.length > 0;
+  const hasConsiderations = considerations.length > 0;
+  const hasDecisionGuide =
+    hasWhyWeRecommend || hasBestFor || hasConsiderations;
+  const hasFeatures = features.length > 0;
+  const hasSpecifications = Object.keys(specifications).length > 0;
+  const hasSupportingInformation = hasFeatures || hasSpecifications;
 
   /*==================================================
    RELATED PRODUCTS
@@ -412,16 +420,16 @@ function ProductDetail() {
             </div>
 
             {/*==================================================
-             WHY WE RECOMMEND
+             DECISION GUIDE
             ==================================================*/}
 
-            {whyWeRecommend.length > 0 && (
+            {hasDecisionGuide && (
               <Card
                 variant="default"
                 className="mt-[var(--np-space-6)] border-[var(--np-color-green-200)] bg-[var(--np-color-green-100)]/40 p-[var(--np-space-5)] sm:p-[var(--np-space-6)]"
               >
                 <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
-                  Pilihan Ngepas
+                  Panduan keputusan
                 </p>
                 <div className="mt-[var(--np-space-2)] flex items-center gap-[var(--np-space-2)]">
                   <ThumbsUp
@@ -430,24 +438,84 @@ function ProductDetail() {
                     className="text-[var(--np-color-action-primary)]"
                   />
                   <h2 className="text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
-                    Kenapa Kami Memilih Produk Ini
+                    Pertimbangkan sebelum cek harga
                   </h2>
                 </div>
-                <ul className="mt-[var(--np-space-4)] space-y-[var(--np-space-3)]">
-                  {whyWeRecommend.map((item) => (
-                    <li
-                      key={item}
-                      className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
-                    >
-                      <Check
-                        size={17}
+
+                {hasWhyWeRecommend && (
+                  <div className="mt-[var(--np-space-4)]">
+                    <h3 className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]">
+                      Kenapa dipilih
+                    </h3>
+                    <ul className="mt-[var(--np-space-3)] space-y-[var(--np-space-3)]">
+                      {whyWeRecommend.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
+                        >
+                          <Check
+                            size={17}
+                            aria-hidden="true"
+                            className="mt-0.5 shrink-0 text-[var(--np-color-action-primary)]"
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {hasBestFor && (
+                  <div className="mt-[var(--np-space-4)] border-t border-[var(--np-color-green-200)] pt-[var(--np-space-4)]">
+                    <div className="flex items-center gap-[var(--np-space-2)]">
+                      <PackageCheck
+                        size={16}
                         aria-hidden="true"
-                        className="mt-0.5 shrink-0 text-[var(--np-color-action-primary)]"
+                        className="shrink-0 text-[var(--np-color-action-primary)]"
                       />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                      <h3 className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]">
+                        Cocok untuk
+                      </h3>
+                    </div>
+                    <div className="mt-[var(--np-space-3)] flex flex-wrap gap-[var(--np-space-2)]">
+                      {bestFor.map((item) => (
+                        <Badge key={item} variant="neutral">
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {hasConsiderations && (
+                  <div className="mt-[var(--np-space-4)] border-t border-[var(--np-color-green-200)] pt-[var(--np-space-4)]">
+                    <div className="flex items-center gap-[var(--np-space-2)]">
+                      <AlertTriangle
+                        size={16}
+                        aria-hidden="true"
+                        className="shrink-0 text-[var(--np-color-yellow-700)]"
+                      />
+                      <h3 className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]">
+                        Perlu dipertimbangkan
+                      </h3>
+                    </div>
+                    <ul className="mt-[var(--np-space-3)] space-y-[var(--np-space-3)]">
+                      {considerations.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
+                        >
+                          <Info
+                            size={16}
+                            aria-hidden="true"
+                            className="mt-0.5 shrink-0 text-[var(--np-color-yellow-700)]"
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </Card>
             )}
 
@@ -482,73 +550,51 @@ function ProductDetail() {
        SUPPORTING PRODUCT INFORMATION
       ==================================================*/}
 
-      <Section className="pt-0">
-        <div className="grid gap-[var(--np-space-4)] md:grid-cols-2 lg:grid-cols-4">
-          <DetailPanel icon={Check} title="Keunggulan">
-            <ul className="space-y-[var(--np-space-3)]">
-              {features.map((feature) => (
-                <li
-                  key={feature}
-                  className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
-                >
-                  <Check
-                    size={16}
-                    aria-hidden="true"
-                    className="mt-0.5 shrink-0 text-[var(--np-color-action-primary)]"
-                  />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </DetailPanel>
+      {hasSupportingInformation && (
+        <Section className="pt-0">
+          <div className="grid gap-[var(--np-space-4)] md:grid-cols-2">
+            {hasFeatures && (
+              <DetailPanel icon={Check} title="Keunggulan">
+                <ul className="space-y-[var(--np-space-3)]">
+                  {features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
+                    >
+                      <Check
+                        size={16}
+                        aria-hidden="true"
+                        className="mt-0.5 shrink-0 text-[var(--np-color-action-primary)]"
+                      />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </DetailPanel>
+            )}
 
-          <DetailPanel icon={Tag} title="Spesifikasi">
-            <dl className="space-y-[var(--np-space-3)]">
-              {Object.entries(specifications).map(([key, value]) => (
-                <div
-                  key={key}
-                  className="flex items-start justify-between gap-[var(--np-space-3)] border-b border-[var(--np-color-border)] pb-[var(--np-space-2)] last:border-b-0 last:pb-0"
-                >
-                  <dt className="text-[var(--np-text-caption)] font-semibold capitalize text-[var(--np-color-text-secondary)]">
-                    {key}
-                  </dt>
-                  <dd className="text-right text-[var(--np-text-caption)] text-[var(--np-color-muted)]">
-                    {value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </DetailPanel>
-
-          <DetailPanel icon={PackageCheck} title="Cocok Untuk">
-            <div className="flex flex-wrap gap-[var(--np-space-2)]">
-              {bestFor.map((item) => (
-                <Badge key={item} variant="neutral">
-                  {item}
-                </Badge>
-              ))}
-            </div>
-          </DetailPanel>
-
-          <DetailPanel icon={AlertTriangle} title="Perlu Diketahui" variant="muted">
-            <ul className="space-y-[var(--np-space-3)]">
-              {considerations.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
-                >
-                  <Info
-                    size={16}
-                    aria-hidden="true"
-                    className="mt-0.5 shrink-0 text-[var(--np-color-yellow-700)]"
-                  />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </DetailPanel>
-        </div>
-      </Section>
+            {hasSpecifications && (
+              <DetailPanel icon={Tag} title="Spesifikasi">
+                <dl className="space-y-[var(--np-space-3)]">
+                  {Object.entries(specifications).map(([key, value]) => (
+                    <div
+                      key={key}
+                      className="flex items-start justify-between gap-[var(--np-space-3)] border-b border-[var(--np-color-border)] pb-[var(--np-space-2)] last:border-b-0 last:pb-0"
+                    >
+                      <dt className="text-[var(--np-text-caption)] font-semibold capitalize text-[var(--np-color-text-secondary)]">
+                        {key}
+                      </dt>
+                      <dd className="text-right text-[var(--np-text-caption)] text-[var(--np-color-muted)]">
+                        {value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </DetailPanel>
+            )}
+          </div>
+        </Section>
+      )}
 
       {/*==================================================
        RELATED PRODUCTS
