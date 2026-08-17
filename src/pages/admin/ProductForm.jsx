@@ -5,7 +5,7 @@
 ==================================================*/
 
 import { useEffect, useState } from "react";
-import { ArrowLeft, Plus, Save, X } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Circle, Plus, Save, X } from "lucide-react";
 
 import rooms from "../../data/rooms";
 import roomCategories from "../../data/roomCategories";
@@ -28,7 +28,8 @@ import TextareaField from "../../components/ui/TextareaField";
  DESIGN INTENT
  Admin form should read as one focused mobile-first
  work surface: explicit step context, restrained width,
- and full-width touch actions without changing form flow.
+ full-width touch actions, and visible completeness cues
+ without changing form flow or product behavior.
 ==================================================*/
 
 /*==================================================
@@ -97,6 +98,36 @@ function ProductForm() {
     .trim()
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-");
+
+  const completenessItems = [
+    {
+      label: "Nama produk",
+      step: 1,
+      complete: Boolean(formData.name.trim()),
+    },
+    {
+      label: "Harga",
+      step: 2,
+      complete: Boolean(String(formData.price).trim()),
+    },
+    {
+      label: "Link affiliate",
+      step: 2,
+      complete: Boolean(formData.affiliateLink.trim()),
+    },
+    {
+      label: "Gambar utama",
+      step: 3,
+      complete: Boolean(formData.image.trim()),
+    },
+  ];
+
+  const completedRequiredFields = completenessItems.filter(
+    (item) => item.complete,
+  ).length;
+  const isContentComplete =
+    completedRequiredFields === completenessItems.length;
+  const statusLabel = formData.status === "published" ? "Published" : "Draft";
 
   /*==================================================
    FOUNDATION OPTIONS
@@ -292,6 +323,16 @@ function ProductForm() {
             <h1 className="text-[var(--np-text-h2)] font-semibold tracking-tight text-[var(--np-color-text-primary)]">
               {isEditMode ? "Edit produk" : "Tambah produk"}
             </h1>
+            <div className="mt-[var(--np-space-2)] flex flex-wrap items-center gap-[var(--np-space-2)]">
+              <Badge
+                variant={formData.status === "published" ? "primary" : "neutral"}
+              >
+                {statusLabel}
+              </Badge>
+              <span className="text-[var(--np-text-caption)] text-[var(--np-color-text-secondary)]">
+                Status produk saat ini
+              </span>
+            </div>
           </div>
         </div>
 
@@ -310,6 +351,57 @@ function ProductForm() {
           ))}
         </div>
       </header>
+
+      <Card
+        variant="muted"
+        className="mx-auto mb-[var(--np-space-6)] w-full max-w-4xl space-y-[var(--np-space-4)]"
+        aria-live="polite"
+      >
+        <div className="flex flex-col gap-[var(--np-space-3)] sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
+              Kesiapan katalog
+            </p>
+            <p className="mt-[var(--np-space-1)] text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
+              {isContentComplete
+                ? "Empat informasi dasar sudah terisi. Status produk tetap kamu tentukan di Langkah 1."
+                : "Lengkapi informasi yang ditandai sebelum produk siap ditinjau."}
+            </p>
+          </div>
+          <Badge variant={isContentComplete ? "primary" : "accent"}>
+            {completedRequiredFields}/{completenessItems.length} siap
+          </Badge>
+        </div>
+
+        <ul className="grid gap-[var(--np-space-2)] sm:grid-cols-2">
+          {completenessItems.map((item) => (
+            <li
+              key={item.label}
+              className="flex items-center gap-[var(--np-space-2)] rounded-np-sm border border-[var(--np-color-border)] bg-[var(--np-color-surface)] px-[var(--np-space-3)] py-[var(--np-space-2)]"
+            >
+              {item.complete ? (
+                <CheckCircle2
+                  size={16}
+                  aria-hidden="true"
+                  className="shrink-0 text-[var(--np-color-success)]"
+                />
+              ) : (
+                <Circle
+                  size={16}
+                  aria-hidden="true"
+                  className="shrink-0 text-[var(--np-color-subtle)]"
+                />
+              )}
+              <span className="min-w-0 flex-1 text-[var(--np-text-small)] font-medium text-[var(--np-color-text-primary)]">
+                {item.label}
+              </span>
+              <span className="shrink-0 text-[var(--np-text-caption)] text-[var(--np-color-text-secondary)]">
+                {item.complete ? "Siap" : `Langkah ${item.step}`}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Card>
 
       <Card
         as="form"
