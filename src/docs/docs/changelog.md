@@ -238,7 +238,11 @@ STATUS: PRODUCT TAGS PERSISTENCE PR-2 PROMOTED TO `main`
 
 VALIDATION: migration/model/parser/validator/controller smoke test + backend syntax check + `git diff --check` + `npx vite build` PASSED (1843 modules)
 
-STATUS: PRODUCT GALLERY URL PERSISTENCE PR-3 READY FOR REVIEW ON `feat/product-gallery-persistence-v1`
+✓ Branch `feat/product-gallery-persistence-v1` dipromosikan ke `main` setelah approval eksplisit
+✓ Merge commit promotion: `1088246`
+✓ Tidak ada migration production Railway atau write verification yang dijalankan pada promotion ini; keduanya tetap menunggu runbook dan recovery procedure terpisah
+
+STATUS: PRODUCT GALLERY URL PERSISTENCE PR-3 PROMOTED TO `main`
 
 ==================================================
 

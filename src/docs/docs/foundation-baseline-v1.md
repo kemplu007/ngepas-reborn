@@ -54,7 +54,7 @@
 
 `Product Tags Persistence` PR-2 dipromosikan ke `main` melalui merge commit `c81fa03`. Migration idempotent menambahkan `products.tags` dengan default `[]`; sanitizer menormalisasi trim, item kosong, dan deduplikasi case-insensitive; validator menerapkan maksimal 12 tag dan 40 karakter per tag; model, controller, parser, dan seed lokal sudah mendukung JSON array. ProductForm/ProductContext tidak memerlukan patch tambahan karena alur read-back PR-1.5 sudah meneruskan row persisted. Search, filter, SEO, public visibility, gallery, upload service, product_offers, dan auth tetap di luar scope.
 
-`Product Gallery URL Persistence` PR-3 diimplementasikan pada branch `feat/product-gallery-persistence-v1` setelah approval contract eksplisit. Migration idempotent menambahkan `products.gallery` dengan default `[]`; sanitizer hanya melakukan trim agar urutan editorial tidak berubah; validator menerima maksimal 8 URL absolut `http`/`https`; model, controller, parser, initializer, dan seed lokal meneruskan JSON array. `ProductForm` dan `ProductDetail` tidak dipatch karena keduanya sudah membentuk atau membaca gallery melalui alur read-back yang aktif. `image` tetap gambar utama. Upload, storage, WebP, endpoint media, search, public visibility, product_offers, dan auth tetap di luar scope.
+`Product Gallery URL Persistence` PR-3 dipromosikan ke `main` melalui merge commit `1088246` setelah approval contract dan promotion eksplisit. Migration idempotent menambahkan `products.gallery` dengan default `[]`; sanitizer hanya melakukan trim agar urutan editorial tidak berubah; validator menerima maksimal 8 URL absolut `http`/`https`; model, controller, parser, initializer, dan seed lokal meneruskan JSON array. `ProductForm` dan `ProductDetail` tidak dipatch karena keduanya sudah membentuk atau membaca gallery melalui alur read-back yang aktif. `image` tetap gambar utama. Upload, storage, WebP, endpoint media, search, public visibility, product_offers, dan auth tetap di luar scope. Migration production Railway serta write verification tetap ditahan hingga runbook dan recovery procedure aman tersedia.
 
 ## Contract tokens
 
@@ -82,7 +82,7 @@ Primitive baru wajib mengonsumsi token dari `src/styles/tokens.css`. Nilai visua
 7. `Categories` admin listing sudah dipromosikan ke `main` melalui merge commit `0a11f39`; listing memakai `Button`, `Badge`, dan `IconButton`, tanpa mengubah CRUD, route, service, auth, atau backend.
 8. PR-1 Product Status Persistence sudah dipromosikan ke `main` melalui merge commit `377e22d`; PR-1.5 FE read-back verification sudah dipromosikan ke `main` melalui merge commit `170a1c1`.
 9. PR-2 Product Tags Persistence sudah dipromosikan ke `main` melalui merge commit `c81fa03`.
-10. PR-3 Gallery URL Persistence berada pada branch `feat/product-gallery-persistence-v1` untuk review; promotion dan migration production tetap memerlukan approval serta runbook/recovery procedure terpisah.
+10. PR-3 Gallery URL Persistence sudah dipromosikan ke `main` melalui merge commit `1088246`; migration production tetap memerlukan runbook/recovery procedure terpisah dan tidak dijalankan pada promotion kode.
 11. Jangan mengimplementasikan varian produk atau upload service sebelum state, payload, schema, endpoint, dan acceptance criteria disepakati sebagai slice fitur terpisah.
 12. Migrasikan halaman admin lain yang tersisa ke `Button`, `IconButton`, `Badge`, `Input`, `SelectField`, dan `Dialog`.
 13. Hapus compatibility wrapper hanya setelah tidak ada runtime import ke `common/Button` dan seluruh build/review lulus.
