@@ -1,6 +1,6 @@
 # Product Detail by Slug — Contract v1
 
-**Checkpoint:** 17 Agustus 2026 — In Progress
+**Checkpoint:** 17 Agustus 2026 — Documented after promotion record
 
 ## 1. Problem dan keputusan
 
@@ -56,13 +56,13 @@ Route publik `/product/:slug` saat ini memperoleh produk utama dari katalog penu
 - Slug kosong/tidak valid menghasilkan 400; slug tidak ada menghasilkan 404; tidak ada write atau perubahan database.
 - Product Detail berhasil menampilkan produk dari route slug tanpa fetch langsung dan tanpa mengubah CTA marketplace atau section KEM-13.
 - `git diff --check`, `node --check` untuk file backend yang diubah, validasi request read-only, dan `npx vite build` lulus.
-- Branch review terpisah, diff fokus, PR belum merge hingga approval founder eksplisit.
+- Branch review terpisah, diff fokus, dan promosi ke `main` hanya setelah approval founder eksplisit.
 
-## 5. Working state dan handoff
+## 5. Promotion state dan handoff
 
-- **Branch:** `feat/product-detail-by-slug-v1` dari `origin/main` commit `3fec483`.
+- **Implementation promotion:** branch `feat/product-detail-by-slug-v1` dipromosikan melalui PR #27 ke `main` commit `2c57ac2` setelah approval eksplisit founder.
 - **Protected local state:** laporan verifikasi dan `todo.md` untracked tetap lokal, di luar commit.
-- **Tracker:** KEM-14 tetap Backlog sampai branch review memiliki bukti implementasi; Linear dan Notion tidak diubah pada tahap Proposed ini.
-- **Validation awal:** `git diff --check`, `node --check` pada seluruh file backend yang diubah, dan `npx vite build` lulus. Harness controller read-only di luar repository membuktikan respons 200 sukses, 400 slug invalid, dan 404 not-found tanpa membaca atau menulis database produksi.
+- **Tracker:** Linear dan Notion merekam KEM-14 sebagai Review Ready sebelum approval; penutupan Done dilakukan hanya setelah rekam promosi dokumentasi ini masuk ke `main`.
+- **Validation:** `git diff --check`, `node --check` pada seluruh file backend yang diubah, dan `npx vite build` lulus. Harness controller read-only di luar repository membuktikan respons 200 sukses, 400 slug invalid, dan 404 not-found tanpa membaca atau menulis database produksi.
 - **Known baseline:** build memberi warning ukuran chunk frontend yang sudah ada; tidak ada warning atau error baru yang berasal dari KEM-14.
-- **Next decision:** lengkapi pemeriksaan diff/staging, buat PR review, lalu validasi endpoint Railway read-only hanya setelah implementasi dipromosikan atas approval founder.
+- **Next decision:** promosikan branch dokumentasi ini, lalu tutup KEM-14 di Linear dan sinkronkan checkpoint final Notion. Audit produk Draft/Published untuk endpoint publik tetap menjadi slice keputusan terpisah.
