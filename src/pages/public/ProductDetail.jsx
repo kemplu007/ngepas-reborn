@@ -34,6 +34,9 @@ import SectionHeading from "../../components/ui/SectionHeading";
 
 /*==================================================
  LOCAL STYLE CONTRACTS
+ Slice 3 Design Reminder: gallery and decision signals
+ lead; curation proof supports; affiliate action stays
+ obvious but never impersonates internal checkout.
 ==================================================*/
 
 const primaryLinkClass =
@@ -41,6 +44,24 @@ const primaryLinkClass =
 
 const backLinkClass =
   "inline-flex min-h-[var(--np-control-height-md)] items-center gap-2 rounded-np-md px-[var(--np-space-3)] text-[var(--np-text-small)] font-medium text-[var(--np-color-text-secondary)] transition-[background-color,color,transform] duration-np-fast ease-np-standard hover:bg-[var(--np-color-surface-accent)] hover:text-[var(--np-color-action-primary)] active:scale-[var(--np-motion-scale-pressed)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-focus)] focus-visible:ring-offset-2 motion-reduce:transition-none";
+
+function formatCurrency(value) {
+  const numericValue = typeof value === "number"
+    ? value
+    : Number(String(value ?? "").replace(/[^\d]/g, ""));
+
+  return Number.isFinite(numericValue) && numericValue > 0
+    ? new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0,
+      }).format(numericValue)
+    : value;
+}
+
+function hasValue(value) {
+  return value !== undefined && value !== null && value !== "";
+}
 
 /*==================================================
  DETAIL PANEL
@@ -211,6 +232,13 @@ function ProductDetail() {
     affiliateLink,
   } = product;
 
+  const priceLabel = formatCurrency(price);
+  const originalPriceLabel = formatCurrency(originalPrice);
+  const hasRating = hasValue(rating);
+  const hasSold = hasValue(sold);
+  const hasStock = hasValue(stock);
+  const hasDecisionMeta = hasRating || hasSold || hasStock;
+
   /*==================================================
    RELATED PRODUCTS
   ==================================================*/
@@ -243,18 +271,28 @@ function ProductDetail() {
           ==================================================*/}
 
           <div className="space-y-[var(--np-space-3)] lg:sticky lg:top-24">
-            <Card variant="muted" className="overflow-hidden p-[var(--np-space-2)] sm:p-[var(--np-space-3)]">
-              {galleryImages.length > 0 ? (
-                <img
-                  src={galleryImages[selectedImage]}
-                  alt={name}
-                  className="aspect-square w-full rounded-np-sm object-cover transition-transform duration-np-slow ease-np-standard hover:scale-[1.02] motion-reduce:transition-none"
-                />
-              ) : (
-                <div className="flex aspect-square items-center justify-center rounded-np-sm bg-[var(--np-color-surface-muted)] text-[var(--np-text-small)] text-[var(--np-color-muted)]">
-                  Gambar produk belum tersedia.
-                </div>
-              )}
+            <Card
+              variant="muted"
+              className="overflow-hidden border-[var(--np-color-border)] bg-[var(--np-color-white)] p-[var(--np-space-2)] shadow-np-sm sm:p-[var(--np-space-3)]"
+            >
+              <div className="relative">
+                {galleryImages.length > 0 ? (
+                  <img
+                    src={galleryImages[selectedImage]}
+                    alt={name}
+                    className="aspect-square w-full rounded-np-sm object-cover transition-transform duration-np-slow ease-np-standard hover:scale-[1.02] motion-reduce:transition-none"
+                  />
+                ) : (
+                  <div className="flex aspect-square items-center justify-center rounded-np-sm bg-[var(--np-color-surface-muted)] text-[var(--np-text-small)] text-[var(--np-color-muted)]">
+                    Gambar produk belum tersedia.
+                  </div>
+                )}
+                {galleryImages.length > 1 && (
+                  <span className="absolute bottom-[var(--np-space-3)] left-[var(--np-space-3)] rounded-np-pill bg-[var(--np-color-ink)]/80 px-[var(--np-space-2)] py-[var(--np-space-1)] text-[var(--np-text-caption)] font-medium text-white">
+                    Gambar {selectedImage + 1} dari {galleryImages.length}
+                  </span>
+                )}
+              </div>
             </Card>
 
             {galleryImages.length > 1 && (
@@ -286,7 +324,7 @@ function ProductDetail() {
           <div className="min-w-0">
             <nav
               aria-label="Breadcrumb"
-              className="mb-[var(--np-space-4)] flex flex-wrap items-center gap-1.5 text-[var(--np-text-caption)] text-[var(--np-color-muted)]"
+              className="mb-[var(--np-space-3)] flex flex-wrap items-center gap-1.5 text-[var(--np-text-caption)] text-[var(--np-color-muted)]"
             >
               <Link to="/" className="hover:text-[var(--np-color-action-primary)]">
                 Home
@@ -306,7 +344,7 @@ function ProductDetail() {
               {badge && <Badge variant="accent">{badge}</Badge>}
             </div>
 
-            <h1 className="mt-[var(--np-space-4)] max-w-2xl text-[var(--np-text-display)] font-semibold leading-[1.08] tracking-[-0.03em] text-[var(--np-color-text-primary)]">
+            <h1 className="mt-[var(--np-space-3)] max-w-2xl text-[var(--np-text-display)] font-semibold leading-[1.08] tracking-[-0.03em] text-[var(--np-color-text-primary)]">
               {name}
             </h1>
 
@@ -328,80 +366,96 @@ function ProductDetail() {
              PRICE AND META
             ==================================================*/}
 
-            <div className="mt-[var(--np-space-6)]">
+            <div className="mt-[var(--np-space-6)] rounded-np-md border border-[var(--np-color-border)] bg-[var(--np-color-surface-muted)]/60 p-[var(--np-space-4)] sm:p-[var(--np-space-5)]">
+              <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-subtle)]">
+                Ringkasan harga
+              </p>
               {originalPrice && (
-                <p className="text-[var(--np-text-small)] text-[var(--np-color-subtle)] line-through">
-                  {originalPrice}
+                <p className="mt-[var(--np-space-2)] text-[var(--np-text-small)] text-[var(--np-color-subtle)] line-through">
+                  {originalPriceLabel}
                 </p>
               )}
 
-              <div className="mt-1 flex flex-wrap items-center gap-[var(--np-space-3)]">
+              <div className="mt-[var(--np-space-1)] flex flex-wrap items-center gap-[var(--np-space-3)]">
                 <p className="text-[var(--np-text-h1)] font-semibold tracking-[-0.03em] text-[var(--np-color-action-primary)]">
-                  {price}
+                  {priceLabel}
                 </p>
                 {discount && <Badge variant="danger">-{discount}%</Badge>}
               </div>
-            </div>
 
-            <div className="mt-[var(--np-space-5)] flex flex-wrap gap-[var(--np-space-2)]">
-              <Badge variant="accent">
-                <Star
-                  size={14}
-                  aria-hidden="true"
-                  className="mr-1 fill-current"
-                />
-                {rating}
-              </Badge>
-              <Badge variant="neutral">
-                <Tag size={14} aria-hidden="true" className="mr-1" />
-                {sold} Terjual
-              </Badge>
-              <Badge variant={stock > 10 ? "primary" : "danger"}>
-                <PackageCheck size={14} aria-hidden="true" className="mr-1" />
-                {stock > 10 ? `Stok ${stock}` : `Sisa ${stock}`}
-              </Badge>
+              {hasDecisionMeta && (
+                <div className="mt-[var(--np-space-4)] flex flex-wrap gap-[var(--np-space-2)] border-t border-[var(--np-color-border)] pt-[var(--np-space-3)]">
+                  {hasRating && (
+                    <Badge variant="accent">
+                      <Star
+                        size={14}
+                        aria-hidden="true"
+                        className="mr-1 fill-current"
+                      />
+                      {rating}
+                    </Badge>
+                  )}
+                  {hasSold && (
+                    <Badge variant="neutral">
+                      <Tag size={14} aria-hidden="true" className="mr-1" />
+                      {sold} Terjual
+                    </Badge>
+                  )}
+                  {hasStock && (
+                    <Badge variant={stock > 10 ? "primary" : "danger"}>
+                      <PackageCheck size={14} aria-hidden="true" className="mr-1" />
+                      {stock > 10 ? `Stok ${stock}` : `Sisa ${stock}`}
+                    </Badge>
+                  )}
+                </div>
+              )}
             </div>
 
             {/*==================================================
              WHY WE RECOMMEND
             ==================================================*/}
 
-            <Card
-              variant="default"
-              className="mt-[var(--np-space-6)] border-[var(--np-color-green-200)] bg-[var(--np-color-green-100)]/40"
-            >
-              <div className="flex items-center gap-[var(--np-space-2)]">
-                <ThumbsUp
-                  size={18}
-                  aria-hidden="true"
-                  className="text-[var(--np-color-action-primary)]"
-                />
-                <h2 className="text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
-                  Kenapa Kami Memilih Produk Ini
-                </h2>
-              </div>
-              <ul className="mt-[var(--np-space-4)] space-y-[var(--np-space-3)]">
-                {whyWeRecommend.map((item) => (
-                  <li
-                    key={item}
-                    className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
-                  >
-                    <Check
-                      size={17}
-                      aria-hidden="true"
-                      className="mt-0.5 shrink-0 text-[var(--np-color-action-primary)]"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+            {whyWeRecommend.length > 0 && (
+              <Card
+                variant="default"
+                className="mt-[var(--np-space-6)] border-[var(--np-color-green-200)] bg-[var(--np-color-green-100)]/40 p-[var(--np-space-5)] sm:p-[var(--np-space-6)]"
+              >
+                <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
+                  Pilihan Ngepas
+                </p>
+                <div className="mt-[var(--np-space-2)] flex items-center gap-[var(--np-space-2)]">
+                  <ThumbsUp
+                    size={18}
+                    aria-hidden="true"
+                    className="text-[var(--np-color-action-primary)]"
+                  />
+                  <h2 className="text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
+                    Kenapa Kami Memilih Produk Ini
+                  </h2>
+                </div>
+                <ul className="mt-[var(--np-space-4)] space-y-[var(--np-space-3)]">
+                  {whyWeRecommend.map((item) => (
+                    <li
+                      key={item}
+                      className="flex gap-[var(--np-space-2)] text-[var(--np-text-small)] leading-relaxed text-[var(--np-color-text-secondary)]"
+                    >
+                      <Check
+                        size={17}
+                        aria-hidden="true"
+                        className="mt-0.5 shrink-0 text-[var(--np-color-action-primary)]"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            )}
 
             {/*==================================================
              AFFILIATE CTA
             ==================================================*/}
 
-            <div className="sticky bottom-4 z-20 mt-[var(--np-space-6)]">
+            <div className="sticky top-[calc(100vh-var(--np-control-height-lg)-var(--np-space-6))] z-20 mt-[var(--np-space-6)] border-t border-[var(--np-color-border)] bg-[var(--np-color-canvas)]/95 px-[var(--np-space-4)] pb-[calc(var(--np-space-3)+env(safe-area-inset-bottom))] pt-[var(--np-space-3)] shadow-np-md backdrop-blur-sm lg:static lg:top-auto lg:z-auto lg:mt-[var(--np-space-6)] lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none">
               {affiliateLink ? (
                 <a
                   href={affiliateLink}
