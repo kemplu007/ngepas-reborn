@@ -17,17 +17,23 @@ function ProductCard({
   compact = false,
 }) {
   const productHref = href || `/discover/${product.slug}`;
+  const hasRating = product.rating !== undefined && product.rating !== null && product.rating !== "";
+  const hasReviewCount = product.reviewCount !== undefined && product.reviewCount !== null && product.reviewCount !== "" && product.reviewCount !== "—";
+  const hasMarketplace = Boolean(product.marketplace) && product.marketplace !== "Data katalog";
+  const priceLabel = product.priceLabel || (typeof product.price === "number"
+    ? new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(product.price)
+    : product.price);
 
   return (
     <article
-      className={`group min-w-[var(--np-card-min-width)] overflow-hidden rounded-np-sm border border-[var(--np-color-border)] bg-[var(--np-color-white)] shadow-[var(--np-shadow-none)] transition-[border-color,box-shadow,transform] duration-np-fast ease-np-standard hover:-translate-y-0.5 hover:border-[var(--np-color-green-200)] hover:shadow-[var(--np-shadow-sm)] ${compact ? "sm:min-w-[11.875rem]" : "sm:min-w-0"}`}
+      className={`group min-w-[var(--np-card-min-width)] overflow-hidden rounded-np-sm border border-[var(--np-color-border)] bg-[var(--np-color-white)] shadow-[var(--np-shadow-none)] transition-[border-color,box-shadow,transform] duration-np-fast ease-np-standard hover:-translate-y-[var(--np-motion-distance-sm)] hover:border-[var(--np-color-green-200)] hover:shadow-[var(--np-shadow-sm)] motion-reduce:hover:translate-y-0 ${compact ? "sm:min-w-[11.875rem]" : "sm:min-w-0"}`}
     >
       <div className="relative aspect-[1.28] overflow-hidden bg-[var(--np-color-surface-muted)]">
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-np-normal ease-np-standard group-hover:scale-105 motion-reduce:transform-none"
         />
         {product.badge && (
           <Badge className="absolute left-2.5 top-2.5 bg-[var(--np-color-green-700)] text-white">
@@ -39,31 +45,35 @@ function ProductCard({
             label={favorite ? "Hapus dari favorite" : "Simpan ke favorite"}
             pressed={favorite}
             onClick={() => onFavorite(product.slug)}
-            className="absolute right-2.5 top-2.5 bg-white/90 shadow-sm backdrop-blur"
+            className="absolute right-2.5 top-2.5 bg-white/90 shadow-[var(--np-shadow-sm)] backdrop-blur"
           >
             <Heart size={16} className={favorite ? "fill-rose-500 text-rose-500" : ""} />
           </IconButton>
         )}
       </div>
-      <div className="space-y-2 p-[var(--np-space-3)] sm:p-[var(--np-space-4)]">
+      <div className="space-y-[var(--np-space-3)] p-[var(--np-space-3)] sm:p-[var(--np-space-4)]">
         <p className="text-[var(--np-text-caption)] font-medium text-[var(--np-color-subtle)]">
           {product.category}
         </p>
         <h3 className="line-clamp-2 min-h-10 text-[var(--np-text-small)] font-semibold leading-tight text-[var(--np-color-ink)]">
           {product.name}
         </h3>
-        <div className="flex items-center gap-1 text-[var(--np-text-caption)] text-[var(--np-color-muted)]">
-          <Star size={13} className="fill-[var(--np-color-yellow-500)] text-[var(--np-color-yellow-500)]" />
-          <span className="font-medium text-[var(--np-color-ink-soft)]">{product.rating}</span>
-          <span>({product.reviewCount || "—"})</span>
-        </div>
-        <p className="text-[var(--np-text-body)] font-semibold text-[var(--np-color-ink)]">{product.priceLabel || product.price}</p>
-        <p className="flex items-center gap-1 text-[var(--np-text-caption)] text-[var(--np-color-subtle)]">
-          <Tag size={11} aria-hidden="true" /> {product.marketplace || "Data katalog"}
-        </p>
+        {hasRating && (
+          <div className="flex items-center gap-[var(--np-space-1)] text-[var(--np-text-caption)] text-[var(--np-color-muted)]">
+            <Star size={13} className="fill-[var(--np-color-yellow-500)] text-[var(--np-color-yellow-500)]" />
+            <span className="font-medium text-[var(--np-color-ink-soft)]">{product.rating}</span>
+            {hasReviewCount && <span aria-label={`${product.reviewCount} review`}>· {product.reviewCount} review</span>}
+          </div>
+        )}
+        <p className="text-[var(--np-text-body)] font-semibold text-[var(--np-color-green-700)]">{priceLabel}</p>
+        {hasMarketplace && (
+          <p className="flex items-center gap-[var(--np-space-1)] text-[var(--np-text-caption)] text-[var(--np-color-subtle)]">
+            <Tag size={11} aria-hidden="true" /> {product.marketplace}
+          </p>
+        )}
         <Link
           to={productHref}
-          className="mt-2 flex min-h-[var(--np-control-height-md)] items-center justify-between gap-2 rounded-np-xs bg-[var(--np-color-green-700)] px-[var(--np-space-3)] text-[var(--np-text-caption)] font-semibold text-white transition-colors duration-np-fast ease-np-standard hover:bg-[var(--np-color-green-800)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-500)] focus-visible:ring-offset-2 motion-reduce:transition-none"
+          className="flex min-h-[var(--np-control-height-md)] items-center justify-between gap-[var(--np-space-2)] rounded-np-xs border border-[var(--np-color-border-strong)] bg-[var(--np-color-white)] px-[var(--np-space-3)] text-[var(--np-text-caption)] font-semibold text-[var(--np-color-green-700)] transition-[background-color,border-color,color] duration-np-fast ease-np-standard hover:border-[var(--np-color-green-700)] hover:bg-[var(--np-color-green-100)] hover:text-[var(--np-color-green-800)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--np-color-green-500)] focus-visible:ring-offset-2 motion-reduce:transition-none"
         >
           <span className="whitespace-nowrap">Lihat detail</span><ArrowRight size={14} aria-hidden="true" />
         </Link>
