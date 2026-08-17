@@ -9,6 +9,22 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## ZERO-COST MEDIA RUNWAY — A4 DECISION GATE
+
+✓ Founder menyetujui jalur Z0 sebagai default: admin memakai field URL `image` dan `gallery` existing untuk konten produk, tanpa native upload, akun storage aplikasi, billing, secret, endpoint, schema, migration, scheduler, atau perubahan runtime
+✓ Hosting gratis manual pihak ketiga hanya menjadi cadangan operasional jika URL sumber yang berhak dipakai tidak praktis; ia tidak diintegrasikan ke aplikasi dan tidak menciptakan komitmen biaya Ngepas
+✓ Implementasi A4 native upload + WebP dibekukan sampai kebutuhan nyata terbukti: sekitar 20 produk lengkap, ritme input selama empat minggu, dan hambatan URL manual/kuota gratis/insiden gambar dapat dibuktikan
+✓ Sesudah milestone, keputusan biaya tetap membutuhkan approval founder terpisah untuk provider, ownership akun, domain asset, quota, recovery point, dan cleanup; prinsip YAGNI mencegah biaya maupun kompleksitas dini
+
+VALIDATION: keputusan ini hanya memperbarui dokumentasi; tidak ada dependency, API, backend, database, auth JWT, provider, billing, credential, maupun deployment yang diubah
+
+✓ Branch `docs/admin-media-a4-decision-brief-v1` dipromosikan ke `main` setelah approval eksplisit melalui PR #17
+✓ Merge commit promotion: `2fd16d1`
+
+STATUS: ZERO-COST MEDIA RUNWAY ACTIVE — A4 NATIVE UPLOAD/WEBP FROZEN UNTIL PRODUCTIVE MILESTONE
+
+==================================================
+
 ## ADMIN MEDIA UPLOAD CONTRACT — SLICE A3
 
 ✓ Kontrak keputusan media menetapkan target object storage kelas S3, jalur Browser → backend Express → transformasi → storage, dan kompatibilitas penuh untuk field URL `image` serta `gallery` yang sudah live
