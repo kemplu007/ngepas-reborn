@@ -9,6 +9,19 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## PRODUCTION PERSISTENCE VERIFICATION — POST-REVIEW EVIDENCE
+
+✓ Live `GET /api/products` pada Railway produksi sudah mengembalikan field persistence penuh: `status` (published/draft), `tags`, `gallery`, serta field kurasi `whyWeRecommend`, `bestFor`, dan `considerations` yang dipakai Panduan keputusan F1
+✓ Verifikasi independen dilakukan pada 17 Agt 2026 setelah review bedah tim menemukan field persistence tidak tampak di endpoint; hasil review memakai snapshot yang usang dan sudah dinyatakan tidak berlaku
+✓ `tags` dan `gallery` masih kosong pada data seed existing; kondisi ini berasal dari data entry, bukan kegagalan migration atau runtime
+✓ Tidak ada perubahan apa pun pada aplikasi; verifikasi bersifat read-only terhadap endpoint produksi
+
+VALIDATION: respons HTTP 200 pada `https://ngepas-reborn-production-c3aa.up.railway.app/api/products` berisi `status`, `tags`, `gallery`, dan field kurasi pada setiap produk
+
+STATUS: PRODUCTION PERSISTENCE FIELDS VERIFIED LIVE — REVIEW CLAIM DEEMED OUTDATED AFTER INDEPENDENT RE-VERIFICATION
+
+==================================================
+
 ## PRODUCT DECISION-QUALITY CUES — F1
 
 ✓ `ProductDetail.jsx` kini menyatukan `whyWeRecommend`, `bestFor`, dan `considerations` existing menjadi Panduan keputusan sebelum CTA marketplace agar pembaca dapat melihat alasan pemilihan, kecocokan, serta trade-off dalam satu urutan baca mobile-first
