@@ -33,6 +33,22 @@ import TextareaField from "../../components/ui/TextareaField";
 ==================================================*/
 
 /*==================================================
+ GALLERY URL ASSISTANT
+ Mirrors the active product validator locally so admin
+ receives actionable feedback before form submission.
+==================================================*/
+const PRODUCT_GALLERY_LIMIT = 8;
+
+function isValidGalleryUrl(value) {
+  try {
+    const parsedUrl = new URL(value);
+    return ["http:", "https:"].includes(parsedUrl.protocol);
+  } catch {
+    return false;
+  }
+}
+
+/*==================================================
  INITIAL STATE
 ==================================================*/
 const initialFormData = {
@@ -77,6 +93,7 @@ function ProductForm() {
 
   const [gallery, setGallery] = useState([]);
   const [newGalleryUrl, setNewGalleryUrl] = useState("");
+  const [galleryUrlError, setGalleryUrlError] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
 
   /*==================================================
@@ -128,6 +145,11 @@ function ProductForm() {
   const isContentComplete =
     completedRequiredFields === completenessItems.length;
   const statusLabel = formData.status === "published" ? "Published" : "Draft";
+  const gallerySlotsRemaining = Math.max(
+    0,
+    PRODUCT_GALLERY_LIMIT - gallery.length,
+  );
+  const galleryLimitReached = gallery.length >= PRODUCT_GALLERY_LIMIT;
 
   /*==================================================
    FOUNDATION OPTIONS
@@ -183,14 +205,42 @@ function ProductForm() {
 
   const handleAddGallery = () => {
     const url = newGalleryUrl.trim();
-    if (url && !gallery.includes(url)) {
-      setGallery((prev) => [...prev, url]);
-      setNewGalleryUrl("");
+
+    if (!url) {
+      setGalleryUrlError("Masukkan URL gambar terlebih dahulu.");
+      return;
     }
+
+    if (!isValidGalleryUrl(url)) {
+      setGalleryUrlError("Gunakan URL gambar http atau https yang valid.");
+      return;
+    }
+
+    if (gallery.includes(url)) {
+      setGalleryUrlError("URL ini sudah ada di gallery.");
+      return;
+    }
+
+    if (galleryLimitReached) {
+      setGalleryUrlError(
+        `Gallery maksimal ${PRODUCT_GALLERY_LIMIT} gambar. Hapus satu gambar sebelum menambah lagi.`,
+      );
+      return;
+    }
+
+    setGallery((prev) => [...prev, url]);
+    setNewGalleryUrl("");
+    setGalleryUrlError("");
   };
 
   const handleRemoveGallery = (urlToRemove) => {
     setGallery((prev) => prev.filter((url) => url !== urlToRemove));
+    setGalleryUrlError("");
+  };
+
+  const handleGalleryUrlChange = (event) => {
+    setNewGalleryUrl(event.target.value);
+    if (galleryUrlError) setGalleryUrlError("");
   };
 
   const nextStep = () => setCurrentStep((prev) => prev + 1);
@@ -293,6 +343,7 @@ function ProductForm() {
         toast("Produk baru berhasil ditambahkan", "success");
         setFormData(initialFormData);
         setGallery([]);
+        setGalleryUrlError("");
       }
       navigate("/admin/products");
     } catch (err) {
@@ -687,7 +738,7 @@ function ProductForm() {
                       </p>
                     </div>
                     <Badge variant="neutral">
-                      {gallery.length} gambar
+                      {gallery.length}/{PRODUCT_GALLERY_LIMIT} gambar
                     </Badge>
                   </div>
 
@@ -696,14 +747,27 @@ function ProductForm() {
                       <FormField
                         label="URL gambar gallery"
                         htmlFor="product-gallery-url"
+                        error={galleryUrlError}
+                        hint={
+                          galleryLimitReached
+                            ? `Batas ${PRODUCT_GALLERY_LIMIT} gambar tercapai. Hapus satu gambar untuk menambah URL baru.`
+                            : `Tersisa ${gallerySlotsRemaining} slot. Hanya URL gambar http atau https yang dapat digunakan.`
+                        }
                       >
                         <Input
                           id="product-gallery-url"
                           name="galleryUrl"
                           type="url"
                           value={newGalleryUrl}
-                          onChange={(event) => setNewGalleryUrl(event.target.value)}
+                          onChange={handleGalleryUrlChange}
                           placeholder="https://example.com/detail.jpg"
+                          invalid={Boolean(galleryUrlError)}
+                          aria-describedby={
+                            galleryUrlError
+                              ? "product-gallery-url-error"
+                              : "product-gallery-url-hint"
+                          }
+                          disabled={galleryLimitReached}
                         />
                       </FormField>
                     </div>
@@ -712,6 +776,7 @@ function ProductForm() {
                       variant="secondary"
                       size="md"
                       onClick={handleAddGallery}
+                      disabled={galleryLimitReached}
                       className="shrink-0"
                     >
                       <Plus size={16} aria-hidden="true" />
