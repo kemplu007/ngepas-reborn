@@ -122,7 +122,7 @@ Product
 ]
 }
 
-Product response selalu mengembalikan `tags` sebagai array string yang sudah dinormalisasi. Row legacy tanpa nilai tags dibaca sebagai `[]`.
+Product response selalu mengembalikan `tags` dan `gallery` sebagai array string yang sudah dinormalisasi. Row legacy tanpa nilai tags atau gallery dibaca sebagai `[]`.
 
 ---
 
@@ -159,7 +159,8 @@ whyWeRecommend,
 bestFor,
 considerations,
 tags,
-status
+status,
+gallery
 }
 
 Response
@@ -173,6 +174,8 @@ data: Product
 Product.status wajib bernilai `published` atau `draft`. Nilai default untuk produk baru dan row legacy adalah `published`. Pada PUT, jika `status` tidak dikirim, backend mempertahankan status tersimpan sebelumnya.
 
 Product.tags menerima array string, dinormalisasi dengan trim, penghapusan item kosong, dan deduplikasi case-insensitive dengan mempertahankan ejaan item pertama. Maksimal 12 tag per produk dan maksimal 40 karakter per tag. Nilai default row legacy adalah `[]`. Tags hanya dipersistenkan pada PR-2; belum digunakan untuk search, filter, SEO, atau visibility publik.
+
+Product.gallery menerima array URL absolut `http://` atau `https://`. URL di-trim, urutan dipertahankan, dan maksimum 8 URL per produk. `image` tetap menjadi gambar utama; gallery tidak pernah menggantikannya otomatis. Nilai default row legacy dan POST tanpa gallery adalah `[]`. PR-3 hanya menyimpan URL yang sudah tersedia; tidak mencakup upload, object storage, WebP, multipart request, atau endpoint media.
 
 ---
 
@@ -190,7 +193,7 @@ Parameter
 
 Body
 
-Sama seperti POST. Field `status` mengikuti enum `published` atau `draft`; backend mempertahankan status lama bila field tidak dikirim. Field `tags` mengikuti aturan normalisasi dan batas yang sama; bila tidak dikirim, backend mempertahankan tags tersimpan sebelumnya.
+Sama seperti POST. Field `status` mengikuti enum `published` atau `draft`; backend mempertahankan status lama bila field tidak dikirim. Field `tags` mengikuti aturan normalisasi dan batas yang sama; bila tidak dikirim, backend mempertahankan tags tersimpan sebelumnya. Field `gallery` mengikuti aturan URL dan batas yang sama; bila tidak dikirim, backend mempertahankan gallery tersimpan sebelumnya.
 
 Response
 

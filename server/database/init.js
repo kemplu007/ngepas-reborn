@@ -7,6 +7,7 @@
 const db = require("./db");
 const migrateProductStatus = require("./productStatusMigration");
 const migrateProductTags = require("./productTagsMigration");
+const migrateProductGallery = require("./productGalleryMigration");
 
 /*==================================================
  PRODUCTS TABLE
@@ -50,6 +51,7 @@ CREATE TABLE IF NOT EXISTS products (
 
 migrateProductStatus(db);
 migrateProductTags(db);
+migrateProductGallery(db);
 
 /*==================================================
  CATEGORIES TABLE

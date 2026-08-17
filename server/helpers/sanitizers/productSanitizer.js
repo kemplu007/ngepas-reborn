@@ -20,6 +20,12 @@ function normalizeTags(tags) {
     });
 }
 
+function normalizeGallery(gallery) {
+  if (!Array.isArray(gallery)) return gallery;
+
+  return gallery.map((url) => (typeof url === "string" ? url.trim() : url));
+}
+
 function sanitizeProduct(product) {
   return {
     ...product,
@@ -31,11 +37,13 @@ function sanitizeProduct(product) {
     description: product.description?.trim(),
     status: product.status?.trim().toLowerCase(),
     tags: normalizeTags(product.tags),
+    gallery: normalizeGallery(product.gallery),
   };
 }
 
 module.exports = sanitizeProduct;
 module.exports.normalizeTags = normalizeTags;
+module.exports.normalizeGallery = normalizeGallery;
 
 /*==================================================
  END OF FILE

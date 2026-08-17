@@ -26,6 +26,7 @@ function parseProduct(product) {
     ...product,
     status,
     tags: parseArray(product.tags),
+    gallery: parseArray(product.gallery),
     features: parseArray(product.features),
     specifications: parseJson(product.specifications, {}),
     whyWeRecommend: parseArray(product.whyWeRecommend),
