@@ -9,6 +9,23 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## PRODUCT DECISION-QUALITY CUES — F1
+
+✓ `ProductDetail.jsx` kini menyatukan `whyWeRecommend`, `bestFor`, dan `considerations` existing menjadi Panduan keputusan sebelum CTA marketplace agar pembaca dapat melihat alasan pemilihan, kecocokan, serta trade-off dalam satu urutan baca mobile-first
+✓ Setiap subbagian hanya dirender saat data kurasi yang bersangkutan tersedia; produk tanpa seluruh data kurasi tidak menerima card kosong, placeholder promosi, skor Ngepas, atau kesimpulan otomatis
+✓ Cue Cocok untuk dan Perlu dipertimbangkan tidak lagi diduplikasi pada informasi pendukung; bagian bawah hanya memuat Keunggulan dan Spesifikasi saat masing-masing memiliki data
+✓ CTA marketplace, `href`, `target`, `rel`, state link kosong, sticky mobile, desktop action, gallery state, route, Context, service, API, backend, database, schema, persistence, auth JWT, dan data produksi dipertahankan
+✓ Tidak ada upload, WebP, storage, provider, billing, secret, scheduler, endpoint media, dependency, atau perubahan Zero-Cost Media Runway
+
+VALIDATION: `git diff --check` + `npx vite build` PASSED (1843 modules); Product Detail diuji dengan katalog produksi read-only pada desktop dan viewport mobile 375×812 tanpa horizontal overflow. Console preview mencatat key `/category` duplikat dari navigasi existing di luar scope F1; F1 tidak menyentuh router atau navigasi.
+
+✓ Branch `feat/product-decision-quality-cues-v1` dipromosikan ke `main` melalui PR #21 setelah approval eksplisit
+✓ Merge commit promotion: `c386a5b`
+
+STATUS: PRODUCT DECISION-QUALITY CUES F1 PROMOTED TO `main` — CURATION SIGNALS ARE CLEARER WITHOUT NEW DATA CONTRACT
+
+==================================================
+
 ## ADMIN PUBLISHING RUNBOOK — F0 ZERO-COST OPERATIONS
 
 ✓ `admin-publishing-runbook-v1.md` kini menjadi SOP penerbitan katalog mobile-first bagi pengelola konten nonteknis: persiapan data, alur enam langkah, status Draft/Published, cue kesiapan `4/4`, Gallery URL Assistant, checklist kontrol kualitas, dan scorecard manual mingguan
