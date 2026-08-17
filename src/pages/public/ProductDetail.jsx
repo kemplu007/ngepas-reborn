@@ -34,9 +34,10 @@ import SectionHeading from "../../components/ui/SectionHeading";
 
 /*==================================================
  LOCAL STYLE CONTRACTS
- F1 Design Reminder: existing curation answers why,
- who it fits, and what to consider before the affiliate
- action; empty or duplicated editorial panels never render.
+ F1/KEM-13 Design Reminder: existing human-authored curation
+ answers why, who it fits, and what to consider before the
+ affiliate action; hierarchy may improve, but empty panels,
+ scores, synthetic claims, and duplicate editorial copy never render.
 ==================================================*/
 
 const primaryLinkClass =
@@ -428,25 +429,48 @@ function ProductDetail() {
                 variant="default"
                 className="mt-[var(--np-space-6)] border-[var(--np-color-green-200)] bg-[var(--np-color-green-100)]/40 p-[var(--np-space-5)] sm:p-[var(--np-space-6)]"
               >
-                <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
-                  Panduan keputusan
-                </p>
-                <div className="mt-[var(--np-space-2)] flex items-center gap-[var(--np-space-2)]">
-                  <ThumbsUp
-                    size={18}
-                    aria-hidden="true"
-                    className="text-[var(--np-color-action-primary)]"
-                  />
-                  <h2 className="text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]">
-                    Pertimbangkan sebelum cek harga
-                  </h2>
+                <div className="flex flex-wrap items-start justify-between gap-[var(--np-space-4)] border-b border-[var(--np-color-green-200)] pb-[var(--np-space-4)]">
+                  <div className="min-w-0">
+                    <p className="text-[var(--np-text-caption)] font-semibold uppercase tracking-[0.08em] text-[var(--np-color-action-primary)]">
+                      Panduan keputusan
+                    </p>
+                    <div className="mt-[var(--np-space-2)] flex items-center gap-[var(--np-space-2)]">
+                      <ThumbsUp
+                        size={18}
+                        aria-hidden="true"
+                        className="shrink-0 text-[var(--np-color-action-primary)]"
+                      />
+                      <h2
+                        id="decision-guide-title"
+                        className="text-[var(--np-text-h3)] font-semibold text-[var(--np-color-text-primary)]"
+                      >
+                        Pertimbangkan sebelum cek harga
+                      </h2>
+                    </div>
+                  </div>
+                  <p className="max-w-xs text-[var(--np-text-caption)] leading-relaxed text-[var(--np-color-text-secondary)]">
+                    Dirangkum dari informasi kurasi yang tersedia untuk produk ini.
+                  </p>
                 </div>
 
                 {hasWhyWeRecommend && (
-                  <div className="mt-[var(--np-space-4)]">
-                    <h3 className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]">
-                      Kenapa dipilih
-                    </h3>
+                  <section
+                    aria-labelledby="decision-guide-why"
+                    className="mt-[var(--np-space-5)] border-l-2 border-[var(--np-color-action-primary)] pl-[var(--np-space-4)]"
+                  >
+                    <div className="flex items-center gap-[var(--np-space-2)]">
+                      <Check
+                        size={16}
+                        aria-hidden="true"
+                        className="shrink-0 text-[var(--np-color-action-primary)]"
+                      />
+                      <h3
+                        id="decision-guide-why"
+                        className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]"
+                      >
+                        Kenapa dipilih
+                      </h3>
+                    </div>
                     <ul className="mt-[var(--np-space-3)] space-y-[var(--np-space-3)]">
                       {whyWeRecommend.map((item) => (
                         <li
@@ -462,18 +486,24 @@ function ProductDetail() {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </section>
                 )}
 
                 {hasBestFor && (
-                  <div className="mt-[var(--np-space-4)] border-t border-[var(--np-color-green-200)] pt-[var(--np-space-4)]">
+                  <section
+                    aria-labelledby="decision-guide-best-for"
+                    className="mt-[var(--np-space-5)] border-t border-[var(--np-color-green-200)] pt-[var(--np-space-5)]"
+                  >
                     <div className="flex items-center gap-[var(--np-space-2)]">
                       <PackageCheck
                         size={16}
                         aria-hidden="true"
                         className="shrink-0 text-[var(--np-color-action-primary)]"
                       />
-                      <h3 className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]">
+                      <h3
+                        id="decision-guide-best-for"
+                        className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]"
+                      >
                         Cocok untuk
                       </h3>
                     </div>
@@ -484,18 +514,24 @@ function ProductDetail() {
                         </Badge>
                       ))}
                     </div>
-                  </div>
+                  </section>
                 )}
 
                 {hasConsiderations && (
-                  <div className="mt-[var(--np-space-4)] border-t border-[var(--np-color-green-200)] pt-[var(--np-space-4)]">
+                  <section
+                    aria-labelledby="decision-guide-considerations"
+                    className="mt-[var(--np-space-5)] border-t border-[var(--np-color-green-200)] pt-[var(--np-space-5)]"
+                  >
                     <div className="flex items-center gap-[var(--np-space-2)]">
                       <AlertTriangle
                         size={16}
                         aria-hidden="true"
                         className="shrink-0 text-[var(--np-color-yellow-700)]"
                       />
-                      <h3 className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]">
+                      <h3
+                        id="decision-guide-considerations"
+                        className="text-[var(--np-text-small)] font-semibold text-[var(--np-color-text-primary)]"
+                      >
                         Perlu dipertimbangkan
                       </h3>
                     </div>
@@ -514,7 +550,7 @@ function ProductDetail() {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </section>
                 )}
               </Card>
             )}
