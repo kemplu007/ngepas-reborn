@@ -9,6 +9,22 @@ Release Date: 2026-08-16
 
 ==================================================
 
+## PRODUCT DETAIL BY SLUG — KEM-14
+
+✓ `GET /api/products/:slug` menambahkan lookup publik read-only untuk satu produk, dengan parameter slug tervalidasi dan disanitasi melalui jalur Routes → Validator → Sanitizer → Controller → Model → SQLite
+✓ Lookup SQL tetap parameterized dan hanya berada di Product Model; controller mempertahankan response helper existing untuk 200 sukses, 400 slug invalid, dan 404 produk tidak ditemukan
+✓ `productService` dan `ProductContext` mengekspos lookup per-slug; `ProductDetail` memakai action Context sebagai sumber produk utama tanpa fetch langsung atau pemuatan katalog penuh untuk detail utama
+✓ Route `/product/:slug`, CTA marketplace, gallery, harga, panel kurasi KEM-13, related products, write flow, auth JWT, schema, migration, persistence, data produksi, upload, WebP, storage, billing, secret, scheduler, dan kebijakan visibility publik existing dipertahankan
+
+VALIDATION: `git diff --check`, `node --check` untuk seluruh file backend yang berubah, harness controller read-only untuk 200/400/404, dan `npx vite build` PASSED. Tidak ada database produksi yang dibaca atau ditulis oleh harness.
+
+✓ Branch `feat/product-detail-by-slug-v1` dipromosikan ke `main` melalui PR #27 setelah approval eksplisit founder
+✓ Merge commit promotion: `2c57ac2`
+
+STATUS: KEM-14 PRODUCT DETAIL BY SLUG PROMOTED TO `main` — DETAIL REQUEST NOW USES A FOCUSED READ-ONLY CONTRACT
+
+==================================================
+
 ## PRODUCT DETAIL CURATED-DATA POLISH — KEM-13
 
 ✓ `ProductDetail.jsx` memperjelas scan path panel Panduan keputusan supaya alasan pemilihan, kecocokan, dan pertimbangan lebih mudah dipindai sebelum CTA marketplace
