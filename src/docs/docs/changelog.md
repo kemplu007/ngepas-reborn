@@ -26,6 +26,40 @@ STATUS: KEM-16 REVIEW READY — MENUNGGU APPROVAL FOUNDER SEBELUM DIPROMOSIKAN K
 
 ==================================================
 
+## CURATED DECISION LABEL — KEM-16 (menunggu approval founder)
+
+✓ `ProductDetail.jsx` menampilkan label kualitatif "Rekomendasi kurasi Ngepas" dengan ikon BadgeCheck pada header panel Panduan keputusan, hanya bila `whyWeRecommend` berisi setidaknya satu alasan kurasi yang ditulis manusia
+✓ Label hanya menyatakan keberadaan alasan kurasi tertulis; tidak ada skor, angka pseudo-presisi, bintang buatan, peringkat, atau perbandingan antar produk, dan tidak ada klaim metodologi atau bukti eksternal
+✓ Penjelasan satu kalimat "Ditandai dari alasan kurasi yang ditulis tim Ngepas, bukan skor otomatis" tersedia bersama label agar pengungkapan tetap jujur
+✓ Label memakai token `--np-*` dan ikon Lucide existing; produk tanpa alasan kurasi menampilkan panel Panduan keputusan secara normal tanpa label
+✓ Tidak ada perubahan pada Context, service, payload, API, backend, database, schema, persistence, auth JWT, upload, media, storage, billing, dependency, atau data produksi
+
+VALIDATION: `git diff --check` PASSED; `npx vite build` PASSED; pemeriksaan visual mobile 375×812 dan desktop 1280×720 melalui preview lokal dengan API produksi read-only
+
+✓ Kontrak dokumen: `src/docs/docs/kem16-curated-decision-label-contract-v1.md`
+✓ Branch: `feat/curated-decision-label-v1`
+
+STATUS: KEM-16 REVIEW READY — MENUNGGU APPROVAL FOUNDER SEBELUM DIPROMOSIKAN KE `main`
+
+==================================================
+
+## PERKETAT FIELD KURASI — KEM-17 (menunggu approval founder)
+
+✓ `server/helpers/validators/productValidator.js` menambahkan `validateCurationFields`: produk berstatus `published` wajib memiliki `whyWeRecommend` (minimal satu alasan, masing-masing minimal 8 karakter) dan `bestFor` (minimal satu kecocokan); `considerations` tetap opsional agar pengungkapan jujur
+✓ Produk berstatus `draft` tidak terkena aturan kurasi (draft exception) sehingga alur kerja admin dapat menyimpan progres tanpa klaim kurasi sebelum produk layak ditampilkan
+✓ Jalur `updateProduct` mengevaluasi status tujuan (request atau status existing) agar produk draft lama tidak terkena enforcement destruktif; tidak ada migrasi schema maupun kerusakan data lama
+✓ `src/pages/admin/ProductForm.jsx` menjalankan pemeriksaan lokal yang konsisten dengan server sebelum submit dan menampilkan alert error berbahasa manusia yang merujuk field spesifik pada card kurasi
+✓ Field target `reason`, `rating`, dan `stock` tidak dipakai panel Panduan keputusan publik saat ini sehingga tidak diubah; pipeline backend mengikuti Routes → Validator → Sanitizer → Controller → Model tanpa menyentuh auth JWT
+
+VALIDATION: harness read-only 7 assertion PASSED (fungsi murni tanpa database produksi); `git diff --check` PASSED; `node --check` backend PASSED; `npx vite build` PASSED
+
+✓ Kontrak dokumen: `src/docs/docs/kem17-curated-fields-enforcement-contract-v1.md`
+✓ Branch: `feat/curated-fields-enforcement-v1`
+
+STATUS: KEM-17 REVIEW READY — MENUNGGU APPROVAL FOUNDER SEBELUM DIPROMOSIKAN KE `main`
+
+==================================================
+
 ## PRODUCT DETAIL BY SLUG — KEM-14
 
 ✓ `GET /api/products/:slug` menambahkan lookup publik read-only untuk satu produk, dengan parameter slug tervalidasi dan disanitasi melalui jalur Routes → Validator → Sanitizer → Controller → Model → SQLite

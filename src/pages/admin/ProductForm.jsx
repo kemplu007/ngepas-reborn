@@ -5,7 +5,7 @@
 ==================================================*/
 
 import { useEffect, useState } from "react";
-import { ArrowLeft, CheckCircle2, Circle, Plus, Save, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, CheckCircle2, Circle, Plus, Save, X } from "lucide-react";
 
 import rooms from "../../data/rooms";
 import roomCategories from "../../data/roomCategories";
@@ -95,6 +95,9 @@ function ProductForm() {
   const [newGalleryUrl, setNewGalleryUrl] = useState("");
   const [galleryUrlError, setGalleryUrlError] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
+  const [curationError, setCurationError] = useState("");
+
+  const CURATED_REASON_MIN_LENGTH = 8;
 
   /*==================================================
    DERIVED VALUES
@@ -291,6 +294,33 @@ function ProductForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    /* KEM-17: pemeriksaan lokal konsisten dengan server sebelum submit */
+    const reasons = formData.whyWeRecommend
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const fits = formData.bestFor
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    if (formData.status === "published") {
+      if (reasons.length === 0) {
+        setCurationError("Alasan rekomendasi kurasi wajib diisi agar produk layak ditampilkan.");
+        return;
+      }
+      const shortReason = reasons.find((r) => r.length < CURATED_REASON_MIN_LENGTH);
+      if (shortReason) {
+        setCurationError(`Setiap alasan rekomendasi kurasi minimal ${CURATED_REASON_MIN_LENGTH} karakter.`);
+        return;
+      }
+      if (fits.length === 0) {
+        setCurationError("Field cocok untuk wajib diisi agar produk layak ditampilkan.");
+        return;
+      }
+    }
+    setCurationError("");
+
     const payload = {
       ...formData,
       slug: generatedSlug,
@@ -344,6 +374,7 @@ function ProductForm() {
         setFormData(initialFormData);
         setGallery([]);
         setGalleryUrlError("");
+        setCurationError("");
       }
       navigate("/admin/products");
     } catch (err) {
@@ -873,6 +904,17 @@ function ProductForm() {
                 </Card>
 
                 <Card variant="default" className="space-y-[var(--np-space-5)]">
+                  {curationError && (
+                    <div
+                      role="alert"
+                      className="flex items-start gap-[var(--np-space-2)] rounded-np-md border border-[var(--np-color-error-border,oklch(0.7 0.15 25))] bg-[var(--np-color-error-bg,oklch(0.95 0.04 25))] px-[var(--np-space-3)] py-[var(--np-space-3)]"
+                    >
+                      <AlertTriangle size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-[var(--np-color-error,oklch(0.55 0.18 25))]" />
+                      <p className="text-[var(--np-text-caption)] font-medium text-[var(--np-color-error,oklch(0.55 0.18 25))]">
+                        {curationError}
+                      </p>
+                    </div>
+                  )}
                   <TextareaField
                     id="product-why-we-recommend"
                     name="whyWeRecommend"

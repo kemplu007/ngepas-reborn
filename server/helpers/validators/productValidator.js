@@ -67,6 +67,40 @@ function validateProduct(product) {
   return null;
 }
 
+/*==================================================
+ CURATION FIELDS (KEM-17)
+==================================================*/
+
+const PRODUCT_CURATED_REASON_MIN_LENGTH = 8;
+
+function validateCurationFields(product) {
+  if (product.status !== "published") return null;
+
+  if (!Array.isArray(product.whyWeRecommend) || product.whyWeRecommend.length === 0) {
+    return "Alasan rekomendasi kurasi wajib diisi agar produk layak ditampilkan.";
+  }
+
+  const invalidReason = product.whyWeRecommend.find(
+    (reason) => typeof reason !== "string" || reason.trim().length < PRODUCT_CURATED_REASON_MIN_LENGTH,
+  );
+  if (invalidReason) {
+    return `Setiap alasan rekomendasi kurasi minimal ${PRODUCT_CURATED_REASON_MIN_LENGTH} karakter.`;
+  }
+
+  if (!Array.isArray(product.bestFor) || product.bestFor.length === 0) {
+    return "Field cocok untuk wajib diisi agar produk layak ditampilkan.";
+  }
+
+  const invalidFit = product.bestFor.find(
+    (fit) => typeof fit !== "string" || fit.trim().length === 0,
+  );
+  if (invalidFit) {
+    return "Setiap item cocok untuk tidak boleh kosong.";
+  }
+
+  return null;
+}
+
 function validateProductSlug(slug) {
   if (typeof slug !== "string" || slug.length === 0) {
     return "Slug produk tidak valid.";
@@ -80,7 +114,9 @@ module.exports.PRODUCT_STATUSES = PRODUCT_STATUSES;
 module.exports.PRODUCT_TAG_LIMIT = PRODUCT_TAG_LIMIT;
 module.exports.PRODUCT_TAG_LENGTH_LIMIT = PRODUCT_TAG_LENGTH_LIMIT;
 module.exports.PRODUCT_GALLERY_LIMIT = PRODUCT_GALLERY_LIMIT;
+module.exports.PRODUCT_CURATED_REASON_MIN_LENGTH = PRODUCT_CURATED_REASON_MIN_LENGTH;
 module.exports.isValidGalleryUrl = isValidGalleryUrl;
+module.exports.validateCurationFields = validateCurationFields;
 module.exports.validateProductSlug = validateProductSlug;
 
 /*==================================================

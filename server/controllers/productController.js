@@ -10,7 +10,7 @@ const sanitizeProduct = require("../helpers/sanitizers/productSanitizer");
 const validateProduct = require("../helpers/validators/productValidator");
 const { success, error } = require("../utils/response");
 const { sanitizeProductSlug } = sanitizeProduct;
-const { validateProductSlug } = validateProduct;
+const { validateProductSlug, validateCurationFields } = validateProduct;
 
 /*==================================================
 GET PRODUCTS
@@ -92,6 +92,12 @@ function addProduct(req, res, next) {
 
     if (validationError) {
       return error(res, validationError, 400);
+    }
+
+    const curationError = validateCurationFields(cleanProduct);
+
+    if (curationError) {
+      return error(res, curationError, 400);
     }
 
     const result = productModel.createProduct({
@@ -203,6 +209,15 @@ function updateProduct(req, res, next) {
 
     if (validationError) {
       return error(res, validationError, 400);
+    }
+
+    /* KEM-17: evaluasi status tujuan (request atau status existing) agar
+       produk draft yang diedit tidak terkena aturan produk published. */
+    const targetStatus = cleanProduct.status || existingProduct.status || "published";
+    const curationError = validateCurationFields({ ...cleanProduct, status: targetStatus });
+
+    if (curationError) {
+      return error(res, curationError, 400);
     }
 
     productModel.updateProduct(productId, {
