@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle,
   ArrowLeft,
+  BadgeCheck,
   Check,
   ExternalLink,
   Info,
@@ -486,6 +487,26 @@ function ProductDetail() {
                     Dirangkum dari informasi kurasi yang tersedia untuk produk ini.
                   </p>
                 </div>
+
+                {hasWhyWeRecommend && (
+                  <div
+                    aria-label="Rekomendasi kurasi Ngepas"
+                    className="mt-[var(--np-space-5)] inline-flex flex-wrap items-center gap-[var(--np-space-2)] rounded-np-md border border-[var(--np-color-green-200)] bg-[var(--np-color-green-100)] px-[var(--np-space-3)] py-[var(--np-space-2)]"
+                  >
+                    <BadgeCheck
+                      size={16}
+                      aria-hidden="true"
+                      className="shrink-0 text-[var(--np-color-action-primary)]"
+                    />
+                    <p className="text-[var(--np-text-caption)] leading-relaxed text-[var(--np-color-text-secondary)]">
+                      <span className="font-semibold text-[var(--np-color-action-primary)]">
+                        Rekomendasi kurasi Ngepas
+                      </span>{" "}
+                      Ditandai dari alasan kurasi yang ditulis tim Ngepas, bukan
+                      skor otomatis.
+                    </p>
+                  </div>
+                )}
 
                 {hasWhyWeRecommend && (
                   <section

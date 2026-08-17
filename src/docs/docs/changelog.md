@@ -5,7 +5,24 @@
 
 ## Unreleased — FE Foundation Baseline v1
 
-Release Date: 2026-08-16
+Release Date: 2026-08-17
+
+==================================================
+
+## CURATED DECISION LABEL — KEM-16 (menunggu approval founder)
+
+✓ `ProductDetail.jsx` menampilkan label kualitatif "Rekomendasi kurasi Ngepas" dengan ikon BadgeCheck pada header panel Panduan keputusan, hanya bila `whyWeRecommend` berisi setidaknya satu alasan kurasi yang ditulis manusia
+✓ Label hanya menyatakan keberadaan alasan kurasi tertulis; tidak ada skor, angka pseudo-presisi, bintang buatan, peringkat, atau perbandingan antar produk, dan tidak ada klaim metodologi atau bukti eksternal
+✓ Penjelasan satu kalimat "Ditandai dari alasan kurasi yang ditulis tim Ngepas, bukan skor otomatis" tersedia bersama label agar pengungkapan tetap jujur
+✓ Label memakai token `--np-*` dan ikon Lucide existing; produk tanpa alasan kurasi menampilkan panel Panduan keputusan secara normal tanpa label
+✓ Tidak ada perubahan pada Context, service, payload, API, backend, database, schema, persistence, auth JWT, upload, media, storage, billing, dependency, atau data produksi
+
+VALIDATION: `git diff --check` PASSED; `npx vite build` PASSED; pemeriksaan visual mobile 375×812 dan desktop 1280×720 melalui preview lokal dengan API produksi read-only
+
+✓ Kontrak dokumen: `src/docs/docs/kem16-curated-decision-label-contract-v1.md`
+✓ Branch: `feat/curated-decision-label-v1` (basis `7333dc4`, belum ada PR terbuka)
+
+STATUS: KEM-16 REVIEW READY — MENUNGGU APPROVAL FOUNDER SEBELUM DIPROMOSIKAN KE `main`
 
 ==================================================
 
