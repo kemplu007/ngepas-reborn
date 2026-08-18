@@ -12,6 +12,9 @@
 import { useProducts } from "../../context/ProductContext";
 import { useCategories } from "../../context/CategoryContext";
 
+/* Components */
+import AdminDataState from "../../components/admin/AdminDataState";
+
 /* Icons */
 import {
   Package,
@@ -64,8 +67,16 @@ function Dashboard() {
    CONTEXT
   ==================================================*/
 
-  const { adminProducts: products } = useProducts();
-  const { categories } = useCategories();
+  const {
+    adminProducts: products = [],
+    adminLoading,
+    adminError,
+  } = useProducts();
+  const {
+    categories = [],
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useCategories();
 
   /*==================================================
    STATISTICS
@@ -88,20 +99,22 @@ function Dashboard() {
   const outOfStock = products.filter((p) => Number(p.stock) === 0);
 
   /* Category Stats */
-  const categoryStats = (categories || []).map((cat) => ({
+  const categoryStats = categories.map((cat) => ({
     ...cat,
-    productCount: (products || []).filter(
-      (p) => p.category?.toLowerCase() === cat.slug?.toLowerCase(),
+    productCount: products.filter(
+      (p) =>
+        p.category?.toLowerCase() === cat.name?.toLowerCase() ||
+        p.category?.toLowerCase() === cat.slug?.toLowerCase(),
     ).length,
   }));
 
   /* Top Selling (by sold count) */
-  const topSelling = [...(products || [])]
+  const topSelling = [...products]
     .sort((a, b) => (b.sold || 0) - (a.sold || 0))
     .slice(0, 5);
 
   /* Latest Products */
-  const latestProducts = [...(products || [])]
+  const latestProducts = [...products]
     .sort((a, b) => b.id - a.id)
     .slice(0, 5);
 
@@ -110,6 +123,9 @@ function Dashboard() {
     (sum, p) => sum + (p.price || 0) * (p.sold || 0),
     0,
   );
+  const isLoading = adminLoading || categoriesLoading;
+  const loadError = adminError || categoriesError;
+  const isCatalogEmpty = products.length === 0 && categories.length === 0;
 
   /*==================================================
    RENDER
@@ -126,6 +142,27 @@ function Dashboard() {
           Ringkasan aktivitas produk Ngepas.
         </p>
       </div>
+
+      {isLoading ? (
+        <AdminDataState
+          state="loading"
+          title="Memuat data admin"
+          description="Katalog produk dan kategori sedang disiapkan."
+        />
+      ) : loadError ? (
+        <AdminDataState
+          state="error"
+          title="Data admin belum dapat dimuat"
+          description={loadError}
+        />
+      ) : isCatalogEmpty ? (
+        <AdminDataState
+          state="empty"
+          title="Katalog admin masih kosong"
+          description="Tambahkan kategori lalu produk saat konten kurasi siap dikelola."
+        />
+      ) : (
+        <>
 
       {/*==================================================
        STATISTICS ROW 1
@@ -153,9 +190,9 @@ function Dashboard() {
         />
 
         <StatCard
-          title="Database"
-          value="Online"
-          subtitle="SQLite terhubung"
+          title="Status data"
+          value="Siap"
+          subtitle="Katalog admin dan kategori termuat"
           valueColor="text-emerald-600"
           icon={<Database size={18} className="text-emerald-600" />}
         />
@@ -344,6 +381,8 @@ function Dashboard() {
           )}
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 }

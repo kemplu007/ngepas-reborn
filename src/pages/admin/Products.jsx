@@ -19,8 +19,10 @@ import { Plus, Trash2 } from "lucide-react";
 
 /* Context */
 import { useProducts } from "../../context/ProductContext";
+import { useCategories } from "../../context/CategoryContext";
 
 /* Components */
+import AdminDataState from "../../components/admin/AdminDataState";
 import ProductTable from "../../components/admin/ProductTable";
 import ConfirmDialog from "../../components/common/ConfirmDialog";
 
@@ -40,7 +42,17 @@ function Products() {
   /*==================================================
    HOOKS
   ==================================================*/
-  const { adminProducts: products, deleteProduct } = useProducts();
+  const {
+    adminProducts: products = [],
+    adminLoading,
+    adminError,
+    deleteProduct,
+  } = useProducts();
+  const {
+    categories: categoryRecords = [],
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useCategories();
   const { toast } = useToast();
 
   /*==================================================
@@ -59,7 +71,12 @@ function Products() {
   /*==================================================
    DERIVED DATA
   ==================================================*/
-  const categories = ["All", ...new Set(products.map((p) => p.category))];
+  const categoryOptions = [
+    "All",
+    ...categoryRecords.map((category) => category.name).filter(Boolean),
+  ];
+  const isLoading = adminLoading || categoriesLoading;
+  const loadError = adminError || categoriesError;
 
   const filteredProducts = products.filter((product) => {
     const keyword = search.toLowerCase();
@@ -163,6 +180,27 @@ function Products() {
         </Link>
       </div>
 
+      {isLoading ? (
+        <AdminDataState
+          state="loading"
+          title="Memuat katalog admin"
+          description="Produk dan kategori sedang disiapkan."
+        />
+      ) : loadError ? (
+        <AdminDataState
+          state="error"
+          title="Katalog admin belum dapat dimuat"
+          description={loadError}
+        />
+      ) : products.length === 0 ? (
+        <AdminDataState
+          state="empty"
+          title="Belum ada produk"
+          description="Gunakan tombol Tambah Produk saat konten kurasi siap dimasukkan."
+        />
+      ) : (
+        <>
+
       {/*==================================================
        BULK ACTIONS BAR
       ==================================================*/}
@@ -202,7 +240,7 @@ function Products() {
             label="Kategori"
             value={selectedCategory}
             onChange={(event) => setSelectedCategory(event.target.value)}
-            options={categories.map((cat) => ({
+            options={categoryOptions.map((cat) => ({
               value: cat,
               label: cat,
             }))}
@@ -231,6 +269,8 @@ function Products() {
             Coba gunakan kata kunci lain.
           </p>
         </div>
+      )}
+        </>
       )}
 
       {/*==================================================

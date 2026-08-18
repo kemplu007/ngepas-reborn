@@ -9,6 +9,21 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## HONEST ADMIN IA — KEM-35 (Review-ready)
+
+✓ Sidebar admin kini hanya menampilkan Dashboard, Products, dan Categories yang memiliki route aktif; Orders, Users, dan Settings tidak lagi menjadi dead-end 404.
+✓ Dashboard dan Products membedakan loading, error, empty, dan ready state melalui `AdminDataState` presentational; tidak ada fetch baru, perubahan Context, service, API, backend, auth JWT, atau write flow.
+✓ Filter kategori pada listing Products kini memulai pilihan dari `CategoryContext`, bukan dari row produk saja; data produk, filter, bulk delete, dan form tetap memakai kontrak yang sudah ada.
+✓ Stat dashboard `Database Online` diganti menjadi status data yang hanya menyatakan katalog admin dan kategori telah termuat, bukan klaim health check SQLite.
+
+VALIDATION: `git diff --check` dan `npm run quality:check` wajib lulus; admin preview memeriksa menu route aktif serta state loading/error/empty/readiness tanpa aksi write.
+
+✓ Kontrak: `src/docs/docs/kem35-honest-admin-ia-v1.md`
+
+STATUS: KEM-35 HONEST ADMIN IA REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
 ## CANONICAL PUBLIC DETAIL — KEM-34 (Review-ready)
 
 ✓ `ProductCard` kini mengarahkan detail publik ke `/product/:slug` sebagai route canonical
@@ -19,7 +34,10 @@ VALIDATION: `git diff --check` dan `npm run quality:check` wajib lulus; route le
 
 ✓ Kontrak: `src/docs/docs/kem34-canonical-public-detail-v1.md`
 
-STATUS: KEM-34 CANONICAL PUBLIC DETAIL REVIEW-READY — AWAITING FOUNDER APPROVAL
+✓ PR #38 di-squash merge ke `main` sebagai `39c3dcb` setelah approval founder; branch remote dihapus.
+✓ Deployment Vercel Production dan Railway Production untuk merge commit `39c3dcb` sukses; redirect legacy, route canonical, CTA affiliate, dan katalog publik diperiksa read-only.
+
+STATUS: KEM-34 CANONICAL PUBLIC DETAIL PROMOTED — SINGLE PUBLIC DETAIL AUTHORITY ACTIVE
 
 ==================================================
 
