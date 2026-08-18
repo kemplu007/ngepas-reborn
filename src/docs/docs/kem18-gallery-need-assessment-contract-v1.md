@@ -1,10 +1,10 @@
 # Ngepas Reborn — KEM-18 Gallery Need Assessment Contract v1
 
-**Status:** Assessment-only · belum ada perubahan runtime atau schema  
-**Issue:** KEM-18 — *Tambahkan gallery sederhana bila Product Detail membutuhkannya*  
-**Branch:** `feat/kem-18-gallery-need-assessment-v1`  
-**Baseline:** `origin/main@4ae8e55`  
-**Tanggal:** 17 Agustus 2026
+**Status:** Existing capability verified · no-build · belum ada perubahan runtime atau schema
+**Issue:** KEM-18 — *Tambahkan gallery sederhana bila Product Detail membutuhkannya*
+**Branch:** `feat/kem-18-gallery-need-assessment-v1`
+**Baseline:** `origin/main@4ae8e55`
+**Tanggal:** 17–18 Agustus 2026
 
 ## 1. Tujuan dan prinsip keputusan
 
@@ -43,7 +43,7 @@ Sumber bukti repository: `src/docs/docs/api-contract.md`, `src/pages/admin/Produ
 
 ## 5. Rekomendasi status
 
-KEM-18 **tidak boleh masuk implementasi runtime** sampai decision gate memiliki bukti kebutuhan baru. Jika owner product mengonfirmasi workflow gallery URL yang ada sudah cukup, slice ini ditutup sebagai **no-build / existing capability verified** dengan dokumentasi ini sebagai jejak. Jika ada kebutuhan yang terbukti, issue lanjutan harus menjelaskan perubahan kontrak secara eksplisit sebelum coding.
+KEM-18 **tidak masuk implementasi runtime**. Uji workflow nyata tanggal 18 Agustus 2026 membuktikan admin dapat menyimpan gambar utama dan dua gambar pendukung melalui URL gallery existing, sedangkan Product Detail dapat merender serta menavigasi thumbnail. Slice ini ditutup sebagai **no-build / existing capability verified**; bukti langkahnya dicatat di `kem18-gallery-workflow-test-v1.md`. Jika ada kebutuhan baru yang terbukti, issue lanjutan harus menjelaskan perubahan kontrak secara eksplisit sebelum coding.
 
 ## 6. Guardrail
 

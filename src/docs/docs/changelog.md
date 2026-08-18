@@ -9,6 +9,23 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## GALLERY WORKFLOW ASSESSMENT — KEM-18 (menunggu approval founder)
+
+✓ Uji workflow produksi read/write terbatas membuktikan admin dapat membuat produk Draft, memasukkan satu gambar utama dan dua URL gallery, menyimpan data, lalu memuat Product Detail dengan thumbnail yang dapat dipilih
+✓ Produk Draft uji dibersihkan setelah verifikasi; daftar admin kembali ke empat produk baseline dan route slug uji menampilkan `Produk tidak ditemukan`
+✓ Decision gate menetapkan gallery URL existing sudah cukup; tidak diperlukan `product_images`, migration, upload, storage, WebP, endpoint media, provider baru, maupun perubahan kode runtime
+✓ Temuan visibilitas Draft pada Product Detail publik sengaja dipisahkan ke KEM-30 sebagai follow-up High; KEM-18 tidak mengubah auth, schema, visibility, ataupun route secara diam-diam
+
+VALIDATION: uji workflow admin → persistensi → Product Detail → thumbnail switch → pembersihan produk uji PASSED; `git diff --check` dokumentasi PASSED
+
+✓ Kontrak assessment: `src/docs/docs/kem18-gallery-need-assessment-contract-v1.md`
+✓ Bukti uji: `src/docs/docs/kem18-gallery-workflow-test-v1.md`
+✓ Branch: `feat/kem-18-gallery-need-assessment-v1`
+
+STATUS: KEM-18 EXISTING GALLERY CAPABILITY VERIFIED — NO BUILD PENDING DOCUMENTATION PR APPROVAL
+
+==================================================
+
 ## CURATED DECISION LABEL — KEM-16 (menunggu approval founder)
 
 ✓ `ProductDetail.jsx` menampilkan label kualitatif "Rekomendasi kurasi Ngepas" dengan ikon BadgeCheck pada header panel Panduan keputusan, hanya bila `whyWeRecommend` berisi setidaknya satu alasan kurasi yang ditulis manusia
