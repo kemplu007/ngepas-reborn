@@ -1,0 +1,52 @@
+# ===========================================================================
+# KEM-19 — Catalog Performance Baseline
+# ===========================================================================
+# Benchmark mingguan READ-ONLY terhadap endpoint publik katalog Ngepas.
+# Kapan workflow ini harus berada di default branch (main):
+#   - Trigger `schedule` hanya dieksekusi dari definisi workflow di default
+#     branch. Jadi meskipun branch fitur ini memuat versi baru, workflow
+#     aktif yang dijalankan oleh GitHub adalah versi di `main`.
+# Trigger:
+#   - Schedule : Senin 02:17 UTC (menit tidak bulat untuk menghindari beban
+#                tinggi GitHub Actions pada :00)
+#   - Manual   : workflow_dispatch dari tab Actions → Catalog Performance
+#                Baseline → Run workflow
+# Batasan:
+#   - Hanya GET publik; tanpa header admin/JWT; tanpa perubahan DB.
+#   - Run hanya gagal bila endpoint non-2xx / payload tidak valid / skrip
+#     error. Latency tidak digunakan sebagai gate CI (fase bukti, bukan SLA).
+#   - Retensi artifact dikurangi ke 14 hari untuk menjaga kebersihan.
+# ===========================================================================
+name: Catalog Performance Baseline (KEM-19)
+
+on:
+  schedule:
+    # Senin 02:17 UTC — hindari menit bulat (:00) saat beban GitHub tinggi.
+    - cron: "17 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    name: catalog-baseline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run read-only catalog baseline
+        run: |
+          chmod +x .github/scripts/catalog-baseline.sh
+          .github/scripts/catalog-baseline.sh
+
+      - name: Upload baseline artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kem19-catalog-baseline
+          path: out/
+          retention-days: 14
+
+      - name: Write job summary
+        run: cat out/summary.md >> "${GITHUB_STEP_SUMMARY}"
