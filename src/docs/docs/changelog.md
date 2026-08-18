@@ -9,6 +9,21 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## PUBLIC CATALOG CONTRACT — KEM-33 (Review-ready)
+
+✓ `GET /api/products` kini merupakan katalog publik dan hanya mengembalikan produk berstatus `published`
+✓ `GET /api/products/admin` dilindungi JWT dan mengembalikan Draft serta Published untuk Dashboard, daftar produk, dan form edit admin
+✓ `ProductContext` memisahkan state katalog publik dan admin agar user publik tidak dapat mewarisi data Draft ketika admin sedang login
+✓ Discover, category, featured products, dan pencarian publik tetap memakai source publik upstream; tidak ada filter halaman ad hoc
+
+VALIDATION: harness SQLite sementara KEM-33, `npm run quality:catalog-contract`, dan `npm run quality:check` wajib lulus. Tidak ada perubahan schema SQLite, write flow, JWT, media, billing, atau data produksi.
+
+✓ Kontrak: `src/docs/docs/kem33-public-catalog-contract-v1.md`
+
+STATUS: KEM-33 PUBLIC CATALOG CONTRACT REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
 ## QUALITY GATE HIJAU — KEM-32 (Review-ready)
 
 ✓ Menambahkan `npm run quality:check` sebagai command tunggal yang menjalankan lint lalu build secara berurutan
