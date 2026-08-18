@@ -1,0 +1,44 @@
+# ===========================================================================
+# KEM-32 — Quality Gate Hijau
+# ===========================================================================
+# Pemeriksaan read-only untuk setiap push branch dan pull request.
+# Workflow ini tidak deploy, tidak memakai secrets, dan tidak mengakses API/
+# database produksi. Ia hanya memverifikasi command resmi lint dan build.
+# ===========================================================================
+name: Quality Gate (KEM-32)
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-gate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gate:
+    name: lint-and-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run Quality Gate
+        run: npm run quality:check
