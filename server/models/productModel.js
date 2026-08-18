@@ -33,6 +33,7 @@ function getProductBySlug(slug) {
     SELECT *
     FROM products
     WHERE slug = ?
+      AND status = 'published'
     LIMIT 1
   `,
     )

@@ -251,7 +251,9 @@ function Discover() {
 
   const catalog = useMemo(() => {
     const source = products.length ? products : demoProducts;
-    return source.map(normalizeProduct);
+    return source
+      .filter((product) => product.status !== "draft")
+      .map(normalizeProduct);
   }, [products]);
 
   const selectedProduct = catalog.find((product) => product.slug === slug);

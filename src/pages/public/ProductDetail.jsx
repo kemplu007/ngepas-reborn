@@ -289,7 +289,10 @@ function ProductDetail() {
 
   const relatedProducts = products
     .filter(
-      (item) => item.id !== product.id && item.category === product.category,
+      (item) =>
+        item.id !== product.id &&
+        item.category === product.category &&
+        item.status !== "draft",
     )
     .slice(0, 3);
 
