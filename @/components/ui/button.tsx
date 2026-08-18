@@ -55,4 +55,7 @@ function Button({
   );
 }
 
+// buttonVariants sengaja diekspor sebagai kontrak styling lintas-surface.
+// Ini bukan komponen React, sehingga Fast Refresh tidak memiliki state untuk dijaga.
+// eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants };
