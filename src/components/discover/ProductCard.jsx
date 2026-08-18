@@ -16,7 +16,7 @@ function ProductCard({
   href,
   compact = false,
 }) {
-  const productHref = href || `/discover/${product.slug}`;
+  const productHref = href || `/product/${product.slug}`;
   const hasRating = product.rating !== undefined && product.rating !== null && product.rating !== "";
   const hasReviewCount = product.reviewCount !== undefined && product.reviewCount !== null && product.reviewCount !== "" && product.reviewCount !== "—";
   const hasMarketplace = Boolean(product.marketplace) && product.marketplace !== "Data katalog";
