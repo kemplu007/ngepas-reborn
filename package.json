@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "quality:check": "npm run lint && npm run build",
     "quality:catalog-contract": "node server/.harness-kem33.mjs",
+    "quality:contract-tests": "node server/.harness-kem17.mjs && node server/.harness-kem30.mjs && node server/.harness-kem33.mjs && node server/.harness-kem34.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
