@@ -18,11 +18,27 @@ GET PRODUCTS
 
 function getProducts(req, res, next) {
   try {
-    const products = productModel.getAllProducts();
+    const products = productModel.getPublishedProducts();
 
     const parsedProducts = products.map(parseProduct);
 
     return success(res, parsedProducts, "Berhasil mengambil data produk");
+  } catch (error) {
+    next(error);
+  }
+}
+
+/*==================================================
+ GET ADMIN PRODUCTS
+==================================================*/
+
+function getAdminProducts(req, res, next) {
+  try {
+    const products = productModel.getAllProducts();
+
+    const parsedProducts = products.map(parseProduct);
+
+    return success(res, parsedProducts, "Berhasil mengambil data produk admin");
   } catch (error) {
     next(error);
   }
@@ -265,6 +281,7 @@ function updateProduct(req, res, next) {
 
 module.exports = {
   getProducts,
+  getAdminProducts,
   getProductBySlug,
   addProduct,
   deleteProduct,

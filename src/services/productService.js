@@ -15,6 +15,14 @@ export async function getProducts() {
 }
 
 /*==================================================
+ GET ADMIN PRODUCTS
+==================================================*/
+
+export async function getAdminProducts() {
+  return apiRequest("/products/admin");
+}
+
+/*==================================================
  GET PRODUCT BY SLUG
 ==================================================*/
 

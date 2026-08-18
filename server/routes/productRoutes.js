@@ -17,6 +17,7 @@ const router = express.Router();
 ==================================================*/
 
 router.get("/", productController.getProducts);
+router.get("/admin", authMiddleware, productController.getAdminProducts);
 router.get("/:slug", productController.getProductBySlug);
 
 router.post("/", authMiddleware, productController.addProduct);

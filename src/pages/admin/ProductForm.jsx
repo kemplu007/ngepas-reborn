@@ -82,7 +82,7 @@ const initialFormData = {
 function ProductForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { products, addProduct, updateProduct } = useProducts();
+  const { adminProducts: products, addProduct, updateProduct } = useProducts();
   const { toast } = useToast();
 
   const editingProduct = products.find((p) => p.id === Number(id));

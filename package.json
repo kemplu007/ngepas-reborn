@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "quality:check": "npm run lint && npm run build",
+    "quality:catalog-contract": "node server/.harness-kem33.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

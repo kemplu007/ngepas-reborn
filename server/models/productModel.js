@@ -23,6 +23,23 @@ function getAllProducts() {
 }
 
 /*==================================================
+ GET PUBLISHED PRODUCTS
+==================================================*/
+
+function getPublishedProducts() {
+  return db
+    .prepare(
+      `
+    SELECT *
+    FROM products
+    WHERE status = 'published'
+    ORDER BY id DESC
+  `,
+    )
+    .all();
+}
+
+/*==================================================
  GET PRODUCT BY SLUG
 ==================================================*/
 
@@ -206,6 +223,7 @@ function getProductById(id) {
 
 module.exports = {
   getAllProducts,
+  getPublishedProducts,
   getProductBySlug,
   getProductById,
   createProduct,

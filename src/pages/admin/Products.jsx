@@ -40,7 +40,7 @@ function Products() {
   /*==================================================
    HOOKS
   ==================================================*/
-  const { products, deleteProduct } = useProducts();
+  const { adminProducts: products, deleteProduct } = useProducts();
   const { toast } = useToast();
 
   /*==================================================
