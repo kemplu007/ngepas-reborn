@@ -64,7 +64,7 @@ function Dashboard() {
    CONTEXT
   ==================================================*/
 
-  const { products } = useProducts();
+  const { adminProducts: products } = useProducts();
   const { categories } = useCategories();
 
   /*==================================================

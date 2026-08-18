@@ -106,7 +106,7 @@ GET
 
 Deskripsi
 
-Mengambil seluruh data produk.
+Mengambil katalog publik. Respons hanya berisi produk dengan `status = "published"`; produk Draft tidak dikirim ke Discover, kategori, featured products, atau pencarian publik.
 
 Request
 
@@ -123,6 +123,30 @@ Product
 }
 
 Product response selalu mengembalikan `tags` dan `gallery` sebagai array string yang sudah dinormalisasi. Row legacy tanpa nilai tags atau gallery dibaca sebagai `[]`.
+
+---
+
+GET
+/api/products/admin
+--------------------------------------------------
+
+Deskripsi
+
+Mengambil katalog lengkap untuk admin terautentikasi, termasuk produk Draft. Request wajib membawa `Authorization: Bearer <token>` valid. Endpoint ini dipakai Dashboard, daftar produk, dan form edit admin; tidak boleh dipakai surface publik.
+
+Response
+
+{
+success,
+message,
+data: [
+Product
+]
+}
+
+Error
+
+401: token tidak ada atau tidak valid.
 
 ---
 
