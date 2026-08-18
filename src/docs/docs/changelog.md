@@ -9,7 +9,21 @@ Release Date: 2026-08-17
 
 ==================================================
 
-## PUBLIC CATALOG CONTRACT — KEM-33 (Review-ready)
+## CANONICAL PUBLIC DETAIL — KEM-34 (Review-ready)
+
+✓ `ProductCard` kini mengarahkan detail publik ke `/product/:slug` sebagai route canonical
+✓ Deep link lama `/discover/:slug` tetap valid melalui redirect client-side dengan riwayat diganti (`replace`) ke `/product/:slug`
+✓ `Discover` tidak lagi merender `DiscoverDetail` inline; gallery, Panduan keputusan, CTA affiliate, error state, dan produk terkait tetap menjadi authority `ProductDetail`
+
+VALIDATION: `git diff --check` dan `npm run quality:check` wajib lulus; route legacy dan canonical diperiksa tanpa write action. Tidak ada perubahan pada Context, service, API, backend, database, schema SQLite, JWT, media, billing, atau data produksi.
+
+✓ Kontrak: `src/docs/docs/kem34-canonical-public-detail-v1.md`
+
+STATUS: KEM-34 CANONICAL PUBLIC DETAIL REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
+## PUBLIC CATALOG CONTRACT — KEM-33 (Promoted)
 
 ✓ `GET /api/products` kini merupakan katalog publik dan hanya mengembalikan produk berstatus `published`
 ✓ `GET /api/products/admin` dilindungi JWT dan mengembalikan Draft serta Published untuk Dashboard, daftar produk, dan form edit admin
@@ -20,7 +34,10 @@ VALIDATION: harness SQLite sementara KEM-33, `npm run quality:catalog-contract`,
 
 ✓ Kontrak: `src/docs/docs/kem33-public-catalog-contract-v1.md`
 
-STATUS: KEM-33 PUBLIC CATALOG CONTRACT REVIEW-READY — AWAITING FOUNDER APPROVAL
+✓ PR #37 di-squash merge ke `main` sebagai `9e0ad14` setelah approval founder; branch remote dihapus
+✓ Deployment Vercel Production dan Railway Production untuk merge commit `9e0ad14` sukses; `GET /api/products` hanya mengembalikan `published`, sedangkan `GET /api/products/admin` tanpa JWT mengembalikan `401 Unauthorized.`
+
+STATUS: KEM-33 PUBLIC CATALOG CONTRACT PROMOTED — PUBLIC/ADMIN CATALOG BOUNDARY ACTIVE
 
 ==================================================
 

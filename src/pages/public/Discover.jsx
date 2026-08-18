@@ -9,17 +9,14 @@
 ==================================================*/
 
 import { useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
-  ArrowLeft,
   ArrowRight,
   BadgeCheck,
   BookOpen,
-  Check,
   ChevronRight,
   CircleUserRound,
   Clock3,
-  Heart,
   Home,
   LayoutGrid,
   Lightbulb,
@@ -27,7 +24,6 @@ import {
   Scale,
   ShieldCheck,
   SlidersHorizontal,
-  Star,
   Tag,
 } from "lucide-react";
 
@@ -87,11 +83,6 @@ const discoverCampaign = {
 
 function toSlug(value = "") {
   return value.toString().toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
-
-function formatPrice(value) {
-  if (typeof value === "string" && value.includes("Rp")) return value;
-  return `Rp ${new Intl.NumberFormat("id-ID").format(Number(value) || 0)}`;
 }
 
 function normalizeProduct(product) {
@@ -212,35 +203,11 @@ function WhyNgepasSection() {
   );
 }
 
-function DiscoverDetail({ product, favorite, onFavorite }) {
-  return (
-    <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
-      <Link to="/" className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-emerald-700"><ArrowLeft size={17} /> Kembali ke Discover</Link>
-      <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="overflow-hidden rounded-[28px] border border-slate-100 bg-slate-50 p-4"><img src={product.image} alt={product.name} className="aspect-square w-full rounded-2xl object-cover" /></div>
-        <div>
-          <span className="inline-flex rounded-md bg-emerald-700 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">{product.badge}</span>
-          <p className="mt-4 text-sm font-semibold text-slate-400">{product.category}</p>
-          <h1 className="mt-2 text-3xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-4xl">{product.name}</h1>
-          <div className="mt-4 flex items-center gap-2 text-sm text-slate-600"><Star size={18} className="fill-amber-400 text-amber-400" /> <strong>{product.rating}</strong> · Review terkurasi</div>
-          <p className="mt-5 text-2xl font-extrabold text-emerald-700">{formatPrice(product.price)}</p>
-          <p className="mt-1 text-xs text-slate-400">Pembaruan harga mengikuti data produk yang tersedia.</p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row"><button type="button" className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 text-sm font-bold text-white hover:bg-emerald-800">⚖ Bandingkan Marketplace</button><button type="button" onClick={() => onFavorite(product.slug)} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 hover:border-emerald-200"><Heart size={17} className={favorite ? "fill-rose-500 text-rose-500" : ""} /> {favorite ? "Tersimpan" : "Simpan ke Favorite"}</button></div>
-          <section className="mt-8 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5"><h2 className="font-bold text-slate-900">Kenapa Kami Memilih Produk Ini</h2><ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">{product.whyWeRecommend.map((reason) => <li key={reason} className="flex gap-2"><Check size={17} className="mt-0.5 shrink-0 text-emerald-700" /> {reason}</li>)}</ul></section>
-        </div>
-      </div>
-      <div className="mt-8 grid gap-4 md:grid-cols-3"><section className="rounded-2xl border border-slate-100 bg-white p-5"><h2 className="font-bold text-slate-900">Spesifikasi Utama</h2><ul className="mt-3 space-y-2 text-sm text-slate-600">{product.features.map((feature) => <li key={feature} className="border-b border-slate-100 pb-2">{feature}</li>)}</ul></section><section className="rounded-2xl border border-slate-100 bg-white p-5"><h2 className="font-bold text-slate-900">Cocok Untuk</h2><div className="mt-3 flex flex-wrap gap-2">{product.bestFor.map((item) => <span key={item} className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700">{item}</span>)}</div></section><section className="rounded-2xl border border-amber-100 bg-amber-50/60 p-5"><h2 className="font-bold text-slate-900">Catatan Ngepas</h2><p className="mt-3 text-sm leading-relaxed text-slate-600">Ngepas membantu memilih. Saat kamu siap, CTA marketplace akan membuka toko di luar Ngepas; checkout tidak terjadi di sini.</p></section></div>
-    </main>
-  );
-}
-
 /*==================================================
  PAGE
 ==================================================*/
 
 function Discover() {
-  const { slug } = useParams();
-  const navigate = useNavigate();
   const { products, loading: productsLoading } = useProducts();
   const { categories } = useCategories();
   const { favorites, toggleFavorite } = useFavoriteContext();
@@ -255,8 +222,6 @@ function Discover() {
       .filter((product) => product.status !== "draft")
       .map(normalizeProduct);
   }, [products]);
-
-  const selectedProduct = catalog.find((product) => product.slug === slug);
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = submittedQuery.trim().toLowerCase();
@@ -280,10 +245,6 @@ function Discover() {
     setShowFilters(true);
     document.getElementById("hasil-produk")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  if (slug && selectedProduct) {
-    return <><DiscoverHeader query={query} onQueryChange={setQuery} onSubmit={submitSearch} onFilter={openFilters} /><DiscoverDetail product={selectedProduct} favorite={favorites.includes(selectedProduct.slug)} onFavorite={toggleFavorite} /></>;
-  }
 
   return (
     <div className="min-h-screen bg-[var(--np-color-white)] text-[var(--np-color-ink)]">

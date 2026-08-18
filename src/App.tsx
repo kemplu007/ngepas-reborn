@@ -10,7 +10,7 @@
 ==================================================*/
 
 /* Router */
-import { Routes, Route } from 'react-router-dom';
+import { Navigate, Routes, Route, useParams } from 'react-router-dom';
 
 /* Vercel Speed Insights */
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -29,6 +29,18 @@ import CategoryForm from './pages/admin/CategoryForm';
 import NotFound from './pages/public/NotFound';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/admin/Login'
+
+/*==================================================
+ LEGACY PUBLIC DETAIL ADAPTER
+ Keeps existing /discover/:slug deep links valid while making
+ /product/:slug the only public detail composition.
+==================================================*/
+
+function LegacyDiscoverDetailRedirect() {
+  const { slug } = useParams();
+
+  return <Navigate replace to={slug ? `/product/${slug}` : "/discover"} />;
+}
 
 /*==================================================
  RENDER / UI
@@ -53,7 +65,7 @@ function App() {
         {/* Public Discover v1.1 — halaman utama permanen */}
         <Route path="/" element={<Discover />} />
         <Route path="/discover" element={<Discover />} />
-        <Route path="/discover/:slug" element={<Discover />} />
+        <Route path="/discover/:slug" element={<LegacyDiscoverDetailRedirect />} />
 
         {/*============================================
     ADMIN AUTH ROUTES
