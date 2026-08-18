@@ -132,7 +132,7 @@ GET
 
 Deskripsi
 
-Mengambil satu produk berdasarkan slug melalui lookup exact. Endpoint mempertahankan kebijakan visibility publik yang sama dengan `GET /api/products`; filter `published`/`draft` belum menjadi bagian kontrak ini.
+Mengambil satu produk `published` berdasarkan slug melalui lookup exact. Produk `draft` diperlakukan sama seperti produk yang tidak ditemukan agar Product Detail publik tidak dapat dirender atau di-enumerasi dari slug.
 
 Parameter
 
@@ -150,7 +150,7 @@ Error
 
 400: slug kosong atau tidak valid.
 
-404: Produk tidak ditemukan.
+404: Produk tidak ditemukan, termasuk bila slug merujuk produk `draft`.
 
 `Product` memakai bentuk normalisasi yang sama dengan response `GET /api/products`, termasuk default `status`, `tags`, `gallery`, dan seluruh field kurasi.
 
