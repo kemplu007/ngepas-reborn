@@ -9,6 +9,21 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## DEPENDENCY & HTTP HARDENING — KEM-37 (Review-ready)
+
+✓ CLI `shadcn`, plugin `@tailwindcss/vite`, dan compiler `tailwindcss` dipindahkan dari dependency runtime root ke `devDependencies`; source aplikasi tidak mengimpor toolchain ini saat runtime browser.
+✓ API kini hanya menerima origin production Ngepas dan local development yang dikenal, dengan tambahan origin eksplisit melalui `CORS_ALLOWED_ORIGINS`.
+✓ API menerapkan rate limit per-IP yang dapat diatur (`120` request per `15` menit secara default), melewati preflight `OPTIONS`, dan mengembalikan JSON `{ success: false, message }` pada HTTP `429`.
+✓ `X-Powered-By` Express dinonaktifkan. Tidak ada perubahan JWT, route produk, schema SQLite, payload, data, media, storage, billing, atau user flow.
+
+VALIDATION: `npm run quality:check`, syntax check backend, harness configuration CORS/rate limit, audit dependency production ulang, dan preflight production read-only wajib dilakukan.
+
+✓ Kontrak: `src/docs/docs/kem37-dependency-http-hardening-v1.md`
+
+STATUS: KEM-37 DEPENDENCY & HTTP HARDENING REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
 ## CONTENT READINESS CHECKLIST — KEM-36 (Review-ready)
 
 ✓ Checklist Kesiapan katalog di ProductForm kini membedakan URL gambar utama dan affiliate yang hanya terisi dari URL dengan format `http/https`.
