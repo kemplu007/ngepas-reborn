@@ -9,7 +9,7 @@ Release Date: 2026-08-17
 
 ==================================================
 
-## DRAFT VISIBILITY FIX — KEM-30 (Review ready)
+## DRAFT VISIBILITY FIX — KEM-30 (Promoted)
 
 ✓ `GET /api/products/:slug` kini hanya dapat mengembalikan produk dengan status `published`; slug produk Draft menerima respons `404 Produk tidak ditemukan` agar tidak menjadi oracle visibilitas publik
 ✓ Halaman publik `/discover/:slug` memfilter produk Draft sebelum lookup detail, dan Product Detail `/product/:slug` mengecualikan Draft dari produk terkait
@@ -18,9 +18,11 @@ Release Date: 2026-08-17
 VALIDATION: `git diff --check` PASSED; `node --check` model dan controller PASSED; harness statis read-only KEM-30 (3 assertion) PASSED tanpa membuka database; `npx vite build` PASSED (1864 modul). Warning bundle >500 kB adalah baseline build existing di luar scope KEM-30.
 
 ✓ Kontrak dokumen: `src/docs/docs/kem30-draft-visibility-contract-v1.md`
-✓ Branch: `feat/kem-30-draft-visibility-fix-v1`
+✓ Review branch: `feat/kem-30-draft-visibility-fix-v1`
+✓ PR #33 di-squash merge ke `main` sebagai `7b959a6` setelah approval founder; branch remote dihapus
+✓ Deployment Vercel Production dan Railway Production untuk merge commit `7b959a6` sukses; homepage, katalog publik, dan lookup slug Published representatif merespons normal secara read-only
 
-STATUS: KEM-30 REVIEW READY — PUBLIC DETAIL IS LIMITED TO PUBLISHED PRODUCTS
+STATUS: KEM-30 PROMOTED — PUBLIC DETAIL IS LIMITED TO PUBLISHED PRODUCTS
 
 ==================================================
 
