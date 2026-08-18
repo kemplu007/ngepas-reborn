@@ -9,6 +9,18 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## QUALITY GATE HIJAU — KEM-32 (Review-ready)
+
+✓ Menambahkan `npm run quality:check` sebagai command tunggal yang menjalankan lint lalu build secara berurutan
+✓ Memulihkan `npm run lint` dan `npm run build` pada codebase mixed `.tsx`/`.jsx` tanpa migrasi TypeScript massal atau perubahan runtime produk
+✓ Menambahkan workflow `Quality Gate (KEM-32)` pada setiap push branch dan pull request; job memakai `npm ci`, Node.js 22, cache npm, izin read-only, serta tidak melakukan deploy atau akses secret/produksi
+
+✓ Kontrak: `src/docs/docs/kem32-quality-gate-contract-v1.md`
+
+STATUS: KEM-32 QUALITY GATE REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
 ## DRAFT VISIBILITY FIX — KEM-30 (Promoted)
 
 ✓ `GET /api/products/:slug` kini hanya dapat mengembalikan produk dengan status `published`; slug produk Draft menerima respons `404 Produk tidak ditemukan` agar tidak menjadi oracle visibilitas publik
