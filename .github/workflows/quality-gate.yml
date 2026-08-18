@@ -3,7 +3,7 @@
 # ===========================================================================
 # Pemeriksaan read-only untuk setiap push branch dan pull request.
 # Workflow ini tidak deploy, tidak memakai secrets, dan tidak mengakses API/
-# database produksi. Ia hanya memverifikasi command resmi lint dan build.
+# database produksi. Ia memverifikasi lint/build dan contract harness lokal.
 # ===========================================================================
 name: Quality Gate (KEM-32)
 
@@ -40,5 +40,11 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
+      - name: Install locked backend dependencies
+        run: npm ci --prefix server
+
       - name: Run Quality Gate
         run: npm run quality:check
+
+      - name: Run Contract Tests
+        run: npm run quality:contract-tests

@@ -9,6 +9,22 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## CONTRACT TESTS & REGRESSION HARNESS — KEM-38 (Review-ready)
+
+✓ Menambahkan `npm run quality:contract-tests` sebagai command read-only yang menjalankan 18 assertion KEM-17, KEM-30, KEM-33, dan KEM-34 secara berurutan.
+✓ Kontrak yang dikunci mencakup boundary katalog public/admin, validator kurasi Published, visibility Draft per-slug dan related products, serta redirect/detail link canonical.
+✓ Workflow Quality Gate kini memasang dependency root dan backend secara locked, menjalankan lint/build resmi, lalu menjalankan contract tests pada setiap push branch dan pull request.
+✓ `server/package-lock.json` merekam dependency backend existing agar harness SQLite temporary KEM-33 reproducible; tidak ada dependency manifest baru atau perubahan runtime aplikasi.
+✓ Tidak ada perubahan pada API, auth JWT, schema/data SQLite produksi, route runtime, media, storage, billing, CORS, rate limit, atau user flow.
+
+VALIDATION: `npm ci`, `npm ci --prefix server`, `npm run quality:check`, `npm run quality:contract-tests` (18 assertion), `git diff --check`, dan audit production offline wajib lulus.
+
+✓ Kontrak: `src/docs/docs/kem38-contract-tests-regression-harness-v1.md`
+
+STATUS: KEM-38 CONTRACT TESTS & REGRESSION HARNESS REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
 ## DEPENDENCY & HTTP HARDENING — KEM-37 (Review-ready)
 
 ✓ CLI `shadcn`, plugin `@tailwindcss/vite`, dan compiler `tailwindcss` dipindahkan dari dependency runtime root ke `devDependencies`; source aplikasi tidak mengimpor toolchain ini saat runtime browser.
