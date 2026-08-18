@@ -9,6 +9,21 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## SCALE TRIGGER REVIEW — KEM-49 (Review-ready)
+
+✓ PR-H merekam dua benchmark katalog manual yang berhasil, termasuk run terbaru pada `main@2723a1f`: 4 produk, payload 3.836 byte per respons, dan median total 0,146 dtk pada 7 sampel.
+✓ Keputusan evidence-first adalah **no-build**: dua observasi manual belum merupakan tren kapasitas, katalog tetap kecil, dan belum ada bukti pengalaman pengguna yang memerlukan search/filter/sort/pagination server-side.
+✓ Trigger eskalasi kini mengharuskan satu bukti produk/trafik **dan** satu bukti pengalaman pengguna sebelum ADR/contract query baru dapat dibuat; tidak ada threshold numerik fiktif yang ditetapkan.
+✓ Tidak ada perubahan pada runtime, API, route, JWT/auth, Service/Context, schema/data SQLite, index, cache, worker, media/storage, billing, dependency, deployment, atau CI gate.
+
+VALIDATION: workflow benchmark KEM-19 manual pada `main@2723a1f` sukses; 7 respons publik 2xx dapat diparse. Review scope docs-only dan `git diff --check` wajib lulus sebelum PR.
+
+✓ Kontrak review: `src/docs/docs/kem49-scale-trigger-review-v1.md`
+
+STATUS: KEM-49 SCALE TRIGGER REVIEW REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
 ## CONTRACT TESTS & REGRESSION HARNESS — KEM-38 (Review-ready)
 
 ✓ Menambahkan `npm run quality:contract-tests` sebagai command read-only yang menjalankan 18 assertion KEM-17, KEM-30, KEM-33, dan KEM-34 secara berurutan.
