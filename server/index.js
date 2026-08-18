@@ -11,6 +11,11 @@ const express = require("express");
 
 const cors = require("cors");
 
+const {
+  createApiRateLimiter,
+  createCorsOptions,
+} = require("./config/security");
+
 const productRoutes = require("./routes/productRoutes");
 
 const errorMiddleware = require("./middleware/errorMiddleware");
@@ -28,8 +33,10 @@ const PORT = process.env.PORT || 3000;
  MIDDLEWARE
 ==================================================*/
 
-app.use(cors());
+app.disable("x-powered-by");
+app.use(cors(createCorsOptions()));
 app.use(express.json());
+app.use(createApiRateLimiter());
 
 /*==================================================
  TEST ROUTE
