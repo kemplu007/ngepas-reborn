@@ -9,6 +9,21 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## DRAFT VISIBILITY FIX — KEM-30 (Review ready)
+
+✓ `GET /api/products/:slug` kini hanya dapat mengembalikan produk dengan status `published`; slug produk Draft menerima respons `404 Produk tidak ditemukan` agar tidak menjadi oracle visibilitas publik
+✓ Halaman publik `/discover/:slug` memfilter produk Draft sebelum lookup detail, dan Product Detail `/product/:slug` mengecualikan Draft dari produk terkait
+✓ Jalur admin tetap memakai katalog dan edit berbasis ID existing; auth JWT, schema SQLite, write flow, media, billing, serta data produksi tidak diubah
+
+VALIDATION: `git diff --check` PASSED; `node --check` model dan controller PASSED; harness statis read-only KEM-30 (3 assertion) PASSED tanpa membuka database; `npx vite build` PASSED (1864 modul). Warning bundle >500 kB adalah baseline build existing di luar scope KEM-30.
+
+✓ Kontrak dokumen: `src/docs/docs/kem30-draft-visibility-contract-v1.md`
+✓ Branch: `feat/kem-30-draft-visibility-fix-v1`
+
+STATUS: KEM-30 REVIEW READY — PUBLIC DETAIL IS LIMITED TO PUBLISHED PRODUCTS
+
+==================================================
+
 ## GALLERY WORKFLOW ASSESSMENT — KEM-18 (menunggu approval founder)
 
 ✓ Uji workflow produksi read/write terbatas membuktikan admin dapat membuat produk Draft, memasukkan satu gambar utama dan dua URL gallery, menyimpan data, lalu memuat Product Detail dengan thumbnail yang dapat dipilih
