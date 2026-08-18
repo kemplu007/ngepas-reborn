@@ -9,6 +9,21 @@ Release Date: 2026-08-17
 
 ==================================================
 
+## CONTENT READINESS CHECKLIST — KEM-36 (Review-ready)
+
+✓ Checklist Kesiapan katalog di ProductForm kini membedakan URL gambar utama dan affiliate yang hanya terisi dari URL dengan format `http/https`.
+✓ ProductTable memperlihatkan badge kesiapan konten per produk; produk Published yang belum memiliki URL valid menerima sinyal “Perlu dilengkapi”, tanpa mengubah status atau aksi produk.
+✓ Helper feature-level `productReadiness.js` menyatukan pemeriksaan read-only agar form dan daftar produk tidak mendefinisikan format URL secara terpisah.
+✓ Tidak ada perubahan JWT, Context, service, API, backend, schema SQLite, media storage, upload native, WebP, billing, payload, maupun write flow.
+
+VALIDATION: `git diff --check` dan `npm run quality:check` wajib lulus; walkthrough admin hanya membaca form/list tanpa aksi write.
+
+✓ Kontrak: `src/docs/docs/kem36-content-readiness-checklist-v1.md`
+
+STATUS: KEM-36 CONTENT READINESS CHECKLIST REVIEW-READY — AWAITING FOUNDER APPROVAL
+
+==================================================
+
 ## HONEST ADMIN IA — KEM-35 (Review-ready)
 
 ✓ Sidebar admin kini hanya menampilkan Dashboard, Products, dan Categories yang memiliki route aktif; Orders, Users, dan Settings tidak lagi menjadi dead-end 404.

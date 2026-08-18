@@ -16,6 +16,9 @@ import { Link } from "react-router-dom";
 /* Icons */
 import { Pencil, Trash2 } from "lucide-react";
 
+/* Admin feature helpers */
+import { getProductContentReadiness } from "./productReadiness";
+
 /* Foundation */
 import Badge from "../ui/Badge";
 import CheckboxField from "../ui/CheckboxField";
@@ -61,6 +64,9 @@ function ProductTable({
             <th className="px-4 py-3 font-medium hidden lg:table-cell">
               Status
             </th>
+            <th className="px-4 py-3 font-medium hidden xl:table-cell">
+              Kesiapan
+            </th>
             <th className="px-4 py-3 font-medium text-right">Aksi</th>
           </tr>
         </thead>
@@ -71,6 +77,14 @@ function ProductTable({
         <tbody className="divide-y divide-[var(--np-color-border)]">
           {products.map((product) => {
             const isSelected = selectedIds.includes(product.id);
+            const readiness = getProductContentReadiness(product);
+            const readinessLabel = readiness.isReady
+              ? product.status === "published"
+                ? "Siap publik"
+                : "Konten siap"
+              : product.status === "published"
+                ? "Perlu dilengkapi"
+                : "Belum lengkap";
             return (
               <tr
                 key={product.id}
@@ -111,6 +125,12 @@ function ProductTable({
                         >
                           {product.status === "published" ? "Published" : "Draft"}
                         </Badge>
+                        <Badge
+                          variant={readiness.isReady ? "primary" : "accent"}
+                          className="xl:hidden"
+                        >
+                          {readinessLabel}
+                        </Badge>
                         <p className="truncate text-[var(--np-text-caption)] text-[var(--np-color-subtle)] md:hidden">
                           {product.category} • {product.price}
                         </p>
@@ -145,6 +165,18 @@ function ProductTable({
                   >
                     {product.status === "published" ? "Published" : "Draft"}
                   </Badge>
+                </td>
+
+                {/* Content readiness */}
+                <td className="hidden px-4 py-3 xl:table-cell">
+                  <Badge variant={readiness.isReady ? "primary" : "accent"}>
+                    {readinessLabel}
+                  </Badge>
+                  <p className="mt-[var(--np-space-1)] max-w-40 text-[var(--np-text-caption)] leading-snug text-[var(--np-color-text-secondary)]">
+                    {readiness.isReady
+                      ? "URL gambar dan affiliate siap."
+                      : `Butuh: ${readiness.missingLabels.join(", ")}.`}
+                  </p>
                 </td>
 
                 {/* Action */}

@@ -13,6 +13,9 @@ import { useProducts } from "../../context/ProductContext";
 import { useToast } from "../../context/ToastContext";
 import { useNavigate, useParams } from "react-router-dom";
 
+/* Admin feature helpers */
+import { getProductContentReadiness } from "../../components/admin/productReadiness";
+
 /* UI Foundation */
 import Badge from "../../components/ui/Badge";
 import Button from "../../components/ui/Button";
@@ -118,6 +121,13 @@ function ProductForm() {
     .trim()
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-");
+  const contentReadiness = getProductContentReadiness(formData);
+  const affiliateLinkReady =
+    contentReadiness.items.find((item) => item.key === "affiliateLink")
+      ?.complete ?? false;
+  const mainImageReady =
+    contentReadiness.items.find((item) => item.key === "image")?.complete ??
+    false;
 
   const completenessItems = [
     {
@@ -133,12 +143,12 @@ function ProductForm() {
     {
       label: "Link affiliate",
       step: 2,
-      complete: Boolean(formData.affiliateLink.trim()),
+      complete: affiliateLinkReady,
     },
     {
       label: "Gambar utama",
       step: 3,
-      complete: Boolean(formData.image.trim()),
+      complete: mainImageReady,
     },
   ];
 
@@ -446,8 +456,8 @@ function ProductForm() {
             </p>
             <p className="mt-[var(--np-space-1)] text-[var(--np-text-small)] text-[var(--np-color-text-secondary)]">
               {isContentComplete
-                ? "Empat informasi dasar sudah terisi. Status produk tetap kamu tentukan di Langkah 1."
-                : "Lengkapi informasi yang ditandai sebelum produk siap ditinjau."}
+                ? "Empat informasi dasar sudah terisi. URL gambar dan affiliate memakai format http/https."
+                : "Lengkapi informasi yang ditandai; URL gambar dan affiliate harus memakai http/https."}
             </p>
           </div>
           <Badge variant={isContentComplete ? "primary" : "accent"}>
