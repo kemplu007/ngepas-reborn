@@ -433,7 +433,7 @@ NEXT (urut, jangan loncat)
 
 1. O1 telah membuktikan satu produk nyata dapat dibuat sebagai Draft dengan affiliate URL dan gambar publik tanpa media pipeline. Draft IKEA MALM tidak boleh dipublikasikan sampai keputusan kurasi dan workflow field Published diuji secara eksplisit.
 
-2. Session-state resilience v1 telah menyelesaikan scope recovery client O1. O2 tidak mengulang return-to-list dari galeri, tetapi mencatat toast pembaruan pada transisi langkah 3 → 4; KEM-59 hanya boleh mengaudit source/payload dan no-write navigation dalam slice terpisah. Gallery URL existing tetap digunakan sampai ada keputusan media contract dan recovery plan.
+2. Session-state resilience v1 telah menyelesaikan scope recovery client O1. O2 tidak mengulang return-to-list dari galeri, tetapi mencatat toast pembaruan pada transisi langkah 3 → 4. KEM-59 menelusuri source sampai service dan tidak menemukan path dari `Lanjut` ke persist; keputusan no-patch berlaku sampai ada network trace/reproduksi submit yang membuktikan sebaliknya. Gallery URL existing tetap digunakan sampai ada keputusan media contract dan recovery plan.
 
 3. Artikel Content ADR v1 telah mengunci lifecycle, route, dan boundary. Implementasi Artikel baru boleh dimulai setelah evidence konten nyata, contract persistence, recovery/runbook, Quality Gate, dan review slice terpisah tersedia.
 
