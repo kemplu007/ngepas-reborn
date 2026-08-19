@@ -1,7 +1,7 @@
 # KEM-38 — Contract Tests & Regression Harness v1
 
-**Status:** Review-ready
-**Branch:** `feat/kem-38-contract-tests-v1`
+**Status:** Promoted to `main` sebagai `2723a1f` melalui PR #42
+**Branch historis:** `feat/kem-38-contract-tests-v1` (sudah dihapus setelah squash merge)
 **Baseline:** `origin/main` pada `d6028a6` setelah KEM-37
 **Scope:** Gate regresi kecil untuk kontrak existing; tidak mengubah runtime aplikasi.
 
@@ -60,7 +60,7 @@ Tidak ada Jest, Vitest, Playwright, coverage target, test browser, atau dependen
 
 ## Guardrail promotion
 
-Branch ini masih menunggu review dan approval founder sebelum PR di-squash merge ke `main`. Setelah merge, verifikasi hanya perlu memastikan workflow GitHub Actions berhasil pada merge commit; tidak ada verifikasi Railway/Vercel yang diperlukan karena runtime aplikasi tidak berubah.
+Branch ini telah mendapat approval founder dan di-squash merge ke `main` sebagai `2723a1f` pada 18 Agustus 2026. Quality Gate main sukses; health katalog Railway tetap HTTP 200 sebagai verifikasi bounded walaupun runtime aplikasi tidak berubah. Status lifecycle authoritative tercatat di `changelog.md`.
 
 ## Referensi
 

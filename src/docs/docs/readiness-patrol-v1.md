@@ -1,11 +1,11 @@
 # Ngepas Reborn — Readiness Patrol v1
 
-**Tanggal patrol:** 18 Agustus 2026  
-**Baseline yang diaudit:** `origin/main` pada `9b7cc29`  
-**Metode:** read-only review terhadap kode aktif, kontrak, pemeriksaan build/lint, `npm audit --omit=dev`, inspeksi deployment, request publik, dan walkthrough browser publik/admin.  
+**Tanggal patrol:** 18 Agustus 2026
+**Baseline historis yang diaudit:** `origin/main` pada `9b7cc29`
+**Metode:** read-only review terhadap kode aktif, kontrak, pemeriksaan build/lint, `npm audit --omit=dev`, inspeksi deployment, request publik, dan walkthrough browser publik/admin.
 **Batas audit:** tidak ada data produksi, kredensial, konfigurasi Railway/Vercel, JWT, schema SQLite, atau runtime yang diubah.
 
-> **Verdict:** **AMBER — layak untuk demo dan closed beta kecil setelah dua blocker P0 ditutup; belum layak untuk akuisisi traffic atau operasi affiliate yang agresif.** KEM-16 sampai KEM-30 memperkuat kualitas kurasi dan menutup lookup Draft per-slug. Namun quality gate proyek masih merah dan kontrak list publik masih dapat mengungkap Draft melalui raw API. Kedua hal itu harus selesai sebelum feature work berikutnya.
+> **Verdict historis:** **AMBER** pada baseline `9b7cc29`. PR-A sampai PR-H kemudian telah dieksekusi dan dipromosikan melalui KEM-32 sampai KEM-49. Status operasional saat ini dibaca dari `changelog.md` dan `kem50-documentation-source-of-truth-sync-v1.md`; laporan ini mempertahankan temuan awal sebagai alasan setiap slice, bukan backlog runtime aktif.
 
 ## 1. Apa yang sudah kuat
 
@@ -124,4 +124,17 @@ Setelah PR-A, kerjakan **PR-B: Public Catalog Contract** sebelum memperluas kont
 
 ---
 
-**Status dokumen:** review-ready. Dokumen ini tidak mengesahkan perubahan runtime; ia menjadi input untuk KEM-31 dan setiap kandidat PR di atas.
+## 9. Sinkronisasi pasca-patrol
+
+| Urutan patrol | Slice promosi | Status pada main |
+| --- | --- | --- |
+| A | KEM-32 Quality Gate Hijau | Promoted `9dac4e6` |
+| B | KEM-33 Public Catalog Contract | Promoted `9e0ad14` |
+| C | KEM-34 Canonical Public Detail | Promoted `39c3dcb` |
+| D | KEM-35 Honest Admin IA | Promoted `09036eb` |
+| E | KEM-36 Content Readiness Checklist | Promoted `e972524` |
+| F | KEM-37 Dependency & HTTP Hardening | Promoted `d6028a6` |
+| G | KEM-38 Contract Tests & Regression Harness | Promoted `2723a1f` |
+| H | KEM-49 Scale Trigger Review | Promoted `f0f35d2` · no-build |
+
+**Status dokumen:** baseline historis dan evidence index. Dokumen ini tidak mengesahkan perubahan runtime baru; setelah KEM-49, backlog berikutnya harus dimulai dari evidence konten nyata atau ADR/contract terpisah.

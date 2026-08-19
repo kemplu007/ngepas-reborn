@@ -3,13 +3,21 @@
 # CHANGELOG
 # ==================================================
 
+## DOCUMENTATION SOURCE-OF-TRUTH SYNC — KEM-50 (Review-ready)
+
+**Date:** 18 Agustus 2026
+**Branch:** `docs/kem-50-source-truth-sync-v1`
+**Scope:** Menyelaraskan status Core, API contract, Readiness Patrol, changelog, dan handoff evidence dengan `main@f0f35d2`; tidak ada perubahan runtime.
+
+==================================================
+
 ## Unreleased — FE Foundation Baseline v1
 
 Release Date: 2026-08-17
 
 ==================================================
 
-## SCALE TRIGGER REVIEW — KEM-49 (Review-ready)
+## SCALE TRIGGER REVIEW — KEM-49 (Promoted)
 
 ✓ PR-H merekam dua benchmark katalog manual yang berhasil, termasuk run terbaru pada `main@2723a1f`: 4 produk, payload 3.836 byte per respons, dan median total 0,146 dtk pada 7 sampel.
 ✓ Keputusan evidence-first adalah **no-build**: dua observasi manual belum merupakan tren kapasitas, katalog tetap kecil, dan belum ada bukti pengalaman pengguna yang memerlukan search/filter/sort/pagination server-side.
@@ -20,11 +28,11 @@ VALIDATION: workflow benchmark KEM-19 manual pada `main@2723a1f` sukses; 7 respo
 
 ✓ Kontrak review: `src/docs/docs/kem49-scale-trigger-review-v1.md`
 
-STATUS: KEM-49 SCALE TRIGGER REVIEW REVIEW-READY — AWAITING FOUNDER APPROVAL
+STATUS: KEM-49 SCALE TRIGGER REVIEW PROMOTED TO `main` AS `f0f35d2` (PR #43) — NO-BUILD DECISION LOCKED
 
 ==================================================
 
-## CONTRACT TESTS & REGRESSION HARNESS — KEM-38 (Review-ready)
+## CONTRACT TESTS & REGRESSION HARNESS — KEM-38 (Promoted)
 
 ✓ Menambahkan `npm run quality:contract-tests` sebagai command read-only yang menjalankan 18 assertion KEM-17, KEM-30, KEM-33, dan KEM-34 secara berurutan.
 ✓ Kontrak yang dikunci mencakup boundary katalog public/admin, validator kurasi Published, visibility Draft per-slug dan related products, serta redirect/detail link canonical.
@@ -36,11 +44,11 @@ VALIDATION: `npm ci`, `npm ci --prefix server`, `npm run quality:check`, `npm ru
 
 ✓ Kontrak: `src/docs/docs/kem38-contract-tests-regression-harness-v1.md`
 
-STATUS: KEM-38 CONTRACT TESTS & REGRESSION HARNESS REVIEW-READY — AWAITING FOUNDER APPROVAL
+STATUS: KEM-38 CONTRACT TESTS & REGRESSION HARNESS PROMOTED TO `main` AS `2723a1f` (PR #42)
 
 ==================================================
 
-## DEPENDENCY & HTTP HARDENING — KEM-37 (Review-ready)
+## DEPENDENCY & HTTP HARDENING — KEM-37 (Promoted)
 
 ✓ CLI `shadcn`, plugin `@tailwindcss/vite`, dan compiler `tailwindcss` dipindahkan dari dependency runtime root ke `devDependencies`; source aplikasi tidak mengimpor toolchain ini saat runtime browser.
 ✓ API kini hanya menerima origin production Ngepas dan local development yang dikenal, dengan tambahan origin eksplisit melalui `CORS_ALLOWED_ORIGINS`.
@@ -51,11 +59,11 @@ VALIDATION: `npm run quality:check`, syntax check backend, harness configuration
 
 ✓ Kontrak: `src/docs/docs/kem37-dependency-http-hardening-v1.md`
 
-STATUS: KEM-37 DEPENDENCY & HTTP HARDENING REVIEW-READY — AWAITING FOUNDER APPROVAL
+STATUS: KEM-37 DEPENDENCY & HTTP HARDENING PROMOTED TO `main` AS `d6028a6` (PR #41)
 
 ==================================================
 
-## CONTENT READINESS CHECKLIST — KEM-36 (Review-ready)
+## CONTENT READINESS CHECKLIST — KEM-36 (Promoted)
 
 ✓ Checklist Kesiapan katalog di ProductForm kini membedakan URL gambar utama dan affiliate yang hanya terisi dari URL dengan format `http/https`.
 ✓ ProductTable memperlihatkan badge kesiapan konten per produk; produk Published yang belum memiliki URL valid menerima sinyal “Perlu dilengkapi”, tanpa mengubah status atau aksi produk.
@@ -66,11 +74,11 @@ VALIDATION: `git diff --check` dan `npm run quality:check` wajib lulus; walkthro
 
 ✓ Kontrak: `src/docs/docs/kem36-content-readiness-checklist-v1.md`
 
-STATUS: KEM-36 CONTENT READINESS CHECKLIST REVIEW-READY — AWAITING FOUNDER APPROVAL
+STATUS: KEM-36 CONTENT READINESS CHECKLIST PROMOTED TO `main` AS `e972524` (PR #40)
 
 ==================================================
 
-## HONEST ADMIN IA — KEM-35 (Review-ready)
+## HONEST ADMIN IA — KEM-35 (Promoted)
 
 ✓ Sidebar admin kini hanya menampilkan Dashboard, Products, dan Categories yang memiliki route aktif; Orders, Users, dan Settings tidak lagi menjadi dead-end 404.
 ✓ Dashboard dan Products membedakan loading, error, empty, dan ready state melalui `AdminDataState` presentational; tidak ada fetch baru, perubahan Context, service, API, backend, auth JWT, atau write flow.
@@ -81,7 +89,7 @@ VALIDATION: `git diff --check` dan `npm run quality:check` wajib lulus; admin pr
 
 ✓ Kontrak: `src/docs/docs/kem35-honest-admin-ia-v1.md`
 
-STATUS: KEM-35 HONEST ADMIN IA REVIEW-READY — AWAITING FOUNDER APPROVAL
+STATUS: KEM-35 HONEST ADMIN IA PROMOTED TO `main` AS `09036eb` (PR #39)
 
 ==================================================
 
@@ -120,7 +128,7 @@ STATUS: KEM-33 PUBLIC CATALOG CONTRACT PROMOTED — PUBLIC/ADMIN CATALOG BOUNDAR
 
 ==================================================
 
-## QUALITY GATE HIJAU — KEM-32 (Review-ready)
+## QUALITY GATE HIJAU — KEM-32 (Promoted)
 
 ✓ Menambahkan `npm run quality:check` sebagai command tunggal yang menjalankan lint lalu build secara berurutan
 ✓ Memulihkan `npm run lint` dan `npm run build` pada codebase mixed `.tsx`/`.jsx` tanpa migrasi TypeScript massal atau perubahan runtime produk
@@ -128,7 +136,7 @@ STATUS: KEM-33 PUBLIC CATALOG CONTRACT PROMOTED — PUBLIC/ADMIN CATALOG BOUNDAR
 
 ✓ Kontrak: `src/docs/docs/kem32-quality-gate-contract-v1.md`
 
-STATUS: KEM-32 QUALITY GATE REVIEW-READY — AWAITING FOUNDER APPROVAL
+STATUS: KEM-32 QUALITY GATE PROMOTED TO `main` AS `9dac4e6` (PR #36)
 
 ==================================================
 

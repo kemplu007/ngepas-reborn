@@ -375,7 +375,9 @@ Lengkap: backend-architekture.md
 
 ==================================================
 
-Last verified: 2026-08-15
+Last verified: 2026-08-18
+
+Promotion checkpoint: `main@f0f35d2` setelah KEM-49 Scale Trigger Review. Status promosi slice dibaca dari `changelog.md`; dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
 
 
 
@@ -406,6 +408,10 @@ Auth end-to-end JWT hidup
 CURRENT CHECKPOINT
 
 
+Readiness Patrol A–H sudah selesai: Quality Gate, boundary katalog public/admin, route canonical, Honest Admin IA, content checklist, HTTP hardening, contract regression harness, dan review trigger scale telah dipromosikan.
+
+KEM-38 menjalankan 18 assertion contract read-only pada CI. KEM-49 menetapkan keputusan no-build: pagination, index, cache, worker, dan pemisahan state tidak dibangun tanpa bukti produk/trafik serta bukti pengalaman pengguna secara bersamaan.
+
 Auth end-to-end stabil (jangan rebuild)
 
 Deploy tunggal stabil (1 FE, 1 BE)
@@ -418,30 +424,20 @@ FE Foundation Baseline v1 terintegrasi ke `main`
 
 Integrasi gabungan terakhir: `git diff --check` + `npx vite build` lulus (1843 modules)
 
-Siap lanjut `ProductDetail` public secara slice kecil, bukan auth ulang atau rewrite backend
+Dokumentasi source-of-truth sedang diselaraskan melalui KEM-50; runtime tidak diubah pada slice ini.
 
 
 
 NEXT (urut, jangan loncat)
 
 
-Review visual mobile CategoryPage dan CategoryForm di production
+1. Tutup KEM-50 setelah review docs-only; gunakan changelog sebagai status promosi lintas AI.
 
-ProductDetail public dengan foundation reusable
+2. Jalankan workflow konten nyata bersama admin: produk Published harus memenuhi checklist gambar publik, affiliate URL, kategori, dan cue kurasi. Ini adalah operasi konten, bukan media pipeline baru.
 
-GET /products/:slug bila slice ProductDetail membutuhkan kontrak backend tersebut
+3. Artikel dimulai dari ADR/contract: lifecycle konten, route publik, surface admin, dan batas draft/published harus disepakati sebelum CRUD, upload, atau publish flow dibuat.
 
-Admin form: wajibkan field kurasi (reason, whyWeRecommend, considerations)
-
-Search sederhana
-
-Polish UI mobile (Mockup A)
-
-CORS ketat / rate limit
-
-Upload image
-
-product_offers (Phase 3)
+4. Buka review scale baru hanya bila benchmark KEM-19 menunjukkan bukti produk/trafik dan terdapat keluhan pengguna yang dapat direproduksi. Jangan menambah pagination, index, cache, atau worker atas asumsi.
 
 
 ==================================================

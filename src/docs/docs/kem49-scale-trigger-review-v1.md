@@ -1,8 +1,8 @@
 # Ngepas Reborn — KEM-49 Scale Trigger Review v1
 
-**Status:** Review-ready · no-build decision
+**Status:** Promoted to `main` sebagai `f0f35d2` melalui PR #43 · no-build decision
 **Issue:** [KEM-49 — PR-H Scale Trigger Review](https://linear.app/kemplu/issue/KEM-49/pr-h-scale-trigger-review)
-**Branch:** `docs/kem-49-scale-trigger-review-v1`
+**Branch historis:** `docs/kem-49-scale-trigger-review-v1` (sudah dihapus setelah squash merge)
 **Baseline:** `origin/main@2723a1f`
 **Tanggal review:** 18 Agustus 2026
 
@@ -57,7 +57,7 @@ KEM-49 tidak mengubah API, route, JWT/auth, `ProductContext`, service layer, sch
 
 ## 7. Keputusan dan review request
 
-KEM-49 merekomendasikan **mempertahankan sistem sekarang** sambil mengumpulkan baseline mingguan KEM-19 serta feedback penggunaan katalog yang nyata. Apabila founder menyetujui dokumentasi ini, slice dapat dipromosikan sebagai PR docs-only; bila di kemudian hari trigger terbuka, pekerjaan berikutnya harus dimulai dari ADR/contract baru, bukan langsung menambah pagination atau index.
+KEM-49 mengunci keputusan **mempertahankan sistem sekarang** sambil mengumpulkan baseline mingguan KEM-19 serta feedback penggunaan katalog yang nyata. Dokumentasi telah mendapat approval founder dan dipromosikan sebagai PR docs-only `f0f35d2`; bila di kemudian hari trigger terbuka, pekerjaan berikutnya harus dimulai dari ADR/contract baru, bukan langsung menambah pagination atau index.
 
 ## Referensi
 
