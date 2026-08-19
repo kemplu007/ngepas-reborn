@@ -3,6 +3,22 @@
 # CHANGELOG
 # ==================================================
 
+## O1 — REAL CONTENT WORKFLOW TEST v1
+
+**Date:** 19 Agustus 2026
+**Scope:** Menguji satu produk nyata melalui ProductForm existing sebagai Draft menggunakan affiliate URL dan gambar publik yang tervalidasi. Tidak ada perubahan runtime aplikasi.
+
+✓ Link affiliate Shopee diverifikasi tidak cocok dengan empat produk seed, sehingga tidak ditempelkan pada katalog seed dan digunakan untuk satu entri Draft baru yang benar.
+✓ Produk `IKEA MALM Lemari Laci 6 Susun Putih Minimalis 80×123 cm` dibuat sebagai Draft di room `Bedroom` dan kategori existing `lemari`; produk tetap non-publik.
+✓ Token admin valid setelah reload. Endpoint publik untuk slug Draft mengembalikan 404, sesuai boundary public/admin yang sudah dipromosikan.
+✓ Friction form setelah langkah galeri dan traffic verification Shopee dicatat sebagai evidence operasional; tidak ada bypass, perubahan auth, atau UI patch dalam slice ini.
+
+✓ Evidence: `src/docs/docs/o1-real-content-workflow-test-v1.md`
+
+STATUS: O1 DRAFT WORKFLOW EVIDENCE CAPTURED — RUNTIME DATA OPERATION ONLY; PRODUCT REMAINS DRAFT
+
+==================================================
+
 ## ADMIN CONTENT OPERATIONS READINESS AUDIT v2 (Review-ready)
 
 **Date:** 19 Agustus 2026
@@ -15,7 +31,7 @@
 
 ✓ Audit: `src/docs/docs/admin-content-operations-readiness-audit-v2.md`
 
-STATUS: ADMIN CONTENT OPERATIONS READINESS AUDIT V2 REVIEW-READY — DOCS-ONLY, O1 CONTENT WORKFLOW IS NEXT
+STATUS: ADMIN CONTENT OPERATIONS READINESS AUDIT V2 PROMOTED TO `main` AS `e638644` (PR #46) — DOCS-ONLY; O1 DRAFT WORKFLOW EVIDENCE CAPTURED
 
 ==================================================
 

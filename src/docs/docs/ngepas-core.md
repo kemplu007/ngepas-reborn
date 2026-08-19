@@ -377,7 +377,7 @@ Lengkap: backend-architekture.md
 
 Last verified: 2026-08-19
 
-Promotion checkpoint: `main@00d431b` setelah Article Content ADR v1. KEM-50 Documentation Source-of-Truth Sync telah dipromosikan pada `5d21759`; status promosi slice dibaca dari `changelog.md`, sedangkan dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
+Promotion checkpoint: `main@e638644` setelah Admin Content Operations Readiness Audit v2. KEM-50 Documentation Source-of-Truth Sync telah dipromosikan pada `5d21759` dan Article Content ADR v1 pada `00d431b`; status promosi slice dibaca dari `changelog.md`, sedangkan dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
 
 
 
@@ -431,11 +431,11 @@ KEM-50 Documentation Source-of-Truth Sync dan Article Content ADR v1 telah dipro
 NEXT (urut, jangan loncat)
 
 
-1. Jalankan workflow konten nyata bersama admin: produk Published harus memenuhi checklist gambar publik, affiliate URL, kategori, dan cue kurasi. Ini adalah operasi konten, bukan media pipeline baru.
+1. O1 telah membuktikan satu produk nyata dapat dibuat sebagai Draft dengan affiliate URL dan gambar publik tanpa media pipeline. Draft IKEA MALM tidak boleh dipublikasikan sampai keputusan kurasi dan workflow field Published diuji secara eksplisit.
 
-2. Gunakan friction yang dapat direproduksi dari workflow konten nyata sebagai evidence sebelum membuka slice UI/admin baru. Gallery URL existing tetap digunakan sampai ada keputusan media contract dan recovery plan.
+2. Gunakan friction yang dapat direproduksi dari O1 (stale page/session dan transisi form setelah galeri) sebagai evidence sebelum membuka slice UI/admin baru. Gallery URL existing tetap digunakan sampai ada keputusan media contract dan recovery plan.
 
-3. Article Content ADR v1 telah mengunci lifecycle, route, dan boundary. Implementasi Artikel baru boleh dimulai setelah evidence konten nyata, contract persistence, recovery/runbook, Quality Gate, dan review slice terpisah tersedia.
+3. Artikel Content ADR v1 telah mengunci lifecycle, route, dan boundary. Implementasi Artikel baru boleh dimulai setelah evidence konten nyata, contract persistence, recovery/runbook, Quality Gate, dan review slice terpisah tersedia.
 
 4. Buka review scale baru hanya bila benchmark KEM-19 menunjukkan bukti produk/trafik dan terdapat keluhan pengguna yang dapat direproduksi. Jangan menambah pagination, index, cache, atau worker atas asumsi.
 
