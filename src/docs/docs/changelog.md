@@ -3,7 +3,23 @@
 # CHANGELOG
 # ==================================================
 
-## ARTICLE CONTENT ADR v1 — Contract Before CRUD (Review-ready)
+## ADMIN CONTENT OPERATIONS READINESS AUDIT v2 (Review-ready)
+
+**Date:** 19 Agustus 2026
+**Branch:** `docs/admin-content-operations-readiness-audit-v1`
+**Scope:** Mengonfirmasi kemampuan operator katalog yang sudah aktif, mengunci operasi konten nyata sebagai langkah berikutnya, dan memperbaiki label promotion KEM-50/Article yang tertinggal. Tidak ada perubahan runtime.
+
+✓ ProductForm sudah memiliki status Draft/Published, readiness cue URL, validator kurasi Published, preview gambar utama, serta gallery URL dengan batas delapan item; A1/A2 audit operasional v1 tidak lagi menjadi backlog implementasi.
+✓ Daftar produk tetap menyediakan pencarian/filter, edit, delete, dan bulk delete; tidak ada bulk publish, health scan, duplicate, media library, campaign, upload, atau admin Artikel yang diklaim sudah tersedia.
+✓ Workflow berikutnya ditetapkan sebagai operasi konten nyata menuju minimal 12 produk Published berkualitas; hambatan harus direkam dahulu sebelum fitur baru dibuka.
+
+✓ Audit: `src/docs/docs/admin-content-operations-readiness-audit-v2.md`
+
+STATUS: ADMIN CONTENT OPERATIONS READINESS AUDIT V2 REVIEW-READY — DOCS-ONLY, O1 CONTENT WORKFLOW IS NEXT
+
+==================================================
+
+## ARTICLE CONTENT ADR v1 — Contract Before CRUD (Promoted)
 
 **Date:** 19 Agustus 2026
 **Branch:** `docs/adr-article-content-contract-v1`
@@ -18,15 +34,21 @@ VALIDATION: `git diff --check` wajib lulus; diff harus docs-only. Implementasi r
 
 ✓ ADR: `src/docs/docs/article-content-adr-v1.md`
 
-STATUS: ARTICLE CONTENT ADR REVIEW-READY — CONTRACT LOCKED, NO RUNTIME IMPLEMENTATION
+✓ PR #45 telah di-squash merge ke `main` sebagai `00d431b`; Quality Gate main sukses dan tidak ada perubahan runtime.
+
+STATUS: ARTICLE CONTENT ADR PROMOTED TO `main` AS `00d431b` (PR #45) — CONTRACT LOCKED, NO RUNTIME IMPLEMENTATION
 
 ==================================================
 
-## DOCUMENTATION SOURCE-OF-TRUTH SYNC — KEM-50 (Review-ready)
+## DOCUMENTATION SOURCE-OF-TRUTH SYNC — KEM-50 (Promoted)
 
 **Date:** 18 Agustus 2026
 **Branch:** `docs/kem-50-source-truth-sync-v1`
 **Scope:** Menyelaraskan status Core, API contract, Readiness Patrol, changelog, dan handoff evidence dengan `main@f0f35d2`; tidak ada perubahan runtime.
+
+✓ PR #44 telah di-squash merge ke `main` sebagai `5d21759`; Quality Gate main sukses dan tidak ada perubahan runtime.
+
+STATUS: KEM-50 PROMOTED TO `main` AS `5d21759` (PR #44) — DOCS-ONLY SOURCE-OF-TRUTH SYNC
 
 ==================================================
 
