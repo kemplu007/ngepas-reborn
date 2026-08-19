@@ -3,6 +3,23 @@
 # CHANGELOG
 # ==================================================
 
+## KEM-59 — PRODUCTFORM WRITE-BOUNDARY AUDIT v1 (No-patch decision)
+
+**Date:** 19 Agustus 2026
+**Scope:** Source audit read-only atas toast O2 pada transisi galeri → kurasi. Tidak ada patch runtime, data operation, atau perubahan kontrak API.
+
+✓ `nextStep` dan `prevStep` hanya memutakhirkan `currentStep`; keduanya tidak membangun payload atau memanggil context/service.
+✓ Tombol `Lanjut` merupakan `type="button"`, sementara satu-satunya tombol `type="submit"` adalah `Simpan perubahan` pada Langkah 4.
+✓ Primitive `Button` meneruskan `type` ke elemen native, dan `Card as="form"` hanya meneruskan `onSubmit={handleSubmit}` tanpa callback persist tersembunyi.
+✓ Toast edit hanya berada pada cabang `handleSubmit` setelah `updateProduct`; context lalu meneruskan ke `PUT /products/:id` via service.
+✓ Tidak ditemukan source path yang membuktikan `Lanjut` mengirim write. KEM-59 selesai sebagai keputusan no-patch; re-open hanya dengan network trace/reproduksi terkendali atau perubahan source boundary.
+
+✓ Audit: `src/docs/docs/kem59-productform-write-boundary-audit-v1.md`
+
+STATUS: KEM-59 SOURCE AUDIT COMPLETE — NO RUNTIME PATCH; RE-OPEN ONLY WITH WRITE TRACE OR REPRODUCIBLE SUBMIT
+
+==================================================
+
 ## O2 — PRODUCTFORM PROGRESSION RETEST v1 (Evidence captured)
 
 **Date:** 19 Agustus 2026
