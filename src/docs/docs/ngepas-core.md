@@ -14,7 +14,7 @@ Dokumen lain = detail. File ini = nyawa project.
 
 Status        : LIVE
 
-Last verified : 2026-08-16
+Last verified : 2026-08-19
 
 Stack         : React + Vite + Tailwind (FE)
 
@@ -375,9 +375,9 @@ Lengkap: backend-architekture.md
 
 ==================================================
 
-Last verified: 2026-08-18
+Last verified: 2026-08-19
 
-Promotion checkpoint: `main@f0f35d2` setelah KEM-49 Scale Trigger Review. Status promosi slice dibaca dari `changelog.md`; dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
+Promotion checkpoint: `main@00d431b` setelah Article Content ADR v1. KEM-50 Documentation Source-of-Truth Sync telah dipromosikan pada `5d21759`; status promosi slice dibaca dari `changelog.md`, sedangkan dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
 
 
 
@@ -424,18 +424,18 @@ FE Foundation Baseline v1 terintegrasi ke `main`
 
 Integrasi gabungan terakhir: `git diff --check` + `npx vite build` lulus (1843 modules)
 
-Dokumentasi source-of-truth sedang diselaraskan melalui KEM-50; runtime tidak diubah pada slice ini.
+KEM-50 Documentation Source-of-Truth Sync dan Article Content ADR v1 telah dipromosikan sebagai docs-only slice; runtime tidak diubah pada kedua slice ini.
 
 
 
 NEXT (urut, jangan loncat)
 
 
-1. Tutup KEM-50 setelah review docs-only; gunakan changelog sebagai status promosi lintas AI.
+1. Jalankan workflow konten nyata bersama admin: produk Published harus memenuhi checklist gambar publik, affiliate URL, kategori, dan cue kurasi. Ini adalah operasi konten, bukan media pipeline baru.
 
-2. Jalankan workflow konten nyata bersama admin: produk Published harus memenuhi checklist gambar publik, affiliate URL, kategori, dan cue kurasi. Ini adalah operasi konten, bukan media pipeline baru.
+2. Gunakan friction yang dapat direproduksi dari workflow konten nyata sebagai evidence sebelum membuka slice UI/admin baru. Gallery URL existing tetap digunakan sampai ada keputusan media contract dan recovery plan.
 
-3. Artikel dimulai dari ADR/contract: lifecycle konten, route publik, surface admin, dan batas draft/published harus disepakati sebelum CRUD, upload, atau publish flow dibuat.
+3. Article Content ADR v1 telah mengunci lifecycle, route, dan boundary. Implementasi Artikel baru boleh dimulai setelah evidence konten nyata, contract persistence, recovery/runbook, Quality Gate, dan review slice terpisah tersedia.
 
 4. Buka review scale baru hanya bila benchmark KEM-19 menunjukkan bukti produk/trafik dan terdapat keluhan pengguna yang dapat direproduksi. Jangan menambah pagination, index, cache, atau worker atas asumsi.
 
