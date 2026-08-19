@@ -377,7 +377,7 @@ Lengkap: backend-architekture.md
 
 Last verified: 2026-08-19
 
-Promotion checkpoint: `main@8ee27df` setelah dokumentasi O1 Real Content Workflow Test v1. KEM-50 Documentation Source-of-Truth Sync telah dipromosikan pada `5d21759`, Article Content ADR v1 pada `00d431b`, dan O1 pada `8ee27df`; status promosi slice dibaca dari `changelog.md`, sedangkan dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
+Promotion checkpoint: `main@be58441` setelah KEM-58 Admin Session-State Resilience v1. KEM-50 Documentation Source-of-Truth Sync telah dipromosikan pada `5d21759`, Article Content ADR v1 pada `00d431b`, O1 pada `8ee27df`, dan KEM-58 pada `be58441`; status promosi slice dibaca dari `changelog.md`, sedangkan dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
 
 
 
@@ -412,7 +412,7 @@ Readiness Patrol A–H sudah selesai: Quality Gate, boundary katalog public/admi
 
 KEM-38 menjalankan 18 assertion contract read-only pada CI. KEM-49 menetapkan keputusan no-build: pagination, index, cache, worker, dan pemisahan state tidak dibangun tanpa bukti produk/trafik serta bukti pengalaman pengguna secara bersamaan.
 
-Auth end-to-end JWT stabil (jangan rebuild). Session-state resilience v1 hanya boleh memulihkan sinkronisasi token client dan retry katalog setelah evidence O1; tidak boleh mengubah JWT backend, endpoint, role, atau refresh-token flow.
+Auth end-to-end JWT stabil (jangan rebuild). Session-state resilience v1 telah dipromosikan sebagai recovery client terbatas: sinkronisasi token lintas tab, klasifikasi HTTP 401, reset snapshot admin, dan retry katalog. Tidak boleh mengubah JWT backend, endpoint, role, atau refresh-token flow.
 
 Deploy tunggal stabil (1 FE, 1 BE)
 
@@ -433,7 +433,7 @@ NEXT (urut, jangan loncat)
 
 1. O1 telah membuktikan satu produk nyata dapat dibuat sebagai Draft dengan affiliate URL dan gambar publik tanpa media pipeline. Draft IKEA MALM tidak boleh dipublikasikan sampai keputusan kurasi dan workflow field Published diuji secara eksplisit.
 
-2. Gunakan friction yang dapat direproduksi dari O1 (stale page/session dan transisi form setelah galeri) sebagai evidence sebelum membuka slice UI/admin baru. Session-state resilience v1 dapat menyediakan recovery client eksplisit; Gallery URL existing tetap digunakan sampai ada keputusan media contract dan recovery plan.
+2. Session-state resilience v1 telah menyelesaikan scope recovery client O1. O2 tidak mengulang return-to-list dari galeri, tetapi mencatat toast pembaruan pada transisi langkah 3 → 4; KEM-59 hanya boleh mengaudit source/payload dan no-write navigation dalam slice terpisah. Gallery URL existing tetap digunakan sampai ada keputusan media contract dan recovery plan.
 
 3. Artikel Content ADR v1 telah mengunci lifecycle, route, dan boundary. Implementasi Artikel baru boleh dimulai setelah evidence konten nyata, contract persistence, recovery/runbook, Quality Gate, dan review slice terpisah tersedia.
 
