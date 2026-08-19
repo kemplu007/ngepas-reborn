@@ -3,7 +3,23 @@
 # CHANGELOG
 # ==================================================
 
-## ADMIN SESSION-STATE RESILIENCE v1 (Review-ready)
+## O2 — PRODUCTFORM PROGRESSION RETEST v1 (Evidence captured)
+
+**Date:** 19 Agustus 2026
+**Scope:** Retest read-only Draft IKEA MALM pada wizard ProductForm setelah KEM-58. Tidak ada patch runtime atau persetujuan publish.
+
+✓ Daftar admin memuat lima produk tanpa `Unauthorized` pada sesi retest; Draft ID 15 tetap `Draft` dan 4/4 siap.
+✓ Transisi visual langkah 1 → 2 → 3 → 4 berhasil; friction O1 berupa kembalinya form dari galeri ke daftar tidak terulang pada observasi ini.
+✓ Tombol `Lanjut` dari galeri juga menghasilkan toast `Produk berhasil diperbarui`; retest dihentikan dan readback admin mengonfirmasi field utama Draft tetap tersedia serta field kurasi/gallery tetap kosong.
+✓ KEM-59 dibuat sebagai triage source audit. Tidak ada UI patch, save/publish/delete eksplisit, data sintetis, upload, storage, atau perubahan auth/backend.
+
+✓ Evidence: `src/docs/docs/o2-productform-progression-retest-v1.md`
+
+STATUS: O2 EVIDENCE CAPTURED — WRITE BOUNDARY REQUIRES SOURCE AUDIT; NO RUNTIME CHANGE
+
+==================================================
+
+## ADMIN SESSION-STATE RESILIENCE v1 (Promoted)
 
 **Date:** 19 Agustus 2026
 **Branch:** `fix/admin-session-state-resilience-v1`
@@ -16,7 +32,9 @@
 
 ✓ Kontrak: `src/docs/docs/admin-session-state-resilience-v1.md`
 
-STATUS: REVIEW-READY — CLIENT SESSION RECOVERY ONLY; NO BACKEND AUTH OR DATA CHANGE
+✓ PR #48 di-squash merge ke `main` sebagai `be58441`; Quality Gate main sukses, Railway `GET /api/products` HTTP 200, dan deployment Vercel Production sukses.
+
+STATUS: KEM-58 PROMOTED TO `main` AS `be58441` (PR #48) — CLIENT SESSION RECOVERY ONLY; NO BACKEND AUTH OR DATA CHANGE
 
 ==================================================
 
