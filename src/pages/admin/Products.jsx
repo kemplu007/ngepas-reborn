@@ -46,6 +46,7 @@ function Products() {
     adminProducts: products = [],
     adminLoading,
     adminError,
+    refreshAdminProducts,
     deleteProduct,
   } = useProducts();
   const {
@@ -109,6 +110,11 @@ function Products() {
       setSelectedIds(filteredProducts.map((p) => p.id));
     }
   }, [allFilteredSelected, filteredProducts]);
+
+  const handleRetryAdminLoad = useCallback(() => {
+    setSelectedIds([]);
+    refreshAdminProducts();
+  }, [refreshAdminProducts]);
 
   const handleDelete = useCallback(
     (id) => {
@@ -187,11 +193,18 @@ function Products() {
           description="Produk dan kategori sedang disiapkan."
         />
       ) : loadError ? (
-        <AdminDataState
-          state="error"
-          title="Katalog admin belum dapat dimuat"
-          description={loadError}
-        />
+        <div className="flex flex-col items-start gap-[var(--np-space-3)]">
+          <AdminDataState
+            state="error"
+            title="Katalog admin belum dapat dimuat"
+            description={loadError}
+          />
+          {adminError ? (
+            <Button variant="outline" onClick={handleRetryAdminLoad}>
+              Coba muat ulang katalog
+            </Button>
+          ) : null}
+        </div>
       ) : products.length === 0 ? (
         <AdminDataState
           state="empty"

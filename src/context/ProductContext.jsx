@@ -74,7 +74,14 @@ export function ProductProvider({ children }) {
       setAdminProducts(data);
     } catch (err) {
       console.error(err);
-      setAdminError(err.message);
+      if (err?.status === 401) {
+        setAdminProducts([]);
+        setAdminError(
+          "Sesi admin belum tersinkron. Muat ulang katalog; bila masalah berulang, masuk ulang.",
+        );
+      } else {
+        setAdminError(err.message);
+      }
     } finally {
       setAdminLoading(false);
     }
