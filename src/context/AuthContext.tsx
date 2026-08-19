@@ -8,7 +8,7 @@
  IMPORT
 ==================================================*/
 
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
 /* Services */
 import { login as loginService, logout as logoutService } from '../services/authService';
@@ -32,6 +32,17 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(localStorage.getItem('ngepas_token'));
+
+  useEffect(() => {
+    const syncToken = (event: StorageEvent) => {
+      if (event.key === 'ngepas_token') {
+        setToken(event.newValue);
+      }
+    };
+
+    window.addEventListener('storage', syncToken);
+    return () => window.removeEventListener('storage', syncToken);
+  }, []);
 
   /*==================================================
    LOGIN

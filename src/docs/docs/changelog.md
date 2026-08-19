@@ -3,6 +3,23 @@
 # CHANGELOG
 # ==================================================
 
+## ADMIN SESSION-STATE RESILIENCE v1 (Review-ready)
+
+**Date:** 19 Agustus 2026
+**Branch:** `fix/admin-session-state-resilience-v1`
+**Scope:** Memulihkan state katalog admin setelah respons `401` melalui error berstatus, sinkronisasi token lintas tab, reset snapshot admin, dan retry operator. Tidak ada perubahan JWT backend atau data produksi.
+
+✓ `apiRequest` kini menyediakan status HTTP pada error sehingga consumer dapat membedakan `401` tanpa menyimpulkan dari teks error.
+✓ `AuthContext` mendengar event `storage` untuk menyelaraskan token lintas tab; alur login, logout, endpoint, dan masa berlaku JWT tidak diubah.
+✓ `ProductContext` mengosongkan snapshot katalog admin pada `401` dan menyajikan pesan pemulihan yang spesifik.
+✓ Halaman Products menyediakan aksi retry katalog; operator tidak perlu hanya mengandalkan reload manual saat state sesi gagal sinkron.
+
+✓ Kontrak: `src/docs/docs/admin-session-state-resilience-v1.md`
+
+STATUS: REVIEW-READY — CLIENT SESSION RECOVERY ONLY; NO BACKEND AUTH OR DATA CHANGE
+
+==================================================
+
 ## O1 — REAL CONTENT WORKFLOW TEST v1
 
 **Date:** 19 Agustus 2026
