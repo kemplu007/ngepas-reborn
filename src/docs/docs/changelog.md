@@ -3,6 +3,25 @@
 # CHANGELOG
 # ==================================================
 
+## ARTICLE CONTENT ADR v1 — Contract Before CRUD (Review-ready)
+
+**Date:** 19 Agustus 2026
+**Branch:** `docs/adr-article-content-contract-v1`
+**Scope:** Mengunci lifecycle draft/published, route public/admin, boundary data minimum, urutan evidence-first, dan non-goals Article & Tips. Tidak ada perubahan runtime.
+
+✓ `editorialCards` Discover, anchor `/#artikel-tips`, route truth, API contract, dan admin audit dipakai sebagai evidence bahwa Artikel belum memiliki CRUD, API, route, atau admin surface aktif.
+✓ Article v1 ditetapkan sebagai entitas terpisah dari Product: draft hanya untuk admin JWT; published saja untuk public list/detail; tidak ada reuse `ProductForm` atau `ProductContext`.
+✓ Target route yang baru boleh dibangun pada slice implementasi terpisah adalah `/articles`, `/articles/:slug`, `/admin/articles`, `/admin/articles/new`, dan `/admin/articles/:id/edit`.
+✓ Article belum boleh membawa upload, storage, WebP, CMS generik, scheduled publishing, user review, rating, SEO automation, search/pagination server-side, atau konten rekaan.
+
+VALIDATION: `git diff --check` wajib lulus; diff harus docs-only. Implementasi runtime tertahan sampai evidence minimal tiga konten nyata, contract persistence, recovery/runbook, Quality Gate, dan review slice berikutnya tersedia.
+
+✓ ADR: `src/docs/docs/article-content-adr-v1.md`
+
+STATUS: ARTICLE CONTENT ADR REVIEW-READY — CONTRACT LOCKED, NO RUNTIME IMPLEMENTATION
+
+==================================================
+
 ## DOCUMENTATION SOURCE-OF-TRUTH SYNC — KEM-50 (Review-ready)
 
 **Date:** 18 Agustus 2026
