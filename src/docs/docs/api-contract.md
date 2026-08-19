@@ -6,9 +6,9 @@
 
 # ==================================================
 
-Status : ACTIVE
+Status : ACTIVE · diselaraskan pada `main@f0f35d2`
 Module : Backend API
-Version : 1.0
+Version : 1.1
 
 ==================================================
 RULES
@@ -461,34 +461,24 @@ res.json() secara langsung.
 ✓ Semua SQL hanya berada di Model.
 
 ==================================================
-NEXT ENDPOINT
+DEFERRED ENDPOINT / PROPOSAL
 ==================================================
 
-Sprint Berikutnya
+`GET /api/products/:slug` sudah aktif sebagai endpoint detail publik canonical dan hanya mengembalikan produk Published.
 
-GET /api/products/:slug
-
-GET /api/products/featured
-
-GET /api/products/search
-
-GET /api/products/category/:category
-
-GET /api/products/room/:room
+Tidak ada endpoint publik baru yang disetujui pada checkpoint ini. `featured`, `search`, `category/:category`, dan `room/:room` bukan backlog otomatis; proposal baru hanya dibuka oleh ADR/contract terpisah dengan bukti kebutuhan pengguna dan backward compatibility.
 
 ---
 
 Authentication
 
-POST /api/auth/login
-
-POST /api/auth/logout
+`POST /api/auth/login` sudah aktif untuk admin. Logout ditangani client dengan menghapus token lokal; endpoint `POST /api/auth/logout` belum dibutuhkan dan tidak boleh ditambahkan tanpa kebutuhan nyata.
 
 ---
 
 Upload
 
-POST /api/upload
+`POST /api/upload` ditunda. Katalog mempertahankan URL gambar publik existing sesuai Zero-Cost Media Runway; tidak ada multipart, object storage, WebP pipeline, atau billing media pada kontrak ini.
 
 ---
 
@@ -554,25 +544,15 @@ Admin Category
 CURRENT STATUS
 ==================================================
 
-SPRINT 4.0
+Checkpoint `main@f0f35d2`
 
-ADMIN CATEGORY CRUD
-
-COMPLETED
+Public catalog, admin catalog terautentikasi, detail publik canonical per-slug, Product CRUD admin, Category CRUD admin, JWT admin, dan CORS/rate limit aktif sesuai kontrak. Contract regression harness KEM-38 mengunci boundary Published/Draft, validator kurasi, dan route canonical pada CI.
 
 ==================================================
-NEXT SPRINT
+NEXT DECISION GATE
 ==================================================
 
-□ Delete Category
-
-□ Dashboard Statistics
-
-□ Responsive Admin
-
-□ Public Category Synchronization
-
-□ Room CRUD
+Tidak ada sprint endpoint baru yang otomatis dibuka. Kebutuhan konten nyata, ADR Artikel, atau evidence scale harus terlebih dahulu mendefinisikan kontrak, consumer, data lifecycle, error state, dan batas backward compatibility.
 
 ==================================================
 END OF DOCUMENT
