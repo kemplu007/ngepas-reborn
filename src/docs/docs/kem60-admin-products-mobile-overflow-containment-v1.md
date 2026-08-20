@@ -5,7 +5,9 @@
 
 ## Status
 
-**In progress.** Slice ini membatasi overflow horizontal daftar produk admin pada viewport mobile tanpa mengubah data katalog, aksi operator, state selection, kontrak API, maupun alur admin.
+**Promoted.** [PR #51](https://github.com/kemplu007/ngepas-reborn/pull/51) di-squash merge ke `main` sebagai [`07b964b`](https://github.com/kemplu007/ngepas-reborn/commit/07b964b3f9079ef72f013561362d4f8d8cf2fcbc) pada 20 Agustus 2026. Slice membatasi overflow horizontal daftar produk admin pada viewport mobile tanpa mengubah data katalog, aksi operator, state selection, kontrak API, maupun alur admin.
+
+Quality Gate `main` sukses untuk lint/build dan 18 contract assertions. Railway `GET /api/products` mengembalikan HTTP 200; deployment Vercel Production `6001705010` berstatus sukses. Linear [KEM-60](https://linear.app/kemplu/issue/KEM-60/kem-60-admin-products-mobile-overflow-containment-v1) berstatus Done dan Documentation Hub Notion memuat checkpoint Complete.
 
 ## Evidence
 

@@ -3,17 +3,19 @@
 # CHANGELOG
 # ==================================================
 
-## KEM-60 — ADMIN PRODUCTS MOBILE OVERFLOW CONTAINMENT v1 (In progress)
+## KEM-60 — ADMIN PRODUCTS MOBILE OVERFLOW CONTAINMENT v1 (Promoted)
 
 **Date:** 20 Agustus 2026
 **Scope:** Mengarahkan tekanan lebar tabel Products pada mobile ke scroll surface lokal; tidak ada perubahan data, aksi operator, Context, Service, API, backend, auth, schema/data, media, billing, dependency, atau konfigurasi deploy.
 
 ✓ Evidence A1 mencatat lebar dokumen 436 px pada viewport 390 px untuk daftar Products.
 ✓ Kontrak KEM-60 membatasi patch pada wrapper ProductTable dan floor lebar presentasional mobile; daftar tidak diubah menjadi card list dan Categories/bulk bar/Dashboard tidak masuk scope.
+✓ [PR #51](https://github.com/kemplu007/ngepas-reborn/pull/51) di-squash merge ke `main` sebagai [`07b964b`](https://github.com/kemplu007/ngepas-reborn/commit/07b964b3f9079ef72f013561362d4f8d8cf2fcbc); Quality Gate main sukses untuk lint/build dan 18 contract assertions.
+✓ Railway `GET /api/products` HTTP 200; deployment Vercel Production `6001705010` sukses; Linear [KEM-60](https://linear.app/kemplu/issue/KEM-60/kem-60-admin-products-mobile-overflow-containment-v1) Done dan Documentation Hub Notion memuat checkpoint Complete.
 
 ✓ Kontrak: `src/docs/docs/kem60-admin-products-mobile-overflow-containment-v1.md`
 
-STATUS: KEM-60 IN PROGRESS — MOBILE TABLE CONTAINMENT ONLY; NO RUNTIME DATA OR FLOW CHANGE
+STATUS: KEM-60 PROMOTED — MOBILE TABLE CONTAINMENT ONLY; NO RUNTIME DATA OR FLOW CHANGE
 
 ==================================================
 
