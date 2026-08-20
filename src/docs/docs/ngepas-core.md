@@ -14,7 +14,7 @@ Dokumen lain = detail. File ini = nyawa project.
 
 Status        : LIVE
 
-Last verified : 2026-08-19
+Last verified : 2026-08-20
 
 Stack         : React + Vite + Tailwind (FE)
 
@@ -377,7 +377,7 @@ Lengkap: backend-architekture.md
 
 Last verified: 2026-08-19
 
-Promotion checkpoint: `main@be58441` setelah KEM-58 Admin Session-State Resilience v1. KEM-50 Documentation Source-of-Truth Sync telah dipromosikan pada `5d21759`, Article Content ADR v1 pada `00d431b`, O1 pada `8ee27df`, dan KEM-58 pada `be58441`; status promosi slice dibaca dari `changelog.md`, sedangkan dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
+Promotion baseline sebelum KEM-60: `main@5342ec6` setelah audit no-patch KEM-59 ProductForm Write Boundary. KEM-50 Documentation Source-of-Truth Sync telah dipromosikan pada `5d21759`, Article Content ADR v1 pada `00d431b`, O1 pada `8ee27df`, KEM-58 pada `be58441`, evidence O2 pada `e1517d4`, dan audit KEM-59 pada `5342ec6`; status promosi slice dibaca dari `changelog.md`, sedangkan dokumen per-slice menyimpan kontrak dan evidence bounded pada saat slice dibuat.
 
 
 
@@ -425,6 +425,8 @@ FE Foundation Baseline v1 terintegrasi ke `main`
 Integrasi gabungan terakhir: `git diff --check` + `npx vite build` lulus (1843 modules)
 
 KEM-50 Documentation Source-of-Truth Sync dan Article Content ADR v1 telah dipromosikan sebagai docs-only slice; runtime tidak diubah pada kedua slice ini.
+
+KEM-60 Admin Products Mobile Overflow Containment v1 membatasi daftar produk admin pada shell flex dan scroller tabel: pada viewport 390 px, dokumen tidak lagi melebar, sementara lebar tabel 723 px tetap berada pada container horizontal yang eksplisit. Patch tidak mengubah data, aksi daftar, context/service/API/backend, JWT, schema, media, billing, atau user flow; lihat `kem60-admin-products-mobile-overflow-containment-v1.md` dan `changelog.md` untuk evidence serta status promosi.
 
 
 

@@ -37,8 +37,8 @@ function ProductTable({
   allSelected = false,
 }) {
   return (
-    <div className="overflow-x-auto rounded-np-lg border border-[var(--np-color-border)] bg-[var(--np-color-surface)] shadow-[var(--np-shadow-sm)]">
-      <table className="w-full text-left text-[var(--np-text-small)]">
+    <div className="min-w-0 max-w-full overflow-x-auto rounded-np-lg border border-[var(--np-color-border)] bg-[var(--np-color-surface)] shadow-[var(--np-shadow-sm)]">
+      <table className="min-w-[34rem] w-full text-left text-[var(--np-text-small)] md:min-w-0">
         {/*==================================================
          TABLE HEADER
         ==================================================*/}
