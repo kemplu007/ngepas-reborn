@@ -3,6 +3,20 @@
 # CHANGELOG
 # ==================================================
 
+## KEM-60 — ADMIN PRODUCTS MOBILE OVERFLOW CONTAINMENT v1 (In progress)
+
+**Date:** 20 Agustus 2026
+**Scope:** Mengarahkan tekanan lebar tabel Products pada mobile ke scroll surface lokal; tidak ada perubahan data, aksi operator, Context, Service, API, backend, auth, schema/data, media, billing, dependency, atau konfigurasi deploy.
+
+✓ Evidence A1 mencatat lebar dokumen 436 px pada viewport 390 px untuk daftar Products.
+✓ Kontrak KEM-60 membatasi patch pada wrapper ProductTable dan floor lebar presentasional mobile; daftar tidak diubah menjadi card list dan Categories/bulk bar/Dashboard tidak masuk scope.
+
+✓ Kontrak: `src/docs/docs/kem60-admin-products-mobile-overflow-containment-v1.md`
+
+STATUS: KEM-60 IN PROGRESS — MOBILE TABLE CONTAINMENT ONLY; NO RUNTIME DATA OR FLOW CHANGE
+
+==================================================
+
 ## KEM-59 — PRODUCTFORM WRITE-BOUNDARY AUDIT v1 (No-patch decision)
 
 **Date:** 19 Agustus 2026
